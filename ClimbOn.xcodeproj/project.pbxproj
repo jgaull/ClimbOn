@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC1DC78716C0EEB100550319 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1DC78616C0EEB100550319 /* CoreLocation.framework */; };
+		FC1DC78916C0EEB600550319 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1DC78816C0EEB600550319 /* MapKit.framework */; };
 		FC2A83EB16A3723B00637D74 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2A83EA16A3723B00637D74 /* UIKit.framework */; };
 		FC2A83ED16A3723B00637D74 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2A83EC16A3723B00637D74 /* Foundation.framework */; };
 		FC2A83EF16A3723B00637D74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2A83EE16A3723B00637D74 /* CoreGraphics.framework */; };
@@ -17,7 +19,7 @@
 		FC2A83FF16A3723B00637D74 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2A83FE16A3723B00637D74 /* Default@2x.png */; };
 		FC2A840116A3723B00637D74 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2A840016A3723B00637D74 /* Default-568h@2x.png */; };
 		FC2A840416A3723B00637D74 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC2A840216A3723B00637D74 /* MainStoryboard.storyboard */; };
-		FC2A840716A3723B00637D74 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2A840616A3723B00637D74 /* FirstViewController.m */; };
+		FC2A840716A3723B00637D74 /* AddRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2A840616A3723B00637D74 /* AddRouteViewController.m */; };
 		FC2A840916A3723B00637D74 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2A840816A3723B00637D74 /* first.png */; };
 		FC2A840B16A3723B00637D74 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2A840A16A3723B00637D74 /* first@2x.png */; };
 		FC2A840E16A3723B00637D74 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2A840D16A3723B00637D74 /* SecondViewController.m */; };
@@ -41,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC1DC78616C0EEB100550319 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FC1DC78816C0EEB600550319 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		FC1DC78A16C0FDBC00550319 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		FC2A83E616A3723B00637D74 /* ClimbOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClimbOn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2A83EA16A3723B00637D74 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FC2A83EC16A3723B00637D74 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -55,8 +60,8 @@
 		FC2A83FE16A3723B00637D74 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		FC2A840016A3723B00637D74 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		FC2A840316A3723B00637D74 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		FC2A840516A3723B00637D74 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		FC2A840616A3723B00637D74 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		FC2A840516A3723B00637D74 /* AddRouteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddRouteViewController.h; sourceTree = "<group>"; };
+		FC2A840616A3723B00637D74 /* AddRouteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddRouteViewController.m; sourceTree = "<group>"; };
 		FC2A840816A3723B00637D74 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		FC2A840A16A3723B00637D74 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
 		FC2A840C16A3723B00637D74 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
@@ -76,6 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC1DC78916C0EEB600550319 /* MapKit.framework in Frameworks */,
+				FC1DC78716C0EEB100550319 /* CoreLocation.framework in Frameworks */,
 				FC2A83EB16A3723B00637D74 /* UIKit.framework in Frameworks */,
 				FC2A83ED16A3723B00637D74 /* Foundation.framework in Frameworks */,
 				FC2A83EF16A3723B00637D74 /* CoreGraphics.framework in Frameworks */,
@@ -98,6 +105,9 @@
 		FC2A83DB16A3723B00637D74 = {
 			isa = PBXGroup;
 			children = (
+				FC1DC78A16C0FDBC00550319 /* MobileCoreServices.framework */,
+				FC1DC78816C0EEB600550319 /* MapKit.framework */,
+				FC1DC78616C0EEB100550319 /* CoreLocation.framework */,
 				FC2A83F016A3723B00637D74 /* ClimbOn */,
 				FC2A841F16A3723C00637D74 /* ClimbOnTests */,
 				FC2A83E916A3723B00637D74 /* Frameworks */,
@@ -131,8 +141,8 @@
 				FC2A83F916A3723B00637D74 /* AppDelegate.h */,
 				FC2A83FA16A3723B00637D74 /* AppDelegate.m */,
 				FC2A840216A3723B00637D74 /* MainStoryboard.storyboard */,
-				FC2A840516A3723B00637D74 /* FirstViewController.h */,
-				FC2A840616A3723B00637D74 /* FirstViewController.m */,
+				FC2A840516A3723B00637D74 /* AddRouteViewController.h */,
+				FC2A840616A3723B00637D74 /* AddRouteViewController.m */,
 				FC2A840816A3723B00637D74 /* first.png */,
 				FC2A840A16A3723B00637D74 /* first@2x.png */,
 				FC2A840C16A3723B00637D74 /* SecondViewController.h */,
@@ -293,7 +303,7 @@
 			files = (
 				FC2A83F716A3723B00637D74 /* main.m in Sources */,
 				FC2A83FB16A3723B00637D74 /* AppDelegate.m in Sources */,
-				FC2A840716A3723B00637D74 /* FirstViewController.m in Sources */,
+				FC2A840716A3723B00637D74 /* AddRouteViewController.m in Sources */,
 				FC2A840E16A3723B00637D74 /* SecondViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,6 +479,7 @@
 				FC2A842C16A3723C00637D74 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FC2A842D16A3723C00637D74 /* Build configuration list for PBXNativeTarget "ClimbOnTests" */ = {
 			isa = XCConfigurationList;
@@ -477,6 +488,7 @@
 				FC2A842F16A3723C00637D74 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

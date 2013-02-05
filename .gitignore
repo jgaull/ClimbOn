@@ -110,3 +110,5 @@ xcuserdata
 
 *.moved-aside
 *.xcworkspacedata
+
+*.pbxproj
