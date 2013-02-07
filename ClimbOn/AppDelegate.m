@@ -15,13 +15,9 @@
 {
     // Override point for customization after application launch.
     
-    [Parse setApplicationId:@"XzWQNZ5NJasadp2YqfMGnxrShOv4NGOcWz1RIY8m"
-                  clientKey:@"mkzMDacVCGzT8KoVmCmqzpTbaEgTbaQ8uWz0n4Hu"];
+    [Parse setApplicationId:@"5fIMJLoPq55Wc902Z1etXgb0Ic9Za53yY4cfolad"
+                  clientKey:@"mBY4WJ5LVCPNjrE4rNZUWyDlSc54SYs7HfwGgpfj"];
     [PFFacebookUtils initializeWithApplicationId:@"400656610003830"];
-    
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    [testObject setObject:@"bar" forKey:@"foo"];
-    [testObject save];
     
     return YES;
 }

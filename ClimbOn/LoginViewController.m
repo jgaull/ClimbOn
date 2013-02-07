@@ -21,14 +21,17 @@
 
 @implementation LoginViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [self displayUserInfo];
+    }
+    
+    self.title = @"Profile";
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -36,6 +39,9 @@
 - (IBAction)onLogInButton:(id)sender {
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [PFUser logOut];
+        [self.logInButton setTitle:@"Log in to Facebook" forState:UIControlStateNormal];
+        self.locationLabel.text = @"";
+        self.userNameLabel.text = @"";
     }
     else {
         // The permissions requested from the user
@@ -76,6 +82,8 @@
             
             self.locationLabel.text = location;
             self.userNameLabel.text = name;
+            
+            [self.logInButton setTitle:@"Log Out of Facebook" forState:UIControlStateNormal];
         }
     }];
 }

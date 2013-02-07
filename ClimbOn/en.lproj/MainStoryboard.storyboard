@@ -110,6 +110,7 @@
                         <outlet property="finishImage" destination="sJf-la-2VS" id="J5b-gw-tQd"/>
                         <outlet property="mapView" destination="VsA-WC-62s" id="T8V-2m-Gxf"/>
                         <outlet property="routeNameField" destination="Dk9-Ye-XfM" id="5Tq-8F-ARf"/>
+                        <outlet property="routeRatingField" destination="Dq8-nW-1xt" id="F3j-SL-fP5"/>
                         <outlet property="startImage" destination="hDf-ve-NpR" id="edk-lb-RQV"/>
                     </connections>
                 </viewController>
@@ -191,8 +192,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="2" kind="relationship" relationship="viewControllers" id="26"/>
                         <segue destination="3" kind="relationship" relationship="viewControllers" id="27"/>
+                        <segue destination="2" kind="relationship" relationship="viewControllers" id="26"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
@@ -216,6 +217,7 @@
                 <relationship kind="outlet" name="finishImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="routeRatingField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="startImage" candidateClass="UIImageView"/>
             </relationships>
         </class>

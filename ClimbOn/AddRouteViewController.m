@@ -7,10 +7,12 @@
 //
 
 #import "AddRouteViewController.h"
+#import <Parse/Parse.h>
 
 @interface AddRouteViewController ()
 
 @property (strong, nonatomic) IBOutlet UITextField *routeNameField;
+@property (strong, nonatomic) IBOutlet UITextField *routeRatingField;
 @property (strong, nonatomic) IBOutlet UIButton *addStartPicButton;
 @property (strong, nonatomic) IBOutlet UIButton *addFinishPicButton;
 @property (strong, nonatomic) IBOutlet UIImageView *startImage;
@@ -27,6 +29,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.title = @"Add Route";
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,6 +53,23 @@
 
 
 - (IBAction)onSaveButton:(UIButton *)sender {
+    PFObject *newRoute = [PFObject objectWithClassName:@"Route"];
+    
+    [newRoute setObject:self.routeNameField.text forKey:@"name"];
+    [newRoute setObject:self.routeRatingField.text forKey:@"rating"];
+    [newRoute setObject:[PFUser currentUser] forKey:@"creator"];
+    
+    [newRoute saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            // Dismiss the NewPostViewController and show the BlogTableViewController
+            self.routeRatingField.text = @"";
+            self.routeNameField.text = @"";
+            self.startImage.image = nil;
+            self.finishImage.image = nil;
+            self.addFinishPicButton.hidden = NO;
+            self.addStartPicButton.hidden = NO;
+        }
+    }];
 }
 
 #pragma Mark Text Field Delegate
