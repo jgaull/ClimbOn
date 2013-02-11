@@ -13,11 +13,10 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *routeNameField;
 @property (strong, nonatomic) IBOutlet UITextField *routeRatingField;
-@property (strong, nonatomic) IBOutlet UIButton *addStartPicButton;
-@property (strong, nonatomic) IBOutlet UIButton *addFinishPicButton;
-@property (strong, nonatomic) IBOutlet UIImageView *startImage;
-@property (strong, nonatomic) IBOutlet UIImageView *finishImage;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *currentLocation;
 
 @property (nonatomic) int selectingImage;
 
@@ -31,6 +30,11 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.title = @"Add Route";
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,37 +43,43 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    self.routeNameField = nil;
+    self.routeRatingField = nil;
+    self.mapView = nil;
+    self.locationManager = nil;
+}
+
 #pragma Mark Touch event listeners
 
-- (IBAction)onStartPicButton:(UIButton *)sender {
-    self.selectingImage = kStart;
-    [self displayPhotoSourcePicker];
-}
-
-- (IBAction)onFinishPicButton:(UIButton *)sender {
-    self.selectingImage = kFinish;
-    [self displayPhotoSourcePicker];
-}
-
-
 - (IBAction)onSaveButton:(UIButton *)sender {
-    PFObject *newRoute = [PFObject objectWithClassName:@"Route"];
     
-    [newRoute setObject:self.routeNameField.text forKey:@"name"];
-    [newRoute setObject:self.routeRatingField.text forKey:@"rating"];
-    [newRoute setObject:[PFUser currentUser] forKey:@"creator"];
-    
-    [newRoute saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            // Dismiss the NewPostViewController and show the BlogTableViewController
-            self.routeRatingField.text = @"";
-            self.routeNameField.text = @"";
-            self.startImage.image = nil;
-            self.finishImage.image = nil;
-            self.addFinishPicButton.hidden = NO;
-            self.addStartPicButton.hidden = NO;
-        }
-    }];
+    UIAlertView *alert;
+    if ([self.routeNameField.text isEqualToString:@""]) {
+        alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Please give the route a name." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+    else if ([self.routeRatingField.text isEqualToString:@""]) {
+        alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Please give the route a rating." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+    else
+    {
+        PFObject *newRoute = [PFObject objectWithClassName:@"Route"];
+        
+        [newRoute setObject:self.routeNameField.text forKey:@"name"];
+        [newRoute setObject:self.routeRatingField.text forKey:@"rating"];
+        [newRoute setObject:[PFUser currentUser] forKey:@"creator"];
+        [newRoute setObject:[PFGeoPoint geoPointWithLocation:self.currentLocation] forKey:@"location"];
+        
+        [newRoute saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                // Dismiss the NewPostViewController and show the BlogTableViewController
+                self.routeRatingField.text = @"";
+                self.routeNameField.text = @"";
+            }
+        }];
+    }
 }
 
 #pragma Mark Text Field Delegate
@@ -81,6 +91,28 @@
     return NO;
 }
 
+#pragma Mark location manager delegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    
+    self.currentLocation = [locations objectAtIndex:0];
+    
+    int width = MAX(self.currentLocation.horizontalAccuracy, 50);
+    int height = MAX(self.currentLocation.verticalAccuracy, 50);
+    
+    MKCoordinateRegion viewRegion = [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, width, height)];
+    [self.mapView setRegion:viewRegion animated:YES];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"ERROR");
+}
+
+- (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
+    NSLog(@"Pause");
+}
+
+/*
 #pragma Mark Actionsheet Methods
 
 - (void)displayPhotoSourcePicker {
@@ -138,5 +170,6 @@
         self.addFinishPicButton.hidden = YES;
     }
 }
+*/
 
 @end

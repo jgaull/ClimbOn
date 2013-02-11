@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <AWSiOSSDK/S3/AmazonS3Client.h>
 
 @implementation AppDelegate
 
@@ -18,6 +19,10 @@
     [Parse setApplicationId:@"5fIMJLoPq55Wc902Z1etXgb0Ic9Za53yY4cfolad"
                   clientKey:@"mBY4WJ5LVCPNjrE4rNZUWyDlSc54SYs7HfwGgpfj"];
     [PFFacebookUtils initializeWithApplicationId:@"400656610003830"];
+    
+    [AmazonLogger verboseLogging];
+    
+    [AmazonErrorHandler shouldNotThrowExceptions];
     
     return YES;
 }
