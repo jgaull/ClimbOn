@@ -65,15 +65,19 @@
     }
     else
     {
-        PFObject *newRoute = [PFObject objectWithClassName:@"Route"];
+        PFObject *route = self.route;
         
-        [newRoute setObject:self.routeNameField.text forKey:@"name"];
-        [newRoute setObject:self.routeRatingField.text forKey:@"rating"];
-        [newRoute setObject:[PFUser currentUser] forKey:@"creator"];
-        [newRoute setObject:[PFGeoPoint geoPointWithLocation:self.currentLocation] forKey:@"location"];
-        self.route = newRoute;
+        if (!route) {
+            route = [PFObject objectWithClassName:@"Route"];
+        }
         
-        [newRoute saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [route setObject:self.routeNameField.text forKey:@"name"];
+        [route setObject:self.routeRatingField.text forKey:@"rating"];
+        [route setObject:[PFUser currentUser] forKey:@"creator"];
+        [route setObject:[PFGeoPoint geoPointWithLocation:self.currentLocation] forKey:@"location"];
+        self.route = route;
+        
+        [route saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 // Dismiss the NewPostViewController and show the BlogTableViewController
                 self.routeRatingField.text = @"";
