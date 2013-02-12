@@ -7,6 +7,7 @@
 //
 
 #import "AddRouteViewController.h"
+#import "CheckInViewController.h"
 #import <Parse/Parse.h>
 
 @interface AddRouteViewController ()
@@ -17,6 +18,7 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
+@property (strong, nonatomic) PFObject *route;
 
 @property (nonatomic) int selectingImage;
 
@@ -28,8 +30,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    self.title = @"Add Route";
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -71,14 +71,22 @@
         [newRoute setObject:self.routeRatingField.text forKey:@"rating"];
         [newRoute setObject:[PFUser currentUser] forKey:@"creator"];
         [newRoute setObject:[PFGeoPoint geoPointWithLocation:self.currentLocation] forKey:@"location"];
+        self.route = newRoute;
         
         [newRoute saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 // Dismiss the NewPostViewController and show the BlogTableViewController
                 self.routeRatingField.text = @"";
                 self.routeNameField.text = @"";
+                
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
+                [alert show];
             }
         }];
+        
+        [self performSegueWithIdentifier:@"showCheckInView" sender:self];
     }
 }
 
@@ -110,6 +118,17 @@
 
 - (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
     NSLog(@"Pause");
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+    
+    CheckInViewController *checkInView = (CheckInViewController *)segue.destinationViewController;
+    checkInView.route = self.route;
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    return NO;
 }
 
 /*
