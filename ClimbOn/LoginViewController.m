@@ -59,6 +59,7 @@
             } else if (user.isNew) {
                 NSLog(@"User with facebook signed up and logged in!");
                 [self displayUserInfo];
+                
             } else {
                 NSLog(@"User with facebook logged in!");
                 [self displayUserInfo];
@@ -68,7 +69,7 @@
 }
 
 - (void)displayUserInfo {
-    NSString *requestPath = @"me/?fields=name,location";
+    NSString *requestPath = @"me?fields=friends.fields(installed,id),name,location";
     
     // Send request to Facebook
     PF_FBRequest *request = [PF_FBRequest requestForGraphPath:requestPath];
@@ -82,6 +83,15 @@
             
             self.locationLabel.text = location;
             self.userNameLabel.text = name;
+            
+            NSArray *friends = userData[@"friends"][@"data"];
+            NSMutableArray *friendIds = [[NSMutableArray alloc] init];
+            
+            for (id friend in friends) {
+                if (friend[@"installed"]) {
+                    [friendIds addObject:friend[@"id"]];
+                }
+            }
             
             [self.logInButton setTitle:@"Log Out of Facebook" forState:UIControlStateNormal];
         }
