@@ -12,6 +12,9 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *postTextView;
 @property (strong, nonatomic) IBOutlet UIButton *checkInButton;
+@property (strong, nonatomic) IBOutlet UIButton *addImageButton;
+
+@property (strong, nonatomic) PFFile *selectedImage;
 
 @end
 
@@ -46,6 +49,10 @@
     [post setObject:[PFUser currentUser] forKey:@"creator"];
     [post setObject:self.route forKey:@"route"];
     
+    if (self.selectedImage) {
+        [post setObject:self.selectedImage forKey:@"image"];
+    }
+    
     [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             // Dismiss the NewPostViewController and show the BlogTableViewController
@@ -53,7 +60,8 @@
             [self.checkInButton setTitle:@"CHECKED IN" forState:UIControlStateNormal];
             self.checkInButton.enabled = NO;
         }
-        else {
+        else{
+            // Log details of the failure
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
             [alert show];
         }
@@ -64,10 +72,15 @@
     [self.postTextView resignFirstResponder];
 }
 
+- (IBAction)onAddImageButton:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
+    [actionSheet showInView:self.tabBarController.view];
+}
+
 #pragma Mark Text View Delegate methods.
 
 - (void)textViewDidChange:(UITextView *)textView {
-    NSLog(@"Change");
+    
 }
 
 - (void)setRoute:(PFObject *)route {
@@ -76,5 +89,68 @@
         self.title = [_route objectForKey:@"name"];
     }
 }
+
+ #pragma Mark Actionsheet Methods
+ 
+ - (void)displayPhotoSourcePicker {
+     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", nil];
+     [actionSheet showInView:self.tabBarController.view];
+ }
+ 
+ - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+     
+     if (buttonIndex == 2) {
+         NSLog(@"Cancel");
+     }
+     else {
+         UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
+         imagePickController.delegate = self;
+         imagePickController.allowsEditing = NO;
+         
+         if (buttonIndex == 0) {
+             imagePickController.sourceType = UIImagePickerControllerSourceTypeCamera;
+             imagePickController.showsCameraControls = YES;
+         }
+         else if (buttonIndex == 1) {
+             imagePickController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+         }
+         
+         [self presentViewController:imagePickController animated:YES completion:nil];
+     }
+     
+ }
+ 
+ #pragma Mark Imagepicker Controller
+ 
+ - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+     [self dismissViewControllerAnimated:YES completion:nil];
+ }
+ 
+ - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+ 
+     [self dismissViewControllerAnimated:YES completion:nil];
+     
+     UIImage *selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+     
+     if(picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+         UIImageWriteToSavedPhotosAlbum(selectedImage, nil, nil, nil);
+     }
+     
+     UIGraphicsBeginImageContext(CGSizeMake(640, 960));
+     [selectedImage drawInRect: CGRectMake(0, 0, 640, 960)];
+     UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+     UIGraphicsEndImageContext();
+     
+     self.selectedImage = [PFFile fileWithName:@"image" data:UIImageJPEGRepresentation(smallImage, 0.05f)];
+     
+     [self.selectedImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+         if (error) {
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
+             [alert show];
+         }
+     }];
+     
+     self.addImageButton.enabled = false;
+ }
 
 @end

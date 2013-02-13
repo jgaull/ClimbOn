@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface CheckInViewController : UIViewController <UITextViewDelegate>
+@interface CheckInViewController : UIViewController <UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) PFObject *route;
 
 - (void)textViewDidChange:(UITextView *)textView;
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 
 @end
