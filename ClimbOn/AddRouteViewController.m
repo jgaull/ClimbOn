@@ -77,19 +77,6 @@
         [route setObject:[PFGeoPoint geoPointWithLocation:self.currentLocation] forKey:@"location"];
         self.route = route;
         
-        [route saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                // Dismiss the NewPostViewController and show the BlogTableViewController
-                self.routeRatingField.text = @"";
-                self.routeNameField.text = @"";
-                
-            }
-            else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
-                [alert show];
-            }
-        }];
-        
         [self performSegueWithIdentifier:@"showCheckInView" sender:self];
     }
 }
@@ -98,13 +85,14 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    [textField resignFirstResponder];
+    if (self.routeNameField.isFirstResponder) {
+        [self.routeRatingField becomeFirstResponder];
+    }
+    else {
+        [textField resignFirstResponder];
+    }
     
     return NO;
-}
-
-- (IBAction)onCancel:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma Mark location manager delegate

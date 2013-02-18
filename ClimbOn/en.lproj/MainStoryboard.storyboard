@@ -13,12 +13,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="2" kind="relationship" relationship="rootViewController" id="tHA-u8-Xjb"/>
+                        <segue destination="pkB-2T-KcC" kind="relationship" relationship="rootViewController" id="rUo-L2-Hvo"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVY-Xr-850" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1166" y="180"/>
+            <point key="canvasLocation" x="1606" y="851"/>
         </scene>
         <!--Add Route View Controller - Create Route-->
         <scene sceneID="11">
@@ -78,13 +78,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Create Route" image="first" id="7"/>
-                    <navigationItem key="navigationItem" id="pBT-lL-o4D">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="rCi-Cx-LGb">
-                            <connections>
-                                <action selector="onCancel:" destination="2" id="JRa-rz-MDY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="pBT-lL-o4D"/>
                     <connections>
                         <outlet property="mapView" destination="VsA-WC-62s" id="T8V-2m-Gxf"/>
                         <outlet property="routeNameField" destination="Dk9-Ye-XfM" id="5Tq-8F-ARf"/>
@@ -93,7 +87,68 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1660" y="180"/>
+            <point key="canvasLocation" x="2464" y="851"/>
+        </scene>
+        <!--Nearby Routes View Controller - Nearby-->
+        <scene sceneID="Z0F-bW-RUH">
+            <objects>
+                <tableViewController title="Nearby" id="pkB-2T-KcC" customClass="NearbyRoutesViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Rz3-1t-zku">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="createNew" textLabel="8Pm-8g-XuY" style="IBUITableViewCellStyleDefault" id="SMg-nh-sFW">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Create Route" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Pm-8g-XuY">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="2" kind="push" identifier="createRoute" id="sTx-Vh-mLd"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="existingRoute" textLabel="lTr-hf-T4Y" style="IBUITableViewCellStyleDefault" id="eKf-h2-ssU">
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Route Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTr-hf-T4Y">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="73R-b0-ZZ1" kind="push" identifier="checkInAtRoute" id="X7a-z2-6Ih"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pkB-2T-KcC" id="C9O-qC-km9"/>
+                            <outlet property="delegate" destination="pkB-2T-KcC" id="s15-7R-shZ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="X9x-E6-dYs">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="xrX-e9-BrW"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oKv-jr-at5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2038" y="851"/>
         </scene>
         <!--Check In View Controller - Check In-->
         <scene sceneID="hju-My-vi2">
@@ -123,19 +178,6 @@
                                     <outlet property="delegate" destination="73R-b0-ZZ1" id="OSZ-eT-aOc"/>
                                 </connections>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udj-Eh-c9J">
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Check In">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onCheckInButton:" destination="73R-b0-ZZ1" eventType="touchUpInside" id="Jml-8c-uqm"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUc-gT-5BK">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Add Image">
@@ -153,22 +195,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="yNN-KI-Baj" firstAttribute="centerX" secondItem="zrB-tw-ZgO" secondAttribute="centerX" type="default" id="3Us-y3-hQf"/>
-                            <constraint firstAttribute="bottom" secondItem="udj-Eh-c9J" secondAttribute="bottom" constant="56" id="Ov1-ro-NK5"/>
-                            <constraint firstItem="udj-Eh-c9J" firstAttribute="centerX" secondItem="bUc-gT-5BK" secondAttribute="centerX" type="default" id="Rnm-Wc-kQD"/>
                             <constraint firstItem="bUc-gT-5BK" firstAttribute="leading" secondItem="h1S-N0-Nye" secondAttribute="leading" constant="103" id="Sh9-bb-wve"/>
-                            <constraint firstItem="udj-Eh-c9J" firstAttribute="top" secondItem="bUc-gT-5BK" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="WED-Jx-2dj"/>
                             <constraint firstItem="zrB-tw-ZgO" firstAttribute="top" secondItem="h1S-N0-Nye" secondAttribute="top" type="default" id="dOd-Bq-dfP"/>
                             <constraint firstItem="yNN-KI-Baj" firstAttribute="top" secondItem="h1S-N0-Nye" secondAttribute="top" constant="20" symbolic="YES" type="default" id="gQ8-Of-Z8q"/>
+                            <constraint firstAttribute="bottom" secondItem="bUc-gT-5BK" secondAttribute="bottom" constant="107" id="hFY-tQ-cOT"/>
                             <constraint firstItem="yNN-KI-Baj" firstAttribute="leading" secondItem="h1S-N0-Nye" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="htO-IG-g3o"/>
                             <constraint firstAttribute="trailing" secondItem="yNN-KI-Baj" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="mFg-b3-CIZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="upn-SA-WOF">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="9BZ-Nm-332">
-                            <connections>
-                                <action selector="onCancelButton:" destination="73R-b0-ZZ1" id="rg9-Fu-EiB"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="O9V-aZ-egf">
                             <connections>
                                 <action selector="onDoneButton:" destination="73R-b0-ZZ1" id="8nr-Sc-Lfm"/>
@@ -177,13 +212,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addImageButton" destination="bUc-gT-5BK" id="QTa-h6-dyW"/>
-                        <outlet property="checkInButton" destination="udj-Eh-c9J" id="ieb-eb-8i1"/>
                         <outlet property="postTextView" destination="zrB-tw-ZgO" id="zKI-Vi-7dT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vT4-r4-6Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2129" y="180"/>
+            <point key="canvasLocation" x="2903" y="851"/>
         </scene>
         <!--Login View Controller - Second-->
         <scene sceneID="13">
@@ -264,10 +298,10 @@
             </objects>
             <point key="canvasLocation" x="672" y="851"/>
         </scene>
-        <!--Feed View Controller - Item-->
+        <!--Feed View Controller - Feed-->
         <scene sceneID="uZK-DN-VbC">
             <objects>
-                <tableViewController id="M2E-wj-5JQ" customClass="FeedViewController" sceneMemberID="viewController">
+                <tableViewController title="Feed" id="M2E-wj-5JQ" customClass="FeedViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="84" sectionHeaderHeight="22" sectionFooterHeight="22" id="lUS-MQ-uUj">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -348,49 +382,6 @@
                                     <outlet property="userPhotoImage" destination="nOg-hk-bZV" id="aSJ-BW-Lq9"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SetRoute" rowHeight="84" id="9p6-7x-dwV">
-                                <rect key="frame" x="0.0" y="153" width="320" height="84"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YbY-lH-1ap">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="19" id="h0g-pE-gde"/>
-                                                <constraint firstAttribute="width" constant="221" id="p6X-aR-32i"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Set new route" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rb-pz-cmr">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="19" id="yy6-vg-WMG"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mDC-R2-1zJ">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="2Sc-o0-bMG"/>
-                                                <constraint firstAttribute="width" constant="50" id="MLt-Lb-nD9"/>
-                                            </constraints>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="YbY-lH-1ap" firstAttribute="trailing" secondItem="1Rb-pz-cmr" secondAttribute="trailing" type="default" id="8rw-cY-YfC"/>
-                                    <constraint firstItem="1Rb-pz-cmr" firstAttribute="top" secondItem="9p6-7x-dwV" secondAttribute="top" constant="33" id="DKw-Hd-WJs"/>
-                                    <constraint firstItem="YbY-lH-1ap" firstAttribute="top" secondItem="mDC-R2-1zJ" secondAttribute="top" type="default" id="N2e-zo-hN1"/>
-                                    <constraint firstItem="mDC-R2-1zJ" firstAttribute="leading" secondItem="9p6-7x-dwV" secondAttribute="leading" constant="9" id="UaR-2t-aAB"/>
-                                    <constraint firstItem="mDC-R2-1zJ" firstAttribute="top" secondItem="9p6-7x-dwV" secondAttribute="top" constant="13" id="hyp-zh-mem"/>
-                                    <constraint firstItem="YbY-lH-1ap" firstAttribute="leading" secondItem="mDC-R2-1zJ" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="iCW-Mz-iVx"/>
-                                    <constraint firstItem="1Rb-pz-cmr" firstAttribute="leading" secondItem="mDC-R2-1zJ" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="oSz-EF-LMj"/>
-                                </constraints>
-                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="M2E-wj-5JQ" id="BbL-Jh-YnQ"/>
@@ -458,8 +449,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
                 <relationship kind="action" name="onAddImageButton:"/>
-                <relationship kind="action" name="onCancelButton:"/>
-                <relationship kind="action" name="onCheckInButton:"/>
                 <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIButton"/>
@@ -468,6 +457,9 @@
         </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onCreatePost:"/>
+            </relationships>
         </class>
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
@@ -481,10 +473,16 @@
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
+        <class className="NearbyRoutesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
+        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="X7a-z2-6Ih"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -43,40 +43,42 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onCheckInButton:(id)sender {
-    PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
-    [post setObject:self.postTextView.text forKey:@"userText"];
-    [post setObject:[PFUser currentUser] forKey:@"creator"];
-    [post setObject:self.route forKey:@"route"];
-    
-    if (self.selectedImage) {
-        [post setObject:self.selectedImage forKey:@"image"];
-    }
-    
-    [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            // Dismiss the NewPostViewController and show the BlogTableViewController
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        else{
-            // Log details of the failure
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
-            [alert show];
-        }
-    }];
-}
-
 - (IBAction)onDoneButton:(id)sender {
-    [self.postTextView resignFirstResponder];
+    if (self.postTextView.isFirstResponder) {
+        [self.postTextView resignFirstResponder];
+    }
+    else {
+        PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
+        [post setObject:self.postTextView.text forKey:@"userText"];
+        [post setObject:[PFUser currentUser] forKey:@"creator"];
+        [post setObject:self.route forKey:@"route"];
+        
+        if (self.selectedImage) {
+            [post setObject:self.selectedImage forKey:@"image"];
+        }
+        
+        [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                // Dismiss the NewPostViewController and show the BlogTableViewController
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else{
+                // Log details of the failure
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
+                [alert show];
+            }
+        }];
+        
+        [post saveEventually];
+        [self.route saveEventually];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (IBAction)onAddImageButton:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
     [actionSheet showInView:self.tabBarController.view];
-}
-
-- (IBAction)onCancelButton:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma Mark Text View Delegate methods.
