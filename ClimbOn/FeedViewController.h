@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FeedViewController : UITableViewController
+@interface FeedViewController : UITableViewController <UIActionSheetDelegate>
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end

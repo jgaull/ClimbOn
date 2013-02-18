@@ -12,6 +12,7 @@
 @interface CheckInViewController : UIViewController <UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) PFObject *route;
+@property (nonatomic) NSInteger postType;
 
 - (void)textViewDidChange:(UITextView *)textView;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;

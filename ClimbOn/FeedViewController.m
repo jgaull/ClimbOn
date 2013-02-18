@@ -83,6 +83,7 @@
     cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
     cell.postTextLabel.text = [postData objectForKey:@"userText"];
     cell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [route objectForKey:@"rating"]];
+    cell.dateLabel.text = [postData objectForKey:@"createdAt"];
     
     return cell;
 }
@@ -93,6 +94,26 @@
     CGSize size = [[postData objectForKey:@"userText"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     return size.height + 70;
 }
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    return ![identifier isEqualToString:@"createPost"];
+}
+
+- (IBAction)onCreatePost:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Check In", @"Top Out", nil];
+    [actionSheet showInView:self.tabBarController.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    NSInteger postType = buttonIndex;
+    NSLog(@"Post type: %d", postType);
+    
+    if (buttonIndex != actionSheet.cancelButtonIndex) {
+        
+    }
+}
+
 
 /*
 // Override to support conditional editing of the table view.

@@ -18,14 +18,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVY-Xr-850" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="672" y="-501"/>
+            <point key="canvasLocation" x="1166" y="180"/>
         </scene>
         <!--Add Route View Controller - Create Route-->
         <scene sceneID="11">
             <objects>
                 <viewController title="Create Route" id="2" customClass="AddRouteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="16">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Route Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dk9-Ye-XfM">
@@ -78,7 +78,13 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Create Route" image="first" id="7"/>
-                    <navigationItem key="navigationItem" id="pBT-lL-o4D"/>
+                    <navigationItem key="navigationItem" id="pBT-lL-o4D">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="rCi-Cx-LGb">
+                            <connections>
+                                <action selector="onCancel:" destination="2" id="JRa-rz-MDY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="VsA-WC-62s" id="T8V-2m-Gxf"/>
                         <outlet property="routeNameField" destination="Dk9-Ye-XfM" id="5Tq-8F-ARf"/>
@@ -87,14 +93,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1166" y="-501"/>
+            <point key="canvasLocation" x="1660" y="180"/>
         </scene>
         <!--Check In View Controller - Check In-->
         <scene sceneID="hju-My-vi2">
             <objects>
                 <viewController title="Check In" id="73R-b0-ZZ1" customClass="CheckInViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h1S-N0-Nye">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNN-KI-Baj">
@@ -158,6 +164,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="upn-SA-WOF">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="9BZ-Nm-332">
+                            <connections>
+                                <action selector="onCancelButton:" destination="73R-b0-ZZ1" id="rg9-Fu-EiB"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="O9V-aZ-egf">
                             <connections>
                                 <action selector="onDoneButton:" destination="73R-b0-ZZ1" id="8nr-Sc-Lfm"/>
@@ -172,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vT4-r4-6Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1635" y="-501"/>
+            <point key="canvasLocation" x="2129" y="180"/>
         </scene>
         <!--Login View Controller - Second-->
         <scene sceneID="13">
@@ -278,7 +289,7 @@
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="418-pd-Lic">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="232" id="Y3u-0Z-oYW"/>
+                                                <constraint firstAttribute="width" constant="199" id="01G-C8-h4s"/>
                                                 <constraint firstAttribute="height" constant="21" id="xMk-qz-bd0"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -287,6 +298,7 @@
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="At Route Name, Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Wev-Qr-da9">
                                             <constraints>
+                                                <constraint firstAttribute="width" constant="232" id="0lB-ek-CBj"/>
                                                 <constraint firstAttribute="height" constant="21" id="6U9-fr-Yjj"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -303,22 +315,33 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg4-yN-Mze">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="57" id="3v8-6e-mPt"/>
+                                                <constraint firstAttribute="height" constant="21" id="HZr-WY-RZn"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
                                     <constraint firstItem="418-pd-Lic" firstAttribute="leading" secondItem="nOg-hk-bZV" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="4Az-we-dMV"/>
+                                    <constraint firstItem="wg4-yN-Mze" firstAttribute="top" secondItem="522-in-jRs" secondAttribute="top" type="default" id="6O8-Fy-FOG"/>
+                                    <constraint firstAttribute="trailing" secondItem="wg4-yN-Mze" secondAttribute="trailing" constant="20" type="default" id="Iqp-tN-lyp"/>
                                     <constraint firstItem="418-pd-Lic" firstAttribute="top" secondItem="nOg-hk-bZV" secondAttribute="top" type="default" id="M7G-0M-vtb"/>
                                     <constraint firstItem="Wev-Qr-da9" firstAttribute="bottom" secondItem="nOg-hk-bZV" secondAttribute="bottom" type="default" id="MDg-ms-Tot"/>
                                     <constraint firstItem="vRW-IB-JOY" firstAttribute="leading" secondItem="522-in-jRs" secondAttribute="leading" type="default" id="SCx-lb-y0V"/>
                                     <constraint firstItem="vRW-IB-JOY" firstAttribute="top" secondItem="522-in-jRs" secondAttribute="top" constant="50" id="UKD-Pt-HWr"/>
-                                    <constraint firstItem="418-pd-Lic" firstAttribute="trailing" secondItem="Wev-Qr-da9" secondAttribute="trailing" type="default" id="V9Y-Xc-hmw"/>
+                                    <constraint firstItem="Wev-Qr-da9" firstAttribute="top" secondItem="wg4-yN-Mze" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ahc-Kg-ydD"/>
                                     <constraint firstItem="vRW-IB-JOY" firstAttribute="trailing" secondItem="522-in-jRs" secondAttribute="trailing" type="default" id="h0m-ke-c4r"/>
                                     <constraint firstItem="Wev-Qr-da9" firstAttribute="leading" secondItem="nOg-hk-bZV" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="hBe-9N-WO2"/>
-                                    <constraint firstItem="nOg-hk-bZV" firstAttribute="top" secondItem="522-in-jRs" secondAttribute="top" constant="10" id="lLU-zS-rcw"/>
                                     <constraint firstItem="nOg-hk-bZV" firstAttribute="leading" secondItem="522-in-jRs" secondAttribute="leading" constant="10" id="o0t-Re-eHV"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="dateLabel" destination="wg4-yN-Mze" id="ZPz-PP-6g5"/>
                                     <outlet property="postTextLabel" destination="vRW-IB-JOY" id="2GA-UP-PgL"/>
                                     <outlet property="routeNameLabel" destination="Wev-Qr-da9" id="gvv-j0-mDQ"/>
                                     <outlet property="userNameLabel" destination="418-pd-Lic" id="B8R-pf-OfJ"/>
@@ -375,7 +398,14 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="kpW-CY-FIa"/>
-                    <navigationItem key="navigationItem" id="bH9-xe-NOR"/>
+                    <navigationItem key="navigationItem" id="bH9-xe-NOR">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="UhK-B7-Qpe">
+                            <connections>
+                                <action selector="onCreatePost:" destination="M2E-wj-5JQ" id="ygy-IS-GXq"/>
+                                <segue destination="DZa-ml-FMP" kind="modal" id="zIi-kC-cbL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZMx-wF-UZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -393,7 +423,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="3" kind="relationship" relationship="viewControllers" id="27"/>
-                        <segue destination="DZa-ml-FMP" kind="relationship" relationship="viewControllers" id="NB1-C0-SEl"/>
                         <segue destination="yrX-21-JxV" kind="relationship" relationship="viewControllers" id="tP8-QN-IrR"/>
                     </connections>
                 </tabBarController>
@@ -410,7 +439,6 @@
         <class className="AddRouteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="routeRatingField" candidateClass="UITextField"/>
@@ -419,6 +447,7 @@
         <class className="CheckInCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCell.h"/>
             <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="postTextLabel" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
@@ -429,6 +458,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
                 <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="action" name="onCancelButton:"/>
                 <relationship kind="action" name="onCheckInButton:"/>
                 <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
@@ -442,7 +472,6 @@
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="profilePicture" candidateClass="UIImageView"/>

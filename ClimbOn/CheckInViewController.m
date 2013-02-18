@@ -56,9 +56,7 @@
     [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             // Dismiss the NewPostViewController and show the BlogTableViewController
-            
-            [self.checkInButton setTitle:@"CHECKED IN" forState:UIControlStateNormal];
-            self.checkInButton.enabled = NO;
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         else{
             // Log details of the failure
@@ -75,6 +73,10 @@
 - (IBAction)onAddImageButton:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
     [actionSheet showInView:self.tabBarController.view];
+}
+
+- (IBAction)onCancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma Mark Text View Delegate methods.

@@ -14,5 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *routeNameLabel;
 @property (strong, nonatomic) IBOutlet UITextView *postTextLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *userPhotoImage;
+@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end
