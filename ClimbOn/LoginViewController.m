@@ -69,22 +69,38 @@
 }
 
 - (void)displayUserInfo {
-    NSString *requestPath = @"me?fields=friends.fields(installed,id),name,location";
+    NSString *requestPath = @"me?fields=friends.fields(installed,id),name,location,first_name,last_name";
     
     // Send request to Facebook
     PF_FBRequest *request = [PF_FBRequest requestForGraphPath:requestPath];
     [request startWithCompletionHandler:^(PF_FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
-            NSDictionary *userData = (NSDictionary *)result; // The result is a dictionary
             
-            //NSString *facebookId = userData[@"id"];
+            NSDictionary *userData = (NSDictionary *)result; // The result is a dictionary
             NSString *name = userData[@"name"];
             NSString *location = userData[@"location"][@"name"];
             
             self.locationLabel.text = location;
             self.userNameLabel.text = name;
             
-            NSArray *friends = userData[@"friends"][@"data"];
+            if ([PFUser currentUser].isNew) {
+                PFObject *socialNetworkId = [[PFObject alloc] initWithClassName:@"SocialNetworkId"];
+                [socialNetworkId setObject:userData[@"id"] forKey:@"networkId"];
+                [socialNetworkId setObject:[PFUser currentUser] forKey:@"climbOnId"];
+                [socialNetworkId setObject:@"facebook" forKey:@"networkType"];
+                
+                [socialNetworkId saveEventually];
+                
+                NSArray *following = [[NSArray alloc] initWithObjects:[PFUser currentUser], nil];
+                [[PFUser currentUser] setObject:following forKey:@"following"];
+                [[PFUser currentUser] setObject:userData[@"first_name"] forKey:@"firstName"];
+                [[PFUser currentUser] setObject:userData[@"last_name"] forKey:@"lastName"];
+                [[PFUser currentUser] saveInBackground];
+            }
+            
+            //NSString *facebookId = userData[@"id"];
+            
+            /*NSArray *friends = userData[@"friends"][@"data"];
             NSMutableArray *friendIds = [[NSMutableArray alloc] init];
             
             for (id friend in friends) {
@@ -92,6 +108,31 @@
                     [friendIds addObject:friend[@"id"]];
                 }
             }
+            
+            PFQuery *query = [PFQuery queryWithClassName:@"SocialNetworkId"];
+            [query whereKey:@"networkType" equalTo:@"facebook"];
+            [query whereKey:@"networkId" containedIn:friendIds];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (!error) {
+                    // The find succeeded.
+                    NSMutableArray *following = [[PFUser currentUser] objectForKey:@"following"];
+                    
+                    for (PFUser *friend in objects) {
+                        if (![following containsObject:friend]) {
+                            [following addObject:friend];
+                        }
+                    }
+                    
+                    NSLog(@"Now following %d users", following.count);
+                    
+                    [[PFUser currentUser] setObject:following forKey:@"following"];
+                    [[PFUser currentUser] saveInBackground];
+                    
+                } else {
+                    // Log details of the failure
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];*/
             
             [self.logInButton setTitle:@"Log Out of Facebook" forState:UIControlStateNormal];
         }
