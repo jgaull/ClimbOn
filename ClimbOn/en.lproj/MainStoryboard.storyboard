@@ -7,6 +7,7 @@
         <!--Navigation Controller - Create Route-->
         <scene sceneID="mkT-9s-StF">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZVY-Xr-850" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="DZa-ml-FMP" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Create Route" id="rj8-kP-qto"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fYu-kQ-HIo">
@@ -16,7 +17,6 @@
                         <segue destination="pkB-2T-KcC" kind="relationship" relationship="rootViewController" id="rUo-L2-Hvo"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZVY-Xr-850" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1606" y="851"/>
         </scene>
@@ -143,7 +143,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="X9x-E6-dYs">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="xrX-e9-BrW"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="xrX-e9-BrW">
+                            <connections>
+                                <action selector="onCancelButton:" destination="pkB-2T-KcC" id="jkJ-9T-N1q"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKv-jr-at5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -392,8 +396,7 @@
                     <navigationItem key="navigationItem" id="bH9-xe-NOR">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="UhK-B7-Qpe">
                             <connections>
-                                <action selector="onCreatePost:" destination="M2E-wj-5JQ" id="ygy-IS-GXq"/>
-                                <segue destination="DZa-ml-FMP" kind="modal" id="zIi-kC-cbL"/>
+                                <segue destination="DZa-ml-FMP" kind="modal" identifier="createPost" id="zIi-kC-cbL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

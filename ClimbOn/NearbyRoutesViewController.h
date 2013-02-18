@@ -11,4 +11,6 @@
 
 @interface NearbyRoutesViewController : UITableViewController
 
+@property (nonatomic) NSInteger postType;
+
 @end

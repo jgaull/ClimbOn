@@ -11,7 +11,6 @@
 @interface CheckInViewController ()
 
 @property (strong, nonatomic) IBOutlet UITextView *postTextView;
-@property (strong, nonatomic) IBOutlet UIButton *checkInButton;
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
 
 @property (strong, nonatomic) PFFile *selectedImage;
@@ -35,6 +34,10 @@
 	// Do any additional setup after loading the view.
     
     [self.postTextView becomeFirstResponder];
+    
+    if (self.postType == kPostTypeTopOut) {
+        self.postTextView.text = [NSString stringWithFormat:@"I just topped out %@, %@", [self.route objectForKey:@"name"], [self.route objectForKey:@"rating"]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,22 +55,11 @@
         [post setObject:self.postTextView.text forKey:@"userText"];
         [post setObject:[PFUser currentUser] forKey:@"creator"];
         [post setObject:self.route forKey:@"route"];
+        [post setObject:[NSNumber numberWithInt:self.postType] forKey:@"type"];
         
         if (self.selectedImage) {
             [post setObject:self.selectedImage forKey:@"image"];
         }
-        
-        [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                // Dismiss the NewPostViewController and show the BlogTableViewController
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
-            else{
-                // Log details of the failure
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
-                [alert show];
-            }
-        }];
         
         [post saveEventually];
         [self.route saveEventually];

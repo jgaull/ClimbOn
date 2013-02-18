@@ -8,6 +8,7 @@
 
 #import "NearbyRoutesViewController.h"
 #import "CheckInViewController.h"
+#import "AddRouteViewController.h"
 #import <Parse/Parse.h>
 
 @interface NearbyRoutesViewController ()
@@ -90,11 +91,19 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
     
-    NSLog(@"Identifier: %@", segue.identifier);
     if ([segue.identifier isEqualToString:@"checkInAtRoute"]) {
         CheckInViewController *checkInView = (CheckInViewController *)segue.destinationViewController;
         checkInView.route = [self.data objectAtIndex:[self.tableView indexPathForSelectedRow].row - 1];
+        checkInView.postType = self.postType;
     }
+    else if ([segue.identifier isEqualToString:@"createRoute"]) {
+        AddRouteViewController *addRoute = (AddRouteViewController *)segue.destinationViewController;
+        addRoute.postType = self.postType;
+    }
+}
+
+- (IBAction)onCancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

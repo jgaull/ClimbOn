@@ -8,12 +8,14 @@
 
 #import "FeedViewController.h"
 #import "CheckInCell.h"
+#import "NearbyRoutesViewController.h"
 
 #import <Parse/Parse.h>
 
 @interface FeedViewController ()
 
 @property (nonatomic, strong) NSArray *data;
+@property (nonatomic) NSInteger *postType;
 
 @end
 
@@ -43,7 +45,6 @@
     [feedQuery orderByDescending:@"createdAt"];
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            NSLog(@"Fetched %d posts of people that I am following", objects.count);
             self.data = [[NSArray alloc] initWithArray:objects];
             [self.tableView reloadData];
         }
@@ -96,22 +97,31 @@
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    return ![identifier isEqualToString:@"createPost"];
-}
-
-- (IBAction)onCreatePost:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Check In", @"Top Out", nil];
-    [actionSheet showInView:self.tabBarController.view];
+    if ([identifier isEqualToString:@"createPost"]) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Check In", @"Top Out", nil];
+        [actionSheet showInView:self.tabBarController.view];
+        
+        return NO;
+    }
+    return YES;
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     NSInteger postType = buttonIndex;
-    NSLog(@"Post type: %d", postType);
     
     if (buttonIndex != actionSheet.cancelButtonIndex) {
-        
+        self.postType = postType;
+        [self performSegueWithIdentifier:@"createPost" sender:self];
     }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+    NearbyRoutesViewController *nearbyRoutes = (NearbyRoutesViewController *)[navController.viewControllers objectAtIndex:0];
+    nearbyRoutes.postType = self.postType;
+    
+    [super prepareForSegue:segue sender:sender];
 }
 
 

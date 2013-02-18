@@ -15,6 +15,8 @@ static const int kFinish = 1;
 
 @interface AddRouteViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate>
 
+@property (nonatomic) NSInteger postType;
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations;
