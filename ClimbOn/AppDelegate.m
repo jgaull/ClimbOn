@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <Parse/Parse.h>
-#import <AWSiOSSDK/S3/AmazonS3Client.h>
 
 @implementation AppDelegate
 
@@ -16,15 +14,24 @@
 {
     // Override point for customization after application launch.
     
-    [Parse setApplicationId:@"5fIMJLoPq55Wc902Z1etXgb0Ic9Za53yY4cfolad"
-                  clientKey:@"mBY4WJ5LVCPNjrE4rNZUWyDlSc54SYs7HfwGgpfj"];
+    //PROD DATABASE
+    //[Parse setApplicationId:@"gKI8pAAG7fOo1xe96xVijup7etRDnejCrVJ5ds4P" clientKey:@"HL7bIFC9Xk2fgY9Cr73beFwQaILOEc5Pw2Bs6xge"];
+    
+    //DEV DATABASE
+    [Parse setApplicationId:@"5fIMJLoPq55Wc902Z1etXgb0Ic9Za53yY4cfolad" clientKey:@"mBY4WJ5LVCPNjrE4rNZUWyDlSc54SYs7HfwGgpfj"];
+    
+    
     [PFFacebookUtils initializeWithApplicationId:@"400656610003830"];
     
-    [AmazonLogger verboseLogging];
-    
-    [AmazonErrorHandler shouldNotThrowExceptions];
+    [self performSelector:@selector(displayLogin) withObject:nil afterDelay:0.01];
     
     return YES;
+}
+
+- (void)displayLogin {
+    if (![PFUser currentUser]) {
+        [self.window.rootViewController performSegueWithIdentifier:@"firstLoginFlow" sender:self];
+    }
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

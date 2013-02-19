@@ -98,42 +98,6 @@
                 [[PFUser currentUser] saveInBackground];
             }
             
-            //NSString *facebookId = userData[@"id"];
-            
-            /*NSArray *friends = userData[@"friends"][@"data"];
-            NSMutableArray *friendIds = [[NSMutableArray alloc] init];
-            
-            for (id friend in friends) {
-                if (friend[@"installed"]) {
-                    [friendIds addObject:friend[@"id"]];
-                }
-            }
-            
-            PFQuery *query = [PFQuery queryWithClassName:@"SocialNetworkId"];
-            [query whereKey:@"networkType" equalTo:@"facebook"];
-            [query whereKey:@"networkId" containedIn:friendIds];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                if (!error) {
-                    // The find succeeded.
-                    NSMutableArray *following = [[PFUser currentUser] objectForKey:@"following"];
-                    
-                    for (PFUser *friend in objects) {
-                        if (![following containsObject:friend]) {
-                            [following addObject:friend];
-                        }
-                    }
-                    
-                    NSLog(@"Now following %d users", following.count);
-                    
-                    [[PFUser currentUser] setObject:following forKey:@"following"];
-                    [[PFUser currentUser] saveInBackground];
-                    
-                } else {
-                    // Log details of the failure
-                    NSLog(@"Error: %@ %@", error, [error userInfo]);
-                }
-            }];*/
-            
             [self.logInButton setTitle:@"Log Out of Facebook" forState:UIControlStateNormal];
         }
     }];
