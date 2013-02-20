@@ -563,7 +563,6 @@
         <class className="AddRouteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="routeRatingField" candidateClass="UITextField"/>

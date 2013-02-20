@@ -9,6 +9,7 @@
 #import "FeedViewController.h"
 #import "CheckInCell.h"
 #import "NearbyRoutesViewController.h"
+#import "CheckInViewController.h"
 
 #import <Parse/Parse.h>
 
@@ -74,17 +75,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CheckIn";
-    CheckInCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
     PFObject *postData = [self.data objectAtIndex:indexPath.row];
     PFUser *creator = [postData objectForKey:@"creator"];
     PFObject *route = [postData objectForKey:@"route"];
+    
+    NSString *cellIdentifier = @"CheckIn";
+    CheckInCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    // Configure the cell...
     cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
     cell.postTextLabel.text = [postData objectForKey:@"userText"];
+    NSLog(@"%@", cell.postTextLabel.text);
     cell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [route objectForKey:@"rating"]];
     cell.dateLabel.text = [postData objectForKey:@"createdAt"];
+    
+    if ([[postData objectForKey:@"type"] integerValue] == kPostTypeTopOut) {
+        cell.userNameLabel.text = [NSString stringWithFormat:@"%@%@", cell.userNameLabel.text, @" 🏆"];
+    }
     
     return cell;
 }

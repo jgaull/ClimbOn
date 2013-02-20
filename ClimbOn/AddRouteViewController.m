@@ -121,6 +121,7 @@
     
     CheckInViewController *checkInView = (CheckInViewController *)segue.destinationViewController;
     checkInView.route = self.route;
+    checkInView.postType = self.postType;
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
