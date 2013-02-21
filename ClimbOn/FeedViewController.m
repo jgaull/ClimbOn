@@ -34,25 +34,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    PFQuery *feedQuery = [PFQuery queryWithClassName:@"Post"];
-    [feedQuery whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
-    [feedQuery includeKey:@"creator"];
-    [feedQuery includeKey:@"route"];
-    [feedQuery orderByDescending:@"createdAt"];
-    [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            self.data = [[NSArray alloc] initWithArray:objects];
-            [self.tableView reloadData];
-        }
-        else {
-            NSLog(@"Dag, an error");
-        }
-    }];
+    [self refresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,7 +74,6 @@
     // Configure the cell...
     cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
     cell.postTextLabel.text = [postData objectForKey:@"userText"];
-    NSLog(@"%@", cell.postTextLabel.text);
     cell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [route objectForKey:@"rating"]];
     cell.dateLabel.text = [postData objectForKey:@"createdAt"];
     
@@ -131,6 +119,24 @@
     [super prepareForSegue:segue sender:sender];
 }
 
+- (void)refresh {
+    PFQuery *feedQuery = [PFQuery queryWithClassName:@"Post"];
+    [feedQuery whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
+    [feedQuery includeKey:@"creator"];
+    [feedQuery includeKey:@"route"];
+    [feedQuery orderByDescending:@"createdAt"];
+    [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.data = [[NSArray alloc] initWithArray:objects];
+            [self.tableView reloadData];
+        }
+        else {
+            NSLog(@"Dag, an error");
+        }
+        
+        [self.refreshControl endRefreshing];
+    }];
+}
 
 /*
 // Override to support conditional editing of the table view.

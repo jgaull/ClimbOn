@@ -18,7 +18,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVY-Xr-850" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1606" y="851"/>
+            <point key="canvasLocation" x="2124" y="473"/>
         </scene>
         <!--Add Route View Controller - Create Route-->
         <scene sceneID="11">
@@ -87,7 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2464" y="851"/>
+            <point key="canvasLocation" x="2981" y="473"/>
         </scene>
         <!--Nearby Routes View Controller - Nearby-->
         <scene sceneID="Z0F-bW-RUH">
@@ -152,7 +152,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKv-jr-at5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2038" y="851"/>
+            <point key="canvasLocation" x="2559" y="473"/>
         </scene>
         <!--Check In View Controller - Check In-->
         <scene sceneID="hju-My-vi2">
@@ -221,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vT4-r4-6Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2903" y="851"/>
+            <point key="canvasLocation" x="3420" y="473"/>
         </scene>
         <!--First Login View Controller-->
         <scene sceneID="WCI-kT-WH5">
@@ -345,6 +345,7 @@
                         <outlet property="logInButton" destination="S9h-y1-B2E" id="gMB-Kc-UOK"/>
                         <outlet property="profilePicture" destination="acd-Mk-FGX" id="AfU-CH-aBJ"/>
                         <outlet property="userNameLabel" destination="Q15-8g-KZN" id="Tdw-nG-Nlh"/>
+                        <segue destination="DZa-ml-FMP" kind="modal" identifier="createPost" id="8Dy-gH-ttF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
@@ -413,7 +414,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v1f-FV-4ZG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1606" y="180"/>
+            <point key="canvasLocation" x="1618" y="180"/>
         </scene>
         <!--Navigation Controller - Feed-->
         <scene sceneID="6Qu-vD-IXp">
@@ -625,6 +626,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="zIi-kC-cbL"/>
         <segue reference="X7a-z2-6Ih"/>
     </inferredMetricsTieBreakers>
 </document>

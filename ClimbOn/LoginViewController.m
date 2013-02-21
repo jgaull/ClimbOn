@@ -69,7 +69,7 @@
 }
 
 - (void)displayUserInfo {
-    NSString *requestPath = @"me?fields=friends.fields(installed,id),name,location,first_name,last_name";
+    NSString *requestPath = @"me?fields=name,location,first_name,last_name";
     
     // Send request to Facebook
     PF_FBRequest *request = [PF_FBRequest requestForGraphPath:requestPath];

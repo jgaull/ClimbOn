@@ -47,25 +47,20 @@
 }
 
 - (IBAction)onDoneButton:(id)sender {
-    if (self.postTextView.isFirstResponder) {
-        [self.postTextView resignFirstResponder];
+    PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
+    [post setObject:self.postTextView.text forKey:@"userText"];
+    [post setObject:[PFUser currentUser] forKey:@"creator"];
+    [post setObject:self.route forKey:@"route"];
+    [post setObject:[NSNumber numberWithInt:self.postType] forKey:@"type"];
+    
+    if (self.selectedImage) {
+        [post setObject:self.selectedImage forKey:@"image"];
     }
-    else {
-        PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
-        [post setObject:self.postTextView.text forKey:@"userText"];
-        [post setObject:[PFUser currentUser] forKey:@"creator"];
-        [post setObject:self.route forKey:@"route"];
-        [post setObject:[NSNumber numberWithInt:self.postType] forKey:@"type"];
-        
-        if (self.selectedImage) {
-            [post setObject:self.selectedImage forKey:@"image"];
-        }
-        
-        [post saveEventually];
-        [self.route saveEventually];
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    
+    [self.route saveEventually];
+    [post saveEventually];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onAddImageButton:(id)sender {

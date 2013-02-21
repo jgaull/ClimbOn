@@ -15,10 +15,10 @@
     // Override point for customization after application launch.
     
     //PROD DATABASE
-    [Parse setApplicationId:@"gKI8pAAG7fOo1xe96xVijup7etRDnejCrVJ5ds4P" clientKey:@"HL7bIFC9Xk2fgY9Cr73beFwQaILOEc5Pw2Bs6xge"];
+    //[Parse setApplicationId:@"gKI8pAAG7fOo1xe96xVijup7etRDnejCrVJ5ds4P" clientKey:@"HL7bIFC9Xk2fgY9Cr73beFwQaILOEc5Pw2Bs6xge"];
     
     //DEV DATABASE
-    //[Parse setApplicationId:@"5fIMJLoPq55Wc902Z1etXgb0Ic9Za53yY4cfolad" clientKey:@"mBY4WJ5LVCPNjrE4rNZUWyDlSc54SYs7HfwGgpfj"];
+    [Parse setApplicationId:@"5fIMJLoPq55Wc902Z1etXgb0Ic9Za53yY4cfolad" clientKey:@"mBY4WJ5LVCPNjrE4rNZUWyDlSc54SYs7HfwGgpfj"];
     
     
     [PFFacebookUtils initializeWithApplicationId:@"400656610003830"];
