@@ -10,6 +10,7 @@
 #import "CheckInCell.h"
 #import "NearbyRoutesViewController.h"
 #import "CheckInViewController.h"
+#import "PostDetailsViewController.h"
 
 #import <Parse/Parse.h>
 
@@ -91,16 +92,6 @@
     return size.height + 70;
 }
 
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if ([identifier isEqualToString:@"createPost"]) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Check In", @"Top Out", nil];
-        [actionSheet showInView:self.tabBarController.view];
-        
-        return NO;
-    }
-    return YES;
-}
-
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     NSInteger postType = buttonIndex;
@@ -112,9 +103,16 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-    NearbyRoutesViewController *nearbyRoutes = (NearbyRoutesViewController *)[navController.viewControllers objectAtIndex:0];
-    nearbyRoutes.postType = self.postType;
+    
+    if ([segue.identifier isEqualToString:@"createPost"]) {
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        NearbyRoutesViewController *nearbyRoutes = (NearbyRoutesViewController *)[navController.viewControllers objectAtIndex:0];
+        nearbyRoutes.postType = self.postType;
+    }
+    else if ([segue.identifier isEqualToString:@"showPostDetails"]) {
+        PostDetailsViewController *postDetails = (PostDetailsViewController *)segue.destinationViewController;
+        postDetails.postData = [self.data objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    }
     
     [super prepareForSegue:segue sender:sender];
 }
