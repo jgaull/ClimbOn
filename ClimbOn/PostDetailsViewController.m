@@ -52,10 +52,11 @@
     self.likeButton.enabled = NO;
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
-            [self.likeButton setTitle:@"💔" forState:UIControlStateNormal];
+            [self.likeButton setImage:[UIImage imageNamed:@"likebuttonliked.png"] forState:UIControlStateNormal];
+            self.likeData = object;
         }
         else {
-            [self.likeButton setTitle:@"❤" forState:UIControlStateNormal];
+            [self.likeButton setImage:[UIImage imageNamed:@"likebutton.png"] forState:UIControlStateNormal];
         }
         
         self.likeButton.enabled = YES;
@@ -73,7 +74,7 @@
     if (self.likeData) {
         [self.likeData deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
-                [self.likeButton setTitle:@"❤" forState:UIControlStateNormal];
+                [self.likeButton setImage:[UIImage imageNamed:@"likebutton.png"] forState:UIControlStateNormal];
                 self.likeData = nil;
             }
             
@@ -87,7 +88,7 @@
         self.likeData = likeData;
         [likeData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
-                [self.likeButton setTitle:@"💔" forState:UIControlStateNormal];
+                [self.likeButton setImage:[UIImage imageNamed:@"likebuttonliked.png"] forState:UIControlStateNormal];
             }
             
             self.likeButton.enabled = YES;
