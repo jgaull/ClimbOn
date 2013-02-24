@@ -13,7 +13,6 @@
 @interface AddRouteViewController ()
 
 @property (strong, nonatomic) IBOutlet UITextField *routeNameField;
-@property (strong, nonatomic) IBOutlet UITextField *routeRatingField;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -45,7 +44,6 @@
 
 - (void)dealloc {
     self.routeNameField = nil;
-    self.routeRatingField = nil;
     self.mapView = nil;
     self.locationManager = nil;
 }
@@ -59,10 +57,6 @@
         alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Please give the route a name." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }
-    else if ([self.routeRatingField.text isEqualToString:@""]) {
-        alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Please give the route a rating." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
-    }
     else
     {
         PFObject *route = self.route;
@@ -72,7 +66,6 @@
         }
         
         [route setObject:self.routeNameField.text forKey:@"name"];
-        [route setObject:self.routeRatingField.text forKey:@"rating"];
         [route setObject:[PFUser currentUser] forKey:@"creator"];
         [route setObject:[PFGeoPoint geoPointWithLocation:self.currentLocation] forKey:@"location"];
         self.route = route;
@@ -84,13 +77,7 @@
 #pragma Mark Text Field Delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
-    if (self.routeNameField.isFirstResponder) {
-        [self.routeRatingField becomeFirstResponder];
-    }
-    else {
-        [textField resignFirstResponder];
-    }
+    [textField resignFirstResponder];
     
     return NO;
 }
