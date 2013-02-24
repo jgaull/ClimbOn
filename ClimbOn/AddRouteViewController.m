@@ -9,6 +9,8 @@
 #import "AddRouteViewController.h"
 #import "CheckInViewController.h"
 #import <Parse/Parse.h>
+#import "RouteAnnotationView.h"
+#import "RouteAnnotation.h"
 
 @interface AddRouteViewController ()
 
@@ -18,6 +20,8 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
 @property (strong, nonatomic) PFObject *route;
+@property (strong, nonatomic) RouteAnnotationView *userPin;
+@property (strong, nonatomic) RouteAnnotation *annotation;
 
 @property (nonatomic) int selectingImage;
 
@@ -34,6 +38,7 @@
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,14 +90,9 @@
 #pragma Mark location manager delegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    
+    NSLog(@"didUpdateLocations");
     self.currentLocation = [locations objectAtIndex:0];
     
-    int width = MAX(self.currentLocation.horizontalAccuracy, 50);
-    int height = MAX(self.currentLocation.verticalAccuracy, 50);
-    
-    MKCoordinateRegion viewRegion = [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, width, height)];
-    [self.mapView setRegion:viewRegion animated:YES];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -102,6 +102,37 @@
 - (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
     NSLog(@"Pause");
 }
+
+#pragma Map view delegate
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    NSLog(@"did udpate user location");
+    
+    if(self.currentLocation != nil) {
+        
+        int width = MAX(self.currentLocation.horizontalAccuracy, 50);
+        int height = MAX(self.currentLocation.verticalAccuracy, 50);
+        
+        MKCoordinateRegion viewRegion = [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, width, height)];
+        [self.mapView setRegion:viewRegion animated:YES];
+        if(self.annotation == nil)
+        {
+            self.annotation = [[RouteAnnotation alloc] init];
+    //        self.userPin = [[RouteAnnotationView alloc] initWithAnnotation:self.annotation reuseIdentifier:@"route"];
+            [self.mapView addAnnotation:self.annotation];
+//            self.annotation
+    //        [self.mapView addSubview:self.userPin];
+        }
+        if(self.annotation != nil)
+        {
+            NSLog(@"updating annotation");
+            [self.annotation setCoordinate:viewRegion.center];
+//            [self.userPin setNeedsDisplay];
+        }
+    }
+}
+
+//- (void)lo
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];

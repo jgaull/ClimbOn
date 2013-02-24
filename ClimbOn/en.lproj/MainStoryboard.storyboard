@@ -37,8 +37,11 @@
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1" mapType="satellite" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VsA-WC-62s">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="4uz-gW-blh"/>
+                                    <constraint firstAttribute="width" constant="334" id="sMR-gF-iWM"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="2" id="Fb5-u4-YUH"/>
+                                </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQS-lZ-O2K">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -57,13 +60,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="VsA-WC-62s" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="-8" id="27L-hU-8i1"/>
                             <constraint firstItem="Dk9-Ye-XfM" firstAttribute="top" secondItem="16" secondAttribute="top" constant="20" symbolic="YES" type="default" id="AdA-Ag-Dkx"/>
-                            <constraint firstItem="VsA-WC-62s" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="O9M-RT-NvE"/>
-                            <constraint firstItem="KQS-lZ-O2K" firstAttribute="top" secondItem="VsA-WC-62s" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="TSt-kl-Zx7"/>
-                            <constraint firstAttribute="trailing" secondItem="VsA-WC-62s" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="akI-Lc-txp"/>
-                            <constraint firstItem="KQS-lZ-O2K" firstAttribute="centerX" secondItem="VsA-WC-62s" secondAttribute="centerX" type="default" id="kaf-XJ-isp"/>
+                            <constraint firstAttribute="bottom" secondItem="KQS-lZ-O2K" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="RbI-ja-RC2"/>
+                            <constraint firstItem="KQS-lZ-O2K" firstAttribute="top" secondItem="VsA-WC-62s" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="aNP-op-FuF"/>
                             <constraint firstItem="Dk9-Ye-XfM" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="nl3-tY-W7T"/>
-                            <constraint firstItem="VsA-WC-62s" firstAttribute="top" secondItem="16" secondAttribute="top" constant="96" id="qlJ-dd-Kb6"/>
+                            <constraint firstItem="VsA-WC-62s" firstAttribute="top" secondItem="Dk9-Ye-XfM" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="qnM-P0-niu"/>
+                            <constraint firstItem="KQS-lZ-O2K" firstAttribute="centerX" secondItem="Dk9-Ye-XfM" secondAttribute="centerX" type="default" id="tWg-xq-XlG"/>
                             <constraint firstAttribute="trailing" secondItem="Dk9-Ye-XfM" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="vgf-ba-WYJ"/>
                         </constraints>
                     </view>
@@ -639,76 +642,6 @@
         <image name="likebutton.png" width="47" height="31"/>
         <image name="second" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="AddRouteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="CheckInCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postTextLabel" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userPhotoImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="CheckInViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onAddImageButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
-                <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="FeedViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-        </class>
-        <class className="FindFriendsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
-        </class>
-        <class className="FirstLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
-        </class>
-        <class className="FollowUserCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="LoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="profilePicture" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="NearbyRoutesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
-        </class>
-        <class className="PostDetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="postTextField" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userProfileImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

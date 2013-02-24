@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93F5A7CB16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
+		93F5A7CC16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
+		93F5A7CD16D9DF9300B2476F /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */; };
+		93F5A7CE16D9DF9300B2476F /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */; };
 		FC0DDD4C16C24FE70004C11D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD4B16C24FE70004C11D /* Parse.framework */; };
 		FC0DDD4E16C250080004C11D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD4D16C250080004C11D /* AudioToolbox.framework */; };
 		FC0DDD5016C2500F0004C11D /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD4F16C2500F0004C11D /* Accounts.framework */; };
@@ -72,6 +76,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotationView.m; sourceTree = "<group>"; };
+		93F5A7C816D9DF9300B2476F /* RouteAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteAnnotationView.h; sourceTree = "<group>"; };
+		93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotation.m; sourceTree = "<group>"; };
+		93F5A7CA16D9DF9300B2476F /* RouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteAnnotation.h; sourceTree = "<group>"; };
 		FC0DDD4B16C24FE70004C11D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		FC0DDD4D16C250080004C11D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FC0DDD4F16C2500F0004C11D /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -232,35 +240,39 @@
 		FC2A83F016A3723B00637D74 /* ClimbOn */ = {
 			isa = PBXGroup;
 			children = (
-				FCF0BA2516D7559000A508F2 /* assets */,
-				FC2A83F916A3723B00637D74 /* AppDelegate.h */,
-				FC2A83FA16A3723B00637D74 /* AppDelegate.m */,
-				FC2A840216A3723B00637D74 /* MainStoryboard.storyboard */,
 				FC2A840516A3723B00637D74 /* AddRouteViewController.h */,
 				FC2A840616A3723B00637D74 /* AddRouteViewController.m */,
-				FC2A840816A3723B00637D74 /* first.png */,
-				FC2A840A16A3723B00637D74 /* first@2x.png */,
-				FC2A840C16A3723B00637D74 /* LoginViewController.h */,
-				FC2A840D16A3723B00637D74 /* LoginViewController.m */,
-				FC2A840F16A3723B00637D74 /* second.png */,
-				FC2A841116A3723B00637D74 /* second@2x.png */,
-				FC2A83F116A3723B00637D74 /* Supporting Files */,
+				FC2A83F916A3723B00637D74 /* AppDelegate.h */,
+				FC2A83FA16A3723B00637D74 /* AppDelegate.m */,
+				FCF0BA2516D7559000A508F2 /* assets */,
+				FC13855116D1AA8F00FEFBDA /* CheckInCell.h */,
+				FC13855216D1AA8F00FEFBDA /* CheckInCell.m */,
 				FCE6778916C8EB6B00CD4924 /* CheckInViewController.h */,
 				FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */,
 				FC13854E16D18BFE00FEFBDA /* FeedViewController.h */,
 				FC13854F16D18BFE00FEFBDA /* FeedViewController.m */,
-				FC13855116D1AA8F00FEFBDA /* CheckInCell.h */,
-				FC13855216D1AA8F00FEFBDA /* CheckInCell.m */,
-				FCD3154B16D20330004CCC59 /* NearbyRoutesViewController.h */,
-				FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */,
 				FC26337916D2B5880001A63A /* FindFriendsViewController.h */,
 				FC26337A16D2B5880001A63A /* FindFriendsViewController.m */,
-				FC26337C16D2B60D0001A63A /* FollowUserCell.h */,
-				FC26337D16D2B60D0001A63A /* FollowUserCell.m */,
+				FC2A840816A3723B00637D74 /* first.png */,
+				FC2A840A16A3723B00637D74 /* first@2x.png */,
 				FCC1DDD816D35FFC009288FF /* FirstLoginViewController.h */,
 				FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */,
+				FC26337C16D2B60D0001A63A /* FollowUserCell.h */,
+				FC26337D16D2B60D0001A63A /* FollowUserCell.m */,
+				FC2A840C16A3723B00637D74 /* LoginViewController.h */,
+				FC2A840D16A3723B00637D74 /* LoginViewController.m */,
+				FC2A840216A3723B00637D74 /* MainStoryboard.storyboard */,
+				FCD3154B16D20330004CCC59 /* NearbyRoutesViewController.h */,
+				FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */,
 				FC226EFD16D60ED600BDA65A /* PostDetailsViewController.h */,
 				FC226EFE16D60ED600BDA65A /* PostDetailsViewController.m */,
+				93F5A7CA16D9DF9300B2476F /* RouteAnnotation.h */,
+				93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */,
+				93F5A7C816D9DF9300B2476F /* RouteAnnotationView.h */,
+				93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */,
+				FC2A840F16A3723B00637D74 /* second.png */,
+				FC2A841116A3723B00637D74 /* second@2x.png */,
+				FC2A83F116A3723B00637D74 /* Supporting Files */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -443,6 +455,8 @@
 				FC26337E16D2B60D0001A63A /* FollowUserCell.m in Sources */,
 				FCC1DDDA16D35FFC009288FF /* FirstLoginViewController.m in Sources */,
 				FC226EFF16D60ED700BDA65A /* PostDetailsViewController.m in Sources */,
+				93F5A7CB16D9DF9300B2476F /* RouteAnnotationView.m in Sources */,
+				93F5A7CD16D9DF9300B2476F /* RouteAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +465,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC2A842716A3723C00637D74 /* ClimbOnTests.m in Sources */,
+				93F5A7CC16D9DF9300B2476F /* RouteAnnotationView.m in Sources */,
+				93F5A7CE16D9DF9300B2476F /* RouteAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
