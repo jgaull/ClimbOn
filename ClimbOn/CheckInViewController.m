@@ -37,7 +37,7 @@
     [self.postTextView becomeFirstResponder];
     
     if (self.postType == kPostTypeTopOut) {
-        self.postTextView.text = [NSString stringWithFormat:@"I just topped out %@, %@", [self.route objectForKey:@"name"], [self.route objectForKey:@"rating"]];
+        self.postTextView.text = [NSString stringWithFormat:@"I just topped out %@, %@", [self.route objectForKey:@"name"], [[self.route objectForKey:@"rating"] objectForKey:@"name"]];
     }
 }
 

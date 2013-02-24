@@ -13,7 +13,8 @@
 
 @interface NearbyRoutesViewController ()
 
-@property (nonatomic, strong) NSArray *data;
+@property (nonatomic, strong) NSDictionary *ratings;
+@property (nonatomic, strong) NSArray *ratingTypesList;
 
 @end
 
@@ -36,8 +37,25 @@
         if (!error) {
             PFQuery *query = [[PFQuery alloc] initWithClassName:@"Route"];
             [query whereKey:@"location" nearGeoPoint:geoPoint withinMiles:1];
+            [query includeKey:@"rating"];
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                self.data = [[NSMutableArray alloc] initWithArray:objects];
+                NSMutableDictionary *tempRatingsLookup = [[NSMutableDictionary alloc] init];
+                NSMutableArray *tempRatingTypeList = [[NSMutableArray alloc] init];
+                
+                for (PFObject *routeData in objects) {
+                    PFObject *ratingData = [routeData objectForKey:@"rating"];
+                    NSMutableArray *routesOfRating = [tempRatingsLookup objectForKey:ratingData.objectId];
+                    if (routesOfRating == nil) {
+                        routesOfRating = [[NSMutableArray alloc] init];
+                        [tempRatingsLookup setObject:routesOfRating forKey:ratingData.objectId];
+                        [tempRatingTypeList addObject:ratingData];
+                    }
+                    
+                    [routesOfRating addObject:routeData];
+                }
+                
+                self.ratings = tempRatingsLookup;
+                self.ratingTypesList = tempRatingTypeList;
                 [self.tableView reloadData];
             }];
         }
@@ -57,19 +75,33 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.ratings.count + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.data.count + 1;
+    if (section == 0) {
+        return 1;
+    }
+    
+    NSString *ratingType = [self.ratingTypesList objectAtIndex:section - 1];
+    return ((NSArray *)[self.ratings objectForKey:((PFObject *)ratingType).objectId]).count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return nil;
+    }
+    
+    PFObject *ratingData = [self.ratingTypesList objectAtIndex:section - 1];
+    return [ratingData objectForKey:@"name"];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellIdentifier;
     
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         cellIdentifier = @"createNew";
     }
     else {
@@ -78,9 +110,10 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    if (indexPath.row > 0) {
-        PFObject *routeData = [self.data objectAtIndex:indexPath.row - 1];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [routeData objectForKey:@"rating"]];
+    if (indexPath.section > 0) {
+        PFObject *routeData = [self getRouteDataForIndexPath:indexPath];
+        PFObject *rating = [routeData objectForKey:@"rating"];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
     }
     
     // Configure the cell...
@@ -93,7 +126,7 @@
     
     if ([segue.identifier isEqualToString:@"checkInAtRoute"]) {
         CheckInViewController *checkInView = (CheckInViewController *)segue.destinationViewController;
-        checkInView.route = [self.data objectAtIndex:[self.tableView indexPathForSelectedRow].row - 1];
+        checkInView.route = [self getRouteDataForIndexPath:self.tableView.indexPathForSelectedRow];
         checkInView.postType = self.postType;
     }
     else if ([segue.identifier isEqualToString:@"createRoute"]) {
@@ -104,6 +137,11 @@
 
 - (IBAction)onCancelButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (PFObject *)getRouteDataForIndexPath:(NSIndexPath *)indexPath {
+    PFObject *ratingType = [self.ratingTypesList objectAtIndex:indexPath.section - 1];
+    return [[self.ratings objectForKey:ratingType.objectId] objectAtIndex:indexPath.row];
 }
 
 /*
