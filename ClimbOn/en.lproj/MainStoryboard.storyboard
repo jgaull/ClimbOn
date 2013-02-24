@@ -29,6 +29,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Route Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dk9-Ye-XfM">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="oZ5-K4-oyz"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                 <connections>
@@ -43,8 +46,12 @@
                                     <outlet property="delegate" destination="2" id="Fb5-u4-YUH"/>
                                 </connections>
                             </mapView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="marker.png" translatesAutoresizingMaskIntoConstraints="NO" id="wc2-J9-y0e"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="markerShadow.png" translatesAutoresizingMaskIntoConstraints="NO" id="a7I-eG-JiH"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="marker.png" translatesAutoresizingMaskIntoConstraints="NO" id="Zdi-cf-43I"/>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQS-lZ-O2K">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="tcT-FK-FmZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Check In">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -61,15 +68,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="VsA-WC-62s" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="-8" id="5ZL-no-o3t"/>
                             <constraint firstItem="Dk9-Ye-XfM" firstAttribute="top" secondItem="16" secondAttribute="top" constant="20" symbolic="YES" type="default" id="AdA-Ag-Dkx"/>
-                            <constraint firstItem="KQS-lZ-O2K" firstAttribute="centerX" secondItem="Dk9-Ye-XfM" secondAttribute="centerX" type="default" id="Mar-Wr-aO7"/>
+                            <constraint firstItem="a7I-eG-JiH" firstAttribute="centerX" secondItem="KQS-lZ-O2K" secondAttribute="centerX" type="default" id="D0T-Py-idv"/>
+                            <constraint firstItem="a7I-eG-JiH" firstAttribute="top" secondItem="Dk9-Ye-XfM" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="J4Y-Da-Pwg"/>
+                            <constraint firstItem="a7I-eG-JiH" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="Nec-Ae-oJ1"/>
+                            <constraint firstItem="Zdi-cf-43I" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" type="default" id="Q8c-r3-1hM"/>
+                            <constraint firstItem="Zdi-cf-43I" firstAttribute="top" secondItem="Dk9-Ye-XfM" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Ray-WF-WXB"/>
                             <constraint firstAttribute="bottom" secondItem="KQS-lZ-O2K" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="RbI-ja-RC2"/>
+                            <constraint firstItem="KQS-lZ-O2K" firstAttribute="top" secondItem="a7I-eG-JiH" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="U2A-jQ-DCe"/>
                             <constraint firstItem="KQS-lZ-O2K" firstAttribute="top" secondItem="VsA-WC-62s" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="aNP-op-FuF"/>
-                            <constraint firstItem="wc2-J9-y0e" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="95" id="fGr-yh-Krd"/>
-                            <constraint firstItem="wc2-J9-y0e" firstAttribute="centerY" secondItem="16" secondAttribute="centerY" type="default" id="lX0-Vb-oQR"/>
-                            <constraint firstItem="wc2-J9-y0e" firstAttribute="centerX" secondItem="VsA-WC-62s" secondAttribute="centerX" type="default" id="n9n-5H-8Za"/>
+                            <constraint firstItem="a7I-eG-JiH" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" type="default" id="g1W-6s-eIb"/>
+                            <constraint firstItem="KQS-lZ-O2K" firstAttribute="top" secondItem="Zdi-cf-43I" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="jKj-1Q-1wM"/>
                             <constraint firstItem="Dk9-Ye-XfM" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="nl3-tY-W7T"/>
                             <constraint firstItem="VsA-WC-62s" firstAttribute="top" secondItem="Dk9-Ye-XfM" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="qnM-P0-niu"/>
+                            <constraint firstItem="Zdi-cf-43I" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="ttO-hc-gwQ"/>
                             <constraint firstAttribute="trailing" secondItem="Dk9-Ye-XfM" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="vgf-ba-WYJ"/>
                         </constraints>
                     </view>
@@ -77,6 +90,7 @@
                     <navigationItem key="navigationItem" id="pBT-lL-o4D"/>
                     <connections>
                         <outlet property="mapView" destination="VsA-WC-62s" id="T8V-2m-Gxf"/>
+                        <outlet property="marker" destination="Zdi-cf-43I" id="62z-lQ-fGm"/>
                         <outlet property="routeNameField" destination="Dk9-Ye-XfM" id="5Tq-8F-ARf"/>
                     </connections>
                 </viewController>
@@ -224,7 +238,7 @@
             <objects>
                 <viewController id="ddG-a2-VJA" customClass="FirstAscentViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i5a-Uf-pv0">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUd-cY-XMN">
@@ -723,6 +737,7 @@
         <image name="first" width="16" height="16"/>
         <image name="likebutton.png" width="47" height="31"/>
         <image name="marker.png" width="128" height="128"/>
+        <image name="markerShadow.png" width="128" height="128"/>
         <image name="second" width="16" height="16"/>
         <image name="trophy.png" width="163" height="170"/>
     </resources>
@@ -730,7 +745,9 @@
         <class className="AddRouteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
             </relationships>
         </class>
@@ -809,6 +826,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="zIi-kC-cbL"/>
-        <segue reference="X7a-z2-6Ih"/>
+        <segue reference="gV9-rA-0Q7"/>
     </inferredMetricsTieBreakers>
 </document>

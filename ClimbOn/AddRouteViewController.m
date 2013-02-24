@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *routeNameField;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIImageView *marker;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
@@ -92,7 +93,7 @@
 #pragma Mark location manager delegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    NSLog(@"didUpdateLocations");
+//    NSLog(@"didUpdateLocations");
     if(self.currentLocation == nil) {
         self.currentLocation = [locations objectAtIndex:0];
         [self updateMap];
@@ -114,7 +115,18 @@
 {
     NSLog(@"region will change animated:%s", animated ? "true" : "false");
     if(self.currentLocation != nil && animated == NO)
+    {
         self.userOverride = YES;
+        [UIView animateWithDuration:0.5f
+                              delay:0.0f
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^(void) {
+                             CGRect frame = self.marker.frame;
+                             frame.origin.y = frame.origin.y - 10;
+                             self.marker.frame = frame;
+                         }
+                         completion:NULL];
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -125,11 +137,21 @@
         MKCoordinateRegion viewRegion = [self getMapRegion];
         self.routeLat = [NSNumber numberWithDouble:viewRegion.center.latitude];
         self.routeLon = [NSNumber numberWithDouble:viewRegion.center.longitude];
+        
+        [UIView animateWithDuration:0.2f
+                              delay:0.0f
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^(void) {
+                             CGRect frame = self.marker.frame;
+                             frame.origin.y = frame.origin.y + 10;
+                             self.marker.frame = frame;
+                         }
+                         completion:NULL];
 //        NSLog(@"user has set map to:%d, %d", self.routeLat, self.routeLon);
     }
 }
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    NSLog(@"did udpate user location");
+//    NSLog(@"did udpate user location");
     
     if(self.userOverride == NO)
         [self updateMap];
