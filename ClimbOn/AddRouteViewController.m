@@ -93,7 +93,10 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     NSLog(@"didUpdateLocations");
-    self.currentLocation = [locations objectAtIndex:0];
+    if(self.currentLocation == nil) {
+        self.currentLocation = [locations objectAtIndex:0];
+        [self updateMap];
+    }
     
 }
 
@@ -122,7 +125,7 @@
         MKCoordinateRegion viewRegion = [self getMapRegion];
         self.routeLat = [NSNumber numberWithDouble:viewRegion.center.latitude];
         self.routeLon = [NSNumber numberWithDouble:viewRegion.center.longitude];
-        NSLog(@"user has set map to:%d, %d", self.routeLat, self.routeLon);
+//        NSLog(@"user has set map to:%d, %d", self.routeLat, self.routeLon);
     }
 }
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
