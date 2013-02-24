@@ -23,5 +23,6 @@ static const int kFinish = 1;
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error;
 - (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager;
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation;
+- (MKCoordinateRegion)getMapRegion;
 
 @end

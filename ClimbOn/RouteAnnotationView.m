@@ -10,7 +10,7 @@ static CGFloat kViewLength = 100;
 static CGFloat kLeftMargin = 15.0;
 static CGFloat kRightMargin = 5.0;
 static CGFloat kTopMargin = 5.0;
-static CGFloat kBottomMargin = 10.0;
+//static CGFloat kBottomMargin = 10.0;
 static CGFloat kRoundBoxLeft = 10.0;
 
 @interface RouteAnnotationView ()

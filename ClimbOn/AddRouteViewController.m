@@ -19,9 +19,10 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
+@property (strong, nonatomic) NSNumber *routeLat;
+@property (strong, nonatomic) NSNumber *routeLon;
 @property (strong, nonatomic) PFObject *route;
-@property (strong, nonatomic) RouteAnnotationView *userPin;
-@property (strong, nonatomic) RouteAnnotation *annotation;
+@property (nonatomic) BOOL userOverride;
 
 @property (nonatomic) int selectingImage;
 
@@ -38,6 +39,7 @@
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
+    self.userOverride = NO;
     
 }
 
@@ -105,34 +107,45 @@
 
 #pragma Map view delegate
 
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+    NSLog(@"region will change animated:%s", animated ? "true" : "false");
+    if(self.currentLocation != nil && animated == NO)
+        self.userOverride = YES;
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    NSLog(@"regionDidChangeAnimated");
+//    [self updateMap];
+    if(self.userOverride == YES){
+        MKCoordinateRegion viewRegion = [self getMapRegion];
+        self.routeLat = [NSNumber numberWithDouble:viewRegion.center.latitude];
+        self.routeLon = [NSNumber numberWithDouble:viewRegion.center.longitude];
+        NSLog(@"user has set map to:%d, %d", self.routeLat, self.routeLon);
+    }
+}
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     NSLog(@"did udpate user location");
     
+    if(self.userOverride == NO)
+        [self updateMap];
+}
+
+- (void)updateMap
+{
     if(self.currentLocation != nil) {
-        
-        int width = MAX(self.currentLocation.horizontalAccuracy, 50);
-        int height = MAX(self.currentLocation.verticalAccuracy, 50);
-        
-        MKCoordinateRegion viewRegion = [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, width, height)];
+        MKCoordinateRegion viewRegion = [self getMapRegion];
         [self.mapView setRegion:viewRegion animated:YES];
-        if(self.annotation == nil)
-        {
-            self.annotation = [[RouteAnnotation alloc] init];
-    //        self.userPin = [[RouteAnnotationView alloc] initWithAnnotation:self.annotation reuseIdentifier:@"route"];
-            [self.mapView addAnnotation:self.annotation];
-//            self.annotation
-    //        [self.mapView addSubview:self.userPin];
-        }
-        if(self.annotation != nil)
-        {
-            NSLog(@"updating annotation");
-            [self.annotation setCoordinate:viewRegion.center];
-//            [self.userPin setNeedsDisplay];
-        }
     }
 }
 
-//- (void)lo
+- (MKCoordinateRegion)getMapRegion {
+    int width = MAX(self.currentLocation.horizontalAccuracy, 50);
+    int height = MAX(self.currentLocation.verticalAccuracy, 50);
+    
+    return [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, width, height)];
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
