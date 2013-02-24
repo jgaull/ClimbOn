@@ -58,6 +58,9 @@
 		FC2A841C16A3723C00637D74 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2A83EC16A3723B00637D74 /* Foundation.framework */; };
 		FC2A842416A3723C00637D74 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC2A842216A3723C00637D74 /* InfoPlist.strings */; };
 		FC2A842716A3723C00637D74 /* ClimbOnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC2A842616A3723C00637D74 /* ClimbOnTests.m */; };
+		FC7FB50916D9D13C0037614E /* FirstAscentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7FB50816D9D13C0037614E /* FirstAscentViewController.m */; };
+		FC7FB50C16D9DA5F0037614E /* trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7FB50A16D9DA5F0037614E /* trophy.png */; };
+		FC7FB50D16D9DA5F0037614E /* trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7FB50B16D9DA5F0037614E /* trophy@2x.png */; };
 		FCC1DDDA16D35FFC009288FF /* FirstLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */; };
 		FCD3154D16D20330004CCC59 /* NearbyRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */; };
 		FCE6778B16C8EB6B00CD4924 /* CheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */; };
@@ -141,6 +144,10 @@
 		FC2A842316A3723C00637D74 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FC2A842516A3723C00637D74 /* ClimbOnTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClimbOnTests.h; sourceTree = "<group>"; };
 		FC2A842616A3723C00637D74 /* ClimbOnTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClimbOnTests.m; sourceTree = "<group>"; };
+		FC7FB50716D9D13C0037614E /* FirstAscentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstAscentViewController.h; sourceTree = "<group>"; };
+		FC7FB50816D9D13C0037614E /* FirstAscentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstAscentViewController.m; sourceTree = "<group>"; };
+		FC7FB50A16D9DA5F0037614E /* trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trophy.png; sourceTree = "<group>"; };
+		FC7FB50B16D9DA5F0037614E /* trophy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trophy@2x.png"; sourceTree = "<group>"; };
 		FCC1DDD816D35FFC009288FF /* FirstLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLoginViewController.h; sourceTree = "<group>"; };
 		FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLoginViewController.m; sourceTree = "<group>"; };
 		FCD3154B16D20330004CCC59 /* NearbyRoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyRoutesViewController.h; sourceTree = "<group>"; };
@@ -279,6 +286,8 @@
 				FC2A840F16A3723B00637D74 /* second.png */,
 				FC2A841116A3723B00637D74 /* second@2x.png */,
 				FC2A83F116A3723B00637D74 /* Supporting Files */,
+				FC7FB50716D9D13C0037614E /* FirstAscentViewController.h */,
+				FC7FB50816D9D13C0037614E /* FirstAscentViewController.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -319,6 +328,8 @@
 		FCF0BA2516D7559000A508F2 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				FC7FB50A16D9DA5F0037614E /* trophy.png */,
+				FC7FB50B16D9DA5F0037614E /* trophy@2x.png */,
 				FCF0BA2A16D758B500A508F2 /* likebutton@2x.png */,
 				FCF0BA2B16D758B500A508F2 /* likebuttonliked@2x.png */,
 				FCF0BA2816D756F900A508F2 /* likebuttonliked.png */,
@@ -417,6 +428,8 @@
 				FCF0BA2D16D758B500A508F2 /* likebuttonliked@2x.png in Resources */,
 				93F5A7D116DA12EB00B2476F /* marker.png in Resources */,
 				93F5A7D216DA12EB00B2476F /* marker@2x.png in Resources */,
+				FC7FB50C16D9DA5F0037614E /* trophy.png in Resources */,
+				FC7FB50D16D9DA5F0037614E /* trophy@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +478,7 @@
 				FC226EFF16D60ED700BDA65A /* PostDetailsViewController.m in Sources */,
 				93F5A7CB16D9DF9300B2476F /* RouteAnnotationView.m in Sources */,
 				93F5A7CD16D9DF9300B2476F /* RouteAnnotation.m in Sources */,
+				FC7FB50916D9D13C0037614E /* FirstAscentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

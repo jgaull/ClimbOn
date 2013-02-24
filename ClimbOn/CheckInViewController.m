@@ -7,6 +7,7 @@
 //
 
 #import "CheckInViewController.h"
+#import "FirstAscentViewController.h"
 
 @interface CheckInViewController ()
 
@@ -47,6 +48,20 @@
 }
 
 - (IBAction)onDoneButton:(id)sender {
+    if (![self.route objectForKey:@"firstAscent"]) {
+        [self performSegueWithIdentifier:@"rateRoute" sender:self];
+    }
+    else {
+        PFObject *post = [self getPostData];
+        
+        [self.route saveEventually];
+        [post saveEventually];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (PFObject *)getPostData {
     PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
     [post setObject:self.postTextView.text forKey:@"userText"];
     [post setObject:[PFUser currentUser] forKey:@"creator"];
@@ -57,15 +72,20 @@
         [post setObject:self.selectedImage forKey:@"image"];
     }
     
-    [self.route saveEventually];
-    [post saveEventually];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    return post;
 }
 
 - (IBAction)onAddImageButton:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
     [actionSheet showInView:self.tabBarController.view];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+    
+    FirstAscentViewController *nextViewController = (FirstAscentViewController *)segue.destinationViewController;
+    nextViewController.routeData = self.route;
+    nextViewController.postData = [self getPostData];
 }
 
 #pragma Mark Text View Delegate methods.

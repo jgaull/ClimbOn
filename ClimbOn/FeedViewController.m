@@ -68,6 +68,7 @@
     PFObject *postData = [self.data objectAtIndex:indexPath.row];
     PFUser *creator = [postData objectForKey:@"creator"];
     PFObject *route = [postData objectForKey:@"route"];
+    PFObject *rating = [route objectForKey:@"rating"];
     
     NSString *cellIdentifier = @"CheckIn";
     CheckInCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -75,7 +76,7 @@
     // Configure the cell...
     cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
     cell.postTextLabel.text = [postData objectForKey:@"userText"];
-    cell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [route objectForKey:@"rating"]];
+    cell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:@"name"]];
     cell.dateLabel.text = [postData objectForKey:@"createdAt"];
     
     if ([[postData objectForKey:@"type"] integerValue] == kPostTypeTopOut) {
@@ -122,6 +123,7 @@
     [feedQuery whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
     [feedQuery includeKey:@"creator"];
     [feedQuery includeKey:@"route"];
+    [feedQuery includeKey:@"route.rating"];
     [feedQuery orderByDescending:@"createdAt"];
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {

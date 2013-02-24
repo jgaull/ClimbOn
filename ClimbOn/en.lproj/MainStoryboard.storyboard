@@ -212,11 +212,90 @@
                     <connections>
                         <outlet property="addImageButton" destination="bUc-gT-5BK" id="QTa-h6-dyW"/>
                         <outlet property="postTextView" destination="zrB-tw-ZgO" id="zKI-Vi-7dT"/>
+                        <segue destination="ddG-a2-VJA" kind="push" identifier="rateRoute" id="dG7-GB-a9x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vT4-r4-6Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3420" y="473"/>
+        </scene>
+        <!--First Ascent View Controller-->
+        <scene sceneID="IKv-JP-JkJ">
+            <objects>
+                <viewController id="ddG-a2-VJA" customClass="FirstAscentViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i5a-Uf-pv0">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUd-cY-XMN">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="VtF-Uf-HxN"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="ddG-a2-VJA" id="QZB-yL-ngf"/>
+                                    <outlet property="delegate" destination="ddG-a2-VJA" id="WML-Xh-yRw"/>
+                                </connections>
+                            </pickerView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="First Ascent!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmL-lb-bDg">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="7sK-BW-zOT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rate the route." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNp-F5-Kyv">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Please respect pre-existing ratings." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-Ns-l54">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="xjA-dY-NBA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="trophy.png" translatesAutoresizingMaskIntoConstraints="NO" id="cpC-xs-S2h">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="9VD-E2-agv"/>
+                                    <constraint firstAttribute="width" constant="84" id="X4s-uE-gzM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cpC-xs-S2h" firstAttribute="centerX" secondItem="kNp-F5-Kyv" secondAttribute="centerX" type="default" id="2JJ-yq-xYq"/>
+                            <constraint firstItem="jUd-cY-XMN" firstAttribute="leading" secondItem="i5a-Uf-pv0" secondAttribute="leading" type="default" id="3iJ-HD-4YR"/>
+                            <constraint firstItem="jUd-cY-XMN" firstAttribute="bottom" secondItem="i5a-Uf-pv0" secondAttribute="bottom" type="default" id="77T-GZ-Zro"/>
+                            <constraint firstItem="kNp-F5-Kyv" firstAttribute="top" secondItem="LmL-lb-bDg" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="CLh-W5-CHP"/>
+                            <constraint firstItem="dP1-Ns-l54" firstAttribute="leading" secondItem="i5a-Uf-pv0" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="L3u-KS-qvz"/>
+                            <constraint firstItem="cpC-xs-S2h" firstAttribute="top" secondItem="kNp-F5-Kyv" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="LOb-Br-8Bu"/>
+                            <constraint firstAttribute="trailing" secondItem="kNp-F5-Kyv" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="TtA-6W-F4O"/>
+                            <constraint firstItem="kNp-F5-Kyv" firstAttribute="leading" secondItem="i5a-Uf-pv0" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Vgn-cr-6dX"/>
+                            <constraint firstAttribute="trailing" secondItem="LmL-lb-bDg" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="X97-Yi-nCx"/>
+                            <constraint firstItem="LmL-lb-bDg" firstAttribute="leading" secondItem="i5a-Uf-pv0" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="aVf-h1-9VN"/>
+                            <constraint firstItem="LmL-lb-bDg" firstAttribute="top" secondItem="i5a-Uf-pv0" secondAttribute="top" constant="20" symbolic="YES" type="default" id="d6e-TE-FzT"/>
+                            <constraint firstItem="jUd-cY-XMN" firstAttribute="trailing" secondItem="i5a-Uf-pv0" secondAttribute="trailing" type="default" id="oID-iz-Myr"/>
+                            <constraint firstAttribute="trailing" secondItem="dP1-Ns-l54" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="tND-Ov-RUx"/>
+                            <constraint firstItem="jUd-cY-XMN" firstAttribute="top" secondItem="dP1-Ns-l54" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="yjK-tN-p27"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="YQO-ZC-OOd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="ljw-og-APT">
+                            <connections>
+                                <action selector="onDoneButton:" destination="ddG-a2-VJA" id="q9y-SY-K18"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="pickerView" destination="jUd-cY-XMN" id="LvE-RU-npW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gsh-I3-KfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3870" y="473"/>
         </scene>
         <!--First Login View Controller-->
         <scene sceneID="WCI-kT-WH5">
@@ -645,7 +724,84 @@
         <image name="likebutton.png" width="47" height="31"/>
         <image name="marker.png" width="128" height="128"/>
         <image name="second" width="16" height="16"/>
+        <image name="trophy.png" width="163" height="170"/>
     </resources>
+    <classes>
+        <class className="AddRouteViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="CheckInCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="postTextLabel" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userPhotoImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="CheckInViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="action" name="onDoneButton:"/>
+                <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="FeedViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+        </class>
+        <class className="FindFriendsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
+        </class>
+        <class className="FirstAscentViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
+                <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
+        <class className="FirstLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
+        </class>
+        <class className="FollowUserCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="profilePicture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NearbyRoutesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
+        </class>
+        <class className="PostDetailsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postTextField" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="userProfileImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
@@ -653,6 +809,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="zIi-kC-cbL"/>
-        <segue reference="gV9-rA-0Q7"/>
+        <segue reference="X7a-z2-6Ih"/>
     </inferredMetricsTieBreakers>
 </document>

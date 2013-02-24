@@ -39,11 +39,12 @@
     
     PFUser *creator = [self.postData objectForKey:@"creator"];
     PFObject *route = [self.postData objectForKey:@"route"];
+    PFObject *difficulty = [route objectForKey:@"difficulty"];
     
     // Configure the cell...
     self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
     self.postTextField.text = [self.postData objectForKey:@"userText"];
-    [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [route objectForKey:@"rating"]] forState:UIControlStateNormal];
+    [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [difficulty objectForKey:@"name"]] forState:UIControlStateNormal];
     //cell.dateLabel.text = [self.postData objectForKey:@"createdAt"];
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Like"];
