@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *routeNameField;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIImageView *marker;
+@property (weak, nonatomic) IBOutlet UIImageView *markerShadow;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
@@ -124,6 +125,8 @@
                              CGRect frame = self.marker.frame;
                              frame.origin.y = frame.origin.y - 10;
                              self.marker.frame = frame;
+                             self.marker.alpha = 0.8;
+                             self.markerShadow.alpha = 0.3;
                          }
                          completion:NULL];
     }
@@ -145,6 +148,8 @@
                              CGRect frame = self.marker.frame;
                              frame.origin.y = frame.origin.y + 10;
                              self.marker.frame = frame;
+                             self.marker.alpha = 1;
+                             self.markerShadow.alpha = 1;
                          }
                          completion:NULL];
 //        NSLog(@"user has set map to:%d, %d", self.routeLat, self.routeLon);
