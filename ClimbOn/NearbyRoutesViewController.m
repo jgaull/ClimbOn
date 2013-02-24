@@ -36,6 +36,7 @@
         if (!error) {
             PFQuery *query = [[PFQuery alloc] initWithClassName:@"Route"];
             [query whereKey:@"location" nearGeoPoint:geoPoint withinMiles:1];
+            [query includeKey:@"rating"];
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 self.data = [[NSMutableArray alloc] initWithArray:objects];
                 [self.tableView reloadData];
@@ -80,7 +81,8 @@
     
     if (indexPath.row > 0) {
         PFObject *routeData = [self.data objectAtIndex:indexPath.row - 1];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [routeData objectForKey:@"rating"]];
+        PFObject *rating = [routeData objectForKey:@"rating"];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
     }
     
     // Configure the cell...
