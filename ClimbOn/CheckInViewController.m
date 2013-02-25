@@ -33,7 +33,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
     [self.postTextView becomeFirstResponder];
     
     if (self.postType == kPostTypeTopOut) {
@@ -48,7 +47,8 @@
 }
 
 - (IBAction)onDoneButton:(id)sender {
-    if (![self.route objectForKey:@"firstAscent"]) {
+    NSLog(@"firstAscent: %@, postType: %d", [self.route objectForKey:@"firstAscent"], self.postType);
+    if (![self.route objectForKey:@"firstAscent"] && self.postType == kPostTypeTopOut) {
         [self performSegueWithIdentifier:@"rateRoute" sender:self];
     }
     else {
