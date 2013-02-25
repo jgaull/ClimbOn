@@ -47,12 +47,15 @@
 }
 
 - (IBAction)onDoneButton:(id)sender {
-    NSLog(@"firstAscent: %@, postType: %d", [self.route objectForKey:@"firstAscent"], self.postType);
     if (![self.route objectForKey:@"firstAscent"] && self.postType == kPostTypeTopOut) {
         [self performSegueWithIdentifier:@"rateRoute" sender:self];
     }
     else {
         PFObject *post = [self getPostData];
+        
+        if ([self.route objectForKey:@"rating"] == nil) {
+            
+        }
         
         [self.route saveEventually];
         [post saveEventually];

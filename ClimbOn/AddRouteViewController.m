@@ -77,6 +77,11 @@
         [route setObject:self.routeNameField.text forKey:@"name"];
         [route setObject:[PFUser currentUser] forKey:@"creator"];
         [route setObject:[PFGeoPoint geoPointWithLocation:self.currentLocation] forKey:@"location"];
+        
+        PFObject *rating = [[PFObject alloc] initWithClassName:@"Rating"];
+        rating.objectId = @"OJewnFZKQ4";
+        [route setObject:rating forKey:@"rating"];
+        
         self.route = route;
         
         [self performSegueWithIdentifier:@"showCheckInView" sender:self];

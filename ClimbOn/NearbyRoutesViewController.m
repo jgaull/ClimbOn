@@ -33,6 +33,8 @@
 {
     [super viewDidLoad];
     
+    self.title = @"Nearby";
+    
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
         if (!error) {
             PFQuery *query = [[PFQuery alloc] initWithClassName:@"Route"];
