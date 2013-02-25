@@ -36,7 +36,12 @@
     [self.postTextView becomeFirstResponder];
     
     if (self.postType == kPostTypeTopOut) {
-        self.postTextView.text = [NSString stringWithFormat:@"I just topped out %@, %@", [self.route objectForKey:@"name"], [[self.route objectForKey:@"rating"] objectForKey:@"name"]];
+        NSString *prefilledText = [NSString stringWithFormat:@"I just topped out %@, %@!", [self.route objectForKey:@"name"], [[self.route objectForKey:@"rating"] objectForKey:@"name"]];
+        if (![self.route objectForKey:@"firstAscent"]) {
+            prefilledText = [NSString stringWithFormat:@"I just got the first ascent of %@!", [self.route objectForKey:@"name"]];
+        }
+        
+        self.postTextView.text = prefilledText;
     }
 }
 
@@ -52,11 +57,6 @@
     }
     else {
         PFObject *post = [self getPostData];
-        
-        if ([self.route objectForKey:@"rating"] == nil) {
-            
-        }
-        
         [self.route saveEventually];
         [post saveEventually];
         

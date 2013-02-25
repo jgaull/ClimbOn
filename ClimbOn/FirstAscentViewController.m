@@ -34,9 +34,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Rating"];
     [query orderByAscending:@"difficulty"];
+    [query whereKey:@"ratingSystem" notEqualTo:@"unrated"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         NSMutableArray *ratingNames = [[NSMutableArray alloc] init];
