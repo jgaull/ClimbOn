@@ -8,10 +8,17 @@
 
 #import "RouteViewController.h"
 #import "CheckInCell.h"
+#import "RouteDataAnnotation.h"
+
+#import <MapKit/MapKit.h>
 
 @interface RouteViewController ()
 
 @property (nonatomic, strong) NSArray *posts;
+
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+
+@property (nonatomic) BOOL expandedMap;
 
 @end
 
@@ -48,6 +55,32 @@
             [self.tableView reloadData];
         }
     }];
+    
+    RouteDataAnnotation *annotation = [[RouteDataAnnotation alloc] initWithRouteData:self.routeData];
+    [self.mapView addAnnotation:annotation];
+    MKCoordinateRegion viewRegion = [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(annotation.coordinate, 1000, 1000)];
+    [self.mapView setRegion:viewRegion animated:NO];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapMap:)];
+    [self.mapView addGestureRecognizer:tapGesture];
+    self.expandedMap = false;
+}
+     
+- (void)onTapMap:(id)sender {
+    
+    self.expandedMap = !self.expandedMap;
+    float height = self.expandedMap ? 100 : self.view.frame.size.height;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.mapView setFrame:CGRectMake(self.mapView.frame.origin.x, self.mapView.frame.origin.y, self.mapView.frame.size.width, height)];
+    }];
+    
+    [self recenterMapAnimated:YES];
+}
+
+- (void)recenterMapAnimated:(BOOL)animated {
+    RouteDataAnnotation *annotation = [[RouteDataAnnotation alloc] initWithRouteData:self.routeData];
+    MKCoordinateRegion viewRegion = [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(annotation.coordinate, 1000, 1000)];
+    [self.mapView setRegion:viewRegion animated:animated];
 }
 
 - (void)didReceiveMemoryWarning

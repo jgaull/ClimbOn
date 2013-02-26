@@ -16,6 +16,7 @@
 		93F5A7D516DA314F00B2476F /* markerShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F5A7D316DA314F00B2476F /* markerShadow.png */; };
 		93F5A7D616DA314F00B2476F /* markerShadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F5A7D416DA314F00B2476F /* markerShadow@2x.png */; };
 		FC0507DE16DC9C8600CFBC0F /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0507DD16DC9C8600CFBC0F /* RouteViewController.m */; };
+		FC0507E116DCA72100CFBC0F /* RouteDataAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0507E016DCA72100CFBC0F /* RouteDataAnnotation.m */; };
 		FC0DDD4C16C24FE70004C11D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD4B16C24FE70004C11D /* Parse.framework */; };
 		FC0DDD4E16C250080004C11D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD4D16C250080004C11D /* AudioToolbox.framework */; };
 		FC0DDD5016C2500F0004C11D /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD4F16C2500F0004C11D /* Accounts.framework */; };
@@ -94,6 +95,8 @@
 		93F5A7D416DA314F00B2476F /* markerShadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "markerShadow@2x.png"; sourceTree = "<group>"; };
 		FC0507DC16DC9C8600CFBC0F /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
 		FC0507DD16DC9C8600CFBC0F /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
+		FC0507DF16DCA72100CFBC0F /* RouteDataAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteDataAnnotation.h; sourceTree = "<group>"; };
+		FC0507E016DCA72100CFBC0F /* RouteDataAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteDataAnnotation.m; sourceTree = "<group>"; };
 		FC0DDD4B16C24FE70004C11D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		FC0DDD4D16C250080004C11D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FC0DDD4F16C2500F0004C11D /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -299,6 +302,8 @@
 				FC7FB50816D9D13C0037614E /* FirstAscentViewController.m */,
 				FC0507DC16DC9C8600CFBC0F /* RouteViewController.h */,
 				FC0507DD16DC9C8600CFBC0F /* RouteViewController.m */,
+				FC0507DF16DCA72100CFBC0F /* RouteDataAnnotation.h */,
+				FC0507E016DCA72100CFBC0F /* RouteDataAnnotation.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				93F5A7CD16D9DF9300B2476F /* RouteAnnotation.m in Sources */,
 				FC7FB50916D9D13C0037614E /* FirstAscentViewController.m in Sources */,
 				FC0507DE16DC9C8600CFBC0F /* RouteViewController.m in Sources */,
+				FC0507E116DCA72100CFBC0F /* RouteDataAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

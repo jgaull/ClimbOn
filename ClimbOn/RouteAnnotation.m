@@ -3,6 +3,8 @@
 
 @implementation RouteAnnotation
 
+#warning This is a duplicate class
+
 - (CLLocationCoordinate2D)coordinate
 {
     coordinate.longitude = [self.longitude doubleValue];
