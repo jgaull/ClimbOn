@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -125,6 +125,7 @@
                                 </view>
                                 <connections>
                                     <segue destination="2" kind="push" identifier="createRoute" id="sTx-Vh-mLd"/>
+                                    <segue destination="2Z6-AQ-m6e" kind="push" trigger="accessoryAction" id="RJe-s8-M4R"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="existingRoute" textLabel="lTr-hf-T4Y" style="IBUITableViewCellStyleDefault" id="eKf-h2-ssU">
@@ -651,6 +652,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="2Z6-AQ-m6e" kind="push" identifier="viewRoute" id="TRT-AO-oWF"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYQ-MP-MNM">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -716,6 +720,102 @@
             </objects>
             <point key="canvasLocation" x="1618" y="851"/>
         </scene>
+        <!--Route View Controller-->
+        <scene sceneID="EbJ-Os-vP2">
+            <objects>
+                <tableViewController id="2Z6-AQ-m6e" customClass="RouteViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="dd1-WY-2gd">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckIn" rowHeight="131" id="qkx-Sb-9Ah" customClass="CheckInCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="131"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jal-Qr-QkF">
+                                            <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="FIt-gN-KOj"/>
+                                                <constraint firstAttribute="height" constant="40" id="lGU-u0-9W3"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="3QV-WW-0vq">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="85Q-Tg-qZB"/>
+                                                <constraint firstAttribute="width" constant="199" id="gD8-Qg-efk"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="At Route Name, Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hav-gi-7MT">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="MVH-zT-6tg"/>
+                                                <constraint firstAttribute="width" constant="232" id="v2V-16-TNk"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShU-cq-3qG">
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="80" id="7an-jJ-KdN"/>
+                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="80" type="user" id="YNL-N7-P12"/>
+                                            </constraints>
+                                            <string key="text">This is exactly 140 characters of text for a sample post to show what the maximum length for a single post would be. This text is padding...</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc0-8y-Vxh">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="57" id="CE7-tB-2Ar"/>
+                                                <constraint firstAttribute="height" constant="21" id="IsA-Ec-6Uj"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="ShU-cq-3qG" firstAttribute="top" secondItem="qkx-Sb-9Ah" secondAttribute="top" constant="50" id="6pb-bp-Jxd"/>
+                                    <constraint firstItem="oc0-8y-Vxh" firstAttribute="top" secondItem="qkx-Sb-9Ah" secondAttribute="top" constant="9" id="703-Yf-5h2"/>
+                                    <constraint firstItem="ShU-cq-3qG" firstAttribute="leading" secondItem="qkx-Sb-9Ah" secondAttribute="leading" type="default" id="8cI-N2-Gqv"/>
+                                    <constraint firstAttribute="trailing" secondItem="oc0-8y-Vxh" secondAttribute="trailing" constant="20" type="default" id="Exq-zh-Tri"/>
+                                    <constraint firstItem="ShU-cq-3qG" firstAttribute="trailing" secondItem="qkx-Sb-9Ah" secondAttribute="trailing" type="default" id="Fqx-eA-1Xn"/>
+                                    <constraint firstItem="Hav-gi-7MT" firstAttribute="leading" secondItem="Jal-Qr-QkF" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="TFd-iJ-Kds"/>
+                                    <constraint firstItem="Hav-gi-7MT" firstAttribute="bottom" secondItem="Jal-Qr-QkF" secondAttribute="bottom" type="default" id="ZXj-pp-MJ5"/>
+                                    <constraint firstItem="Jal-Qr-QkF" firstAttribute="leading" secondItem="qkx-Sb-9Ah" secondAttribute="leading" constant="10" id="bWC-aK-55m"/>
+                                    <constraint firstItem="3QV-WW-0vq" firstAttribute="top" secondItem="Jal-Qr-QkF" secondAttribute="top" type="default" id="bhA-ND-NIK"/>
+                                    <constraint firstItem="3QV-WW-0vq" firstAttribute="leading" secondItem="Jal-Qr-QkF" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="gSg-ov-Vmz"/>
+                                    <constraint firstItem="oc0-8y-Vxh" firstAttribute="baseline" secondItem="3QV-WW-0vq" secondAttribute="baseline" type="default" id="vFT-bE-8VG"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dateLabel" destination="oc0-8y-Vxh" id="qhR-cM-Jlh"/>
+                                    <outlet property="postTextLabel" destination="ShU-cq-3qG" id="O2t-gR-nqp"/>
+                                    <outlet property="routeNameLabel" destination="Hav-gi-7MT" id="eRM-Vn-6YL"/>
+                                    <outlet property="userNameLabel" destination="3QV-WW-0vq" id="tZB-Uj-mCl"/>
+                                    <outlet property="userPhotoImage" destination="Jal-Qr-QkF" id="hKy-ez-hfQ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2Z6-AQ-m6e" id="4Xc-aC-OMl"/>
+                            <outlet property="delegate" destination="2Z6-AQ-m6e" id="ldx-OK-aMd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="eYI-2g-WoX"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tWk-zJ-P6u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2124" y="1158"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="15">
             <objects>
@@ -768,15 +868,14 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
             </relationships>
         </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onCreatePostButton:"/>
-            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
@@ -815,12 +914,16 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postTextField" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userProfileImage" candidateClass="UIImageView"/>
             </relationships>
+        </class>
+        <class className="RouteViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -830,6 +933,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Pqe-Iv-pwz"/>
-        <segue reference="gV9-rA-0Q7"/>
+        <segue reference="X7a-z2-6Ih"/>
+        <segue reference="TRT-AO-oWF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -8,6 +8,7 @@
 
 #import "PostDetailsViewController.h"
 #import "CheckInViewController.h"
+#import "RouteViewController.h"
 
 @interface PostDetailsViewController ()
 
@@ -94,6 +95,13 @@
             
             self.likeButton.enabled = YES;
         }];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"viewRoute"]) {
+        RouteViewController *viewController = (RouteViewController *)segue.destinationViewController;
+        viewController.routeData = [self.postData objectForKey:@"route"];
     }
 }
 

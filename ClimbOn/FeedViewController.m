@@ -72,22 +72,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PFObject *postData = [self.data objectAtIndex:indexPath.row];
-    PFUser *creator = [postData objectForKey:@"creator"];
-    PFObject *route = [postData objectForKey:@"route"];
-    PFObject *rating = [route objectForKey:@"rating"];
     
     NSString *cellIdentifier = @"CheckIn";
     CheckInCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
-    cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
-    cell.postTextLabel.text = [postData objectForKey:@"userText"];
-    cell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:@"name"]];
-    cell.dateLabel.text = [postData objectForKey:@"createdAt"];
-    
-    if ([[postData objectForKey:@"type"] integerValue] == kPostTypeTopOut) {
-        cell.userNameLabel.text = [NSString stringWithFormat:@"%@%@", cell.userNameLabel.text, @" 🏆"];
-    }
+    cell.creator = [postData objectForKey:@"creator"];
+    cell.routeData = [postData objectForKey:@"route"];
+    cell.ratingData = [cell.routeData objectForKey:@"rating"];
+    cell.postData = postData;
     
     return cell;
 }
