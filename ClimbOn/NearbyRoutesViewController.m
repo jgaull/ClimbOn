@@ -9,12 +9,15 @@
 #import "NearbyRoutesViewController.h"
 #import "CheckInViewController.h"
 #import "AddRouteViewController.h"
+#import "RouteViewController.h"
 #import <Parse/Parse.h>
 
 @interface NearbyRoutesViewController ()
 
 @property (nonatomic, strong) NSDictionary *ratings;
 @property (nonatomic, strong) NSArray *ratingTypesList;
+
+@property (nonatomic, strong) NSIndexPath *rowSelectedWithDisclosure;
 
 @end
 
@@ -123,6 +126,12 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    //something is broken so using a normal storyboard segue didn't work. self.table.indexPathForSelectedRow was always nil
+    self.rowSelectedWithDisclosure = indexPath;
+    [self performSegueWithIdentifier:@"viewRoute" sender:self];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
     
@@ -134,6 +143,10 @@
     else if ([segue.identifier isEqualToString:@"createRoute"]) {
         AddRouteViewController *addRoute = (AddRouteViewController *)segue.destinationViewController;
         addRoute.postType = self.postType;
+    }
+    else if ([segue.identifier isEqualToString:@"viewRoute"]) {
+        RouteViewController *routeView = (RouteViewController *)segue.destinationViewController;
+        routeView.routeData = [self getRouteDataForIndexPath:self.rowSelectedWithDisclosure];
     }
 }
 

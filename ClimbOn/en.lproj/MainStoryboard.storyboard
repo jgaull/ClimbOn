@@ -108,11 +108,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="createNew" textLabel="8Pm-8g-XuY" style="IBUITableViewCellStyleDefault" id="SMg-nh-sFW">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="createNew" textLabel="8Pm-8g-XuY" style="IBUITableViewCellStyleDefault" id="SMg-nh-sFW">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Create Route" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Pm-8g-XuY">
@@ -125,14 +125,13 @@
                                 </view>
                                 <connections>
                                     <segue destination="2" kind="push" identifier="createRoute" id="sTx-Vh-mLd"/>
-                                    <segue destination="2Z6-AQ-m6e" kind="push" trigger="accessoryAction" id="RJe-s8-M4R"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="existingRoute" textLabel="lTr-hf-T4Y" style="IBUITableViewCellStyleDefault" id="eKf-h2-ssU">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="existingRoute" textLabel="lTr-hf-T4Y" style="IBUITableViewCellStyleDefault" id="eKf-h2-ssU">
                                 <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Route Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTr-hf-T4Y">
@@ -160,6 +159,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="2Z6-AQ-m6e" kind="push" identifier="viewRoute" id="lZi-Cf-19l"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKv-jr-at5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -705,9 +707,7 @@
                             <constraint firstItem="Bjr-ur-E2K" firstAttribute="top" secondItem="NBK-5f-psy" secondAttribute="top" constant="20" symbolic="YES" type="default" id="xk1-h3-MsB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="gJ5-Y7-qfT">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="QGe-jo-lGq"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="gJ5-Y7-qfT"/>
                     <connections>
                         <outlet property="commentField" destination="kP6-86-esN" id="f9Z-kn-Nb1"/>
                         <outlet property="likeButton" destination="cYC-Mg-p3U" id="pMP-1P-2aP"/>
@@ -725,7 +725,7 @@
             <objects>
                 <tableViewController id="2Z6-AQ-m6e" customClass="RouteViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="dd1-WY-2gd">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <mapView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="B0M-sJ-SYZ">
@@ -856,6 +856,7 @@
         <class className="AddRouteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
@@ -883,18 +884,29 @@
         </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onCreatePostButton:"/>
+                <relationship kind="action" name="onPostButton:"/>
+            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onFollowButton:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
+            </relationships>
         </class>
         <class className="FollowUserCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
@@ -906,6 +918,7 @@
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="profilePicture" candidateClass="UIImageView"/>
@@ -917,10 +930,14 @@
         </class>
         <class className="NearbyRoutesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onCancelButton:"/>
+            </relationships>
         </class>
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postTextField" candidateClass="UITextView"/>
@@ -941,8 +958,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Pqe-Iv-pwz"/>
         <segue reference="X7a-z2-6Ih"/>
-        <segue reference="TRT-AO-oWF"/>
+        <segue reference="8Dy-gH-ttF"/>
+        <segue reference="lZi-Cf-19l"/>
     </inferredMetricsTieBreakers>
 </document>
