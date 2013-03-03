@@ -91,6 +91,12 @@
     nextViewController.postData = [self getPostData];
 }
 
+#pragma Mark button listeners
+
+- (IBAction)onHashtagButton:(UIButton *)sender {
+    self.postTextView.text = [NSString stringWithFormat:@"%@%@ ", self.postTextView.text, sender.titleLabel.text];
+}
+
 #pragma Mark Text View Delegate methods.
 
 - (void)textViewDidChange:(UITextView *)textView {
