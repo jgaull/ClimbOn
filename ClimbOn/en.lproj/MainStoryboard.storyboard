@@ -177,9 +177,6 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNN-KI-Baj">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="129" id="g5i-cg-YZf"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -187,7 +184,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="306" id="3JS-7T-XX2"/>
-                                    <constraint firstAttribute="height" constant="119" id="nhw-Wu-foR"/>
+                                    <constraint firstAttribute="height" constant="119" id="dLr-yj-dLX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -208,16 +205,103 @@
                                     <action selector="onAddImageButton:" destination="73R-b0-ZZ1" eventType="touchUpInside" id="Dew-PS-gFy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="47W-en-bzr">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="MJo-6e-SlI"/>
+                                    <constraint firstAttribute="height" constant="22" id="jr6-ww-VjJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                <state key="normal" title="#topOut">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onHashtagButton:" destination="73R-b0-ZZ1" eventType="touchUpInside" id="fn0-Aw-Dt7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1D-FT-Mj2">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="zuw-b7-uwI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                <state key="normal" title="#flash">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onHashtagButton:" destination="73R-b0-ZZ1" eventType="touchUpInside" id="Tf6-0I-AeR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Krj-gZ-MH6">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="3ov-mx-Cg7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                <state key="normal" title="#project">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onHashtagButton:" destination="73R-b0-ZZ1" eventType="touchUpInside" id="SMk-gv-Wo9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2qG-R8-hSS">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="8B3-ZH-lhi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                <state key="normal" title="#laps">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onHashtagButton:" destination="73R-b0-ZZ1" eventType="touchUpInside" id="Rde-gx-igU"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tag your accomplishments." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAf-hC-rPI">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="XQe-qT-crG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yNN-KI-Baj" firstAttribute="centerX" secondItem="zrB-tw-ZgO" secondAttribute="centerX" type="default" id="3Us-y3-hQf"/>
-                            <constraint firstItem="bUc-gT-5BK" firstAttribute="leading" secondItem="h1S-N0-Nye" secondAttribute="leading" constant="103" id="Sh9-bb-wve"/>
+                            <constraint firstItem="bUc-gT-5BK" firstAttribute="centerX" secondItem="xAf-hC-rPI" secondAttribute="centerX" type="default" id="0Ns-tt-sgu"/>
+                            <constraint firstItem="Z1D-FT-Mj2" firstAttribute="leading" secondItem="47W-en-bzr" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="203-hb-69z"/>
+                            <constraint firstItem="47W-en-bzr" firstAttribute="leading" secondItem="h1S-N0-Nye" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="2jn-MI-MEQ"/>
+                            <constraint firstItem="xAf-hC-rPI" firstAttribute="top" secondItem="Z1D-FT-Mj2" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="InK-BO-f9M"/>
+                            <constraint firstItem="xAf-hC-rPI" firstAttribute="top" secondItem="yNN-KI-Baj" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Ma5-EP-e7y"/>
+                            <constraint firstAttribute="bottom" secondItem="bUc-gT-5BK" secondAttribute="bottom" constant="108" id="Qxr-SZ-h78"/>
+                            <constraint firstItem="47W-en-bzr" firstAttribute="top" secondItem="zrB-tw-ZgO" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="REA-b2-Rnz"/>
+                            <constraint firstItem="xAf-hC-rPI" firstAttribute="top" secondItem="Krj-gZ-MH6" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Tkj-Fj-9Am"/>
+                            <constraint firstItem="Krj-gZ-MH6" firstAttribute="leading" secondItem="Z1D-FT-Mj2" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="akS-sV-ugE"/>
                             <constraint firstItem="zrB-tw-ZgO" firstAttribute="top" secondItem="h1S-N0-Nye" secondAttribute="top" type="default" id="dOd-Bq-dfP"/>
                             <constraint firstItem="yNN-KI-Baj" firstAttribute="top" secondItem="h1S-N0-Nye" secondAttribute="top" constant="20" symbolic="YES" type="default" id="gQ8-Of-Z8q"/>
-                            <constraint firstAttribute="bottom" secondItem="bUc-gT-5BK" secondAttribute="bottom" constant="107" id="hFY-tQ-cOT"/>
                             <constraint firstItem="yNN-KI-Baj" firstAttribute="leading" secondItem="h1S-N0-Nye" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="htO-IG-g3o"/>
+                            <constraint firstItem="xAf-hC-rPI" firstAttribute="centerX" secondItem="yNN-KI-Baj" secondAttribute="centerX" type="default" id="hu2-5I-PXE"/>
+                            <constraint firstItem="Z1D-FT-Mj2" firstAttribute="top" secondItem="zrB-tw-ZgO" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="jh0-bN-sQv"/>
+                            <constraint firstItem="2qG-R8-hSS" firstAttribute="leading" secondItem="Krj-gZ-MH6" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="k6K-Zi-uFd"/>
                             <constraint firstAttribute="trailing" secondItem="yNN-KI-Baj" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="mFg-b3-CIZ"/>
+                            <constraint firstItem="xAf-hC-rPI" firstAttribute="top" secondItem="47W-en-bzr" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="shY-8b-cxE"/>
+                            <constraint firstItem="Krj-gZ-MH6" firstAttribute="top" secondItem="zrB-tw-ZgO" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="tQe-JU-4Yl"/>
+                            <constraint firstItem="2qG-R8-hSS" firstAttribute="top" secondItem="zrB-tw-ZgO" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="v1F-eY-Ryk"/>
+                            <constraint firstItem="zrB-tw-ZgO" firstAttribute="centerX" secondItem="yNN-KI-Baj" secondAttribute="centerX" type="default" id="wTT-fe-4LW"/>
+                            <constraint firstItem="xAf-hC-rPI" firstAttribute="top" secondItem="2qG-R8-hSS" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="yD2-cS-btH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="upn-SA-WOF">
@@ -620,12 +704,10 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="UhK-B7-Qpe">
                             <connections>
                                 <action selector="onCreatePostButton:" destination="M2E-wj-5JQ" id="t0K-E7-b7c"/>
+                                <segue destination="DZa-ml-FMP" kind="modal" identifier="createPost" id="Rpc-TY-YgI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="DZa-ml-FMP" kind="modal" identifier="createPost" id="Pqe-Iv-pwz"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZMx-wF-UZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -856,7 +938,6 @@
         <class className="AddRouteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
@@ -878,35 +959,25 @@
             <relationships>
                 <relationship kind="action" name="onAddImageButton:"/>
                 <relationship kind="action" name="onDoneButton:"/>
+                <relationship kind="action" name="onHashtagButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
             </relationships>
         </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onCreatePostButton:"/>
-                <relationship kind="action" name="onPostButton:"/>
-            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onFollowButton:" candidateClass="UIButton"/>
-            </relationships>
         </class>
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
-            </relationships>
         </class>
         <class className="FollowUserCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
@@ -918,7 +989,6 @@
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="profilePicture" candidateClass="UIImageView"/>
@@ -930,14 +1000,10 @@
         </class>
         <class className="NearbyRoutesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onCancelButton:"/>
-            </relationships>
         </class>
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postTextField" candidateClass="UITextView"/>
@@ -958,8 +1024,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Rpc-TY-YgI"/>
         <segue reference="X7a-z2-6Ih"/>
-        <segue reference="8Dy-gH-ttF"/>
         <segue reference="lZi-Cf-19l"/>
     </inferredMetricsTieBreakers>
 </document>

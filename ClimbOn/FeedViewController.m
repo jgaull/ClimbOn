@@ -91,7 +91,7 @@
     return size.height + 70;
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+/*- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     NSInteger postType = buttonIndex;
     
@@ -99,7 +99,7 @@
         self.postType = postType;
         [self performSegueWithIdentifier:@"createPost" sender:self];
     }
-}
+}*/
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
