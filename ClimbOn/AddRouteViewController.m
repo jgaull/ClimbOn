@@ -76,7 +76,10 @@
         
         [route setObject:self.routeNameField.text forKey:@"name"];
         [route setObject:[PFUser currentUser] forKey:@"creator"];
+//        self.mapView
         
+//        NSLog(@"user at lat:%f", self.currentLocation.coordinate.latitude);
+//        NSLog(@"saving with lat:%f", self.mapView.region.center.latitude);
         PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.mapView.region.center.latitude longitude:self.mapView.region.center.longitude];
         [route setObject:point forKey:@"location"];
         
@@ -104,7 +107,7 @@
 //    NSLog(@"didUpdateLocations");
     if(self.currentLocation == nil) {
         self.currentLocation = [locations objectAtIndex:0];
-        [self updateMap];
+        [self updateMapWithLocation:self.currentLocation.coordinate];
     }
     
 }
@@ -121,7 +124,7 @@
 
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
-    NSLog(@"region will change animated:%s", animated ? "true" : "false");
+//    NSLog(@"region will change animated:%s", animated ? "true" : "false");
     if(self.currentLocation != nil && animated == NO)
     {
         self.userOverride = YES;
@@ -141,7 +144,7 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    NSLog(@"regionDidChangeAnimated");
+//    NSLog(@"regionDidChangeAnimated");
 //    [self updateMap];
     if(self.userOverride == YES){
         CLLocationCoordinate2D loc = self.mapView.region.center;
@@ -166,15 +169,13 @@
 //    NSLog(@"did udpate user location");
     
     if(self.userOverride == NO)
-        [self updateMap];
+        [self updateMapWithLocation:userLocation.coordinate];
 }
 
-- (void)updateMap
+- (void)updateMapWithLocation:(CLLocationCoordinate2D)location
 {
-    if(self.currentLocation != nil) {
-        MKCoordinateRegion viewRegion = [self getMapRegionWithCoordinate:self.currentLocation.coordinate];
-        [self.mapView setRegion:viewRegion animated:YES];
-    }
+    MKCoordinateRegion viewRegion = [self getMapRegionWithCoordinate:location];
+    [self.mapView setRegion:viewRegion animated:YES];
 }
 
 - (MKCoordinateRegion)getMapRegionWithCoordinate:(CLLocationCoordinate2D)coordinate {
