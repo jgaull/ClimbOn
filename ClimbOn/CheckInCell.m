@@ -61,7 +61,6 @@
         _creator = creator;
         
         self.userProfilePic.file = [self.creator objectForKey:@"profilePicture"];
-        
         [self.userProfilePic loadInBackground];
         
         self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [self.creator objectForKey:@"firstName"], [self.creator objectForKey:@"lastName"]];

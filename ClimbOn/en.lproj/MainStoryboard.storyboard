@@ -1074,7 +1074,6 @@
                                     <outlet property="postTextLabel" destination="ShU-cq-3qG" id="O2t-gR-nqp"/>
                                     <outlet property="routeNameLabel" destination="Hav-gi-7MT" id="eRM-Vn-6YL"/>
                                     <outlet property="userNameLabel" destination="3QV-WW-0vq" id="tZB-Uj-mCl"/>
-                                    <outlet property="userPhotoImage" destination="Jal-Qr-QkF" id="hKy-ez-hfQ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1159,6 +1158,7 @@
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
@@ -1187,7 +1187,6 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
