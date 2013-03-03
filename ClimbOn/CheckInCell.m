@@ -60,11 +60,9 @@
     if (_creator != creator) {
         _creator = creator;
         
-        self.userProfilePic.file = [self.creator objectForKey:@"profilePic"];
+        self.userProfilePic.file = [self.creator objectForKey:@"profilePicture"];
         
-        [self.userProfilePic loadInBackground:^(UIImage *image, NSError *error) {
-            NSLog(@"Loaded.");
-        }];
+        [self.userProfilePic loadInBackground];
         
         self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [self.creator objectForKey:@"firstName"], [self.creator objectForKey:@"lastName"]];
     }
