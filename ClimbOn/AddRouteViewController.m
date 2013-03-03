@@ -21,8 +21,8 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *currentLocation;
-@property (strong, nonatomic) NSNumber *routeLat;
-@property (strong, nonatomic) NSNumber *routeLon;
+@property (nonatomic) CLLocationDegrees routeLat;
+@property (nonatomic) CLLocationDegrees routeLon;
 @property (strong, nonatomic) PFObject *route;
 @property (nonatomic) BOOL userOverride;
 
@@ -76,7 +76,9 @@
         
         [route setObject:self.routeNameField.text forKey:@"name"];
         [route setObject:[PFUser currentUser] forKey:@"creator"];
-        [route setObject:[PFGeoPoint geoPointWithLocation:self.currentLocation] forKey:@"location"];
+        
+        PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.mapView.region.center.latitude longitude:self.mapView.region.center.longitude];
+        [route setObject:point forKey:@"location"];
         
         PFObject *rating = [[PFObject alloc] initWithClassName:@"Rating"];
         rating.objectId = @"OJewnFZKQ4";
@@ -142,9 +144,9 @@
     NSLog(@"regionDidChangeAnimated");
 //    [self updateMap];
     if(self.userOverride == YES){
-        MKCoordinateRegion viewRegion = [self getMapRegion];
-        self.routeLat = [NSNumber numberWithDouble:viewRegion.center.latitude];
-        self.routeLon = [NSNumber numberWithDouble:viewRegion.center.longitude];
+        CLLocationCoordinate2D loc = self.mapView.region.center;
+        self.routeLat = loc.latitude;
+        self.routeLon = loc.longitude;
         
         [UIView animateWithDuration:0.2f
                               delay:0.0f
@@ -170,16 +172,16 @@
 - (void)updateMap
 {
     if(self.currentLocation != nil) {
-        MKCoordinateRegion viewRegion = [self getMapRegion];
+        MKCoordinateRegion viewRegion = [self getMapRegionWithCoordinate:self.currentLocation.coordinate];
         [self.mapView setRegion:viewRegion animated:YES];
     }
 }
 
-- (MKCoordinateRegion)getMapRegion {
+- (MKCoordinateRegion)getMapRegionWithCoordinate:(CLLocationCoordinate2D)coordinate {
     int width = MAX(self.currentLocation.horizontalAccuracy, 50);
     int height = MAX(self.currentLocation.verticalAccuracy, 50);
     
-    return [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(self.currentLocation.coordinate, width, height)];
+    return [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(coordinate, width, height)];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
