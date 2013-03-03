@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *postTextView;
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
+@property (weak, nonatomic) IBOutlet UIImageView *selectedImageView;
 
 @property (strong, nonatomic) PFFile *selectedImage;
 @property (strong, nonatomic) NSMutableArray *selectedTags;
@@ -201,6 +202,7 @@
      [self dismissViewControllerAnimated:YES completion:nil];
      
      UIImage *selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+     [self.selectedImageView setImage:selectedImage];
      
      if(picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
          UIImageWriteToSavedPhotosAlbum(selectedImage, nil, nil, nil);
