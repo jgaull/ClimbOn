@@ -11,8 +11,6 @@
 
 @interface NearbyRoutesViewController : UITableViewController
 
-@property (nonatomic) NSInteger postType;
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
 

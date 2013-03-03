@@ -91,24 +91,8 @@
     return size.height + 70;
 }
 
-/*- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    NSInteger postType = buttonIndex;
-    
-    if (buttonIndex != actionSheet.cancelButtonIndex) {
-        self.postType = postType;
-        [self performSegueWithIdentifier:@"createPost" sender:self];
-    }
-}*/
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqualToString:@"createPost"]) {
-        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-        NearbyRoutesViewController *nearbyRoutes = (NearbyRoutesViewController *)[navController.viewControllers objectAtIndex:0];
-        nearbyRoutes.postType = self.postType;
-    }
-    else if ([segue.identifier isEqualToString:@"showPostDetails"]) {
+    if ([segue.identifier isEqualToString:@"showPostDetails"]) {
         PostDetailsViewController *postDetails = (PostDetailsViewController *)segue.destinationViewController;
         postDetails.postData = [self.data objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     }
@@ -134,11 +118,6 @@
         
         [self.refreshControl endRefreshing];
     }];
-}
-
-- (IBAction)onCreatePostButton:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Check In", @"Top Out", nil];
-    [actionSheet showInView:self.tabBarController.view];
 }
 
 /*

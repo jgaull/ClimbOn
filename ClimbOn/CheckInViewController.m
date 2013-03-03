@@ -15,6 +15,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
 
 @property (strong, nonatomic) PFFile *selectedImage;
+@property (strong, nonatomic) NSMutableArray *selectedTags;
+@property (strong, nonatomic) NSDictionary *suggestedTags;
 
 @end
 
@@ -33,16 +35,25 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.postTextView becomeFirstResponder];
     
-    if (self.postType == kPostTypeTopOut) {
-        NSString *prefilledText = [NSString stringWithFormat:@"I just topped out %@, %@!", [self.route objectForKey:@"name"], [[self.route objectForKey:@"rating"] objectForKey:@"name"]];
-        if (![self.route objectForKey:@"firstAscent"]) {
-            prefilledText = [NSString stringWithFormat:@"I just got the first ascent of %@!", [self.route objectForKey:@"name"]];
+    self.selectedTags = [[NSMutableArray alloc] init];
+    
+    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Tag"];
+    [query whereKey:@"type" equalTo:@"suggested"];
+    [query whereKey:@"type" equalTo:@"topOut"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSMutableDictionary *suggestedTags = [[NSMutableDictionary alloc] init];
+            for (PFObject *tag in objects) {
+                [suggestedTags setObject:tag forKey:[tag objectForKey:@"name"]];
+            }
+            
+            self.suggestedTags = [[NSDictionary alloc] initWithDictionary:suggestedTags];
         }
-        
-        self.postTextView.text = prefilledText;
-    }
+        else {
+            NSLog(@"Error fetching tags: %@", error.localizedDescription);
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,36 +62,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onDoneButton:(id)sender {
-    if (![self.route objectForKey:@"firstAscent"] && self.postType == kPostTypeTopOut) {
-        [self performSegueWithIdentifier:@"rateRoute" sender:self];
-    }
-    else {
-        PFObject *post = [self getPostData];
-        [self.route saveEventually];
-        [post saveEventually];
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
 - (PFObject *)getPostData {
     PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
     [post setObject:self.postTextView.text forKey:@"userText"];
     [post setObject:[PFUser currentUser] forKey:@"creator"];
     [post setObject:self.route forKey:@"route"];
-    [post setObject:[NSNumber numberWithInt:self.postType] forKey:@"type"];
+    [post setObject:self.selectedTags forKey:@"tags"];
     
     if (self.selectedImage) {
         [post setObject:self.selectedImage forKey:@"image"];
     }
     
     return post;
-}
-
-- (IBAction)onAddImageButton:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
-    [actionSheet showInView:self.tabBarController.view];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -94,13 +87,67 @@
 #pragma Mark button listeners
 
 - (IBAction)onHashtagButton:(UIButton *)sender {
-    self.postTextView.text = [NSString stringWithFormat:@"%@%@ ", self.postTextView.text, sender.titleLabel.text];
+    PFObject *selectedTag = [self.suggestedTags objectForKey:sender.titleLabel.text];
+    if ([self.selectedTags containsObject:selectedTag]) {
+        [self.selectedTags removeObject:selectedTag];
+        sender.selected = NO;
+    }
+    else {
+        [self.selectedTags addObject:selectedTag];
+        sender.selected = YES;
+    }
+}
+
+- (IBAction)onDoneButton:(id)sender {
+    if (self.postTextView.isFirstResponder) {
+        [self.postTextView resignFirstResponder];
+    }
+    else {
+        if (self.selectedTags.count == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Tags" message:@"Please select at least one tag." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
+            [alert show];
+        }
+        if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute]) {
+            [self performSegueWithIdentifier:@"rateRoute" sender:self];
+        }
+        else {
+            PFObject *post = [self getPostData];
+            [self.route saveEventually];
+            [post saveEventually];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+}
+
+- (IBAction)onAddImageButton:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
+    [actionSheet showInView:self.tabBarController.view];
+}
+
+- (BOOL)didSendRoute {
+    for (PFObject *tag in self.selectedTags) {
+        if ([[[tag objectForKey:@"type"] stringValue] isEqualToString:@"topOut"]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 #pragma Mark Text View Delegate methods.
 
 - (void)textViewDidChange:(UITextView *)textView {
     
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [self.postTextView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)setRoute:(PFObject *)route {

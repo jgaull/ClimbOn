@@ -15,9 +15,9 @@ const int kPostTypeTopOut = 1;
 @interface CheckInViewController : UIViewController <UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) PFObject *route;
-@property (nonatomic) NSInteger postType;
 
 - (void)textViewDidChange:(UITextView *)textView;
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
