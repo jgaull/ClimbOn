@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstLoginViewController : UIViewController
+@interface FirstLoginViewController : UIViewController <NSURLConnectionDataDelegate>
+
+@property (strong, nonatomic) IBOutlet UIImageView *profilePic;
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 
 @end

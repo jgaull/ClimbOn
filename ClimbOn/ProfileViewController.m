@@ -73,6 +73,7 @@
     
     // Send request to Facebook
     PF_FBRequest *request = [PF_FBRequest requestForGraphPath:requestPath];
+    
     [request startWithCompletionHandler:^(PF_FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             

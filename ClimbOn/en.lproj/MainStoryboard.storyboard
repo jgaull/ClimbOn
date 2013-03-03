@@ -1157,6 +1157,10 @@
         </class>
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
+                <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
+            </relationships>
         </class>
         <class className="FollowUserCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
