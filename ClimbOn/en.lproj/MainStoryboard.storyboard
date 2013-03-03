@@ -949,22 +949,30 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8Y-w9-ptK" customClass="PFImageView">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="233" id="nnC-NR-TMC"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kP6-86-esN" firstAttribute="leading" secondItem="cYC-Mg-p3U" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="14q-Qf-y6W"/>
                             <constraint firstItem="TYQ-MP-MNM" firstAttribute="leading" secondItem="NBK-5f-psy" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="1QS-9s-1xU"/>
-                            <constraint firstItem="Bjr-ur-E2K" firstAttribute="top" secondItem="NBK-5f-psy" secondAttribute="top" constant="20" symbolic="YES" type="default" id="8kS-Sh-uCV"/>
+                            <constraint firstAttribute="trailing" secondItem="L8Y-w9-ptK" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="8gu-0V-Npc"/>
                             <constraint firstItem="UNi-1d-YdJ" firstAttribute="leading" secondItem="Bjr-ur-E2K" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Bru-wF-TXl"/>
-                            <constraint firstItem="UNi-1d-YdJ" firstAttribute="top" secondItem="NBK-5f-psy" secondAttribute="top" constant="20" symbolic="YES" type="default" id="Cax-Na-5YL"/>
                             <constraint firstAttribute="trailing" secondItem="UNi-1d-YdJ" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="HWA-pg-FyW"/>
-                            <constraint firstItem="kP6-86-esN" firstAttribute="top" secondItem="cYC-Mg-p3U" secondAttribute="top" type="default" id="XZw-XB-sJm"/>
+                            <constraint firstItem="L8Y-w9-ptK" firstAttribute="top" secondItem="NBK-5f-psy" secondAttribute="top" constant="20" symbolic="YES" type="default" id="KRf-4f-FpL"/>
+                            <constraint firstAttribute="bottom" secondItem="cYC-Mg-p3U" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="LuL-cj-Dp3"/>
                             <constraint firstItem="TYQ-MP-MNM" firstAttribute="top" secondItem="Bjr-ur-E2K" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ZhE-iD-jVu"/>
                             <constraint firstItem="cYC-Mg-p3U" firstAttribute="leading" secondItem="NBK-5f-psy" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="aW4-GW-h9Q"/>
                             <constraint firstAttribute="trailing" secondItem="TYQ-MP-MNM" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="blg-Cc-GQC"/>
+                            <constraint firstItem="UNi-1d-YdJ" firstAttribute="top" secondItem="L8Y-w9-ptK" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ekl-2V-Ort"/>
                             <constraint firstItem="Bjr-ur-E2K" firstAttribute="leading" secondItem="NBK-5f-psy" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="h8Y-g5-IBh"/>
                             <constraint firstAttribute="trailing" secondItem="kP6-86-esN" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="iJK-cu-XXo"/>
-                            <constraint firstItem="cYC-Mg-p3U" firstAttribute="top" secondItem="NBK-5f-psy" secondAttribute="top" constant="164" id="mMS-wj-Z1z"/>
+                            <constraint firstAttribute="bottom" secondItem="kP6-86-esN" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="icr-yD-nf5"/>
+                            <constraint firstItem="Bjr-ur-E2K" firstAttribute="top" secondItem="L8Y-w9-ptK" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="mOO-JW-n4P"/>
+                            <constraint firstItem="L8Y-w9-ptK" firstAttribute="leading" secondItem="NBK-5f-psy" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="o3f-sM-lNb"/>
                             <constraint firstItem="TYQ-MP-MNM" firstAttribute="top" secondItem="UNi-1d-YdJ" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="vgM-Zt-EUm"/>
                         </constraints>
                     </view>
@@ -972,6 +980,7 @@
                     <connections>
                         <outlet property="commentField" destination="kP6-86-esN" id="f9Z-kn-Nb1"/>
                         <outlet property="likeButton" destination="cYC-Mg-p3U" id="pMP-1P-2aP"/>
+                        <outlet property="postImage" destination="L8Y-w9-ptK" id="Q6e-EH-j50"/>
                         <outlet property="postTextField" destination="TYQ-MP-MNM" id="rJV-8O-PHr"/>
                         <outlet property="routeNameButton" destination="UNi-1d-YdJ" id="R1O-Df-Ond"/>
                         <outlet property="userProfileImage" destination="Bjr-ur-E2K" id="bPE-eU-liW"/>
@@ -1178,8 +1187,10 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
                 <relationship kind="outlet" name="postTextField" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userProfileImage" candidateClass="UIImageView"/>

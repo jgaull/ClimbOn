@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *likeButton;
 @property (strong, nonatomic) IBOutlet UITextField *commentField;
 @property (strong, nonatomic) IBOutlet UIButton *routeNameButton;
+@property (weak, nonatomic) IBOutlet PFImageView *postImage;
 
 @property (strong, nonatomic) PFObject *likeData;
 
@@ -41,12 +42,17 @@
     PFUser *creator = [self.postData objectForKey:@"creator"];
     PFObject *route = [self.postData objectForKey:@"route"];
     PFObject *rating = [route objectForKey:@"rating"];
+    PFFile *imageFile = [self.postData objectForKey:@"image"];
     
     // Configure the cell...
     self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
     self.postTextField.text = [self.postData objectForKey:@"userText"];
     [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:@"name"]] forState:UIControlStateNormal];
     //cell.dateLabel.text = [self.postData objectForKey:@"createdAt"];
+    
+    //set image
+    self.postImage.file = imageFile;
+    [self.postImage loadInBackground];
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Like"];
     [query whereKey:@"post" equalTo:self.postData];
