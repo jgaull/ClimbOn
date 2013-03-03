@@ -52,13 +52,12 @@
                 NSLog(@"Uh oh. An error occurred: %@", error);
             }
         } else {
-            [self displayUserInfo];
-            //[self dismissViewControllerAnimated:YES completion:nil];
+            [self fetchUserInfo];
         }
     }];
 }
 
-- (void)displayUserInfo {
+- (void)fetchUserInfo {
     NSString *requestPath = @"me?fields=name,location,first_name,last_name";
     
     // Send request to Facebook
@@ -84,6 +83,8 @@
                 [[PFUser currentUser] saveInBackground];
                 
                 [self loadProfilePic:userData[@"id"]];
+                
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
         }
     }];
