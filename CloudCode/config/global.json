@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "Climb On Dev": {
+            "applicationId": "5fIMJLoPq55Wc902Z1etXgb0Ic9Za53yY4cfolad", 
+            "masterKey": "M3xMcHXUXepeEJmadZvIsKRYcUuxNWTx41pIMW6d"
+        }, 
+        "_default": {
+            "link": "Climb On Dev"
+        }
+    }
+}
