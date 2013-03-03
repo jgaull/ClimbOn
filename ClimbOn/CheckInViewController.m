@@ -38,9 +38,11 @@
     
     self.selectedTags = [[NSMutableArray alloc] init];
     
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Tag"];
-    [query whereKey:@"type" equalTo:@"suggested"];
-    [query whereKey:@"type" equalTo:@"topOut"];
+    PFQuery *topOutQuery = [[PFQuery alloc] initWithClassName:@"Tag"];
+    [topOutQuery whereKey:@"type" equalTo:@"topOut"];
+    PFQuery *suggestedQuery = [[PFQuery alloc] initWithClassName:@"Tag"];
+    [suggestedQuery whereKey:@"type" equalTo:@"suggested"];
+    PFQuery *query = [PFQuery orQueryWithSubqueries:[[NSArray alloc] initWithObjects:topOutQuery, suggestedQuery, nil]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSMutableDictionary *suggestedTags = [[NSMutableDictionary alloc] init];
@@ -107,7 +109,7 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Tags" message:@"Please select at least one tag." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
             [alert show];
         }
-        if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute]) {
+        else if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute]) {
             [self performSegueWithIdentifier:@"rateRoute" sender:self];
         }
         else {
@@ -127,7 +129,8 @@
 
 - (BOOL)didSendRoute {
     for (PFObject *tag in self.selectedTags) {
-        if ([[[tag objectForKey:@"type"] stringValue] isEqualToString:@"topOut"]) {
+        NSString *type = [tag objectForKey:@"type"];
+        if ([type isEqualToString:@"topOut"]) {
             return YES;
         }
     }
