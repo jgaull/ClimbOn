@@ -25,9 +25,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        [self displayUserInfo];
         self.profilePhoto.file = [[PFUser currentUser] objectForKey:@"profilePicture"];
         [self.profilePhoto loadInBackground];
+        
+        PFUser *user = [PFUser currentUser];
+        self.locationLabel.text = [user objectForKey:@"location"];
+        self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [user objectForKey:@"firstName"], [user objectForKey:@"lastName"]];
     }
     
     self.title = @"Profile";
@@ -44,66 +47,9 @@
         [self.logInButton setTitle:@"Log in to Facebook" forState:UIControlStateNormal];
         self.locationLabel.text = @"";
         self.userNameLabel.text = @"";
-    }
-    else {
-        // The permissions requested from the user
-        NSArray *permissionsArray = @[@"user_about_me", @"user_relationships", @"user_location"];
         
-        // Login PFUser using Facebook
-        [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-            
-            if (!user) {
-                if (!error) {
-                    NSLog(@"Uh oh. The user cancelled the Facebook login.");
-                } else {
-                    NSLog(@"Uh oh. An error occurred: %@", error);
-                }
-            } else if (user.isNew) {
-                NSLog(@"User with facebook signed up and logged in!");
-                [self displayUserInfo];
-                
-            } else {
-                NSLog(@"User with facebook logged in!");
-                [self displayUserInfo];
-            }
-        }];
+        [self performSegueWithIdentifier:@"firstLogin" sender:self];
     }
-}
-
-- (void)displayUserInfo {
-    NSString *requestPath = @"me?fields=name,location,first_name,last_name";
-    
-    // Send request to Facebook
-    PF_FBRequest *request = [PF_FBRequest requestForGraphPath:requestPath];
-    
-    [request startWithCompletionHandler:^(PF_FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            
-            NSDictionary *userData = (NSDictionary *)result; // The result is a dictionary
-            NSString *name = userData[@"name"];
-            NSString *location = userData[@"location"][@"name"];
-            
-            self.locationLabel.text = location;
-            self.userNameLabel.text = name;
-            
-            if ([PFUser currentUser].isNew) {
-                PFObject *socialNetworkId = [[PFObject alloc] initWithClassName:@"SocialNetworkId"];
-                [socialNetworkId setObject:userData[@"id"] forKey:@"networkId"];
-                [socialNetworkId setObject:[PFUser currentUser] forKey:@"climbOnId"];
-                [socialNetworkId setObject:@"facebook" forKey:@"networkType"];
-                
-                [socialNetworkId saveEventually];
-                
-                NSArray *following = [[NSArray alloc] initWithObjects:[PFUser currentUser], nil];
-                [[PFUser currentUser] setObject:following forKey:@"following"];
-                [[PFUser currentUser] setObject:userData[@"first_name"] forKey:@"firstName"];
-                [[PFUser currentUser] setObject:userData[@"last_name"] forKey:@"lastName"];
-                [[PFUser currentUser] saveInBackground];
-            }
-            
-            [self.logInButton setTitle:@"Log Out of Facebook" forState:UIControlStateNormal];
-        }
-    }];
 }
 
 @end

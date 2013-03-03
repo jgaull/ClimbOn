@@ -703,6 +703,7 @@
                         <outlet property="profilePhoto" destination="acd-Mk-FGX" id="5fQ-ar-QWC"/>
                         <outlet property="userNameLabel" destination="Q15-8g-KZN" id="Tdw-nG-Nlh"/>
                         <segue destination="DZa-ml-FMP" kind="modal" identifier="createPost" id="8Dy-gH-ttF"/>
+                        <segue destination="7zY-RL-kjV" kind="modal" identifier="firstLogin" id="eB8-Wc-82I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
@@ -1166,6 +1167,7 @@
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
             </relationships>
         </class>
@@ -1199,7 +1201,6 @@
         <class className="ProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
@@ -1219,8 +1220,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gV9-rA-0Q7"/>
         <segue reference="8Dy-gH-ttF"/>
         <segue reference="TRT-AO-oWF"/>
+        <segue reference="eB8-Wc-82I"/>
+        <segue reference="gV9-rA-0Q7"/>
     </inferredMetricsTieBreakers>
 </document>
