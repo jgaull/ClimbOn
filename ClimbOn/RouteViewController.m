@@ -58,8 +58,11 @@
     
     RouteDataAnnotation *annotation = [[RouteDataAnnotation alloc] initWithRouteData:self.routeData];
     [self.mapView addAnnotation:annotation];
-    MKCoordinateRegion viewRegion = [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(annotation.coordinate, 1000, 1000)];
-    [self.mapView setRegion:viewRegion animated:NO];
+    CLLocationDistance visibleDistance = 100000; //100 kilometers
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(annotation.coordinate, visibleDistance, visibleDistance);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:region];
+    
+    [self.mapView setRegion:adjustedRegion animated:NO];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapMap:)];
     [self.mapView addGestureRecognizer:tapGesture];
     self.expandedMap = false;
@@ -79,7 +82,9 @@
 
 - (void)recenterMapAnimated:(BOOL)animated {
     RouteDataAnnotation *annotation = [[RouteDataAnnotation alloc] initWithRouteData:self.routeData];
-    MKCoordinateRegion viewRegion = [self.mapView regionThatFits:MKCoordinateRegionMakeWithDistance(annotation.coordinate, 1000, 1000)];
+    CLLocationDistance visibleDistance = 100000; //100 kilometers
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(annotation.coordinate, visibleDistance, visibleDistance);
+    MKCoordinateRegion viewRegion = [self.mapView regionThatFits:region];
     [self.mapView setRegion:viewRegion animated:animated];
 }
 
