@@ -1187,7 +1187,6 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
