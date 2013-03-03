@@ -805,7 +805,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-hk-bZV" customClass="PFImageView">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-hk-bZV" customClass="PFImageView">
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="IOr-PA-dnL"/>
@@ -1010,8 +1010,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jal-Qr-QkF">
-                                            <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jal-Qr-QkF" customClass="PFImageView">
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="mDf-R1-6Q9"/>
                                                 <constraint firstAttribute="width" constant="40" id="pER-Gl-hvT"/>
@@ -1074,6 +1074,7 @@
                                     <outlet property="postTextLabel" destination="ShU-cq-3qG" id="O2t-gR-nqp"/>
                                     <outlet property="routeNameLabel" destination="Hav-gi-7MT" id="eRM-Vn-6YL"/>
                                     <outlet property="userNameLabel" destination="3QV-WW-0vq" id="tZB-Uj-mCl"/>
+                                    <outlet property="userProfilePic" destination="Jal-Qr-QkF" id="CFm-VQ-PpS"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
