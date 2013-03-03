@@ -11,10 +11,10 @@
 
 @interface ProfileViewController ()
 
-@property (strong, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;
 @property (strong, nonatomic) IBOutlet UIButton *logInButton;
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet PFImageView *profilePhoto;
 
 
 @end
@@ -26,6 +26,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [self displayUserInfo];
+        self.profilePhoto.file = [[PFUser currentUser] objectForKey:@"profilePicture"];
+        [self.profilePhoto loadInBackground];
     }
     
     self.title = @"Profile";

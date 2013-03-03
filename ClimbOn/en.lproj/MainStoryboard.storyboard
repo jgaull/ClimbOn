@@ -655,7 +655,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acd-Mk-FGX">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="acd-Mk-FGX" customClass="PFImageView">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="fCX-8B-TsK"/>
                                     <constraint firstAttribute="height" constant="100" id="gae-ce-ad9"/>
@@ -700,7 +700,7 @@
                     <connections>
                         <outlet property="locationLabel" destination="OHL-Uy-bP5" id="Egl-ef-jTG"/>
                         <outlet property="logInButton" destination="S9h-y1-B2E" id="gMB-Kc-UOK"/>
-                        <outlet property="profilePicture" destination="acd-Mk-FGX" id="AfU-CH-aBJ"/>
+                        <outlet property="profilePhoto" destination="acd-Mk-FGX" id="5fQ-ar-QWC"/>
                         <outlet property="userNameLabel" destination="Q15-8g-KZN" id="Tdw-nG-Nlh"/>
                         <segue destination="DZa-ml-FMP" kind="modal" identifier="createPost" id="8Dy-gH-ttF"/>
                     </connections>
@@ -1159,6 +1159,7 @@
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
@@ -1198,9 +1199,10 @@
         <class className="ProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="profilePicture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -1217,8 +1219,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Rpc-TY-YgI"/>
         <segue reference="gV9-rA-0Q7"/>
+        <segue reference="8Dy-gH-ttF"/>
         <segue reference="TRT-AO-oWF"/>
     </inferredMetricsTieBreakers>
 </document>
