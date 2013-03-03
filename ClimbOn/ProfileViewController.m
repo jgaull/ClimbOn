@@ -31,6 +31,8 @@
         PFUser *user = [PFUser currentUser];
         self.locationLabel.text = [user objectForKey:@"location"];
         self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [user objectForKey:@"firstName"], [user objectForKey:@"lastName"]];
+        
+        [self.logInButton setTitle:@"Log Out" forState:UIControlStateNormal];
     }
     
     self.title = @"Profile";

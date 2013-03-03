@@ -80,13 +80,13 @@
                 [[PFUser currentUser] setObject:following forKey:@"following"];
                 [[PFUser currentUser] setObject:userData[@"first_name"] forKey:@"firstName"];
                 [[PFUser currentUser] setObject:userData[@"last_name"] forKey:@"lastName"];
-                [[PFUser currentUser] setObject:userData[@"location"] forKey:@"location"];
+                [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:@"location"];
                 [[PFUser currentUser] saveInBackground];
                 
                 [self loadProfilePic:userData[@"id"]];
-                
-                [self dismissViewControllerAnimated:YES completion:nil];
             }
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
