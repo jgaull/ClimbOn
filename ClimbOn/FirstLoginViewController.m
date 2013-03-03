@@ -82,7 +82,6 @@
                 [[PFUser currentUser] setObject:userData[@"first_name"] forKey:@"firstName"];
                 [[PFUser currentUser] setObject:userData[@"last_name"] forKey:@"lastName"];
                 [[PFUser currentUser] saveInBackground];
-                
             }
             
             [self loadProfilePic:userData[@"id"]];

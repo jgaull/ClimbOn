@@ -51,12 +51,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)onPostButton:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Check In", @"Top Out", nil];
-    [actionSheet showInView:self.tabBarController.view];
-}
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -25,6 +25,8 @@
     
     [self performSelector:@selector(displayLogin) withObject:nil afterDelay:0.01];
     
+    [PFImageView class];
+    
     return YES;
 }
 

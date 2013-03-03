@@ -805,8 +805,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-hk-bZV">
-                                            <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-hk-bZV" customClass="PFImageView">
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="IOr-PA-dnL"/>
                                                 <constraint firstAttribute="width" constant="40" id="TDV-qr-5gZ"/>
@@ -869,7 +869,7 @@
                                     <outlet property="postTextLabel" destination="vRW-IB-JOY" id="2GA-UP-PgL"/>
                                     <outlet property="routeNameLabel" destination="Wev-Qr-da9" id="gvv-j0-mDQ"/>
                                     <outlet property="userNameLabel" destination="418-pd-Lic" id="B8R-pf-OfJ"/>
-                                    <outlet property="userPhotoImage" destination="nOg-hk-bZV" id="aSJ-BW-Lq9"/>
+                                    <outlet property="userProfilePic" destination="nOg-hk-bZV" id="qsy-qM-whR"/>
                                     <segue destination="vmJ-g7-QoB" kind="push" identifier="showPostDetails" id="SxH-KS-RLd"/>
                                 </connections>
                             </tableViewCell>
@@ -1116,6 +1116,7 @@
         <class className="AddRouteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
@@ -1129,15 +1130,12 @@
                 <relationship kind="outlet" name="postTextLabel" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userPhotoImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="userProfilePic" candidateClass="PFImageView"/>
             </relationships>
         </class>
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onAddImageButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
-                <relationship kind="action" name="onHashtagButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
@@ -1158,7 +1156,6 @@
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
             </relationships>
         </class>
@@ -1174,6 +1171,9 @@
         </class>
         <class className="NearbyRoutesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
+        </class>
+        <class className="PFImageView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
         </class>
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
@@ -1207,8 +1207,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="TRT-AO-oWF"/>
-        <segue reference="8Dy-gH-ttF"/>
+        <segue reference="Rpc-TY-YgI"/>
         <segue reference="gV9-rA-0Q7"/>
+        <segue reference="TRT-AO-oWF"/>
     </inferredMetricsTieBreakers>
 </document>

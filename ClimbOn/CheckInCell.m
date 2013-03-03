@@ -35,7 +35,8 @@
     if (_postData != postData) {
         _postData = postData;
         
-        [self redraw];
+        self.postTextLabel.text = [self.postData objectForKey:@"userText"];
+        self.dateLabel.text = [self.postData objectForKey:@"createdAt"];
     }
 }
 
@@ -55,11 +56,22 @@
     }
 }
 
+- (void)setCreator:(PFUser *)creator {
+    if (_creator != creator) {
+        _creator = creator;
+        
+        self.userProfilePic.file = [self.creator objectForKey:@"profilePic"];
+        
+        [self.userProfilePic loadInBackground:^(UIImage *image, NSError *error) {
+            NSLog(@"Loaded.");
+        }];
+        
+        self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [self.creator objectForKey:@"firstName"], [self.creator objectForKey:@"lastName"]];
+    }
+}
+
 - (void)redraw {
-    self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [self.creator objectForKey:@"firstName"], [self.creator objectForKey:@"lastName"]];
-    self.postTextLabel.text = [self.postData objectForKey:@"userText"];
     self.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [self.routeData objectForKey:@"name"], [self.ratingData objectForKey:@"name"]];
-    self.dateLabel.text = [self.postData objectForKey:@"createdAt"];
 }
 
 @end

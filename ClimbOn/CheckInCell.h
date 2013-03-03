@@ -14,8 +14,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *routeNameLabel;
 @property (strong, nonatomic) IBOutlet UITextView *postTextLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *userPhotoImage;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
+@property (strong, nonatomic) IBOutlet PFImageView *userProfilePic;
 
 @property (weak, nonatomic) PFObject *postData;
 @property (weak, nonatomic) PFObject *routeData;
