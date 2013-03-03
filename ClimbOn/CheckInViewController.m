@@ -124,7 +124,7 @@
 
 - (IBAction)onAddImageButton:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
-    [actionSheet showInView:self.tabBarController.view];
+    [actionSheet showInView:self.view];
 }
 
 - (BOOL)didSendRoute {
@@ -164,7 +164,7 @@
  
  - (void)displayPhotoSourcePicker {
      UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", nil];
-     [actionSheet showInView:self.tabBarController.view];
+     [actionSheet showInView:self.view];
  }
  
  - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
