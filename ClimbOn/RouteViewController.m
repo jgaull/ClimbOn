@@ -58,7 +58,7 @@
     
     RouteDataAnnotation *annotation = [[RouteDataAnnotation alloc] initWithRouteData:self.routeData];
     [self.mapView addAnnotation:annotation];
-    CLLocationDistance visibleDistance = 100000; //100 kilometers
+    CLLocationDistance visibleDistance = 100; //100 kilometers
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(annotation.coordinate, visibleDistance, visibleDistance);
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:region];
     
@@ -82,7 +82,7 @@
 
 - (void)recenterMapAnimated:(BOOL)animated {
     RouteDataAnnotation *annotation = [[RouteDataAnnotation alloc] initWithRouteData:self.routeData];
-    CLLocationDistance visibleDistance = 100000; //100 kilometers
+    CLLocationDistance visibleDistance = 100; //100 kilometers
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(annotation.coordinate, visibleDistance, visibleDistance);
     MKCoordinateRegion viewRegion = [self.mapView regionThatFits:region];
     [self.mapView setRegion:viewRegion animated:animated];

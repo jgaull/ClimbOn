@@ -51,8 +51,15 @@
     //cell.dateLabel.text = [self.postData objectForKey:@"createdAt"];
     
     //set image
-    self.postImage.file = imageFile;
-    [self.postImage loadInBackground];
+    if(imageFile != nil)
+    {
+//        [self.postImage setFrame:CGRectMake(self.postImage.frame.origin.x, +self.postImage.frame.origin.y, self.postImage.frame.size.width, self.postImage.frame.size.height)];
+        self.postImage.file = imageFile;
+        [self.postImage loadInBackground];
+    } else {
+        NSLog(@"nophoto");
+//        [self.postImage setFrame:CGRectMake(self.postImage.frame.origin.x, -self.postImage.frame.size.height, self.postImage.frame.size.width, self.postImage.frame.size.height)];
+    }
     
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Like"];
     [query whereKey:@"post" equalTo:self.postData];
