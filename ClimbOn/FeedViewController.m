@@ -79,10 +79,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize constraint = CGSizeMake(295, 83);
     PFObject *postData = [self.data objectAtIndex:indexPath.row];
-    CGSize size = [[postData objectForKey:@"userText"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    return size.height + 70;
+    return [CheckInCell getHeightForCellFromPostData:postData];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -100,6 +98,7 @@
     [feedQuery includeKey:@"creator"];
     [feedQuery includeKey:@"route"];
     [feedQuery includeKey:@"route.rating"];
+    [feedQuery includeKey:@"tags"];
     [feedQuery orderByDescending:@"createdAt"];
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
