@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 OneHeadedLlama. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "ProfileViewController.h"
 #import <Parse/Parse.h>
 
-@interface LoginViewController ()
+@interface ProfileViewController ()
 
 @property (strong, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation LoginViewController
+@implementation ProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

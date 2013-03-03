@@ -165,12 +165,6 @@
 //        NSLog(@"user has set map to:%d, %d", self.routeLat, self.routeLon);
     }
 }
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-//    NSLog(@"did udpate user location");
-    
-    if(self.userOverride == NO)
-        [self updateMapWithLocation:userLocation.coordinate];
-}
 
 - (void)updateMapWithLocation:(CLLocationCoordinate2D)location
 {

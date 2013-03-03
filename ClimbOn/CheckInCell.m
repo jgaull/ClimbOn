@@ -60,10 +60,6 @@
     self.postTextLabel.text = [self.postData objectForKey:@"userText"];
     self.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [self.routeData objectForKey:@"name"], [self.ratingData objectForKey:@"name"]];
     self.dateLabel.text = [self.postData objectForKey:@"createdAt"];
-    
-    if ([[self.postData objectForKey:@"type"] integerValue] == kPostTypeTopOut) {
-        self.userNameLabel.text = [NSString stringWithFormat:@"%@%@", self.userNameLabel.text, @" 🏆"];
-    }
 }
 
 @end
