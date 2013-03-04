@@ -8,6 +8,8 @@
 
 #import "CheckInCell.h"
 #import "CheckInViewController.h"
+#import "CheckInHeadingCell.h"
+#import "CheckinHashtagCell.h"
 
 @interface CheckInCell ()
 
@@ -16,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UITextView *postTextLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet PFImageView *userProfilePic;
+@property (strong, nonatomic) IBOutlet UITableView *commentTable;
 
 @end
 
@@ -94,7 +97,59 @@
 + (CGFloat)getHeightForCellFromPostData:(PFObject *)postData {
     CGSize constraint = CGSizeMake(295, 83);
     CGSize size = [[CheckInCell getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    return size.height + 70;
+    return size.height + 16 + 61;
+}
+
+#pragma Mark Table view Delegate and Data Source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *cellIdentifier;
+    UITableViewCell *cell;
+    
+    if (indexPath.row == 0) {
+        cellIdentifier = @"checkinHeading";
+        CheckInHeadingCell *checkinHeadingCell = [self.commentTable dequeueReusableCellWithIdentifier:cellIdentifier];
+        cell = checkinHeadingCell;
+        
+        PFObject *rating = [self.routeData objectForKey:@"rating"];
+        
+        checkinHeadingCell.userProfilePic.file = [self.creator objectForKey:@"profilePicture"];
+        [checkinHeadingCell.userProfilePic loadInBackground];
+        
+        checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [self.creator objectForKey:@"firstName"], [self.creator objectForKey:@"lastName"]];
+        checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [self.routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
+    }
+    else {
+        cellIdentifier = @"checkinHashtag";
+        
+        CheckinHashtagCell *checkinHashtagCell = [self.commentTable dequeueReusableCellWithIdentifier:cellIdentifier];
+        cell = checkinHashtagCell;
+        checkinHashtagCell.hashtagTextView.text = [CheckInCell getTagListStringFromPost:self.postData];
+    }
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 61;
+    }
+    else if (indexPath.row == 1) {
+        CGSize constraint = CGSizeMake(280, 50);
+        CGSize size = [[CheckInCell getTagListStringFromPost:self.postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        return size.height + 16;
+    }
+    
+    return 0;
 }
 
 @end

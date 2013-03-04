@@ -67,6 +67,8 @@
 		FC7FB50D16D9DA5F0037614E /* trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7FB50B16D9DA5F0037614E /* trophy@2x.png */; };
 		FCC1DDDA16D35FFC009288FF /* FirstLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */; };
 		FCD3154D16D20330004CCC59 /* NearbyRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */; };
+		FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610816E429D900705281 /* CheckInHeadingCell.m */; };
+		FCD9610C16E42E3B00705281 /* CheckinHashtagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */; };
 		FCE6778B16C8EB6B00CD4924 /* CheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */; };
 		FCF0BA2716D755A100A508F2 /* likebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = FCF0BA2616D755A100A508F2 /* likebutton.png */; };
 		FCF0BA2916D756F900A508F2 /* likebuttonliked.png in Resources */ = {isa = PBXBuildFile; fileRef = FCF0BA2816D756F900A508F2 /* likebuttonliked.png */; };
@@ -162,6 +164,10 @@
 		FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLoginViewController.m; sourceTree = "<group>"; };
 		FCD3154B16D20330004CCC59 /* NearbyRoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyRoutesViewController.h; sourceTree = "<group>"; };
 		FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyRoutesViewController.m; sourceTree = "<group>"; };
+		FCD9610716E429D900705281 /* CheckInHeadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInHeadingCell.h; sourceTree = "<group>"; };
+		FCD9610816E429D900705281 /* CheckInHeadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInHeadingCell.m; sourceTree = "<group>"; };
+		FCD9610A16E42E3B00705281 /* CheckinHashtagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinHashtagCell.h; sourceTree = "<group>"; };
+		FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinHashtagCell.m; sourceTree = "<group>"; };
 		FCE6778916C8EB6B00CD4924 /* CheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInViewController.h; sourceTree = "<group>"; };
 		FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInViewController.m; sourceTree = "<group>"; };
 		FCF0BA2616D755A100A508F2 /* likebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = likebutton.png; sourceTree = "<group>"; };
@@ -304,6 +310,10 @@
 				FC0507DD16DC9C8600CFBC0F /* RouteViewController.m */,
 				FC0507DF16DCA72100CFBC0F /* RouteDataAnnotation.h */,
 				FC0507E016DCA72100CFBC0F /* RouteDataAnnotation.m */,
+				FCD9610716E429D900705281 /* CheckInHeadingCell.h */,
+				FCD9610816E429D900705281 /* CheckInHeadingCell.m */,
+				FCD9610A16E42E3B00705281 /* CheckinHashtagCell.h */,
+				FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -499,6 +509,8 @@
 				FC7FB50916D9D13C0037614E /* FirstAscentViewController.m in Sources */,
 				FC0507DE16DC9C8600CFBC0F /* RouteViewController.m in Sources */,
 				FC0507E116DCA72100CFBC0F /* RouteDataAnnotation.m in Sources */,
+				FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */,
+				FCD9610C16E42E3B00705281 /* CheckinHashtagCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

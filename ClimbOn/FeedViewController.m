@@ -67,8 +67,8 @@
 {
     PFObject *postData = [self.data objectAtIndex:indexPath.row];
     
-    NSString *cellIdentifier = @"CheckIn";
-    CheckInCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    NSString *cellIdentifier = @"fullCheckinCell";
+    CheckInCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     cell.creator = [postData objectForKey:@"creator"];
     cell.routeData = [postData objectForKey:@"route"];
