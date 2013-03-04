@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface CheckInCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
+@interface CheckInCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) PFObject *postData;
 @property (weak, nonatomic) PFObject *routeData;
@@ -23,5 +23,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 
 @end

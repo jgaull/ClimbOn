@@ -11,6 +11,9 @@
 #import "CheckInHeadingCell.h"
 #import "CheckinHashtagCell.h"
 #import "CheckInCommentCell.h"
+#import "CreateCommentCell.h"
+
+static const int kStaticCellCount = 3;
 
 @interface CheckInCell ()
 
@@ -115,13 +118,37 @@
         commentsSize += size.height + 21 + 16;
     }
     
-    return size.height + 16 + headerSize + commentsSize;
+    return size.height + 16 + headerSize + commentsSize + 30;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    
+    if (![textField.text isEqualToString:@""]) {
+        PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
+        [comment setObject:[PFUser currentUser] forKey:@"creator"];
+        [comment setObject:textField.text forKey:@"commentText"];
+        [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                PFRelation *relation = [self.postData objectForKey:@"comments"];
+                [relation addObject:comment];
+                [self.postData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        NSLog(@"Saved the comment");
+                        textField.text = nil;
+                    }
+                }];
+            }
+        }];
+    }
+    
+    return NO;
 }
 
 #pragma Mark Table view Delegate and Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.comments.count + 2;
+    return self.comments.count + kStaticCellCount;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -153,13 +180,19 @@
         cell = checkinHashtagCell;
         checkinHashtagCell.hashtagTextView.text = [CheckInCell getTagListStringFromPost:self.postData andComments:self.comments];
     }
+    else if (indexPath.row == self.comments.count + kStaticCellCount - 1) {
+        cellIdentifier = @"writeComment";
+        CreateCommentCell *createCommentCell = [self.commentTable dequeueReusableCellWithIdentifier:cellIdentifier];
+        cell = createCommentCell;
+        createCommentCell.createCommentField.delegate = self;
+    }
     else {
         cellIdentifier = @"checkinComment";
         
         CheckInCommentCell *checkinCommentCell = [self.commentTable dequeueReusableCellWithIdentifier:cellIdentifier];
         cell = checkinCommentCell;
         
-        PFObject *comment = [self.comments objectAtIndex:indexPath.row - 2];
+        PFObject *comment = [self.comments objectAtIndex:(indexPath.row - kStaticCellCount + 1)];
         PFUser *creator = [comment objectForKey:@"creator"];
         [creator fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
@@ -180,8 +213,11 @@
         CGSize size = [[CheckInCell getTagListStringFromPost:self.postData andComments:self.comments] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         return size.height + 16;
     }
+    else if (indexPath.row == self.comments.count + kStaticCellCount - 1) {
+        return 30;
+    }
     else {
-        PFObject *comment = [self.comments objectAtIndex:indexPath.row - 2];
+        PFObject *comment = [self.comments objectAtIndex:(indexPath.row - kStaticCellCount + 1)];
         CGSize constraint = CGSizeMake(280, 100);
         CGSize size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         return size.height + 21 + 16;

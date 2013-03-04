@@ -794,16 +794,16 @@
         <scene sceneID="uZK-DN-VbC">
             <objects>
                 <tableViewController title="Feed" id="M2E-wj-5JQ" customClass="FeedViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="251" sectionHeaderHeight="22" sectionFooterHeight="22" id="lUS-MQ-uUj">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="436" sectionHeaderHeight="22" sectionFooterHeight="22" id="lUS-MQ-uUj">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="fullCheckinCell" rowHeight="251" id="1aQ-gn-a6H" customClass="CheckInCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="251"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="fullCheckinCell" rowHeight="436" id="1aQ-gn-a6H" customClass="CheckInCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="436"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="435"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="JUp-hg-e3w">
@@ -921,6 +921,29 @@
                                                     <connections>
                                                         <outlet property="commentTextView" destination="DKK-Tf-d3j" id="wcF-RY-42b"/>
                                                         <outlet property="userNameLabel" destination="j9k-lg-IOK" id="teB-7B-Dbc"/>
+                                                    </connections>
+                                                </tableViewCell>
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeComment" rowHeight="30" id="hue-NE-88H" customClass="CreateCommentCell">
+                                                    <rect key="frame" x="0.0" y="254" width="320" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EyJ-TS-6YZ">
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                            </textField>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="EyJ-TS-6YZ" secondAttribute="trailing" constant="20" type="default" id="5Lo-Xm-TCI"/>
+                                                        <constraint firstItem="EyJ-TS-6YZ" firstAttribute="top" secondItem="hue-NE-88H" secondAttribute="top" type="default" id="H05-Fe-hvg"/>
+                                                        <constraint firstItem="EyJ-TS-6YZ" firstAttribute="leading" secondItem="hue-NE-88H" secondAttribute="leading" constant="20" type="default" id="l49-tE-wRh"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="createCommentField" destination="EyJ-TS-6YZ" id="4mT-jx-lax"/>
                                                     </connections>
                                                 </tableViewCell>
                                             </prototypes>
@@ -1242,6 +1265,12 @@
                 <relationship kind="outlet" name="hashtagTextView" candidateClass="UITextView"/>
             </relationships>
         </class>
+        <class className="CreateCommentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateCommentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="createCommentField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
         </class>
@@ -1251,7 +1280,6 @@
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
@@ -1280,7 +1308,6 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>

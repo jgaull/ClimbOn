@@ -70,6 +70,7 @@
 		FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610816E429D900705281 /* CheckInHeadingCell.m */; };
 		FCD9610C16E42E3B00705281 /* CheckinHashtagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */; };
 		FCD9610F16E43E2D00705281 /* CheckInCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */; };
+		FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9611116E47D1400705281 /* CreateCommentCell.m */; };
 		FCE6778B16C8EB6B00CD4924 /* CheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */; };
 		FCF0BA2716D755A100A508F2 /* likebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = FCF0BA2616D755A100A508F2 /* likebutton.png */; };
 		FCF0BA2916D756F900A508F2 /* likebuttonliked.png in Resources */ = {isa = PBXBuildFile; fileRef = FCF0BA2816D756F900A508F2 /* likebuttonliked.png */; };
@@ -171,6 +172,8 @@
 		FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinHashtagCell.m; sourceTree = "<group>"; };
 		FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckInCommentCell.h; path = ClimbOn/CheckInCommentCell.h; sourceTree = "<group>"; };
 		FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckInCommentCell.m; path = ClimbOn/CheckInCommentCell.m; sourceTree = "<group>"; };
+		FCD9611016E47D1400705281 /* CreateCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCommentCell.h; sourceTree = "<group>"; };
+		FCD9611116E47D1400705281 /* CreateCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCommentCell.m; sourceTree = "<group>"; };
 		FCE6778916C8EB6B00CD4924 /* CheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInViewController.h; sourceTree = "<group>"; };
 		FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInViewController.m; sourceTree = "<group>"; };
 		FCF0BA2616D755A100A508F2 /* likebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = likebutton.png; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 		FC2A83DB16A3723B00637D74 = {
 			isa = PBXGroup;
 			children = (
+				FCD9611016E47D1400705281 /* CreateCommentCell.h */,
+				FCD9611116E47D1400705281 /* CreateCommentCell.m */,
 				FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */,
 				FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */,
 				FC226F0216D61B9C00BDA65A /* icon57.png */,
@@ -517,6 +522,7 @@
 				FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */,
 				FCD9610C16E42E3B00705281 /* CheckinHashtagCell.m in Sources */,
 				FCD9610F16E43E2D00705281 /* CheckInCommentCell.m in Sources */,
+				FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

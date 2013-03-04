@@ -112,7 +112,7 @@
             for (PFObject *post in objects) {
                 PFRelation *comments = [post objectForKey:@"comments"];
                 [comments.query includeKey:@"creator"];
-                [comments.query orderByDescending:@"createdAt"];
+                [comments.query orderByAscending:@"createdAt"];
                 comments.query.limit = 5;
                 
                 [comments.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
