@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) NSArray *data;
 @property (nonatomic) NSInteger *postType;
+@property (nonatomic, strong) NSMutableDictionary *commentsLookup;
 
 @end
 
@@ -36,6 +37,7 @@
 {
     [super viewDidLoad];
     
+    self.title = @"Feed";
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
 }
@@ -73,6 +75,7 @@
     cell.creator = [postData objectForKey:@"creator"];
     cell.routeData = [postData objectForKey:@"route"];
     cell.ratingData = [cell.routeData objectForKey:@"rating"];
+    cell.comments = [self.commentsLookup objectForKey:postData.objectId];
     cell.postData = postData;
     
     return cell;
@@ -80,7 +83,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     PFObject *postData = [self.data objectAtIndex:indexPath.row];
-    return [CheckInCell getHeightForCellFromPostData:postData];
+    return [CheckInCell getHeightForCellFromPostData:postData andComments:[self.commentsLookup objectForKey:postData.objectId]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -93,6 +96,8 @@
 }
 
 - (void)refresh {
+    self.commentsLookup = [[NSMutableDictionary alloc] init];
+    
     PFQuery *feedQuery = [PFQuery queryWithClassName:@"Post"];
     [feedQuery whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
     [feedQuery includeKey:@"creator"];
@@ -103,7 +108,20 @@
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.data = [[NSArray alloc] initWithArray:objects];
-            [self.tableView reloadData];
+            
+            for (PFObject *post in objects) {
+                PFRelation *comments = [post objectForKey:@"comments"];
+                [comments.query includeKey:@"creator"];
+                [comments.query orderByDescending:@"createdAt"];
+                comments.query.limit = 5;
+                
+                [comments.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        [self.commentsLookup setObject:[[NSArray alloc] initWithArray:objects] forKey:post.objectId];
+                        [self.tableView reloadData];
+                    }
+                }];
+            }
         }
         else {
             NSLog(@"Dag, an error");

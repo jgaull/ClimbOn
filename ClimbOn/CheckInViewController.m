@@ -67,7 +67,6 @@
 
 - (PFObject *)getPostData {
     PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
-    [post setObject:self.postTextView.text forKey:@"userText"];
     [post setObject:[PFUser currentUser] forKey:@"creator"];
     [post setObject:self.route forKey:@"route"];
     [post setObject:self.selectedTags forKey:@"tags"];
@@ -116,7 +115,23 @@
         else {
             PFObject *post = [self getPostData];
             [self.route saveEventually];
-            [post saveEventually];
+            
+            if (![self.postTextView.text isEqualToString:@""]) {
+                PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
+                [comment setObject:[PFUser currentUser] forKey:@"creator"];
+                [comment setObject:self.postTextView.text forKey:@"commentText"];
+                
+                [comment saveEventually:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        PFRelation *commentsRelation = [post relationforKey:@"comments"];
+                        [commentsRelation addObject:comment];
+                        [post saveEventually];
+                    }
+                }];
+            }
+            else {
+                [post saveEventually];
+            }
             
             [self dismissViewControllerAnimated:YES completion:nil];
         }

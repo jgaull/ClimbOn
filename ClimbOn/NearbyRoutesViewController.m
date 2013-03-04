@@ -139,9 +139,6 @@
         CheckInViewController *checkInView = (CheckInViewController *)segue.destinationViewController;
         checkInView.route = [self getRouteDataForIndexPath:self.tableView.indexPathForSelectedRow];
     }
-    else if ([segue.identifier isEqualToString:@"createRoute"]) {
-        AddRouteViewController *addRoute = (AddRouteViewController *)segue.destinationViewController;
-    }
     else if ([segue.identifier isEqualToString:@"viewRoute"]) {
         RouteViewController *routeView = (RouteViewController *)segue.destinationViewController;
         routeView.routeData = [self getRouteDataForIndexPath:self.rowSelectedWithDisclosure];

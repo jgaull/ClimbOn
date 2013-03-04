@@ -15,8 +15,9 @@
 @property (weak, nonatomic) PFObject *routeData;
 @property (weak, nonatomic) PFObject *ratingData;
 @property (weak, nonatomic) PFUser *creator;
+@property (weak, nonatomic) NSArray *comments;
 
-+ (CGFloat)getHeightForCellFromPostData:(PFObject *)postData;
++ (CGFloat)getHeightForCellFromPostData:(PFObject *)postData andComments:(NSArray *)comments;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;

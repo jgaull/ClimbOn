@@ -125,10 +125,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize constraint = CGSizeMake(295, 83);
     PFObject *postData = [self.posts objectAtIndex:indexPath.row];
-    CGSize size = [[postData objectForKey:@"userText"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    return size.height + 70;
+#warning Comments is just nil here because this class should subclass the feed view.
+    return [CheckInCell getHeightForCellFromPostData:postData andComments:nil];
 }
 
 /*

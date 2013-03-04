@@ -46,7 +46,6 @@
     
     // Configure the cell...
     self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
-    self.postTextField.text = [self.postData objectForKey:@"userText"];
     [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:@"name"]] forState:UIControlStateNormal];
     //cell.dateLabel.text = [self.postData objectForKey:@"createdAt"];
     
