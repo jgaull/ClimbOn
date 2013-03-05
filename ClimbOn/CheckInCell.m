@@ -13,7 +13,11 @@
 #import "CheckInCommentCell.h"
 #import "CreateCommentCell.h"
 
-static const int kStaticCellCount = 3;
+static const int kStaticHeadersCount = 2;
+static const int kStaticFootersCount = 1;
+
+static const int kHeaderCellIndex = 0;
+static const int kHashtagCellIndex = 1;
 
 @interface CheckInCell ()
 
@@ -48,8 +52,9 @@ static const int kStaticCellCount = 3;
     if (_postData != postData) {
         _postData = postData;
         
-        self.postTextLabel.text = [CheckInCell getTagListStringFromPost:self.postData andComments:self.comments];
+        self.postTextLabel.text = [CheckInCell getTagListStringFromPost:self.postData];
         self.dateLabel.text = [self.postData objectForKey:@"createdAt"];
+        [self.commentTable reloadData];
     }
 }
 
@@ -92,7 +97,7 @@ static const int kStaticCellCount = 3;
     self.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [self.routeData objectForKey:@"name"], [self.ratingData objectForKey:@"name"]];
 }
 
-+ (NSString *)getTagListStringFromPost:(PFObject *)postData andComments:(NSArray *)comments {
++ (NSString *)getTagListStringFromPost:(PFObject *)postData {
     NSString *tagList = @"";
     for (PFObject *tag in [postData objectForKey:@"tags"]) {
         if ([tagList isEqualToString:@""]) {
@@ -107,18 +112,41 @@ static const int kStaticCellCount = 3;
 }
 
 + (CGFloat)getHeightForCellFromPostData:(PFObject *)postData andComments:(NSArray *)comments {
-    CGSize constraint = CGSizeMake(295, 83);
-    CGSize size = [[self getTagListStringFromPost:postData andComments:comments] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    CGFloat headerSize = 61;
     
-    CGFloat commentsSize = 0;
-    for (PFObject *comment in comments) {
-        CGSize constraint = CGSizeMake(280, 100);
-        CGSize size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-        commentsSize += size.height + 21 + 16;
+    CGFloat size = 0;
+    
+    for (int i = 0; i < comments.count + kStaticFootersCount + kStaticHeadersCount; i++) {
+        size += [CheckInCell getHeightForcellAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] withPostData:postData andComments:comments];
     }
     
-    return size.height + 16 + headerSize + commentsSize + 30;
+    return size;
+}
+
++ (CGFloat)getHeightForcellAtIndexPath:(NSIndexPath *)indexPath withPostData:(PFObject *)postData andComments:(NSArray *)comments {
+    
+    CGSize constraint;
+    CGSize size;
+    PFObject *comment;
+    
+    if (indexPath.row == kHeaderCellIndex) {
+        return 60;
+    }
+    else if (indexPath.row == kHashtagCellIndex) {
+        constraint = CGSizeMake(280, 50);
+        size = [[CheckInCell getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        return size.height + 16;
+    }
+    else if (indexPath.row == comments.count + kStaticHeadersCount) {
+        return 40;
+    }
+    else if (comments.count > 0) {
+        comment = [comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
+        constraint = CGSizeMake(280, 100);
+        size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        return size.height + 21 + 16;
+    }
+    
+    return 0;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -148,7 +176,7 @@ static const int kStaticCellCount = 3;
 #pragma Mark Table view Delegate and Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.comments.count + kStaticCellCount;
+    return self.comments.count + kStaticHeadersCount + kStaticFootersCount;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -160,7 +188,7 @@ static const int kStaticCellCount = 3;
     NSString *cellIdentifier;
     UITableViewCell *cell;
     
-    if (indexPath.row == 0) {
+    if (indexPath.row == kHeaderCellIndex) {
         cellIdentifier = @"checkinHeading";
         CheckInHeadingCell *checkinHeadingCell = [self.commentTable dequeueReusableCellWithIdentifier:cellIdentifier];
         cell = checkinHeadingCell;
@@ -173,14 +201,14 @@ static const int kStaticCellCount = 3;
         checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [self.creator objectForKey:@"firstName"], [self.creator objectForKey:@"lastName"]];
         checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [self.routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
     }
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == kHashtagCellIndex) {
         cellIdentifier = @"checkinHashtag";
         
         CheckinHashtagCell *checkinHashtagCell = [self.commentTable dequeueReusableCellWithIdentifier:cellIdentifier];
         cell = checkinHashtagCell;
-        checkinHashtagCell.hashtagTextView.text = [CheckInCell getTagListStringFromPost:self.postData andComments:self.comments];
+        checkinHashtagCell.hashtagTextView.text = [CheckInCell getTagListStringFromPost:self.postData];
     }
-    else if (indexPath.row == self.comments.count + kStaticCellCount - 1) {
+    else if (indexPath.row == self.comments.count + kStaticHeadersCount) {
         cellIdentifier = @"writeComment";
         CreateCommentCell *createCommentCell = [self.commentTable dequeueReusableCellWithIdentifier:cellIdentifier];
         cell = createCommentCell;
@@ -192,7 +220,7 @@ static const int kStaticCellCount = 3;
         CheckInCommentCell *checkinCommentCell = [self.commentTable dequeueReusableCellWithIdentifier:cellIdentifier];
         cell = checkinCommentCell;
         
-        PFObject *comment = [self.comments objectAtIndex:(indexPath.row - kStaticCellCount + 1)];
+        PFObject *comment = [self.comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
         PFUser *creator = [comment objectForKey:@"creator"];
         [creator fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
@@ -205,25 +233,7 @@ static const int kStaticCellCount = 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        return 61;
-    }
-    else if (indexPath.row == 1) {
-        CGSize constraint = CGSizeMake(280, 50);
-        CGSize size = [[CheckInCell getTagListStringFromPost:self.postData andComments:self.comments] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-        return size.height + 16;
-    }
-    else if (indexPath.row == self.comments.count + kStaticCellCount - 1) {
-        return 30;
-    }
-    else {
-        PFObject *comment = [self.comments objectAtIndex:(indexPath.row - kStaticCellCount + 1)];
-        CGSize constraint = CGSizeMake(280, 100);
-        CGSize size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-        return size.height + 21 + 16;
-    }
-    
-    return 0;
+    return [CheckInCell getHeightForcellAtIndexPath:indexPath withPostData:self.postData andComments:self.comments];
 }
 
 @end
