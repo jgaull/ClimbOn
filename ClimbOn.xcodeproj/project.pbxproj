@@ -32,6 +32,7 @@
 		FC0DDD6316C2508D0004C11D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD6216C2508D0004C11D /* SystemConfiguration.framework */; };
 		FC0F323816D4DD13009F4835 /* icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0F323716D4DD13009F4835 /* icon_57.png */; };
 		FC0F323A16D4DD16009F4835 /* icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0F323916D4DD16009F4835 /* icon_114.png */; };
+		FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC131EA716E5DB9300C20A28 /* PostImageCell.m */; };
 		FC13855016D18BFE00FEFBDA /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC13854F16D18BFE00FEFBDA /* FeedViewController.m */; };
 		FC13855316D1AA8F00FEFBDA /* CheckInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC13855216D1AA8F00FEFBDA /* CheckInCell.m */; };
 		FC1DC78716C0EEB100550319 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1DC78616C0EEB100550319 /* CoreLocation.framework */; };
@@ -115,6 +116,8 @@
 		FC0DDD6216C2508D0004C11D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FC0F323716D4DD13009F4835 /* icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57.png; sourceTree = "<group>"; };
 		FC0F323916D4DD16009F4835 /* icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_114.png; sourceTree = "<group>"; };
+		FC131EA616E5DB9300C20A28 /* PostImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostImageCell.h; sourceTree = "<group>"; };
+		FC131EA716E5DB9300C20A28 /* PostImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostImageCell.m; sourceTree = "<group>"; };
 		FC13854E16D18BFE00FEFBDA /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		FC13854F16D18BFE00FEFBDA /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		FC13855116D1AA8F00FEFBDA /* CheckInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInCell.h; sourceTree = "<group>"; };
@@ -170,10 +173,10 @@
 		FCD9610816E429D900705281 /* CheckInHeadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInHeadingCell.m; sourceTree = "<group>"; };
 		FCD9610A16E42E3B00705281 /* CheckinHashtagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinHashtagCell.h; sourceTree = "<group>"; };
 		FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinHashtagCell.m; sourceTree = "<group>"; };
-		FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckInCommentCell.h; path = ClimbOn/CheckInCommentCell.h; sourceTree = "<group>"; };
-		FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckInCommentCell.m; path = ClimbOn/CheckInCommentCell.m; sourceTree = "<group>"; };
-		FCD9611016E47D1400705281 /* CreateCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCommentCell.h; sourceTree = "<group>"; };
-		FCD9611116E47D1400705281 /* CreateCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCommentCell.m; sourceTree = "<group>"; };
+		FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInCommentCell.h; sourceTree = "<group>"; };
+		FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInCommentCell.m; sourceTree = "<group>"; };
+		FCD9611016E47D1400705281 /* CreateCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateCommentCell.h; path = ../CreateCommentCell.h; sourceTree = "<group>"; };
+		FCD9611116E47D1400705281 /* CreateCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateCommentCell.m; path = ../CreateCommentCell.m; sourceTree = "<group>"; };
 		FCE6778916C8EB6B00CD4924 /* CheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInViewController.h; sourceTree = "<group>"; };
 		FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInViewController.m; sourceTree = "<group>"; };
 		FCF0BA2616D755A100A508F2 /* likebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = likebutton.png; sourceTree = "<group>"; };
@@ -224,10 +227,6 @@
 		FC2A83DB16A3723B00637D74 = {
 			isa = PBXGroup;
 			children = (
-				FCD9611016E47D1400705281 /* CreateCommentCell.h */,
-				FCD9611116E47D1400705281 /* CreateCommentCell.m */,
-				FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */,
-				FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */,
 				FC226F0216D61B9C00BDA65A /* icon57.png */,
 				FC226F0016D61B9900BDA65A /* icon114.png */,
 				FC0F323916D4DD16009F4835 /* icon_114.png */,
@@ -277,6 +276,10 @@
 		FC2A83F016A3723B00637D74 /* ClimbOn */ = {
 			isa = PBXGroup;
 			children = (
+				FCD9611016E47D1400705281 /* CreateCommentCell.h */,
+				FCD9611116E47D1400705281 /* CreateCommentCell.m */,
+				FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */,
+				FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */,
 				FC2A840516A3723B00637D74 /* AddRouteViewController.h */,
 				FC2A840616A3723B00637D74 /* AddRouteViewController.m */,
 				FC2A83F916A3723B00637D74 /* AppDelegate.h */,
@@ -324,6 +327,8 @@
 				FCD9610816E429D900705281 /* CheckInHeadingCell.m */,
 				FCD9610A16E42E3B00705281 /* CheckinHashtagCell.h */,
 				FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */,
+				FC131EA616E5DB9300C20A28 /* PostImageCell.h */,
+				FC131EA716E5DB9300C20A28 /* PostImageCell.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -523,6 +528,7 @@
 				FCD9610C16E42E3B00705281 /* CheckinHashtagCell.m in Sources */,
 				FCD9610F16E43E2D00705281 /* CheckInCommentCell.m in Sources */,
 				FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */,
+				FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

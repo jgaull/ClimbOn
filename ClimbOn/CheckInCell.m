@@ -97,58 +97,6 @@ static const int kHashtagCellIndex = 1;
     self.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [self.routeData objectForKey:@"name"], [self.ratingData objectForKey:@"name"]];
 }
 
-+ (NSString *)getTagListStringFromPost:(PFObject *)postData {
-    NSString *tagList = @"";
-    for (PFObject *tag in [postData objectForKey:@"tags"]) {
-        if ([tagList isEqualToString:@""]) {
-            tagList = [tag objectForKey:@"name"];
-        }
-        else {
-            tagList = [NSString stringWithFormat:@"%@, %@", tagList, [tag objectForKey:@"name"]];
-        }
-    }
-    
-    return tagList;
-}
-
-+ (CGFloat)getHeightForCellFromPostData:(PFObject *)postData andComments:(NSArray *)comments {
-    
-    CGFloat size = 0;
-    
-    for (int i = 0; i < comments.count + kStaticFootersCount + kStaticHeadersCount; i++) {
-        size += [CheckInCell getHeightForcellAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] withPostData:postData andComments:comments];
-    }
-    
-    return size;
-}
-
-+ (CGFloat)getHeightForcellAtIndexPath:(NSIndexPath *)indexPath withPostData:(PFObject *)postData andComments:(NSArray *)comments {
-    
-    CGSize constraint;
-    CGSize size;
-    PFObject *comment;
-    
-    if (indexPath.row == kHeaderCellIndex) {
-        return 60;
-    }
-    else if (indexPath.row == kHashtagCellIndex) {
-        constraint = CGSizeMake(280, 50);
-        size = [[CheckInCell getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-        return size.height + 16;
-    }
-    else if (indexPath.row == comments.count + kStaticHeadersCount) {
-        return 40;
-    }
-    else if (comments.count > 0) {
-        comment = [comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
-        constraint = CGSizeMake(280, 100);
-        size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-        return size.height + 21 + 16;
-    }
-    
-    return 0;
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     
@@ -234,6 +182,60 @@ static const int kHashtagCellIndex = 1;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [CheckInCell getHeightForcellAtIndexPath:indexPath withPostData:self.postData andComments:self.comments];
+}
+
+#pragma Mark Static methods for calculating cell heights
+
++ (NSString *)getTagListStringFromPost:(PFObject *)postData {
+    NSString *tagList = @"";
+    for (PFObject *tag in [postData objectForKey:@"tags"]) {
+        if ([tagList isEqualToString:@""]) {
+            tagList = [tag objectForKey:@"name"];
+        }
+        else {
+            tagList = [NSString stringWithFormat:@"%@, %@", tagList, [tag objectForKey:@"name"]];
+        }
+    }
+    
+    return tagList;
+}
+
++ (CGFloat)getHeightForCellFromPostData:(PFObject *)postData andComments:(NSArray *)comments {
+    
+    CGFloat size = 0;
+    
+    for (int i = 0; i < comments.count + kStaticFootersCount + kStaticHeadersCount; i++) {
+        size += [CheckInCell getHeightForcellAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] withPostData:postData andComments:comments];
+    }
+    
+    return size;
+}
+
++ (CGFloat)getHeightForcellAtIndexPath:(NSIndexPath *)indexPath withPostData:(PFObject *)postData andComments:(NSArray *)comments {
+    
+    CGSize constraint;
+    CGSize size;
+    PFObject *comment;
+    
+    if (indexPath.row == kHeaderCellIndex) {
+        return 60;
+    }
+    else if (indexPath.row == kHashtagCellIndex) {
+        constraint = CGSizeMake(280, 50);
+        size = [[CheckInCell getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        return size.height + 16;
+    }
+    else if (indexPath.row == comments.count + kStaticHeadersCount) {
+        return 40;
+    }
+    else if (comments.count > 0) {
+        comment = [comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
+        constraint = CGSizeMake(280, 100);
+        size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:13.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        return size.height + 21 + 16;
+    }
+    
+    return 0;
 }
 
 @end

@@ -842,6 +842,9 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstItem="E4Z-60-vSW" firstAttribute="top" secondItem="NoW-zS-33n" secondAttribute="bottom" type="user" id="46T-2K-D9z"/>
                                                         <constraint firstItem="EHt-GG-Ef9" firstAttribute="centerY" secondItem="KRc-pc-wpd" secondAttribute="centerY" type="default" id="A4f-WA-lbf"/>
@@ -876,6 +879,9 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstItem="oyp-6L-bAO" firstAttribute="top" secondItem="Hv5-z7-YCV" secondAttribute="top" type="default" id="k1s-M3-DfV"/>
                                                         <constraint firstAttribute="trailing" secondItem="oyp-6L-bAO" secondAttribute="trailing" constant="20" type="default" id="w5x-tn-K0b"/>
@@ -885,8 +891,35 @@
                                                         <outlet property="hashtagTextView" destination="oyp-6L-bAO" id="6IH-Sh-uOQ"/>
                                                     </connections>
                                                 </tableViewCell>
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="postImage" rowHeight="280" id="hue-NE-88H" customClass="PostImageCell">
+                                                    <rect key="frame" x="0.0" y="143" width="320" height="280"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="279"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Zht-x4-XrJ" customClass="PFImageView">
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="279" id="syH-Yw-8Zk"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                                    </accessibility>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="Zht-x4-XrJ" secondAttribute="trailing" constant="20" type="default" id="WIU-Lw-Z5H"/>
+                                                        <constraint firstItem="Zht-x4-XrJ" firstAttribute="top" secondItem="hue-NE-88H" secondAttribute="top" type="default" id="YNg-oW-Lc1"/>
+                                                        <constraint firstItem="Zht-x4-XrJ" firstAttribute="leading" secondItem="hue-NE-88H" secondAttribute="leading" constant="20" type="default" id="aKA-Fx-drY"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="imageView" destination="Zht-x4-XrJ" id="3yh-Cd-akh"/>
+                                                    </connections>
+                                                </tableViewCell>
                                                 <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="checkinComment" rowHeight="111" id="oiZ-UG-qtO" customClass="CheckInCommentCell">
-                                                    <rect key="frame" x="0.0" y="143" width="320" height="111"/>
+                                                    <rect key="frame" x="0.0" y="423" width="320" height="111"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
@@ -894,27 +927,31 @@
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9k-lg-IOK">
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="21" id="00Z-Bj-g5T"/>
                                                                     <constraint firstAttribute="width" constant="290" id="38o-AC-RtM"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKK-Tf-d3j">
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="90" id="M2B-0G-4Mk"/>
+                                                                </constraints>
                                                                 <string key="text">This is a whole bunch of text that a user could write as a comment on a post. They are limited to 140 characters. This last part is filler b</string>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             </textView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
-                                                        <constraint firstItem="j9k-lg-IOK" firstAttribute="top" secondItem="oiZ-UG-qtO" secondAttribute="top" type="default" id="6YU-yf-9Ia"/>
+                                                        <constraint firstItem="DKK-Tf-d3j" firstAttribute="top" secondItem="oiZ-UG-qtO" secondAttribute="top" constant="20" type="default" id="3gS-JZ-Ivo"/>
                                                         <constraint firstAttribute="trailing" secondItem="DKK-Tf-d3j" secondAttribute="trailing" constant="20" type="default" id="E9G-P7-DGd"/>
-                                                        <constraint firstItem="DKK-Tf-d3j" firstAttribute="bottom" secondItem="oiZ-UG-qtO" secondAttribute="bottom" type="default" id="KUB-Ys-3cU"/>
-                                                        <constraint firstItem="DKK-Tf-d3j" firstAttribute="top" secondItem="j9k-lg-IOK" secondAttribute="bottom" type="user" id="bhN-jq-3sJ"/>
+                                                        <constraint firstItem="DKK-Tf-d3j" firstAttribute="top" secondItem="j9k-lg-IOK" secondAttribute="bottom" type="user" id="Ui9-qV-GDG"/>
                                                         <constraint firstItem="DKK-Tf-d3j" firstAttribute="leading" secondItem="j9k-lg-IOK" secondAttribute="leading" type="default" id="ebm-FY-WQi"/>
                                                         <constraint firstAttribute="trailing" secondItem="j9k-lg-IOK" secondAttribute="trailing" constant="20" type="default" id="ydz-lf-rh8"/>
                                                     </constraints>
@@ -923,27 +960,30 @@
                                                         <outlet property="userNameLabel" destination="j9k-lg-IOK" id="teB-7B-Dbc"/>
                                                     </connections>
                                                 </tableViewCell>
-                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeComment" rowHeight="30" id="hue-NE-88H" customClass="CreateCommentCell">
-                                                    <rect key="frame" x="0.0" y="254" width="320" height="30"/>
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeComment" rowHeight="40" id="IfA-Fv-4By" customClass="CreateCommentCell">
+                                                    <rect key="frame" x="0.0" y="534" width="320" height="40"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EyJ-TS-6YZ">
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PxH-ga-dch">
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                                    </accessibility>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="EyJ-TS-6YZ" secondAttribute="trailing" constant="20" type="default" id="5Lo-Xm-TCI"/>
-                                                        <constraint firstItem="EyJ-TS-6YZ" firstAttribute="top" secondItem="hue-NE-88H" secondAttribute="top" type="default" id="H05-Fe-hvg"/>
-                                                        <constraint firstItem="EyJ-TS-6YZ" firstAttribute="leading" secondItem="hue-NE-88H" secondAttribute="leading" constant="20" type="default" id="l49-tE-wRh"/>
+                                                        <constraint firstItem="PxH-ga-dch" firstAttribute="leading" secondItem="IfA-Fv-4By" secondAttribute="leading" constant="20" type="default" id="Qu4-Lh-6qA"/>
+                                                        <constraint firstAttribute="trailing" secondItem="PxH-ga-dch" secondAttribute="trailing" constant="20" type="default" id="oKn-GK-zYg"/>
+                                                        <constraint firstItem="PxH-ga-dch" firstAttribute="top" secondItem="IfA-Fv-4By" secondAttribute="top" type="default" id="pU5-v0-wSH"/>
                                                     </constraints>
                                                     <connections>
-                                                        <outlet property="createCommentField" destination="EyJ-TS-6YZ" id="4mT-jx-lax"/>
+                                                        <outlet property="createCommentField" destination="PxH-ga-dch" id="GQf-5f-4WC"/>
                                                     </connections>
                                                 </tableViewCell>
                                             </prototypes>
@@ -1214,124 +1254,6 @@
         <image name="second" width="16" height="16"/>
         <image name="trophy.png" width="163" height="170"/>
     </resources>
-    <classes>
-        <class className="AddRouteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="CheckInCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="commentTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postTextLabel" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userProfilePic" candidateClass="PFImageView"/>
-            </relationships>
-        </class>
-        <class className="CheckInCommentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCommentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CheckInHeadingCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInHeadingCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userProfilePic" candidateClass="PFImageView"/>
-            </relationships>
-        </class>
-        <class className="CheckInViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="CheckinHashtagCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinHashtagCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="hashtagTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="CreateCommentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateCommentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="createCommentField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="FeedViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-        </class>
-        <class className="FindFriendsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
-        </class>
-        <class className="FirstAscentViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-        <class className="FirstLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="FollowUserCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="NearbyRoutesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
-        </class>
-        <class className="PFImageView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
-        </class>
-        <class className="PostDetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
-                <relationship kind="outlet" name="postTextField" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userProfileImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ProfileViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="RouteViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
