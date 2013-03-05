@@ -20,6 +20,9 @@
 @property (nonatomic) NSInteger *postType;
 @property (nonatomic, strong) NSMutableDictionary *commentsLookup;
 
+@property (nonatomic) int completedQueries;
+@property (nonatomic) int numQueries;
+
 @end
 
 @implementation FeedViewController
@@ -108,6 +111,8 @@
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.data = [[NSArray alloc] initWithArray:objects];
+            self.completedQueries = 0;
+            self.numQueries = objects.count;
             
             for (PFObject *post in objects) {
                 PFRelation *comments = [post objectForKey:@"comments"];
@@ -117,6 +122,7 @@
                 [comments.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (!error) {
                         
+                        //for some reason the result of the query is not sorting properly.
                         NSArray *sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                             PFObject *comment1 = obj1;
                             PFObject *comment2 = obj2;
@@ -129,7 +135,10 @@
                         }];
                         
                         [self.commentsLookup setObject:[[NSArray alloc] initWithArray:sortedArray] forKey:post.objectId];
-                        
+                    }
+                    
+                    self.completedQueries++;
+                    if (self.completedQueries == self.numQueries) {
                         [self.tableView reloadData];
                     }
                 }];
