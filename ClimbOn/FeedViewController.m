@@ -116,25 +116,16 @@
             
             for (PFObject *post in objects) {
                 PFRelation *comments = [post objectForKey:@"comments"];
-                [comments.query includeKey:@"creator"];
-                comments.query.limit = 3;
+                PFQuery *query = comments.query;
                 
-                [comments.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                [query includeKey:@"creator"];
+                [query orderByAscending:@"createdAt"];
+                query.limit = 3;
+                
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (!error) {
                         
-                        //for some reason the result of the query is not sorting properly.
-                        NSArray *sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                            PFObject *comment1 = obj1;
-                            PFObject *comment2 = obj2;
-                            
-                            if ([comment1.createdAt timeIntervalSinceNow] > [comment2.createdAt timeIntervalSinceNow]) {
-                                return NSOrderedDescending;
-                            } else {
-                                return NSOrderedAscending;
-                            }
-                        }];
-                        
-                        [self.commentsLookup setObject:[[NSArray alloc] initWithArray:sortedArray] forKey:post.objectId];
+                        [self.commentsLookup setObject:[[NSArray alloc] initWithArray:objects] forKey:post.objectId];
                     }
                     
                     self.completedQueries++;
