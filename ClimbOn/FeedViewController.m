@@ -78,17 +78,14 @@ static const int kHashtagCellIndex = 1;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             
-            [self.tableView beginUpdates];
-            
             NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
             for (NSInteger i = comments.count; i < objects.count + comments.count; i++) {
                 [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:section]];
             }
             
+            [self.tableView beginUpdates];
             [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
-            
             [comments addObjectsFromArray:objects];
-            
             [self.tableView endUpdates];
         }
     }];
@@ -299,7 +296,6 @@ static const int kHashtagCellIndex = 1;
         PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
         [comment setObject:[PFUser currentUser] forKey:@"creator"];
         [comment setObject:textField.text forKey:@"commentText"];
-        NSLog(@"commentID: %@", comment.objectId);
         [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 PFRelation *relation = [postData objectForKey:@"comments"];
@@ -311,10 +307,9 @@ static const int kHashtagCellIndex = 1;
                         NSMutableArray *comments = [self getCommentsForPost:postData];
                         
                         [self.tableView beginUpdates];
-                        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:comments.count inSection:section]] withRowAnimation:UITableViewRowAnimationTop];
+                        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:comments.count + kStaticHeadersCount inSection:section]] withRowAnimation:UITableViewRowAnimationTop];
                         [comments addObject:comment];
                         [self.tableView endUpdates];
-                        NSLog(@"commentID: %@", comment.objectId);
                     }
                 }];
             }
