@@ -7,7 +7,6 @@
 //
 
 #import "RouteViewController.h"
-#import "CheckInCell.h"
 #import "RouteDataAnnotation.h"
 
 #import <MapKit/MapKit.h>
@@ -108,7 +107,7 @@
     return self.posts.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+/*- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PFObject *postData = [self.posts objectAtIndex:indexPath.row];
     
@@ -128,7 +127,7 @@
     PFObject *postData = [self.posts objectAtIndex:indexPath.row];
 #warning Comments is just nil here because this class should subclass the feed view.
     return [CheckInCell getHeightForCellFromPostData:postData andComments:nil];
-}
+}*/
 
 /*
 // Override to support conditional editing of the table view.

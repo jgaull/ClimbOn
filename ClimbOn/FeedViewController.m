@@ -7,7 +7,6 @@
 //
 
 #import "FeedViewController.h"
-#import "CheckInCell.h"
 #import "NearbyRoutesViewController.h"
 #import "CheckInViewController.h"
 #import "PostDetailsViewController.h"
@@ -19,7 +18,7 @@
 #import <Parse/Parse.h>
 
 static const int kStaticHeadersCount = 2;
-static const int kStaticFootersCount = 1;
+static const int kStaticFootersCount = 2;
 
 static const int kHeaderCellIndex = 0;
 static const int kHashtagCellIndex = 1;
@@ -63,6 +62,36 @@ static const int kHashtagCellIndex = 1;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)onMoreCommentsButton:(UIButton *)sender {
+    NSInteger section = sender.tag;
+    
+    PFObject *post = [self.data objectAtIndex:section];
+    NSMutableArray *comments = [self getCommentsForPost:post];
+    
+    PFRelation *relation = [post objectForKey:@"comments"];
+    PFQuery *query = relation.query;
+    [query orderByAscending:@"createdAt"];
+    query.limit = 5;
+    query.skip = comments.count;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            
+            [self.tableView beginUpdates];
+            
+            NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+            for (NSInteger i = comments.count; i < objects.count + comments.count; i++) {
+                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:section]];
+            }
+            
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+            
+            [comments addObjectsFromArray:objects];
+            
+            [self.tableView endUpdates];
+        }
+    }];
 }
 
 #pragma mark - Table view data source
@@ -142,8 +171,11 @@ static const int kHashtagCellIndex = 1;
         size = [[self getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         return size.height + 16;
     }
-    else if (indexPath.row == comments.count + kStaticHeadersCount) {
+    else if (indexPath.row == comments.count + kStaticHeadersCount + 1) {
         return 48;
+    }
+    else if (indexPath.row == comments.count + kStaticHeadersCount) {
+        return 24;
     }
     else if (comments.count > 0) {
         comment = [comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
@@ -190,7 +222,7 @@ static const int kHashtagCellIndex = 1;
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (!error) {
                         
-                        [self.commentsLookup setObject:[[NSArray alloc] initWithArray:objects] forKey:post.objectId];
+                        [self.commentsLookup setObject:[[NSMutableArray alloc] initWithArray:objects] forKey:post.objectId];
                     }
                     
                     self.remainingQueries--;
@@ -215,6 +247,7 @@ static const int kHashtagCellIndex = 1;
     //static NSString *ImageCell = @"imageCell";
     static NSString *CommentCell = @"commentCell";
     static NSString *WriteCommentCell = @"writeCommentCell";
+    static NSString *MoreCommentsCell = @"moreCommentsCell";
     
     if (indexPath.row == kHeaderCellIndex) {
         return HeadingCell;
@@ -224,8 +257,11 @@ static const int kHashtagCellIndex = 1;
     }
     else {
         NSArray *comments = [self getCommentsForPost:[self.data objectAtIndex:indexPath.section]];
-        if (indexPath.row == comments.count + kStaticHeadersCount) {
+        if (indexPath.row == comments.count + kStaticHeadersCount + 1) {
             return WriteCommentCell;
+        }
+        else if (indexPath.row == comments.count + kStaticHeadersCount) {
+            return MoreCommentsCell;
         }
         else {
             return CommentCell;
@@ -247,7 +283,7 @@ static const int kHashtagCellIndex = 1;
     return tagList;
 }
 
-- (NSArray *)getCommentsForPost:(PFObject *)post {
+- (NSMutableArray *)getCommentsForPost:(PFObject *)post {
     return [self.commentsLookup objectForKey:post.objectId];
 }
 
