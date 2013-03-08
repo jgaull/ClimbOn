@@ -11,8 +11,18 @@
 #import "NearbyRoutesViewController.h"
 #import "CheckInViewController.h"
 #import "PostDetailsViewController.h"
+#import "CheckInHeadingCell.h"
+#import "CheckinHashtagCell.h"
+#import "CheckInCommentCell.h"
+#import "CreateCommentCell.h"
 
 #import <Parse/Parse.h>
+
+static const int kStaticHeadersCount = 2;
+static const int kStaticFootersCount = 1;
+
+static const int kHeaderCellIndex = 0;
+static const int kHashtagCellIndex = 1;
 
 @interface FeedViewController ()
 
@@ -20,8 +30,7 @@
 @property (nonatomic) NSInteger *postType;
 @property (nonatomic, strong) NSMutableDictionary *commentsLookup;
 
-@property (nonatomic) int completedQueries;
-@property (nonatomic) int numQueries;
+@property (nonatomic) int remainingQueries;
 
 @end
 
@@ -60,33 +69,90 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.data.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.data.count;
+    return [self getCommentsForPost:[self.data objectAtIndex:section]].count + kStaticHeadersCount + kStaticFootersCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *postData = [self.data objectAtIndex:indexPath.row];
+    PFObject *postData = [self.data objectAtIndex:indexPath.section];
+    PFObject *routeData = [postData objectForKey:@"route"];
+    PFUser *creator = [postData objectForKey:@"creator"];
+    NSArray *comments = [self getCommentsForPost:postData];
     
-    NSString *cellIdentifier = @"fullCheckinCell";
-    CheckInCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    NSString *cellIdentifier = [self getCellIdentifierForIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    cell.creator = [postData objectForKey:@"creator"];
-    cell.routeData = [postData objectForKey:@"route"];
-    cell.ratingData = [cell.routeData objectForKey:@"rating"];
-    cell.comments = [self.commentsLookup objectForKey:postData.objectId];
-    cell.postData = postData;
+    if ([cell isKindOfClass:[CheckInHeadingCell class]]) {
+        CheckInHeadingCell *checkinHeadingCell = (CheckInHeadingCell *)cell;
+        
+        PFObject *rating = [routeData objectForKey:@"rating"];
+        
+        checkinHeadingCell.userProfilePic.file = [creator objectForKey:@"profilePicture"];
+        [checkinHeadingCell.userProfilePic loadInBackground];
+        checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
+        checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
+    }
+    else if ([cell isKindOfClass:[CheckinHashtagCell class]]) {
+        CheckinHashtagCell *checkinHashtagCell = (CheckinHashtagCell *)cell;
+        checkinHashtagCell.hashtagTextView.text = [self getTagListStringFromPost:postData];
+    }
+    else if ([cell isKindOfClass:[CheckInCommentCell class]]) {
+        CheckInCommentCell *checkinCommentCell = (CheckInCommentCell *)cell;
+        cell = checkinCommentCell;
+        
+        PFObject *comment = [comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
+        PFUser *creator = [comment objectForKey:@"creator"];
+        [creator fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
+        }];
+        
+        checkinCommentCell.commentTextView.text = [comment objectForKey:@"commentText"];
+    }
+    else if ([cell isKindOfClass:[CreateCommentCell class]]) {
+        CreateCommentCell *createCommentCell = (CreateCommentCell *)cell;
+        createCommentCell.createCommentField.delegate = self;
+        createCommentCell.createCommentField.tag = indexPath.section;
+    }
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PFObject *postData = [self.data objectAtIndex:indexPath.row];
-    return [CheckInCell getHeightForCellFromPostData:postData andComments:[self.commentsLookup objectForKey:postData.objectId]];
+    CGSize constraint;
+    CGSize size;
+    PFObject *comment;
+    
+    PFObject *postData = [self.data objectAtIndex:indexPath.section];
+    NSArray *comments = [self getCommentsForPost:postData];
+    
+    if (indexPath.row == kHeaderCellIndex) {
+        return 60;
+    }
+    else if (indexPath.row == kHashtagCellIndex) {
+        constraint = CGSizeMake(280, 50);
+        size = [[self getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        return size.height + 16;
+    }
+    else if (indexPath.row == comments.count + kStaticHeadersCount) {
+        return 48;
+    }
+    else if (comments.count > 0) {
+        comment = [comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
+        constraint = CGSizeMake(280, 100);
+        size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:13.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        return size.height + 21 + 16;
+    }
+    
+    return 0;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -111,8 +177,7 @@
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.data = [[NSArray alloc] initWithArray:objects];
-            self.completedQueries = 0;
-            self.numQueries = objects.count;
+            self.remainingQueries = objects.count;
             
             for (PFObject *post in objects) {
                 PFRelation *comments = [post objectForKey:@"comments"];
@@ -128,8 +193,8 @@
                         [self.commentsLookup setObject:[[NSArray alloc] initWithArray:objects] forKey:post.objectId];
                     }
                     
-                    self.completedQueries++;
-                    if (self.completedQueries == self.numQueries) {
+                    self.remainingQueries--;
+                    if (self.remainingQueries == 0) {
                         [self.tableView reloadData];
                     }
                 }];
@@ -141,6 +206,76 @@
         
         [self.refreshControl endRefreshing];
     }];
+}
+
+- (NSString *)getCellIdentifierForIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *HeadingCell = @"headingCell";
+    static NSString *HashTagCell = @"hashTagCell";
+    //static NSString *ImageCell = @"imageCell";
+    static NSString *CommentCell = @"commentCell";
+    static NSString *WriteCommentCell = @"writeCommentCell";
+    
+    if (indexPath.row == kHeaderCellIndex) {
+        return HeadingCell;
+    }
+    else if (indexPath.row == kHashtagCellIndex) {
+        return HashTagCell;
+    }
+    else {
+        NSArray *comments = [self getCommentsForPost:[self.data objectAtIndex:indexPath.section]];
+        if (indexPath.row == comments.count + kStaticHeadersCount) {
+            return WriteCommentCell;
+        }
+        else {
+            return CommentCell;
+        }
+    }
+}
+
+- (NSString *)getTagListStringFromPost:(PFObject *)postData {
+    NSString *tagList = @"";
+    for (PFObject *tag in [postData objectForKey:@"tags"]) {
+        if ([tagList isEqualToString:@""]) {
+            tagList = [tag objectForKey:@"name"];
+        }
+        else {
+            tagList = [NSString stringWithFormat:@"%@, %@", tagList, [tag objectForKey:@"name"]];
+        }
+    }
+    
+    return tagList;
+}
+
+- (NSArray *)getCommentsForPost:(PFObject *)post {
+    return [self.commentsLookup objectForKey:post.objectId];
+}
+
+#pragma Mark Text Field Delegate Methods
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    
+    if (![textField.text isEqualToString:@""]) {
+        PFObject *postData = [self.data objectAtIndex:textField.tag];
+        
+        PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
+        [comment setObject:[PFUser currentUser] forKey:@"creator"];
+        [comment setObject:textField.text forKey:@"commentText"];
+        [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                PFRelation *relation = [postData objectForKey:@"comments"];
+                [relation addObject:comment];
+                [postData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        textField.text = nil;
+                    }
+                }];
+            }
+        }];
+    }
+    
+    return NO;
 }
 
 /*

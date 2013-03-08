@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FeedViewController : UITableViewController
+@interface FeedViewController : UITableViewController <UITextFieldDelegate>
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 
 @end

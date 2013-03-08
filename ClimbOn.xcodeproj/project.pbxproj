@@ -34,7 +34,6 @@
 		FC0F323A16D4DD16009F4835 /* icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0F323916D4DD16009F4835 /* icon_114.png */; };
 		FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC131EA716E5DB9300C20A28 /* PostImageCell.m */; };
 		FC13855016D18BFE00FEFBDA /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC13854F16D18BFE00FEFBDA /* FeedViewController.m */; };
-		FC13855316D1AA8F00FEFBDA /* CheckInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC13855216D1AA8F00FEFBDA /* CheckInCell.m */; };
 		FC1DC78716C0EEB100550319 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1DC78616C0EEB100550319 /* CoreLocation.framework */; };
 		FC1DC78916C0EEB600550319 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1DC78816C0EEB600550319 /* MapKit.framework */; };
 		FC226EFF16D60ED700BDA65A /* PostDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC226EFE16D60ED600BDA65A /* PostDetailsViewController.m */; };
@@ -120,8 +119,6 @@
 		FC131EA716E5DB9300C20A28 /* PostImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostImageCell.m; sourceTree = "<group>"; };
 		FC13854E16D18BFE00FEFBDA /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		FC13854F16D18BFE00FEFBDA /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
-		FC13855116D1AA8F00FEFBDA /* CheckInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInCell.h; sourceTree = "<group>"; };
-		FC13855216D1AA8F00FEFBDA /* CheckInCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInCell.m; sourceTree = "<group>"; };
 		FC1DC78616C0EEB100550319 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FC1DC78816C0EEB600550319 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FC1DC78A16C0FDBC00550319 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -285,8 +282,6 @@
 				FC2A83F916A3723B00637D74 /* AppDelegate.h */,
 				FC2A83FA16A3723B00637D74 /* AppDelegate.m */,
 				FCF0BA2516D7559000A508F2 /* assets */,
-				FC13855116D1AA8F00FEFBDA /* CheckInCell.h */,
-				FC13855216D1AA8F00FEFBDA /* CheckInCell.m */,
 				FCE6778916C8EB6B00CD4924 /* CheckInViewController.h */,
 				FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */,
 				FC13854E16D18BFE00FEFBDA /* FeedViewController.h */,
@@ -513,7 +508,6 @@
 				FC2A840E16A3723B00637D74 /* ProfileViewController.m in Sources */,
 				FCE6778B16C8EB6B00CD4924 /* CheckInViewController.m in Sources */,
 				FC13855016D18BFE00FEFBDA /* FeedViewController.m in Sources */,
-				FC13855316D1AA8F00FEFBDA /* CheckInCell.m in Sources */,
 				FCD3154D16D20330004CCC59 /* NearbyRoutesViewController.m in Sources */,
 				FC26337B16D2B5880001A63A /* FindFriendsViewController.m in Sources */,
 				FC26337E16D2B60D0001A63A /* FollowUserCell.m in Sources */,
