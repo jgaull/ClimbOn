@@ -293,11 +293,13 @@ static const int kHashtagCellIndex = 1;
     [textField resignFirstResponder];
     
     if (![textField.text isEqualToString:@""]) {
-        PFObject *postData = [self.data objectAtIndex:textField.tag];
+        NSInteger section = textField.tag;
+        PFObject *postData = [self.data objectAtIndex:section];
         
         PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
         [comment setObject:[PFUser currentUser] forKey:@"creator"];
         [comment setObject:textField.text forKey:@"commentText"];
+        NSLog(@"commentID: %@", comment.objectId);
         [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 PFRelation *relation = [postData objectForKey:@"comments"];
@@ -305,6 +307,14 @@ static const int kHashtagCellIndex = 1;
                 [postData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (!error) {
                         textField.text = nil;
+                        
+                        NSMutableArray *comments = [self getCommentsForPost:postData];
+                        
+                        [self.tableView beginUpdates];
+                        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:comments.count inSection:section]] withRowAnimation:UITableViewRowAnimationTop];
+                        [comments addObject:comment];
+                        [self.tableView endUpdates];
+                        NSLog(@"commentID: %@", comment.objectId);
                     }
                 }];
             }
