@@ -18,6 +18,7 @@
 @property (strong, nonatomic) PFFile *selectedImage;
 @property (strong, nonatomic) NSMutableArray *selectedTags;
 @property (strong, nonatomic) NSDictionary *suggestedTags;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *checkInButton;
 
 @end
 
@@ -156,6 +157,16 @@
 
 #pragma Mark Text View Delegate methods.
 
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    self.checkInButton.title = @"Done";
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    self.checkInButton.title = @"Check In";
+}
+
 - (void)textViewDidChange:(UITextView *)textView {
     
 }
@@ -240,4 +251,6 @@
      self.addImageButton.enabled = false;
  }
 
+- (IBAction)checkInButton:(id)sender {
+}
 @end

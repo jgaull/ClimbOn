@@ -484,14 +484,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="upn-SA-WOF">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="O9V-aZ-egf">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="O9V-aZ-egf">
                             <connections>
-                                <action selector="onDoneButton:" destination="73R-b0-ZZ1" id="8nr-Sc-Lfm"/>
+                                <action selector="onDoneButton:" destination="73R-b0-ZZ1" id="U4h-UD-Khy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addImageButton" destination="bUc-gT-5BK" id="QTa-h6-dyW"/>
+                        <outlet property="checkInButton" destination="O9V-aZ-egf" id="ujk-Jz-tZL"/>
                         <outlet property="postTextView" destination="zrB-tw-ZgO" id="zKI-Vi-7dT"/>
                         <outlet property="selectedImageView" destination="X44-UZ-Mqe" id="P5y-5K-79s"/>
                         <outlet property="view" destination="h1S-N0-Nye" id="yyW-2t-Ui2"/>
@@ -1288,10 +1289,12 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
+                <relationship kind="action" name="checkInButton:"/>
                 <relationship kind="action" name="onAddImageButton:"/>
                 <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="action" name="onHashtagButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
             </relationships>
@@ -1317,7 +1320,6 @@
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
