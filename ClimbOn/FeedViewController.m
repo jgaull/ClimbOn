@@ -15,6 +15,7 @@
 #import "CheckInCommentCell.h"
 #import "CreateCommentCell.h"
 #import "MoreCommentsCell.h"
+#import "LikeCell.h"
 
 #import <Parse/Parse.h>
 
@@ -26,9 +27,12 @@ static const int kHashtagCellIndex = 1;
 
 @interface FeedViewController ()
 
-@property (nonatomic, strong) NSArray *data;
-@property (nonatomic) NSInteger *postType;
+@property (nonatomic, strong) NSMutableArray *postsList;
 @property (nonatomic, strong) NSMutableDictionary *commentsLookup;
+@property (nonatomic, strong) NSMutableDictionary *userHasLikedLookup;
+@property (nonatomic, strong) NSMutableDictionary *numberOfLikesLookup;
+
+@property (nonatomic) NSInteger *postType;
 
 @property (nonatomic) int remainingQueries;
 
@@ -68,7 +72,7 @@ static const int kHashtagCellIndex = 1;
 - (IBAction)onMoreCommentsButton:(UIButton *)sender {
     NSInteger section = sender.tag;
     
-    PFObject *post = [self.data objectAtIndex:section];
+    PFObject *post = [self.postsList objectAtIndex:section];
     NSMutableArray *comments = [self getCommentsForPost:post];
     
     PFRelation *relation = [post objectForKey:@"comments"];
@@ -96,7 +100,7 @@ static const int kHashtagCellIndex = 1;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.data.count;
+    return self.postsList.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -105,12 +109,12 @@ static const int kHashtagCellIndex = 1;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self getCommentsForPost:[self.data objectAtIndex:section]].count + kStaticHeadersCount + kStaticFootersCount;
+    return [self getCommentsForPost:[self.postsList objectAtIndex:section]].count + kStaticHeadersCount + kStaticFootersCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *postData = [self.data objectAtIndex:indexPath.section];
+    PFObject *postData = [self.postsList objectAtIndex:indexPath.section];
     PFObject *routeData = [postData objectForKey:@"route"];
     PFUser *creator = [postData objectForKey:@"creator"];
     NSArray *comments = [self getCommentsForPost:postData];
@@ -153,6 +157,9 @@ static const int kHashtagCellIndex = 1;
         MoreCommentsCell *moreCommentsCell = (MoreCommentsCell *)cell;
         moreCommentsCell.moreButton.tag = indexPath.section;
     }
+    else if ([cell isKindOfClass:[LikeCell class]]) {
+        LikeCell *likeCell = (LikeCell *)cell;
+    }
     
     return cell;
 }
@@ -162,7 +169,7 @@ static const int kHashtagCellIndex = 1;
     CGSize size;
     PFObject *comment;
     
-    PFObject *postData = [self.data objectAtIndex:indexPath.section];
+    PFObject *postData = [self.postsList objectAtIndex:indexPath.section];
     NSArray *comments = [self getCommentsForPost:postData];
     
     if (indexPath.row == kHeaderCellIndex) {
@@ -192,7 +199,7 @@ static const int kHashtagCellIndex = 1;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPostDetails"]) {
         PostDetailsViewController *postDetails = (PostDetailsViewController *)segue.destinationViewController;
-        postDetails.postData = [self.data objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        postDetails.postData = [self.postsList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
     }
     
     [super prepareForSegue:segue sender:sender];
@@ -210,18 +217,18 @@ static const int kHashtagCellIndex = 1;
     [feedQuery orderByDescending:@"createdAt"];
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            self.data = [[NSArray alloc] initWithArray:objects];
+            self.postsList = [[NSArray alloc] initWithArray:objects];
             self.remainingQueries = objects.count;
             
             for (PFObject *post in objects) {
                 PFRelation *comments = [post objectForKey:@"comments"];
-                PFQuery *query = comments.query;
+                PFQuery *commentsQuery = comments.query;
                 
-                [query includeKey:@"creator"];
-                [query orderByAscending:@"createdAt"];
-                query.limit = 3;
+                [commentsQuery includeKey:@"creator"];
+                [commentsQuery orderByAscending:@"createdAt"];
+                commentsQuery.limit = 3;
                 
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                [commentsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (!error) {
                         
                         [self.commentsLookup setObject:[[NSMutableArray alloc] initWithArray:objects] forKey:post.objectId];
@@ -230,6 +237,14 @@ static const int kHashtagCellIndex = 1;
                     self.remainingQueries--;
                     if (self.remainingQueries == 0) {
                         [self.tableView reloadData];
+                    }
+                }];
+                
+                PFRelation *likes = [post objectForKey:@"likes"];
+                PFQuery *likesQuery = likes.query;
+                [likesQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *object, NSError *error) {
+                    if (!error) {
+                        NSLog(@"user has not liked");
                     }
                 }];
             }
@@ -258,7 +273,7 @@ static const int kHashtagCellIndex = 1;
         return HashTagCell;
     }
     else {
-        NSArray *comments = [self getCommentsForPost:[self.data objectAtIndex:indexPath.section]];
+        NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:indexPath.section]];
         if (indexPath.row == comments.count + kStaticHeadersCount + 1) {
             return WriteCommentCell;
         }
@@ -296,7 +311,7 @@ static const int kHashtagCellIndex = 1;
     
     if (![textField.text isEqualToString:@""]) {
         NSInteger section = textField.tag;
-        PFObject *postData = [self.data objectAtIndex:section];
+        PFObject *postData = [self.postsList objectAtIndex:section];
         
         PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
         [comment setObject:[PFUser currentUser] forKey:@"creator"];
