@@ -906,11 +906,11 @@
                                     <outlet property="hashtagTextView" destination="hoG-oj-hXV" id="fso-TX-t79"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likeCell" rowHeight="51" id="6kL-Di-6tl" customClass="LikeCell">
-                                <rect key="frame" x="0.0" y="168" width="320" height="51"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likesCell" rowHeight="50" id="6kL-Di-6tl" customClass="LikeCell">
+                                <rect key="frame" x="0.0" y="168" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="50"/>
+                                    <rect key="frame" x="10" y="0.0" width="300" height="49"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="34 Likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j28-HF-Kef">
@@ -924,7 +924,6 @@
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3q-zH-czX">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="b5J-YI-m2Y"/>
                                                 <constraint firstAttribute="width" constant="47" id="dz4-wl-18U"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -936,6 +935,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
+                                                <action selector="onLikeButton:" destination="M2E-wj-5JQ" eventType="touchUpInside" id="8i2-kQ-vgb"/>
                                                 <action selector="onLikeButton:" destination="vmJ-g7-QoB" eventType="touchUpInside" id="tIh-qm-ObY"/>
                                             </connections>
                                         </button>
@@ -946,10 +946,11 @@
                                     <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                 </accessibility>
                                 <constraints>
-                                    <constraint firstItem="L3q-zH-czX" firstAttribute="top" secondItem="6kL-Di-6tl" secondAttribute="top" constant="-1" id="3zA-ZH-Kea"/>
+                                    <constraint firstItem="L3q-zH-czX" firstAttribute="top" secondItem="6kL-Di-6tl" secondAttribute="top" type="default" id="3mo-gQ-9L6"/>
+                                    <constraint firstAttribute="bottom" secondItem="L3q-zH-czX" secondAttribute="bottom" constant="20" type="default" id="aiz-tI-waK"/>
                                     <constraint firstItem="L3q-zH-czX" firstAttribute="leading" secondItem="6kL-Di-6tl" secondAttribute="leading" constant="20" type="user" id="c36-SJ-0uH"/>
                                     <constraint firstItem="j28-HF-Kef" firstAttribute="leading" secondItem="L3q-zH-czX" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="hQ2-Rj-stw"/>
-                                    <constraint firstItem="j28-HF-Kef" firstAttribute="top" secondItem="6kL-Di-6tl" secondAttribute="top" constant="5" id="sP4-tT-Hcj"/>
+                                    <constraint firstItem="j28-HF-Kef" firstAttribute="top" secondItem="6kL-Di-6tl" secondAttribute="top" constant="4" id="iDE-eY-bv6"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="likeButton" destination="L3q-zH-czX" id="126-zC-Leg"/>
@@ -957,7 +958,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="280" id="qpn-7M-NBn" customClass="PostImageCell">
-                                <rect key="frame" x="0.0" y="219" width="320" height="280"/>
+                                <rect key="frame" x="0.0" y="218" width="320" height="280"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="279"/>
@@ -984,7 +985,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="111" id="aXa-ml-1zf" customClass="CheckInCommentCell">
-                                <rect key="frame" x="0.0" y="499" width="320" height="111"/>
+                                <rect key="frame" x="0.0" y="498" width="320" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="110"/>
@@ -1025,7 +1026,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="o48-Ft-HUU" customClass="MoreCommentsCell">
-                                <rect key="frame" x="0.0" y="610" width="320" height="24"/>
+                                <rect key="frame" x="0.0" y="609" width="320" height="24"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="23"/>
@@ -1062,7 +1063,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="583" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="633" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1341,7 +1342,6 @@
         <class className="AddImageViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onAddImageButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
             </relationships>
@@ -1374,9 +1374,6 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
-                <relationship kind="action" name="checkInButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
-                <relationship kind="action" name="onHashtagButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
             </relationships>
@@ -1402,6 +1399,7 @@
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
