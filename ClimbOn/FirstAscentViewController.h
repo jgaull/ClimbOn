@@ -11,8 +11,8 @@
 
 @interface FirstAscentViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic, strong) PFObject *routeData;
-@property (nonatomic, strong) PFObject *postData;
+@property (nonatomic, strong) PFObject *route;
+@property (nonatomic, strong) PFObject *post;
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;

@@ -7,7 +7,7 @@
 //
 
 #import "CheckInViewController.h"
-#import "FirstAscentViewController.h"
+#import "AddImageViewController.h"
 
 @interface CheckInViewController ()
 
@@ -36,6 +36,7 @@
 	// Do any additional setup after loading the view.
     
     self.selectedTags = [[NSMutableArray alloc] init];
+    self.checkInButton.enabled = NO;
     
     PFQuery *topOutQuery = [[PFQuery alloc] initWithClassName:@"Tag"];
     [topOutQuery whereKey:@"type" equalTo:@"topOut"];
@@ -63,21 +64,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (PFObject *)getPostData {
-    PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
-    [post setObject:[PFUser currentUser] forKey:@"creator"];
-    [post setObject:self.route forKey:@"route"];
-    [post setObject:self.selectedTags forKey:@"tags"];
-    
-    return post;
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
     
-    FirstAscentViewController *nextViewController = (FirstAscentViewController *)segue.destinationViewController;
-    nextViewController.routeData = self.route;
-    nextViewController.postData = [self getPostData];
+    AddImageViewController *nextViewController = (AddImageViewController *)segue.destinationViewController;
+    nextViewController.route = self.route;
+    nextViewController.post = self.post;
+    nextViewController.didSendRoute = [self didSendRoute];
 }
 
 #pragma Mark button listeners
@@ -86,10 +79,12 @@
     PFObject *selectedTag = [self.suggestedTags objectForKey:sender.titleLabel.text];
     if ([self.selectedTags containsObject:selectedTag]) {
         [self.selectedTags removeObject:selectedTag];
+        self.checkInButton.enabled = [self shouldEnableCheckIn];
         sender.selected = NO;
     }
     else {
         [self.selectedTags addObject:selectedTag];
+        self.checkInButton.enabled = YES;
         sender.selected = YES;
     }
 }
@@ -103,12 +98,13 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Tags" message:@"Please select at least one tag." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
             [alert show];
         }
-        else if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute]) {
-            [self performSegueWithIdentifier:@"rateRoute" sender:self];
-        }
         else {
-            PFObject *post = [self getPostData];
-            [self.route saveEventually];
+            PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
+            [post setObject:[PFUser currentUser] forKey:@"creator"];
+            [post setObject:self.route forKey:@"route"];
+            [post setObject:self.selectedTags forKey:@"tags"];
+            
+//            [self.route saveEventually];
             
             if (![self.postTextView.text isEqualToString:@""]) {
                 PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
@@ -127,7 +123,7 @@
                 [post saveEventually];
             }
             
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self performSegueWithIdentifier:@"addImage" sender:sender];
         }
     }
 }
@@ -143,16 +139,25 @@
     return NO;
 }
 
+- (BOOL)shouldEnableCheckIn {
+    if(self.selectedTags.count == 0) //should maybe check that they entered text
+        return NO;
+    else
+        return YES;
+}
+
 #pragma Mark Text View Delegate methods.
 
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     self.checkInButton.title = @"Done";
+    self.checkInButton.enabled = YES;
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
     self.checkInButton.title = @"Check In";
+    self.checkInButton.enabled = [self shouldEnableCheckIn];
 }
 
 - (void)textViewDidChange:(UITextView *)textView {

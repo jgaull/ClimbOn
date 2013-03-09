@@ -464,7 +464,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="upn-SA-WOF">
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="O9V-aZ-egf">
+                        <barButtonItem key="rightBarButtonItem" title="Check In" style="done" id="O9V-aZ-egf">
                             <connections>
                                 <action selector="onDoneButton:" destination="73R-b0-ZZ1" id="U4h-UD-Khy"/>
                             </connections>
@@ -515,7 +515,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jWc-lT-3P9">
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="gZJ-H5-zKT"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="gZJ-H5-zKT">
+                            <connections>
+                                <action selector="onDoneButton:" destination="Qzx-i9-BZe" id="STB-rZ-gft"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addImageButton" destination="1FS-sD-0Pj" id="5mQ-c4-9cV"/>
@@ -1342,6 +1346,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
             <relationships>
                 <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
             </relationships>
@@ -1479,9 +1484,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="imj-M8-5cC"/>
         <segue reference="Rpc-TY-YgI"/>
+        <segue reference="imj-M8-5cC"/>
         <segue reference="TRT-AO-oWF"/>
-        <segue reference="gV9-rA-0Q7"/>
+        <segue reference="X7a-z2-6Ih"/>
     </inferredMetricsTieBreakers>
 </document>

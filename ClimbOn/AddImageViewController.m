@@ -7,6 +7,7 @@
 //
 
 #import "AddImageViewController.h"
+#import "FirstAscentViewController.h"
 
 @interface AddImageViewController ()
 
@@ -40,11 +41,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+    
+    FirstAscentViewController *nextViewController = (FirstAscentViewController *)segue.destinationViewController;
+    nextViewController.route = self.route;
+    nextViewController.post = self.post;
+}
+
 - (IBAction)onAddImageButton:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
     [actionSheet showInView:self.view];
 }
 
+- (IBAction)onDoneButton:(id)sender {
+    if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute]) {
+        [self performSegueWithIdentifier:@"rateRoute" sender:self];
+    } else
+        [self dismissViewControllerAnimated:YES completion:nil];
+}
 #pragma Mark Actionsheet Methods
 
 - (void)displayPhotoSourcePicker {
