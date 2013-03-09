@@ -159,6 +159,7 @@ static const int kHashtagCellIndex = 1;
     }
     else if ([cell isKindOfClass:[LikeCell class]]) {
         LikeCell *likeCell = (LikeCell *)cell;
+        likeCell.likeButton.tag = indexPath.section;
     }
     
     return cell;
@@ -207,6 +208,8 @@ static const int kHashtagCellIndex = 1;
 
 - (void)refresh {
     self.commentsLookup = [[NSMutableDictionary alloc] init];
+    self.userHasLikedLookup = [[NSMutableDictionary alloc] init];
+    self.numberOfLikesLookup = [[NSMutableDictionary alloc] init];
     
     PFQuery *feedQuery = [PFQuery queryWithClassName:@"Post"];
     [feedQuery whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
@@ -217,7 +220,7 @@ static const int kHashtagCellIndex = 1;
     [feedQuery orderByDescending:@"createdAt"];
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            self.postsList = [[NSArray alloc] initWithArray:objects];
+            self.postsList = [[NSMutableArray alloc] initWithArray:objects];
             self.remainingQueries = objects.count;
             
             for (PFObject *post in objects) {
@@ -244,8 +247,16 @@ static const int kHashtagCellIndex = 1;
                 PFQuery *likesQuery = likes.query;
                 [likesQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *object, NSError *error) {
                     if (!error) {
-                        NSLog(@"user has not liked");
+                        NSLog(@"user has liked: %@", post.objectId);
                     }
+                    else {
+                        NSLog(@"user has not liked: %@", post.objectId);
+                    }
+                }];
+                
+                [likesQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+                    [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:number] forKey:post.objectId];
+                    NSLog(@"number of likes: %d", number);
                 }];
             }
         }
