@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932C7EF716EBEF20001F6F7A /* AddImageViewController.m */; };
 		93F5A7CB16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
 		93F5A7CC16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
 		93F5A7CD16D9DF9300B2476F /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */; };
@@ -90,6 +91,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		932C7EF616EBEF20001F6F7A /* AddImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageViewController.h; sourceTree = "<group>"; };
+		932C7EF716EBEF20001F6F7A /* AddImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageViewController.m; sourceTree = "<group>"; };
 		93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotationView.m; sourceTree = "<group>"; };
 		93F5A7C816D9DF9300B2476F /* RouteAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteAnnotationView.h; sourceTree = "<group>"; };
 		93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotation.m; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 				FC131EA716E5DB9300C20A28 /* PostImageCell.m */,
 				FC1A56EF16EBE31D00AEEC94 /* MoreCommentsCell.h */,
 				FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */,
+				932C7EF616EBEF20001F6F7A /* AddImageViewController.h */,
+				932C7EF716EBEF20001F6F7A /* AddImageViewController.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */,
 				FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */,
 				FC1A56F116EBE31D00AEEC94 /* MoreCommentsCell.m in Sources */,
+				932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -481,10 +481,10 @@
             </objects>
             <point key="canvasLocation" x="3420" y="473"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Image View Controller-->
         <scene sceneID="8S2-1O-PaR">
             <objects>
-                <viewController id="Qzx-i9-BZe" sceneMemberID="viewController">
+                <viewController id="Qzx-i9-BZe" customClass="AddImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dxr-k4-TIF">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -499,6 +499,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onAddImageButton:" destination="Qzx-i9-BZe" eventType="touchUpInside" id="pXJ-Vc-Zbx"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -515,6 +518,8 @@
                         <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="gZJ-H5-zKT"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="addImageButton" destination="1FS-sD-0Pj" id="5mQ-c4-9cV"/>
+                        <outlet property="selectedImageView" destination="Bce-H4-RYA" id="nj6-1L-Xwt"/>
                         <segue destination="ddG-a2-VJA" kind="push" identifier="rateRoute" id="r0X-XL-Kei"/>
                     </connections>
                 </viewController>
@@ -1007,7 +1012,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="583" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="583" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1283,6 +1288,14 @@
         <image name="trophy.png" width="163" height="170"/>
     </resources>
     <classes>
+        <class className="AddImageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
         <class className="AddRouteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
             <relationships>
@@ -1311,10 +1324,8 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="CheckinHashtagCell" superclassName="UITableViewCell">
@@ -1409,8 +1420,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="imj-M8-5cC"/>
         <segue reference="Rpc-TY-YgI"/>
-        <segue reference="eB8-Wc-82I"/>
         <segue reference="TRT-AO-oWF"/>
         <segue reference="gV9-rA-0Q7"/>
     </inferredMetricsTieBreakers>

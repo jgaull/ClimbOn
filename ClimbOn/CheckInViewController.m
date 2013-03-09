@@ -12,10 +12,7 @@
 @interface CheckInViewController ()
 
 @property (strong, nonatomic) IBOutlet UITextView *postTextView;
-@property (strong, nonatomic) IBOutlet UIButton *addImageButton;
-@property (weak, nonatomic) IBOutlet UIImageView *selectedImageView;
 
-@property (strong, nonatomic) PFFile *selectedImage;
 @property (strong, nonatomic) NSMutableArray *selectedTags;
 @property (strong, nonatomic) NSDictionary *suggestedTags;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *checkInButton;
@@ -71,10 +68,6 @@
     [post setObject:[PFUser currentUser] forKey:@"creator"];
     [post setObject:self.route forKey:@"route"];
     [post setObject:self.selectedTags forKey:@"tags"];
-    
-    if (self.selectedImage) {
-        [post setObject:self.selectedImage forKey:@"image"];
-    }
     
     return post;
 }
@@ -139,11 +132,6 @@
     }
 }
 
-- (IBAction)onAddImageButton:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
-    [actionSheet showInView:self.view];
-}
-
 - (BOOL)didSendRoute {
     for (PFObject *tag in self.selectedTags) {
         NSString *type = [tag objectForKey:@"type"];
@@ -186,70 +174,6 @@
         self.title = [_route objectForKey:@"name"];
     }
 }
-
- #pragma Mark Actionsheet Methods
- 
- - (void)displayPhotoSourcePicker {
-     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", nil];
-     [actionSheet showInView:self.view];
- }
- 
- - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-     
-     if (buttonIndex == 2) {
-         NSLog(@"Cancel");
-     }
-     else {
-         UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
-         imagePickController.delegate = self;
-         imagePickController.allowsEditing = NO;
-         
-         if (buttonIndex == 0) {
-             imagePickController.sourceType = UIImagePickerControllerSourceTypeCamera;
-             imagePickController.showsCameraControls = YES;
-         }
-         else if (buttonIndex == 1) {
-             imagePickController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-         }
-         
-         [self presentViewController:imagePickController animated:YES completion:nil];
-     }
-     
- }
- 
- #pragma Mark Imagepicker Controller
- 
- - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-     [self dismissViewControllerAnimated:YES completion:nil];
- }
- 
- - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
- 
-     [self dismissViewControllerAnimated:YES completion:nil];
-     
-     UIImage *selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-     [self.selectedImageView setImage:selectedImage];
-     
-     if(picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-         UIImageWriteToSavedPhotosAlbum(selectedImage, nil, nil, nil);
-     }
-     
-     UIGraphicsBeginImageContext(CGSizeMake(640, 960));
-     [selectedImage drawInRect: CGRectMake(0, 0, 640, 960)];
-     UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
-     UIGraphicsEndImageContext();
-     
-     self.selectedImage = [PFFile fileWithName:@"image" data:UIImageJPEGRepresentation(smallImage, 0.05f)];
-     
-     [self.selectedImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-         if (error) {
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
-             [alert show];
-         }
-     }];
-     
-     self.addImageButton.enabled = false;
- }
 
 - (IBAction)checkInButton:(id)sender {
 }
