@@ -14,6 +14,7 @@
 #import "CheckinHashtagCell.h"
 #import "CheckInCommentCell.h"
 #import "CreateCommentCell.h"
+#import "MoreCommentsCell.h"
 
 #import <Parse/Parse.h>
 
@@ -147,6 +148,10 @@ static const int kHashtagCellIndex = 1;
         CreateCommentCell *createCommentCell = (CreateCommentCell *)cell;
         createCommentCell.createCommentField.delegate = self;
         createCommentCell.createCommentField.tag = indexPath.section;
+    }
+    else if ([cell isKindOfClass:[MoreCommentsCell class]]) {
+        MoreCommentsCell *moreCommentsCell = (MoreCommentsCell *)cell;
+        moreCommentsCell.moreButton.tag = indexPath.section;
     }
     
     return cell;

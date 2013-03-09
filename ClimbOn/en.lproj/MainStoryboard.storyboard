@@ -950,7 +950,7 @@
                                     <outlet property="userNameLabel" destination="yqQ-Ay-5ge" id="7ng-jo-I5k"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="o48-Ft-HUU" customClass="CreateCommentCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="o48-Ft-HUU" customClass="MoreCommentsCell">
                                 <rect key="frame" x="0.0" y="559" width="320" height="24"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -983,6 +983,9 @@
                                     <constraint firstItem="ILd-xa-wyH" firstAttribute="centerX" secondItem="o48-Ft-HUU" secondAttribute="centerX" type="default" id="lx9-dq-vrG"/>
                                     <constraint firstItem="ILd-xa-wyH" firstAttribute="top" secondItem="o48-Ft-HUU" secondAttribute="top" type="user" id="sbq-K3-Mes"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="moreButton" destination="ILd-xa-wyH" id="WVg-i3-TXR"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
                                 <rect key="frame" x="0.0" y="583" width="320" height="48"/>
@@ -1289,10 +1292,6 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
-                <relationship kind="action" name="checkInButton:"/>
-                <relationship kind="action" name="onAddImageButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
-                <relationship kind="action" name="onHashtagButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
@@ -1313,6 +1312,9 @@
         </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onMoreCommentsButton:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
@@ -1334,6 +1336,12 @@
             <relationships>
                 <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MoreCommentsCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MoreCommentsCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="moreButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">

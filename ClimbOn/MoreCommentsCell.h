@@ -10,4 +10,6 @@
 
 @interface MoreCommentsCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UIButton *moreButton;
+
 @end
