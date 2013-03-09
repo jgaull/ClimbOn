@@ -906,8 +906,58 @@
                                     <outlet property="hashtagTextView" destination="hoG-oj-hXV" id="fso-TX-t79"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likeCell" rowHeight="51" id="6kL-Di-6tl" customClass="LikeCell">
+                                <rect key="frame" x="0.0" y="168" width="320" height="51"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="34 Likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j28-HF-Kef">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="614-oZ-qk6"/>
+                                                <constraint firstAttribute="width" constant="215" id="ddF-dZ-VZJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3q-zH-czX">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="b5J-YI-m2Y"/>
+                                                <constraint firstAttribute="width" constant="47" id="dz4-wl-18U"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                            <state key="normal" image="likebutton.png">
+                                                <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onLikeButton:" destination="vmJ-g7-QoB" eventType="touchUpInside" id="tIh-qm-ObY"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="L3q-zH-czX" firstAttribute="leading" secondItem="6kL-Di-6tl" secondAttribute="leading" constant="20" type="user" id="c36-SJ-0uH"/>
+                                    <constraint firstItem="j28-HF-Kef" firstAttribute="leading" secondItem="L3q-zH-czX" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="hQ2-Rj-stw"/>
+                                    <constraint firstItem="L3q-zH-czX" firstAttribute="top" secondItem="6kL-Di-6tl" secondAttribute="top" type="default" id="wAF-ee-5DQ"/>
+                                    <constraint firstItem="j28-HF-Kef" firstAttribute="bottom" secondItem="L3q-zH-czX" secondAttribute="bottom" type="default" id="wFx-AJ-pCs"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="likeButton" destination="L3q-zH-czX" id="126-zC-Leg"/>
+                                    <outlet property="likesLabel" destination="j28-HF-Kef" id="gOS-iF-V78"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="280" id="qpn-7M-NBn" customClass="PostImageCell">
-                                <rect key="frame" x="0.0" y="168" width="320" height="280"/>
+                                <rect key="frame" x="0.0" y="219" width="320" height="280"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="279"/>
@@ -934,7 +984,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="111" id="aXa-ml-1zf" customClass="CheckInCommentCell">
-                                <rect key="frame" x="0.0" y="448" width="320" height="111"/>
+                                <rect key="frame" x="0.0" y="499" width="320" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="110"/>
@@ -975,7 +1025,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="o48-Ft-HUU" customClass="MoreCommentsCell">
-                                <rect key="frame" x="0.0" y="559" width="320" height="24"/>
+                                <rect key="frame" x="0.0" y="610" width="320" height="24"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="23"/>
@@ -1005,7 +1055,7 @@
                                 </accessibility>
                                 <constraints>
                                     <constraint firstItem="ILd-xa-wyH" firstAttribute="centerX" secondItem="o48-Ft-HUU" secondAttribute="centerX" type="default" id="lx9-dq-vrG"/>
-                                    <constraint firstItem="ILd-xa-wyH" firstAttribute="top" secondItem="o48-Ft-HUU" secondAttribute="top" type="user" id="sbq-K3-Mes"/>
+                                    <constraint firstItem="ILd-xa-wyH" firstAttribute="top" secondItem="o48-Ft-HUU" secondAttribute="top" constant="-1" id="xob-Lc-U62"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="moreButton" destination="ILd-xa-wyH" id="WVg-i3-TXR"/>

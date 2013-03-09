@@ -60,7 +60,7 @@
 //        [self.postImage setFrame:CGRectMake(self.postImage.frame.origin.x, -self.postImage.frame.size.height, self.postImage.frame.size.width, self.postImage.frame.size.height)];
     }
     
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Like"];
+    /*PFQuery *query = [[PFQuery alloc] initWithClassName:@"Like"];
     [query whereKey:@"post" equalTo:self.postData];
     [query whereKey:@"originator" equalTo:[PFUser currentUser]];
     self.likeButton.enabled = NO;
@@ -74,7 +74,7 @@
         }
         
         self.likeButton.enabled = YES;
-    }];
+    }];*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,7 +84,7 @@
 }
 
 - (IBAction)onLikeButton:(id)sender {
-    self.likeButton.enabled = NO;
+    /*self.likeButton.enabled = NO;
     if (self.likeData) {
         [self.likeData deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
@@ -107,7 +107,7 @@
             
             self.likeButton.enabled = YES;
         }];
-    }
+    }*/
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

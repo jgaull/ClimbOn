@@ -36,6 +36,7 @@
 		FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC131EA716E5DB9300C20A28 /* PostImageCell.m */; };
 		FC13855016D18BFE00FEFBDA /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC13854F16D18BFE00FEFBDA /* FeedViewController.m */; };
 		FC1A56F116EBE31D00AEEC94 /* MoreCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */; };
+		FC1A56F416EBEF4300AEEC94 /* LikeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1A56F316EBEF4300AEEC94 /* LikeCell.m */; };
 		FC1DC78716C0EEB100550319 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1DC78616C0EEB100550319 /* CoreLocation.framework */; };
 		FC1DC78916C0EEB600550319 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1DC78816C0EEB600550319 /* MapKit.framework */; };
 		FC226EFF16D60ED700BDA65A /* PostDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC226EFE16D60ED600BDA65A /* PostDetailsViewController.m */; };
@@ -125,6 +126,8 @@
 		FC13854F16D18BFE00FEFBDA /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		FC1A56EF16EBE31D00AEEC94 /* MoreCommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreCommentsCell.h; sourceTree = "<group>"; };
 		FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreCommentsCell.m; sourceTree = "<group>"; };
+		FC1A56F216EBEF4300AEEC94 /* LikeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeCell.h; sourceTree = "<group>"; };
+		FC1A56F316EBEF4300AEEC94 /* LikeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeCell.m; sourceTree = "<group>"; };
 		FC1DC78616C0EEB100550319 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FC1DC78816C0EEB600550319 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FC1DC78A16C0FDBC00550319 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -334,6 +337,8 @@
 				FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */,
 				932C7EF616EBEF20001F6F7A /* AddImageViewController.h */,
 				932C7EF716EBEF20001F6F7A /* AddImageViewController.m */,
+				FC1A56F216EBEF4300AEEC94 /* LikeCell.h */,
+				FC1A56F316EBEF4300AEEC94 /* LikeCell.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -535,6 +540,7 @@
 				FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */,
 				FC1A56F116EBE31D00AEEC94 /* MoreCommentsCell.m in Sources */,
 				932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */,
+				FC1A56F416EBEF4300AEEC94 /* LikeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
