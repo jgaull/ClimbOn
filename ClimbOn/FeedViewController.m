@@ -80,7 +80,7 @@ static const int kHashtagCellIndex = 1;
             
             NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
             for (NSInteger i = comments.count; i < objects.count + comments.count; i++) {
-                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:section]];
+                [indexPaths addObject:[NSIndexPath indexPathForRow:i + kStaticHeadersCount inSection:section]];
             }
             
             [self.tableView beginUpdates];
