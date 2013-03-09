@@ -19,11 +19,12 @@
 
 #import <Parse/Parse.h>
 
-static const int kStaticHeadersCount = 2;
+static const int kStaticHeadersCount = 3;
 static const int kStaticFootersCount = 2;
 
 static const int kHeaderCellIndex = 0;
 static const int kHashtagCellIndex = 1;
+static const int kLikesCellIndex = 2;
 
 @interface FeedViewController ()
 
@@ -96,6 +97,19 @@ static const int kHashtagCellIndex = 1;
     }];
 }
 
+- (IBAction)onLikeButton:(UIButton *)sender {
+    PFObject *post = [self.postsList objectAtIndex:sender.tag];
+    NSNumber *numLikes = [self.numberOfLikesLookup objectForKey:post.objectId];
+    NSNumber *hasLiked = [self.userHasLikedLookup objectForKey:post.objectId];
+    
+    if ([hasLiked boolValue]) {
+        NSLog(@"User has already liked");
+    }
+    else {
+        NSLog(@"User has not already liked");
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -159,6 +173,8 @@ static const int kHashtagCellIndex = 1;
     }
     else if ([cell isKindOfClass:[LikeCell class]]) {
         LikeCell *likeCell = (LikeCell *)cell;
+        likeCell.likeButton.tag = indexPath.section;
+        likeCell.likesLabel.text = [[self.numberOfLikesLookup objectForKey:postData.objectId] stringValue];
     }
     
     return cell;
@@ -179,6 +195,9 @@ static const int kHashtagCellIndex = 1;
         constraint = CGSizeMake(280, 50);
         size = [[self getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         return size.height + 16;
+    }
+    else if (indexPath.row == kLikesCellIndex) {
+        return 50;
     }
     else if (indexPath.row == comments.count + kStaticHeadersCount + 1) {
         return 48;
@@ -207,6 +226,8 @@ static const int kHashtagCellIndex = 1;
 
 - (void)refresh {
     self.commentsLookup = [[NSMutableDictionary alloc] init];
+    self.userHasLikedLookup = [[NSMutableDictionary alloc] init];
+    self.numberOfLikesLookup = [[NSMutableDictionary alloc] init];
     
     PFQuery *feedQuery = [PFQuery queryWithClassName:@"Post"];
     [feedQuery whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
@@ -217,7 +238,7 @@ static const int kHashtagCellIndex = 1;
     [feedQuery orderByDescending:@"createdAt"];
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            self.postsList = [[NSArray alloc] initWithArray:objects];
+            self.postsList = [[NSMutableArray alloc] initWithArray:objects];
             self.remainingQueries = objects.count;
             
             for (PFObject *post in objects) {
@@ -242,9 +263,25 @@ static const int kHashtagCellIndex = 1;
                 
                 PFRelation *likes = [post objectForKey:@"likes"];
                 PFQuery *likesQuery = likes.query;
-                [likesQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *object, NSError *error) {
-                    if (!error) {
-                        NSLog(@"user has not liked");
+                
+                [likesQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+                    [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:number] forKey:post.objectId];
+                    NSLog(@"number of likes: %d", number);
+                    
+                    if (number > 0) {
+                        [likesQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *object, NSError *error) {
+                            if (!error) {
+                                NSLog(@"user has liked: %@", post.objectId);
+                                [self.userHasLikedLookup setObject:[NSNumber numberWithBool:YES] forKey:post.objectId];
+                            }
+                            else {
+                                NSLog(@"user has not liked: %@", post.objectId);
+                                [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
+                            }
+                        }];
+                    }
+                    else {
+                        [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
                     }
                 }];
             }
@@ -265,12 +302,16 @@ static const int kHashtagCellIndex = 1;
     static NSString *CommentCell = @"commentCell";
     static NSString *WriteCommentCell = @"writeCommentCell";
     static NSString *MoreCommentsCell = @"moreCommentsCell";
+    static NSString *LikesCell = @"likesCell";
     
     if (indexPath.row == kHeaderCellIndex) {
         return HeadingCell;
     }
     else if (indexPath.row == kHashtagCellIndex) {
         return HashTagCell;
+    }
+    else if (indexPath.row == kLikesCellIndex) {
+        return LikesCell;
     }
     else {
         NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:indexPath.section]];
