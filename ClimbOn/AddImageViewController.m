@@ -8,6 +8,7 @@
 
 #import "AddImageViewController.h"
 #import "FirstAscentViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface AddImageViewController ()
 
@@ -17,6 +18,7 @@
 
 @property (strong, nonatomic) UIImagePickerController *imagePickController;
 @property (strong, nonatomic) PFFile *selectedVideo;
+@property (strong, nonatomic) NSURL *selectedUrl;
 
 @end
 
@@ -88,6 +90,22 @@
         [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)cameraIsReady:(NSNotification *)notification
+{
+    NSLog(@"Camera is ready...");
+    // Whatever
+    //    [self.imagePickController startVideoCapture];
+}
+
+- (IBAction)onPlayButton:(id)sender {
+    
+    NSString *videoURLString = self.selectedUrl.path;
+    NSLog(@"Video Url:%@",videoURLString);
+    NSURL *videoURL = [NSURL URLWithString:videoURLString];
+    MPMoviePlayerViewController *moviePlayerView = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+    [self presentMoviePlayerViewControllerAnimated:moviePlayerView];
+}
+
 - (void) uploadFile:(PFFile *)file {
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
@@ -135,13 +153,6 @@
     self.imagePickController = nil;
 }
 
-- (void)cameraIsReady:(NSNotification *)notification
-{
-    NSLog(@"Camera is ready...");
-    // Whatever
-//    [self.imagePickController startVideoCapture];
-}
-
 #pragma Mark Actionsheet Methods
 
 - (void)displayPhotoSourcePicker {
@@ -186,12 +197,12 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    NSURL *videoUrl = [info objectForKey:UIImagePickerControllerMediaURL];
+    self.selectedUrl = [info objectForKey:UIImagePickerControllerMediaURL];
 //    [self.selectedImageView setImage:selectedVideo];
     
     // newly created video
     if(picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-        UISaveVideoAtPathToSavedPhotosAlbum(videoUrl.path, nil, nil, nil);
+        UISaveVideoAtPathToSavedPhotosAlbum(self.selectedUrl.path, nil, nil, nil);
     }
     
 //    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
@@ -199,7 +210,7 @@
 //    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
 //    UIGraphicsEndImageContext();
     
-    self.selectedVideo = [PFFile fileWithName:@"video.m4v" contentsAtPath:videoUrl.path];
+    self.selectedVideo = [PFFile fileWithName:@"video.m4v" contentsAtPath:self.selectedUrl.path];
     self.submitButton.title = @"Upload & Save";
 }
 
