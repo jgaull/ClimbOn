@@ -15,6 +15,12 @@
 @property (nonatomic, strong) PFObject *post;
 @property (nonatomic) BOOL didSendRoute;
 
+enum ImageActionButtons:NSInteger{
+    ButtonTakePhoto,
+    ButtonPickPhoto,
+    ButtonCancel
+};
+
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;

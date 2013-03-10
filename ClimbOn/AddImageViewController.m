@@ -50,8 +50,7 @@
 }
 
 - (IBAction)onAddImageButton:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
-    [actionSheet showInView:self.view];
+    [self displayPhotoSourcePicker];
 }
 
 - (IBAction)onDoneButton:(id)sender {
@@ -110,8 +109,8 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex == 2) {
+
+    if (buttonIndex == ButtonCancel) {
         NSLog(@"Cancel");
     }
     else {
@@ -119,11 +118,11 @@
         imagePickController.delegate = self;
         imagePickController.allowsEditing = NO;
         
-        if (buttonIndex == 0) {
+        if (buttonIndex == ButtonTakePhoto) {
             imagePickController.sourceType = UIImagePickerControllerSourceTypeCamera;
             imagePickController.showsCameraControls = YES;
         }
-        else if (buttonIndex == 1) {
+        else if (buttonIndex == ButtonPickPhoto) {
             imagePickController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         }
         
