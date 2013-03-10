@@ -86,15 +86,20 @@
 
 - (IBAction)onHashtagButton:(UIButton *)sender {
     PFObject *selectedTag = [self.suggestedTags objectForKey:sender.titleLabel.text];
-    if ([self.selectedTags containsObject:selectedTag]) {
-        [self.selectedTags removeObject:selectedTag];
-        self.checkInButton.enabled = [self shouldEnableCheckIn];
-        sender.selected = NO;
-    }
-    else {
-        [self.selectedTags addObject:selectedTag];
-        self.checkInButton.enabled = YES;
-        sender.selected = YES;
+    if(selectedTag != nil)
+    {
+        if ([self.selectedTags containsObject:selectedTag]) {
+            [self.selectedTags removeObject:selectedTag];
+            self.checkInButton.enabled = [self shouldEnableCheckIn];
+            sender.selected = NO;
+        }
+        else {
+            [self.selectedTags addObject:selectedTag];
+            self.checkInButton.enabled = YES;
+            sender.selected = YES;
+        }
+    } else {
+        NSLog(@"There was an issue selecting a tag using: %@", sender.titleLabel.text);
     }
 }
 
