@@ -16,6 +16,7 @@
 #import "CreateCommentCell.h"
 #import "MoreCommentsCell.h"
 #import "LikeCell.h"
+#import "PostImageCell.h"
 
 #import <Parse/Parse.h>
 
@@ -26,12 +27,22 @@ static const int kHeaderCellIndex = 0;
 static const int kHashtagCellIndex = 1;
 static const int kLikesCellIndex = 2;
 
+NSString *const HeadingCellIdentifier = @"headingCell";
+NSString *const HashTagCellIdentifier = @"hashTagCell";
+NSString *const ImageCellIdentifier = @"imageCell";
+NSString *const CommentCellIdentifier = @"commentCell";
+NSString *const WriteCommentCellIdentifier = @"writeCommentCell";
+NSString *const MoreCommentsCellIdentifier = @"moreCommentsCell";
+NSString *const LikesCellIdentifier = @"likesCell";
+
 @interface FeedViewController ()
 
 @property (nonatomic, strong) NSMutableArray *postsList;
 @property (nonatomic, strong) NSMutableDictionary *commentsLookup;
 @property (nonatomic, strong) NSMutableDictionary *userHasLikedLookup;
 @property (nonatomic, strong) NSMutableDictionary *numberOfLikesLookup;
+
+@property (nonatomic, strong) NSMutableDictionary *imagesLookup;
 
 @property (nonatomic) NSInteger *postType;
 
@@ -57,6 +68,8 @@ static const int kLikesCellIndex = 2;
     self.title = @"Feed";
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    
+    self.imagesLookup = [[NSMutableDictionary alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,9 +159,9 @@ static const int kLikesCellIndex = 2;
     return nil;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self getCommentsForPost:[self.postsList objectAtIndex:section]].count + kStaticHeadersCount + kStaticFootersCount;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSInteger cellsForMedia = [self cellsForMediaInSection:section];
+    return [self getCommentsForPost:[self.postsList objectAtIndex:section]].count + kStaticHeadersCount + kStaticFootersCount + cellsForMedia;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,7 +169,6 @@ static const int kLikesCellIndex = 2;
     PFObject *postData = [self.postsList objectAtIndex:indexPath.section];
     PFObject *routeData = [postData objectForKey:@"route"];
     PFUser *creator = [postData objectForKey:@"creator"];
-    NSArray *comments = [self getCommentsForPost:postData];
     
     NSString *cellIdentifier = [self getCellIdentifierForIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -175,11 +187,24 @@ static const int kLikesCellIndex = 2;
         CheckinHashtagCell *checkinHashtagCell = (CheckinHashtagCell *)cell;
         checkinHashtagCell.hashtagTextView.text = [self getTagListStringFromPost:postData];
     }
+    else if ([cell isKindOfClass:[PostImageCell class]]) {
+        PostImageCell *postImageCell = (PostImageCell *)cell;
+        postImageCell.imageView.file = nil;
+        PFFile *image = [self.imagesLookup objectForKey:postData.objectId];
+        if (!image) {
+            PFObject *media = [postData objectForKey:@"media"];
+            image = [media objectForKey:@"file"];
+            [self.imagesLookup setObject:image forKey:postData.objectId];
+        }
+        
+        postImageCell.imageView.file = image;
+        [postImageCell.imageView loadInBackground];
+    }
     else if ([cell isKindOfClass:[CheckInCommentCell class]]) {
         CheckInCommentCell *checkinCommentCell = (CheckInCommentCell *)cell;
         cell = checkinCommentCell;
         
-        PFObject *comment = [comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
+        PFObject *comment = [self getCommentForIndexPath:indexPath];
         PFUser *creator = [comment objectForKey:@"creator"];
         [creator fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
@@ -209,39 +234,107 @@ static const int kLikesCellIndex = 2;
     return cell;
 }
 
+#pragma Mark Cell finding helper methods
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGSize constraint;
     CGSize size;
     PFObject *comment;
     
     PFObject *postData = [self.postsList objectAtIndex:indexPath.section];
-    NSArray *comments = [self getCommentsForPost:postData];
+    NSString *cellIdentifier = [self getCellIdentifierForIndexPath:indexPath];
     
-    if (indexPath.row == kHeaderCellIndex) {
+    if ([HeadingCellIdentifier isEqualToString:cellIdentifier]) {
         return 60;
     }
-    else if (indexPath.row == kHashtagCellIndex) {
+    else if ([HashTagCellIdentifier isEqualToString:cellIdentifier]) {
         constraint = CGSizeMake(280, 50);
         size = [[self getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         return size.height + 16;
     }
-    else if (indexPath.row == kLikesCellIndex) {
+    else if ([LikesCellIdentifier isEqualToString:cellIdentifier]) {
         return 50;
     }
-    else if (indexPath.row == comments.count + kStaticHeadersCount + 1) {
+    else if ([WriteCommentCellIdentifier isEqualToString:cellIdentifier]) {
         return 48;
     }
-    else if (indexPath.row == comments.count + kStaticHeadersCount) {
+    else if ([MoreCommentsCellIdentifier isEqualToString:cellIdentifier]) {
         return 24;
     }
-    else if (comments.count > 0) {
-        comment = [comments objectAtIndex:(indexPath.row - kStaticHeadersCount)];
+    else if ([ImageCellIdentifier isEqualToString:cellIdentifier]) {
+        return 280;
+    }
+    else if ([CommentCellIdentifier isEqualToString:cellIdentifier]) {
+        comment = [self getCommentForIndexPath:indexPath];
         constraint = CGSizeMake(280, 100);
         size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:13.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         return size.height + 21 + 16;
     }
+    else {
+        NSLog(@"%@ does not have code to calculate its height.", cellIdentifier);
+    }
     
     return 0;
+}
+
+- (NSString *)getCellIdentifierForIndexPath:(NSIndexPath *)indexPath {
+    
+    NSInteger cellsForMedia = [self cellsForMediaInSection:indexPath.section];
+    
+    if (indexPath.row == kHeaderCellIndex) {
+        return HeadingCellIdentifier;
+    }
+    else if (indexPath.row == kHashtagCellIndex) {
+        return HashTagCellIdentifier;
+    }
+    else if (indexPath.row == kLikesCellIndex) {
+        return LikesCellIdentifier;
+    }
+    else if (indexPath.row == kStaticHeadersCount && cellsForMedia == 1) {
+        return ImageCellIdentifier;
+    }
+    else {
+        NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:indexPath.section]];
+        if (indexPath.row == comments.count + kStaticHeadersCount + 1 + cellsForMedia) {
+            return WriteCommentCellIdentifier;
+        }
+        else if (indexPath.row == comments.count + kStaticHeadersCount + cellsForMedia) {
+            return MoreCommentsCellIdentifier;
+        }
+        else {
+            return CommentCellIdentifier;
+        }
+    }
+}
+
+- (NSInteger)cellsForMediaInSection:(NSInteger)section {
+    PFObject *post = [self.postsList objectAtIndex:section];
+    PFObject *media = [post objectForKey:@"media"];
+    return media == nil ? 0 : 1;
+}
+
+- (NSString *)getTagListStringFromPost:(PFObject *)postData {
+    NSString *tagList = @"";
+    for (PFObject *tag in [postData objectForKey:@"tags"]) {
+        if ([tagList isEqualToString:@""]) {
+            tagList = [tag objectForKey:@"name"];
+        }
+        else {
+            tagList = [NSString stringWithFormat:@"%@, %@", tagList, [tag objectForKey:@"name"]];
+        }
+    }
+    
+    return tagList;
+}
+
+- (NSMutableArray *)getCommentsForPost:(PFObject *)post {
+    return [self.commentsLookup objectForKey:post.objectId];
+}
+
+- (PFObject *)getCommentForIndexPath:(NSIndexPath *)indexPath {
+    PFObject *post = [self.postsList objectAtIndex:indexPath.section];
+    NSArray *comments = [self getCommentsForPost:post];
+    return [comments objectAtIndex:(indexPath.row - kStaticHeadersCount - [self cellsForMediaInSection:indexPath.section])];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -252,6 +345,8 @@ static const int kLikesCellIndex = 2;
     
     [super prepareForSegue:segue sender:sender];
 }
+
+#pragma Mark some methods I guess.
 
 - (void)refresh {
     self.commentsLookup = [[NSMutableDictionary alloc] init];
@@ -321,57 +416,6 @@ static const int kLikesCellIndex = 2;
         
         [self.refreshControl endRefreshing];
     }];
-}
-
-- (NSString *)getCellIdentifierForIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *HeadingCell = @"headingCell";
-    static NSString *HashTagCell = @"hashTagCell";
-    //static NSString *ImageCell = @"imageCell";
-    static NSString *CommentCell = @"commentCell";
-    static NSString *WriteCommentCell = @"writeCommentCell";
-    static NSString *MoreCommentsCell = @"moreCommentsCell";
-    static NSString *LikesCell = @"likesCell";
-    
-    if (indexPath.row == kHeaderCellIndex) {
-        return HeadingCell;
-    }
-    else if (indexPath.row == kHashtagCellIndex) {
-        return HashTagCell;
-    }
-    else if (indexPath.row == kLikesCellIndex) {
-        return LikesCell;
-    }
-    else {
-        NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:indexPath.section]];
-        if (indexPath.row == comments.count + kStaticHeadersCount + 1) {
-            return WriteCommentCell;
-        }
-        else if (indexPath.row == comments.count + kStaticHeadersCount) {
-            return MoreCommentsCell;
-        }
-        else {
-            return CommentCell;
-        }
-    }
-}
-
-- (NSString *)getTagListStringFromPost:(PFObject *)postData {
-    NSString *tagList = @"";
-    for (PFObject *tag in [postData objectForKey:@"tags"]) {
-        if ([tagList isEqualToString:@""]) {
-            tagList = [tag objectForKey:@"name"];
-        }
-        else {
-            tagList = [NSString stringWithFormat:@"%@, %@", tagList, [tag objectForKey:@"name"]];
-        }
-    }
-    
-    return tagList;
-}
-
-- (NSMutableArray *)getCommentsForPost:(PFObject *)post {
-    return [self.commentsLookup objectForKey:post.objectId];
 }
 
 #pragma Mark Text Field Delegate Methods

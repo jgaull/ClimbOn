@@ -1347,8 +1347,6 @@
         <class className="AddImageViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onAddImageButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
@@ -1382,9 +1380,6 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
-                <relationship kind="action" name="checkInButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
-                <relationship kind="action" name="onHashtagButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
             </relationships>
@@ -1403,6 +1398,10 @@
         </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onLikeButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="onMoreCommentsButton:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
