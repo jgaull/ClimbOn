@@ -99,10 +99,10 @@
             [alert show];
         }
         else {
-            PFObject *post = [[PFObject alloc] initWithClassName:@"Post"];
-            [post setObject:[PFUser currentUser] forKey:@"creator"];
-            [post setObject:self.route forKey:@"route"];
-            [post setObject:self.selectedTags forKey:@"tags"];
+            self.post = [[PFObject alloc] initWithClassName:@"Post"];
+            [self.post setObject:[PFUser currentUser] forKey:@"creator"];
+            [self.post setObject:self.route forKey:@"route"];
+            [self.post setObject:self.selectedTags forKey:@"tags"];
             
 //            [self.route saveEventually];
             
@@ -113,17 +113,21 @@
                 
                 [comment saveEventually:^(BOOL succeeded, NSError *error) {
                     if (!error) {
-                        PFRelation *commentsRelation = [post relationforKey:@"comments"];
+                        PFRelation *commentsRelation = [self.post relationforKey:@"comments"];
                         [commentsRelation addObject:comment];
-                        [post saveEventually];
+                        [self.post saveEventually];
+                        [self performSegueWithIdentifier:@"addImage" sender:sender];
+                    } else {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went terribly wrong." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Bummer", nil];
+                        [alert show];
                     }
                 }];
             }
             else {
-                [post saveEventually];
+                [self.post saveEventually];
+                [self performSegueWithIdentifier:@"addImage" sender:sender];
             }
             
-            [self performSegueWithIdentifier:@"addImage" sender:sender];
         }
     }
 }
@@ -158,10 +162,6 @@
 {
     self.checkInButton.title = @"Check In";
     self.checkInButton.enabled = [self shouldEnableCheckIn];
-}
-
-- (void)textViewDidChange:(UITextView *)textView {
-    
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

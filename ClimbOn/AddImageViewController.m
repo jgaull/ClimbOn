@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
 
 @property (strong, nonatomic) PFFile *selectedImage;
+@property (nonatomic) BOOL *imageReady;
 
 @end
 
@@ -33,6 +34,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.imageReady = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,9 +59,51 @@
 - (IBAction)onDoneButton:(id)sender {
     if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute]) {
         [self performSegueWithIdentifier:@"rateRoute" sender:self];
-    } else
-        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        // save post image
+        [self uploadFile:self.selectedImage];
+    }
 }
+
+- (void) uploadFile:(PFFile *)file {
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
+            [alert show];
+        } else {
+            [self createMediaObjectWithFile:file];
+        }
+    }];
+}
+
+- (void) createMediaObjectWithFile:(PFFile *)file {
+    PFObject *media = [[PFObject alloc] initWithClassName:@"Media"];
+    [media setObject:self.selectedImage forKey:@"file"];
+    [media saveEventually:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"image saved successfully!");
+            //do something
+            [self updatePostAndRouteWithMedia:media];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went terribly wrong adding your image." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Bummer", nil];
+            [alert show];
+        }
+    }];
+}
+
+- (void) updatePostAndRouteWithMedia:(PFObject *)media {
+    [self.post setObject:media forKey:@"media"];
+    [self.post saveInBackground];
+    
+    // set route image
+    if([self.route objectForKey:@"media"] == nil)
+    {
+        [self.route setObject:media forKey:@"media"];
+        [self.route saveInBackground];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma Mark Actionsheet Methods
 
 - (void)displayPhotoSourcePicker {
@@ -113,15 +157,6 @@
     UIGraphicsEndImageContext();
     
     self.selectedImage = [PFFile fileWithName:@"image" data:UIImageJPEGRepresentation(smallImage, 0.05f)];
-    
-    [self.selectedImage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
-            [alert show];
-        }
-    }];
-    
-    self.addImageButton.enabled = false;
 }
 
 @end

@@ -17,7 +17,6 @@ const int kPostTypeTopOut = 1;
 @property (strong, nonatomic) PFObject *route;
 @property (strong, nonatomic) PFObject *post;
 
-- (void)textViewDidChange:(UITextView *)textView;
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
 
 
