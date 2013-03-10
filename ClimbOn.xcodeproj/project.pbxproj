@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932C7EF716EBEF20001F6F7A /* AddImageViewController.m */; };
+		932C940416EC8CB4001F6F7A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932C940316EC8CB4001F6F7A /* AVFoundation.framework */; };
 		93F5A7CB16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
 		93F5A7CC16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
 		93F5A7CD16D9DF9300B2476F /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */; };
@@ -95,6 +96,7 @@
 /* Begin PBXFileReference section */
 		932C7EF616EBEF20001F6F7A /* AddImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageViewController.h; sourceTree = "<group>"; };
 		932C7EF716EBEF20001F6F7A /* AddImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageViewController.m; sourceTree = "<group>"; };
+		932C940316EC8CB4001F6F7A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotationView.m; sourceTree = "<group>"; };
 		93F5A7C816D9DF9300B2476F /* RouteAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteAnnotationView.h; sourceTree = "<group>"; };
 		93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotation.m; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				932C940416EC8CB4001F6F7A /* AVFoundation.framework in Frameworks */,
 				FC1DC78716C0EEB100550319 /* CoreLocation.framework in Frameworks */,
 				FC0DDD6316C2508D0004C11D /* SystemConfiguration.framework in Frameworks */,
 				FC0DDD6116C250850004C11D /* StoreKit.framework in Frameworks */,
@@ -236,6 +239,7 @@
 		FC2A83DB16A3723B00637D74 = {
 			isa = PBXGroup;
 			children = (
+				932C940316EC8CB4001F6F7A /* AVFoundation.framework */,
 				FC226F0216D61B9C00BDA65A /* icon57.png */,
 				FC226F0016D61B9900BDA65A /* icon114.png */,
 				FC0F323916D4DD16009F4835 /* icon_114.png */,

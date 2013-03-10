@@ -15,7 +15,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 
-@property (strong, nonatomic) PFFile *selectedImage;
+@property (strong, nonatomic) UIImagePickerController *imagePickController;
+@property (strong, nonatomic) PFFile *selectedVideo;
 
 @end
 
@@ -34,6 +35,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(cameraIsReady:)
+                                                 name:AVCaptureSessionDidStartRunningNotification object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,9 +61,9 @@
 
 - (IBAction)onDoneButton:(id)sender {
     // save post image
-    if(self.selectedImage != nil)
-        [self uploadFile:self.selectedImage];
-    else if(self.selectedImage == nil) {
+    if(self.selectedVideo != nil)
+        [self uploadFile:self.selectedVideo];
+    else if(self.selectedVideo == nil) {
         if([self.route objectForKey:@"media"] == nil)
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"This route needs its first photo!" delegate:self cancelButtonTitle:@"I'll add one!" otherButtonTitles:@"Post Anyway...", nil];
@@ -96,7 +101,7 @@
 
 - (void) createMediaObjectWithFile:(PFFile *)file {
     PFObject *media = [[PFObject alloc] initWithClassName:@"Media"];
-    [media setObject:self.selectedImage forKey:@"file"];
+    [media setObject:self.selectedVideo forKey:@"file"];
     [media saveEventually:^(BOOL succeeded, NSError *error) {
         if (!error) {
             NSLog(@"image saved successfully!");
@@ -110,13 +115,13 @@
 }
 
 - (void) updatePostAndRouteWithMedia:(PFObject *)media {
-    [self.post setObject:media forKey:@"media"];
+    [self.post setObject:media forKey:@"video"];
     [self.post saveInBackground];
     
     // set route image
-    if([self.route objectForKey:@"media"] == nil)
+    if([self.route objectForKey:@"video"] == nil)
     {
-        [self.route setObject:media forKey:@"media"];
+        [self.route setObject:media forKey:@"video"];
         [self.route saveInBackground];
     }
     [self exitView];
@@ -126,13 +131,21 @@
     self.selectedImageView = nil;
     self.addImageButton = nil;
     self.submitButton = nil;
-    self.selectedImage = nil;
+    self.selectedVideo = nil;
+    self.imagePickController = nil;
+}
+
+- (void)cameraIsReady:(NSNotification *)notification
+{
+    NSLog(@"Camera is ready...");
+    // Whatever
+//    [self.imagePickController startVideoCapture];
 }
 
 #pragma Mark Actionsheet Methods
 
 - (void)displayPhotoSourcePicker {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Create New Video", @"Choose Video", nil];
     [actionSheet showInView:self.view];
 }
 
@@ -142,19 +155,22 @@
         NSLog(@"Cancel");
     }
     else {
-        UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
-        imagePickController.delegate = self;
-        imagePickController.allowsEditing = NO;
+        if(self.imagePickController == nil)
+            self.imagePickController = [[UIImagePickerController alloc] init];
+        self.imagePickController.delegate = self;
+        self.imagePickController.allowsEditing = NO;
+        self.imagePickController.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
         
         if (buttonIndex == ButtonTakePhoto) {
-            imagePickController.sourceType = UIImagePickerControllerSourceTypeCamera;
-            imagePickController.showsCameraControls = YES;
+            self.imagePickController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            self.imagePickController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            self.imagePickController.showsCameraControls = YES;
         }
         else if (buttonIndex == ButtonPickPhoto) {
-            imagePickController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            self.imagePickController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         }
         
-        [self presentViewController:imagePickController animated:YES completion:nil];
+        [self presentViewController:self.imagePickController animated:YES completion:nil];
     }
     
 }
@@ -169,19 +185,20 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    UIImage *selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [self.selectedImageView setImage:selectedImage];
+    NSURL *videoUrl = [info objectForKey:UIImagePickerControllerMediaURL];
+//    [self.selectedImageView setImage:selectedVideo];
     
+    // newly created video
     if(picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-        UIImageWriteToSavedPhotosAlbum(selectedImage, nil, nil, nil);
+        UISaveVideoAtPathToSavedPhotosAlbum(videoUrl.path, nil, nil, nil);
     }
     
-    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
-    [selectedImage drawInRect: CGRectMake(0, 0, 640, 960)];
-    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+//    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
+//    [selectedImage drawInRect: CGRectMake(0, 0, 640, 960)];
+//    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
     
-    self.selectedImage = [PFFile fileWithName:@"image" data:UIImageJPEGRepresentation(smallImage, 0.5f)];
+    self.selectedVideo = [PFFile fileWithName:@"video.m4v" contentsAtPath:videoUrl.path];
     self.submitButton.title = @"Upload & Save";
 }
 
