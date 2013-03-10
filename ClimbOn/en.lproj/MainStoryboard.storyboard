@@ -989,36 +989,8 @@
                                     <outlet property="imageView" destination="6sK-8D-WLJ" id="hiu-3D-542"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="videoCell" rowHeight="147" id="mXh-N6-a3Z" customClass="YoutubeVideoCell">
-                                <rect key="frame" x="0.0" y="498" width="320" height="147"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="146"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="odz-0W-fG9">
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="300" id="b8E-bB-7gc"/>
-                                            </constraints>
-                                        </webView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="odz-0W-fG9" firstAttribute="centerY" secondItem="mXh-N6-a3Z" secondAttribute="centerY" type="default" id="f8M-mA-PBG"/>
-                                    <constraint firstItem="odz-0W-fG9" firstAttribute="centerX" secondItem="mXh-N6-a3Z" secondAttribute="centerX" type="default" id="ob6-N9-euP"/>
-                                    <constraint firstItem="odz-0W-fG9" firstAttribute="top" secondItem="mXh-N6-a3Z" secondAttribute="top" type="default" id="wWi-bE-ATz"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="youtubeWebView" destination="odz-0W-fG9" id="Wsm-tz-aPw"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="111" id="aXa-ml-1zf" customClass="CheckInCommentCell">
-                                <rect key="frame" x="0.0" y="645" width="320" height="111"/>
+                                <rect key="frame" x="0.0" y="498" width="320" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="110"/>
@@ -1059,7 +1031,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="o48-Ft-HUU" customClass="MoreCommentsCell">
-                                <rect key="frame" x="0.0" y="756" width="320" height="24"/>
+                                <rect key="frame" x="0.0" y="609" width="320" height="24"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="23"/>
@@ -1096,7 +1068,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="780" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="633" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1433,6 +1405,7 @@
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
@@ -1501,12 +1474,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-        <class className="YoutubeVideoCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/YoutubeVideoCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="youtubeWebView" candidateClass="UIWebView"/>
             </relationships>
         </class>
     </classes>

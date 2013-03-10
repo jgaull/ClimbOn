@@ -17,7 +17,6 @@
 #import "MoreCommentsCell.h"
 #import "LikeCell.h"
 #import "PostImageCell.h"
-#import "YoutubeVideoCell.h"
 
 #import <Parse/Parse.h>
 
@@ -35,7 +34,6 @@ NSString *const CommentCellIdentifier = @"commentCell";
 NSString *const WriteCommentCellIdentifier = @"writeCommentCell";
 NSString *const MoreCommentsCellIdentifier = @"moreCommentsCell";
 NSString *const LikesCellIdentifier = @"likesCell";
-NSString *const VideoCellIdentifier = @"videoCell";
 
 @interface FeedViewController ()
 
@@ -163,12 +161,11 @@ NSString *const VideoCellIdentifier = @"videoCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger cellsForImages = [self cellsForMediaInSection:section];
-    NSInteger cellsForVideos = [self cellsForVideosInSection:section];
     NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:section]];
     NSInteger cellsForComments = comments.count;
     NSInteger cellsForMore = comments.count > 0 ? 1 : 0;
     
-    return kStaticHeadersCount + cellsForImages + cellsForVideos + cellsForComments + cellsForMore + kStaticFootersCount;
+    return kStaticHeadersCount + cellsForImages + cellsForComments + cellsForMore + kStaticFootersCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -207,14 +204,6 @@ NSString *const VideoCellIdentifier = @"videoCell";
         postImageCell.imageView.file = image;
         [postImageCell.imageView loadInBackground];
     }
-    else if ([cell isKindOfClass:[YoutubeVideoCell class]]) {
-        YoutubeVideoCell *videoCell = (YoutubeVideoCell *)cell;
-        NSString * videoId = [postData objectForKey:@"videoId"];
-        
-        NSString *html = [NSString stringWithFormat:@"<iframe width=\"284\" height=\"130\" src=\"http://www.youtube.com/embed/%@\" frameborder=\"0\" allowfullscreen></iframe>", videoId];
-        NSDictionary *params = [[NSMutableDictionary alloc] initWithObjects:@[html, videoCell.youtubeWebView] forKeys:@[@"html", @"webView"]];
-        [self performSelectorInBackground:@selector(loadVideoCell:) withObject:params];
-    }
     else if ([cell isKindOfClass:[CheckInCommentCell class]]) {
         CheckInCommentCell *checkinCommentCell = (CheckInCommentCell *)cell;
         cell = checkinCommentCell;
@@ -249,13 +238,6 @@ NSString *const VideoCellIdentifier = @"videoCell";
     return cell;
 }
 
-- (void)loadVideoCell:(NSDictionary *)params {
-    UIWebView *webView = [params objectForKey:@"webView"];
-    NSString *html = [params objectForKey:@"html"];
-    [webView loadHTMLString:html baseURL:nil];
-    [webView setUserInteractionEnabled:YES];
-}
-
 #pragma Mark Cell finding helper methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -286,9 +268,6 @@ NSString *const VideoCellIdentifier = @"videoCell";
     else if ([ImageCellIdentifier isEqualToString:cellIdentifier]) {
         return 280;
     }
-    else if ([VideoCellIdentifier isEqualToString:cellIdentifier]) {
-        return 146;
-    }
     else if ([CommentCellIdentifier isEqualToString:cellIdentifier]) {
         comment = [self getCommentForIndexPath:indexPath];
         constraint = CGSizeMake(280, 100);
@@ -305,7 +284,6 @@ NSString *const VideoCellIdentifier = @"videoCell";
 - (NSString *)getCellIdentifierForIndexPath:(NSIndexPath *)indexPath {
     
     NSInteger cellsForImages = [self cellsForMediaInSection:indexPath.section];
-    NSInteger cellsForVideos = [self cellsForVideosInSection:indexPath.section];
     NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:indexPath.section]];
     NSInteger cellsForComments = comments.count;
     NSInteger cellsForMore = comments.count > 0 ? 1 : 0;
@@ -322,13 +300,10 @@ NSString *const VideoCellIdentifier = @"videoCell";
     else if (indexPath.row == kStaticHeadersCount && cellsForImages >= 1) {
         return ImageCellIdentifier;
     }
-    else if (indexPath.row == kStaticHeadersCount + cellsForImages && cellsForVideos >= 1) {
-        return VideoCellIdentifier;
-    }
-    else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForVideos + cellsForComments && cellsForComments > 0) {
+    else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForComments && cellsForComments > 0) {
         return MoreCommentsCellIdentifier;
     }
-    else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForVideos + cellsForComments + cellsForMore) {
+    else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForComments + cellsForMore) {
             return WriteCommentCellIdentifier;
     }
     else {
@@ -340,11 +315,6 @@ NSString *const VideoCellIdentifier = @"videoCell";
     PFObject *post = [self.postsList objectAtIndex:section];
     PFObject *media = [post objectForKey:@"media"];
     return media == nil ? 0 : 1;
-}
-
-- (NSInteger)cellsForVideosInSection:(NSInteger)section {
-    PFObject *post = [self.postsList objectAtIndex:section];
-    return [post objectForKey:@"videoId"] == nil ? 0 : 1;
 }
 
 - (NSString *)getTagListStringFromPost:(PFObject *)postData {
@@ -368,7 +338,7 @@ NSString *const VideoCellIdentifier = @"videoCell";
 - (PFObject *)getCommentForIndexPath:(NSIndexPath *)indexPath {
     PFObject *post = [self.postsList objectAtIndex:indexPath.section];
     NSArray *comments = [self getCommentsForPost:post];
-    return [comments objectAtIndex:(indexPath.row - kStaticHeadersCount - [self cellsForMediaInSection:indexPath.section] - [self cellsForVideosInSection:indexPath.section])];
+    return [comments objectAtIndex:(indexPath.row - kStaticHeadersCount - [self cellsForMediaInSection:indexPath.section])];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -396,6 +366,7 @@ NSString *const VideoCellIdentifier = @"videoCell";
     [feedQuery includeKey:@"tags"];
     [feedQuery includeKey:@"media"];
     [feedQuery orderByDescending:@"createdAt"];
+    feedQuery.limit = 15;
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.postsList = [[NSMutableArray alloc] initWithArray:objects];
