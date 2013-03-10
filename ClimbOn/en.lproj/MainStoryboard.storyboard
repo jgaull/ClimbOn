@@ -813,10 +813,10 @@
             </objects>
             <point key="canvasLocation" x="1618" y="180"/>
         </scene>
-        <!--Navigation Controller - Feed-->
+        <!--Auto Rotation Navigation Controller - Feed-->
         <scene sceneID="6Qu-vD-IXp">
             <objects>
-                <navigationController definesPresentationContext="YES" id="yrX-21-JxV" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="yrX-21-JxV" customClass="AutoRotationNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Feed" id="514-Gr-9uk"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ys1-wP-J2S">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1343,10 +1343,10 @@
             </objects>
             <point key="canvasLocation" x="2124" y="1158"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Auto Rotation View Controller-->
         <scene sceneID="15">
             <objects>
-                <tabBarController id="4" sceneMemberID="viewController">
+                <tabBarController id="4" customClass="AutoRotationViewController" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="5">
                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>
@@ -1393,6 +1393,12 @@
                 <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
             </relationships>
+        </class>
+        <class className="AutoRotationNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationNavigationController.h"/>
+        </class>
+        <class className="AutoRotationViewController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationViewController.h"/>
         </class>
         <class className="CheckInCommentCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCommentCell.h"/>
