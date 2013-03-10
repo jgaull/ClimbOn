@@ -32,4 +32,8 @@
     return [NSString stringWithString:[self.routeData objectForKey:@"name"]];
 }
 
+-(void)dealloc {
+    self.routeData = nil;
+}
+
 @end

@@ -26,4 +26,10 @@
     // Configure the view for the selected state
 }
 
+-(void)dealloc {
+    self.userNameLabel = nil;
+    self.routeNameLabel = nil;
+    self.userProfilePic = nil;
+}
+
 @end

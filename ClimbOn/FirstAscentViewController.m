@@ -111,5 +111,12 @@
     return [self.data objectForKey:ratingSystemName];
 }
 
+-(void)dealloc {
+    self.pickerView = nil;
+    self.data = nil;
+    self.ratings = nil;
+    self.route = nil;
+    self.post = nil;
+}
 
 @end

@@ -15,5 +15,10 @@
     self.longitude = [NSNumber numberWithDouble:newCoordinate.longitude];
     self.latitude = [NSNumber numberWithDouble:newCoordinate.latitude];
 }
+-(void)dealloc {
+    self.title = nil;
+    self.latitude = nil;
+    self.longitude = nil;
+}
 
 @end

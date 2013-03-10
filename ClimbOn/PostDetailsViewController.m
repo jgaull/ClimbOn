@@ -122,4 +122,15 @@
     }
 }
 
+-(void)dealloc {
+    self.userProfileImage = nil;
+    self.postTextField = nil;
+    self.likeButton = nil;
+    self.commentField = nil;
+    self.routeNameButton = nil;
+    self.postImage = nil;
+    self.likeData = nil;
+    self.postData = nil;
+}
+
 @end

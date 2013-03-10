@@ -140,4 +140,9 @@
     }];
 }
 
+-(void)dealloc {
+    self.profilePicData = nil;
+    self.profilePic = nil;
+}
+
 @end

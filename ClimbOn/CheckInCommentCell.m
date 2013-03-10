@@ -26,4 +26,9 @@
     // Configure the view for the selected state
 }
 
+-(void)dealloc {
+    self.commentTextView = nil;
+    self.userNameLabel = nil;
+}
+
 @end

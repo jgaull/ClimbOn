@@ -54,7 +54,10 @@
 - (void)dealloc {
     self.routeNameField = nil;
     self.mapView = nil;
+    self.marker = nil;
+    self.markerShadow = nil;
     self.locationManager = nil;
+    self.currentLocation = nil;
 }
 
 #pragma Mark Touch event listeners

@@ -67,4 +67,8 @@
     return [PFFacebookUtils handleOpenURL:url];
 }
 
+-(void)dealloc {
+    self.window = nil;
+}
+
 @end

@@ -127,6 +127,14 @@ static const int kLikesCellIndex = 2;
     }
 }
 
+-(void)dealloc {
+    self.postsList = nil;
+    self.commentsLookup = nil;
+    self.userHasLikedLookup = nil;
+    self.numberOfLikesLookup = nil;
+    self.postsList = nil;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -19,7 +19,6 @@ static CGFloat kRoundBoxLeft = 10.0;
 @end
 
 @implementation RouteAnnotationView
-
 // determine the MKAnnotationView based on the annotation info and reuseIdentifier
 //
 - (id)initWithAnnotation:(id <MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
@@ -109,6 +108,10 @@ static CGFloat kRoundBoxLeft = 10.0;
         roundedRect.lineWidth = 2.0;
         [roundedRect fill];
     }
+}
+-(void)dealloc {
+    self.annotationLabel = nil;
+    self.annotationImage = nil;
 }
 
 @end

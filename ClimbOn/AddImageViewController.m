@@ -122,6 +122,13 @@
     [self exitView];
 }
 
+-(void)dealloc {
+    self.selectedImageView = nil;
+    self.addImageButton = nil;
+    self.submitButton = nil;
+    self.selectedImage = nil;
+}
+
 #pragma Mark Actionsheet Methods
 
 - (void)displayPhotoSourcePicker {

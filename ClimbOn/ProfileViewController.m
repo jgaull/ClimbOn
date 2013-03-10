@@ -54,4 +54,11 @@
     }
 }
 
+-(void)dealloc {
+    self.locationLabel = nil;
+    self.logInButton = nil;
+    self.userNameLabel = nil;
+    self.profilePhoto = nil;
+}
+
 @end

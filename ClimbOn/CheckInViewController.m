@@ -73,6 +73,15 @@
     nextViewController.didSendRoute = [self didSendRoute];
 }
 
+-(void)dealloc {
+    self.postTextView = nil;
+    self.selectedTags = nil;
+    self.suggestedTags = nil;
+    self.checkInButton = nil;
+    self.route = nil;
+    self.post = nil;
+}
+
 #pragma Mark button listeners
 
 - (IBAction)onHashtagButton:(UIButton *)sender {

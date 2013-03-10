@@ -94,6 +94,10 @@
     
 }
 
+-(void)dealloc {
+    self.data = nil;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

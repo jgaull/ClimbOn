@@ -76,6 +76,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)dealloc {
+    self.ratings = nil;
+    self.ratingTypesList = nil;
+    self.rowSelectedWithDisclosure = nil;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
