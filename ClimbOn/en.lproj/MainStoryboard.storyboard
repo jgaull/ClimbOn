@@ -1088,7 +1088,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="534" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="534" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1402,9 +1402,6 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
-                <relationship kind="action" name="checkInButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
-                <relationship kind="action" name="onHashtagButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
             </relationships>
@@ -1423,29 +1420,19 @@
         </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onLikeButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="onMoreCommentsButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="onPlayButton:" candidateClass="UIButton"/>
-            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onFollowButton:" candidateClass="UIButton"/>
-            </relationships>
         </class>
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
             </relationships>
         </class>
@@ -1474,9 +1461,6 @@
         </class>
         <class className="NearbyRoutesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onCancelButton:"/>
-            </relationships>
         </class>
         <class className="PFImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
@@ -1484,7 +1468,6 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
@@ -1503,7 +1486,6 @@
         <class className="ProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
