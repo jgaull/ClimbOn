@@ -13,8 +13,8 @@
 @interface AddImageViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectedImageView;
+@property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 
 @property (strong, nonatomic) UIImagePickerController *imagePickController;
 @property (strong, nonatomic) PFFile *selectedVideo;
@@ -40,6 +40,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(cameraIsReady:)
                                                  name:AVCaptureSessionDidStartRunningNotification object:nil];
+    self.progressBar.hidden = YES;
 
 }
 
@@ -59,21 +60,6 @@
 
 - (IBAction)onAddImageButton:(id)sender {
     [self displayPhotoSourcePicker];
-}
-
-- (IBAction)onDoneButton:(id)sender {
-    // save post image
-    if(self.selectedVideo != nil)
-        [self uploadFile:self.selectedVideo];
-    else if(self.selectedVideo == nil) {
-        if([self.route objectForKey:@"video"] == nil)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"This route needs its first photo!" delegate:self cancelButtonTitle:@"I'll add one!" otherButtonTitles:@"Post Anyway...", nil];
-            [alert show];
-        } else {
-            [self exitView];
-        }
-    }
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -114,6 +100,10 @@
         } else {
             [self createMediaObjectWithFile:file];
         }
+    } progressBlock:^(int percentDone) {
+        float percentage = percentDone;
+        self.progressBar.progress = percentage / 100;
+        NSLog(@"%d", (percentDone));
     }];
 }
 
@@ -148,7 +138,6 @@
 -(void)dealloc {
     self.selectedImageView = nil;
     self.addImageButton = nil;
-    self.submitButton = nil;
     self.selectedVideo = nil;
     self.imagePickController = nil;
 }
@@ -196,6 +185,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    self.progressBar.hidden = NO;
     
     self.selectedUrl = [info objectForKey:UIImagePickerControllerMediaURL];
 //    [self.selectedImageView setImage:selectedVideo];
@@ -210,8 +200,21 @@
 //    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
 //    UIGraphicsEndImageContext();
     
+    
+    
     self.selectedVideo = [PFFile fileWithName:@"video.m4v" contentsAtPath:self.selectedUrl.path];
-    self.submitButton.title = @"Upload & Save";
+    
+    if(self.selectedVideo != nil)
+        [self uploadFile:self.selectedVideo];
+    else if(self.selectedVideo == nil) {
+        if([self.route objectForKey:@"video"] == nil)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"This route needs its first photo!" delegate:self cancelButtonTitle:@"I'll add one!" otherButtonTitles:@"Post Anyway...", nil];
+            [alert show];
+        } else {
+            [self exitView];
+        }
+    }
 }
 
 @end
