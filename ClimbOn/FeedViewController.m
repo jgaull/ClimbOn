@@ -19,6 +19,7 @@
 #import "PostImageCell.h"
 
 #import <Parse/Parse.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 static const int kStaticHeadersCount = 3;
 static const int kStaticFootersCount = 1;
@@ -140,6 +141,22 @@ NSString *const LikesCellIdentifier = @"likesCell";
     }
 }
 
+- (IBAction)onPlayButton:(UIButton *)sender {
+    PFObject *post = [self.postsList objectAtIndex:sender.tag];
+    PFObject *videoMedia = [post objectForKey:@"video"];
+    PFFile *video = [videoMedia objectForKey:@"file"];
+    
+    NSString *videoURLString = video.url;
+    //videoURLString = @"https://dl.dropbox.com/u/17836395/IMG_1629.MOV";
+    NSURL *videoURL = [NSURL URLWithString:videoURLString];
+    MPMoviePlayerViewController *moviePlayerView = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+    [self presentMoviePlayerViewControllerAnimated:moviePlayerView];
+}
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
 -(void)dealloc {
     self.postsList = nil;
     self.commentsLookup = nil;
@@ -160,7 +177,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger cellsForImages = [self cellsForMediaInSection:section];
+    NSInteger cellsForImages = [self cellsForThumbnailsInSection:section];
     NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:section]];
     NSInteger cellsForComments = comments.count;
     NSInteger cellsForMore = comments.count > 0 ? 1 : 0;
@@ -193,16 +210,17 @@ NSString *const LikesCellIdentifier = @"likesCell";
     }
     else if ([cell isKindOfClass:[PostImageCell class]]) {
         PostImageCell *postImageCell = (PostImageCell *)cell;
-        postImageCell.imageView.file = nil;
+        /*postImageCell.imageView.file = nil;
         PFFile *image = [self.imagesLookup objectForKey:postData.objectId];
         if (!image) {
-            PFObject *media = [postData objectForKey:@"media"];
+            PFObject *media = [postData objectForKey:@"thumbnail"];
             image = [media objectForKey:@"file"];
             [self.imagesLookup setObject:image forKey:postData.objectId];
         }
         
         postImageCell.imageView.file = image;
-        [postImageCell.imageView loadInBackground];
+         [postImageCell.imageView loadInBackground];*/
+        postImageCell.playButton.tag = indexPath.section;
     }
     else if ([cell isKindOfClass:[CheckInCommentCell class]]) {
         CheckInCommentCell *checkinCommentCell = (CheckInCommentCell *)cell;
@@ -266,7 +284,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         return 24;
     }
     else if ([ImageCellIdentifier isEqualToString:cellIdentifier]) {
-        return 280;
+        return 181;
     }
     else if ([CommentCellIdentifier isEqualToString:cellIdentifier]) {
         comment = [self getCommentForIndexPath:indexPath];
@@ -283,7 +301,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (NSString *)getCellIdentifierForIndexPath:(NSIndexPath *)indexPath {
     
-    NSInteger cellsForImages = [self cellsForMediaInSection:indexPath.section];
+    NSInteger cellsForImages = [self cellsForThumbnailsInSection:indexPath.section];
     NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:indexPath.section]];
     NSInteger cellsForComments = comments.count;
     NSInteger cellsForMore = comments.count > 0 ? 1 : 0;
@@ -311,9 +329,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
     }
 }
 
-- (NSInteger)cellsForMediaInSection:(NSInteger)section {
+- (NSInteger)cellsForThumbnailsInSection:(NSInteger)section {
     PFObject *post = [self.postsList objectAtIndex:section];
-    PFObject *media = [post objectForKey:@"media"];
+    PFObject *media = [post objectForKey:@"video"];
     return media == nil ? 0 : 1;
 }
 
@@ -338,7 +356,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (PFObject *)getCommentForIndexPath:(NSIndexPath *)indexPath {
     PFObject *post = [self.postsList objectAtIndex:indexPath.section];
     NSArray *comments = [self getCommentsForPost:post];
-    return [comments objectAtIndex:(indexPath.row - kStaticHeadersCount - [self cellsForMediaInSection:indexPath.section])];
+    return [comments objectAtIndex:(indexPath.row - kStaticHeadersCount - [self cellsForThumbnailsInSection:indexPath.section])];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -364,13 +382,14 @@ NSString *const LikesCellIdentifier = @"likesCell";
     [feedQuery includeKey:@"route.rating"];
     [feedQuery includeKey:@"route.media"];
     [feedQuery includeKey:@"tags"];
-    [feedQuery includeKey:@"media"];
+    [feedQuery includeKey:@"thumbnail"];
+    [feedQuery includeKey:@"video"];
     [feedQuery orderByDescending:@"createdAt"];
     feedQuery.limit = 15;
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.postsList = [[NSMutableArray alloc] initWithArray:objects];
-            self.remainingQueries = objects.count * 2;
+            self.remainingQueries = objects.count;
             
             for (PFObject *post in objects) {
                 PFRelation *comments = [post objectForKey:@"comments"];

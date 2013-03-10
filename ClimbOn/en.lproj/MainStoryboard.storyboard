@@ -962,19 +962,34 @@
                                     <outlet property="likesLabel" destination="j28-HF-Kef" id="gOS-iF-V78"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="280" id="qpn-7M-NBn" customClass="PostImageCell">
-                                <rect key="frame" x="0.0" y="218" width="320" height="280"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="181" id="qpn-7M-NBn" customClass="PostImageCell">
+                                <rect key="frame" x="0.0" y="218" width="320" height="181"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="279"/>
+                                    <rect key="frame" x="10" y="0.0" width="300" height="180"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="6sK-8D-WLJ" customClass="PFImageView">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcc-ku-8sa" customClass="PFImageView">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="199" id="VB5-Za-Nny"/>
-                                                <constraint firstAttribute="height" constant="279" id="gHp-Z5-7rv"/>
+                                                <constraint firstAttribute="width" constant="300" id="uap-Ab-lKt"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLF-Ky-b6p">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="260" id="q8h-ry-y0V"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Play">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onPlayButton:" destination="M2E-wj-5JQ" eventType="touchUpInside" id="RGs-jK-AVQ"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -982,15 +997,20 @@
                                     <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                 </accessibility>
                                 <constraints>
-                                    <constraint firstItem="6sK-8D-WLJ" firstAttribute="top" secondItem="qpn-7M-NBn" secondAttribute="top" type="default" id="0HT-E5-NwR"/>
-                                    <constraint firstItem="6sK-8D-WLJ" firstAttribute="centerX" secondItem="qpn-7M-NBn" secondAttribute="centerX" type="default" id="EPe-2U-Ybm"/>
+                                    <constraint firstItem="fcc-ku-8sa" firstAttribute="centerX" secondItem="hLF-Ky-b6p" secondAttribute="centerX" type="default" id="9lD-TJ-5Ha"/>
+                                    <constraint firstItem="hLF-Ky-b6p" firstAttribute="top" secondItem="qpn-7M-NBn" secondAttribute="top" constant="20" type="default" id="EiC-0b-G3a"/>
+                                    <constraint firstItem="fcc-ku-8sa" firstAttribute="top" secondItem="qpn-7M-NBn" secondAttribute="top" type="default" id="RtT-6e-BJT"/>
+                                    <constraint firstItem="hLF-Ky-b6p" firstAttribute="centerY" secondItem="fcc-ku-8sa" secondAttribute="centerY" type="default" id="Snf-VC-fO4"/>
+                                    <constraint firstItem="fcc-ku-8sa" firstAttribute="centerY" secondItem="qpn-7M-NBn" secondAttribute="centerY" type="default" id="mfn-d7-OjP"/>
+                                    <constraint firstItem="hLF-Ky-b6p" firstAttribute="centerX" secondItem="qpn-7M-NBn" secondAttribute="centerX" type="default" id="pCm-Lj-ypM"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="imageView" destination="6sK-8D-WLJ" id="hiu-3D-542"/>
+                                    <outlet property="imageView" destination="fcc-ku-8sa" id="OXm-Hz-Zvu"/>
+                                    <outlet property="playButton" destination="hLF-Ky-b6p" id="0el-Pk-Gum"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="111" id="aXa-ml-1zf" customClass="CheckInCommentCell">
-                                <rect key="frame" x="0.0" y="498" width="320" height="111"/>
+                                <rect key="frame" x="0.0" y="399" width="320" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="110"/>
@@ -1031,7 +1051,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="o48-Ft-HUU" customClass="MoreCommentsCell">
-                                <rect key="frame" x="0.0" y="609" width="320" height="24"/>
+                                <rect key="frame" x="0.0" y="510" width="320" height="24"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="23"/>
@@ -1068,7 +1088,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="633" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="534" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1347,6 +1367,8 @@
         <class className="AddImageViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="selectedImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="submitButton" candidateClass="UIBarButtonItem"/>
@@ -1380,6 +1402,9 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
+                <relationship kind="action" name="checkInButton:"/>
+                <relationship kind="action" name="onDoneButton:"/>
+                <relationship kind="action" name="onHashtagButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
             </relationships>
@@ -1398,9 +1423,17 @@
         </class>
         <class className="FeedViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onLikeButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="onMoreCommentsButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="onPlayButton:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onFollowButton:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
@@ -1412,6 +1445,7 @@
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
             </relationships>
         </class>
@@ -1440,6 +1474,9 @@
         </class>
         <class className="NearbyRoutesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onCancelButton:"/>
+            </relationships>
         </class>
         <class className="PFImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
@@ -1447,6 +1484,7 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="commentField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
@@ -1459,11 +1497,13 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostImageCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="imageView" candidateClass="PFImageView"/>
+                <relationship kind="outlet" name="playButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="ProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>

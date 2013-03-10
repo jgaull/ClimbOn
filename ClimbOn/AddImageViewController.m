@@ -64,7 +64,7 @@
     if(self.selectedVideo != nil)
         [self uploadFile:self.selectedVideo];
     else if(self.selectedVideo == nil) {
-        if([self.route objectForKey:@"media"] == nil)
+        if([self.route objectForKey:@"video"] == nil)
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"This route needs its first photo!" delegate:self cancelButtonTitle:@"I'll add one!" otherButtonTitles:@"Post Anyway...", nil];
             [alert show];
