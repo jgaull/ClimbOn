@@ -15,7 +15,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
 
 @property (strong, nonatomic) PFFile *selectedImage;
-@property (nonatomic) BOOL *imageReady;
 
 @end
 
@@ -34,7 +33,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.imageReady = NO;
 }
 
 - (void)didReceiveMemoryWarning
