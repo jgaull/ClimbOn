@@ -76,6 +76,8 @@
 		FCD9610C16E42E3B00705281 /* CheckinHashtagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */; };
 		FCD9610F16E43E2D00705281 /* CheckInCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */; };
 		FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9611116E47D1400705281 /* CreateCommentCell.m */; };
+		FCDB284616ECA1D600DAEE0A /* AutoRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDB284516ECA1D600DAEE0A /* AutoRotationViewController.m */; };
+		FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */; };
 		FCE6778B16C8EB6B00CD4924 /* CheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */; };
 		FCF0BA2716D755A100A508F2 /* likebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = FCF0BA2616D755A100A508F2 /* likebutton.png */; };
 		FCF0BA2916D756F900A508F2 /* likebuttonliked.png in Resources */ = {isa = PBXBuildFile; fileRef = FCF0BA2816D756F900A508F2 /* likebuttonliked.png */; };
@@ -187,6 +189,10 @@
 		FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInCommentCell.m; sourceTree = "<group>"; };
 		FCD9611016E47D1400705281 /* CreateCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateCommentCell.h; path = ../CreateCommentCell.h; sourceTree = "<group>"; };
 		FCD9611116E47D1400705281 /* CreateCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateCommentCell.m; path = ../CreateCommentCell.m; sourceTree = "<group>"; };
+		FCDB284416ECA1D600DAEE0A /* AutoRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoRotationViewController.h; sourceTree = "<group>"; };
+		FCDB284516ECA1D600DAEE0A /* AutoRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoRotationViewController.m; sourceTree = "<group>"; };
+		FCDB284716ECA31B00DAEE0A /* AutoRotationNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoRotationNavigationController.h; sourceTree = "<group>"; };
+		FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoRotationNavigationController.m; sourceTree = "<group>"; };
 		FCE6778916C8EB6B00CD4924 /* CheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInViewController.h; sourceTree = "<group>"; };
 		FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInViewController.m; sourceTree = "<group>"; };
 		FCF0BA2616D755A100A508F2 /* likebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = likebutton.png; sourceTree = "<group>"; };
@@ -347,6 +353,10 @@
 				932C7EF716EBEF20001F6F7A /* AddImageViewController.m */,
 				FC1A56F216EBEF4300AEEC94 /* LikeCell.h */,
 				FC1A56F316EBEF4300AEEC94 /* LikeCell.m */,
+				FCDB284416ECA1D600DAEE0A /* AutoRotationViewController.h */,
+				FCDB284516ECA1D600DAEE0A /* AutoRotationViewController.m */,
+				FCDB284716ECA31B00DAEE0A /* AutoRotationNavigationController.h */,
+				FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -549,6 +559,8 @@
 				FC1A56F116EBE31D00AEEC94 /* MoreCommentsCell.m in Sources */,
 				932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */,
 				FC1A56F416EBEF4300AEEC94 /* LikeCell.m in Sources */,
+				FCDB284616ECA1D600DAEE0A /* AutoRotationViewController.m in Sources */,
+				FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

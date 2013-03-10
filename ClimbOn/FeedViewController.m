@@ -48,6 +48,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 @property (nonatomic) NSInteger *postType;
 
 @property (nonatomic) int remainingQueries;
+@property (nonatomic) BOOL isPlayingMovie;
 
 @end
 
@@ -71,6 +72,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
     self.imagesLookup = [[NSMutableDictionary alloc] init];
+    self.isPlayingMovie = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,15 +148,16 @@ NSString *const LikesCellIdentifier = @"likesCell";
     PFObject *videoMedia = [post objectForKey:@"video"];
     PFFile *video = [videoMedia objectForKey:@"file"];
     
-    NSString *videoURLString = video.url;
-    //videoURLString = @"https://dl.dropbox.com/u/17836395/IMG_1629.MOV";
-    NSURL *videoURL = [NSURL URLWithString:videoURLString];
-    MPMoviePlayerViewController *moviePlayerView = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
-    [self presentMoviePlayerViewControllerAnimated:moviePlayerView];
+    NSURL *movieURL = [NSURL URLWithString:video.url];
+    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerDidDismiss:) name:MPMoviePlayerPlaybackDidFinishNotification object:movieController.moviePlayer];
+    [self presentMoviePlayerViewControllerAnimated:movieController];
+    
+    self.isPlayingMovie = YES;
 }
 
-- (BOOL)shouldAutorotate {
-    return NO;
+- (void)moviePlayerDidDismiss:(NSNotification *)note {
+    self.isPlayingMovie = NO;
 }
 
 -(void)dealloc {
@@ -163,6 +166,10 @@ NSString *const LikesCellIdentifier = @"likesCell";
     self.userHasLikedLookup = nil;
     self.numberOfLikesLookup = nil;
     self.postsList = nil;
+}
+
+- (BOOL)shouldAutorotate {
+    return self.isPlayingMovie;
 }
 
 #pragma mark - Table view data source
