@@ -42,7 +42,8 @@
     PFUser *creator = [self.postData objectForKey:@"creator"];
     PFObject *route = [self.postData objectForKey:@"route"];
     PFObject *rating = [route objectForKey:@"rating"];
-    PFFile *imageFile = [self.postData objectForKey:@"image"];
+    PFObject *postMedia = [self.postData objectForKey:@"media"];
+    PFObject *routeMedia = [route objectForKey:@"media"];
     
     // Configure the cell...
     self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
@@ -50,13 +51,17 @@
     //cell.dateLabel.text = [self.postData objectForKey:@"createdAt"];
     
     //set image
-    if(imageFile != nil)
+    if(postMedia != nil)
     {
 //        [self.postImage setFrame:CGRectMake(self.postImage.frame.origin.x, +self.postImage.frame.origin.y, self.postImage.frame.size.width, self.postImage.frame.size.height)];
-        self.postImage.file = imageFile;
+        self.postImage.file = [postMedia objectForKey:@"file"];
+        [self.postImage loadInBackground];
+    } else if(routeMedia != nil) {
+        self.postImage.file = [routeMedia objectForKey:@"file"];
         [self.postImage loadInBackground];
     } else {
         NSLog(@"nophoto");
+        self.postImage.file = nil;
 //        [self.postImage setFrame:CGRectMake(self.postImage.frame.origin.x, -self.postImage.frame.size.height, self.postImage.frame.size.width, self.postImage.frame.size.height)];
     }
     

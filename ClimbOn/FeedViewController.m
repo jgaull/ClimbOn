@@ -234,7 +234,9 @@ static const int kLikesCellIndex = 2;
     [feedQuery includeKey:@"creator"];
     [feedQuery includeKey:@"route"];
     [feedQuery includeKey:@"route.rating"];
+    [feedQuery includeKey:@"route.media"];
     [feedQuery includeKey:@"tags"];
+    [feedQuery includeKey:@"media"];
     [feedQuery orderByDescending:@"createdAt"];
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
