@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectedImageView;
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *submitButton;
 
 @property (strong, nonatomic) PFFile *selectedImage;
 
@@ -54,12 +55,32 @@
 }
 
 - (IBAction)onDoneButton:(id)sender {
-    if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute]) {
-        [self performSegueWithIdentifier:@"rateRoute" sender:self];
-    } else {
-        // save post image
+    // save post image
+    if(self.selectedImage != nil)
         [self uploadFile:self.selectedImage];
+    else if(self.selectedImage == nil) {
+        if([self.route objectForKey:@"media"] == nil)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"This route needs its first photo!" delegate:self cancelButtonTitle:@"I'll add one!" otherButtonTitles:@"Post Anyway...", nil];
+            [alert show];
+        } else {
+            [self exitView];
+        }
     }
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == ButtonSkip) {
+        [self exitView];
+    }
+}
+
+-(void)exitView {
+    if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute])
+        [self performSegueWithIdentifier:@"rateRoute" sender:self];
+    else
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) uploadFile:(PFFile *)file {
@@ -98,7 +119,7 @@
         [self.route setObject:media forKey:@"media"];
         [self.route saveInBackground];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self exitView];
 }
 
 #pragma Mark Actionsheet Methods
@@ -153,7 +174,8 @@
     UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    self.selectedImage = [PFFile fileWithName:@"image" data:UIImageJPEGRepresentation(smallImage, 0.05f)];
+    self.selectedImage = [PFFile fileWithName:@"image" data:UIImageJPEGRepresentation(smallImage, 0.5f)];
+    self.submitButton.title = @"Upload & Save";
 }
 
 @end

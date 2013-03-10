@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface AddImageViewController : UIViewController <UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate>
+@interface AddImageViewController : UIViewController <UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) PFObject *route;
 @property (nonatomic, strong) PFObject *post;
@@ -19,6 +19,11 @@ enum ImageActionButtons:NSInteger{
     ButtonTakePhoto,
     ButtonPickPhoto,
     ButtonCancel
+};
+
+enum FirstImageWarningButtons:NSInteger{
+    ButtonGoBack,
+    ButtonSkip
 };
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
