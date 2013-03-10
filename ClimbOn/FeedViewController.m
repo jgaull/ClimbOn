@@ -99,14 +99,31 @@ static const int kLikesCellIndex = 2;
 
 - (IBAction)onLikeButton:(UIButton *)sender {
     PFObject *post = [self.postsList objectAtIndex:sender.tag];
-    NSNumber *numLikes = [self.numberOfLikesLookup objectForKey:post.objectId];
-    NSNumber *hasLiked = [self.userHasLikedLookup objectForKey:post.objectId];
+    PFRelation *likes = [post objectForKey:@"likes"];
+    NSInteger numLikes = [[self.numberOfLikesLookup objectForKey:post.objectId] intValue];
+    BOOL hasLiked = [[self.userHasLikedLookup objectForKey:post.objectId] boolValue];
     
-    if ([hasLiked boolValue]) {
-        NSLog(@"User has already liked");
+    if (hasLiked) {
+        [likes removeObject:[PFUser currentUser]];
+        [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
+                [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes - 1] forKey:post.objectId];
+                [sender setImage:[UIImage imageNamed:@"likebutton.png"] forState:UIControlStateNormal];
+                NSLog(@"Unliked!");
+            }
+        }];
     }
     else {
-        NSLog(@"User has not already liked");
+        [likes addObject:[PFUser currentUser]];
+        [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [self.userHasLikedLookup setObject:[NSNumber numberWithBool:YES] forKey:post.objectId];
+                [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes + 1] forKey:post.objectId];
+                [sender setImage:[UIImage imageNamed:@"likebuttonliked.png"] forState:UIControlStateNormal];
+                NSLog(@"Liked!");
+            }
+        }];
     }
 }
 
@@ -175,6 +192,11 @@ static const int kLikesCellIndex = 2;
         LikeCell *likeCell = (LikeCell *)cell;
         likeCell.likeButton.tag = indexPath.section;
         likeCell.likesLabel.text = [[self.numberOfLikesLookup objectForKey:postData.objectId] stringValue];
+        
+        BOOL hasLiked = [[self.userHasLikedLookup objectForKey:postData] boolValue];
+        NSLog(@"has liked: %d, post id: %@", hasLiked, postData.objectId);
+        NSString *buttonImage = hasLiked ? @"likebuttonliked.png" : @"likebutton.png";
+        [likeCell.likeButton setImage:[UIImage imageNamed:buttonImage] forState:UIControlStateNormal];
     }
     
     return cell;
@@ -241,7 +263,7 @@ static const int kLikesCellIndex = 2;
     [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.postsList = [[NSMutableArray alloc] initWithArray:objects];
-            self.remainingQueries = objects.count;
+            self.remainingQueries = objects.count * 2;
             
             for (PFObject *post in objects) {
                 PFRelation *comments = [post objectForKey:@"comments"];
@@ -268,16 +290,14 @@ static const int kLikesCellIndex = 2;
                 
                 [likesQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
                     [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:number] forKey:post.objectId];
-                    NSLog(@"number of likes: %d", number);
                     
                     if (number > 0) {
                         [likesQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *object, NSError *error) {
                             if (!error) {
-                                NSLog(@"user has liked: %@", post.objectId);
                                 [self.userHasLikedLookup setObject:[NSNumber numberWithBool:YES] forKey:post.objectId];
+                                [self.tableView reloadData];
                             }
                             else {
-                                NSLog(@"user has not liked: %@", post.objectId);
                                 [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
                             }
                         }];
