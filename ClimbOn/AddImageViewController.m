@@ -158,10 +158,11 @@
         if(self.imagePickController == nil)
             self.imagePickController = [[UIImagePickerController alloc] init];
         self.imagePickController.delegate = self;
-        self.imagePickController.allowsEditing = NO;
+        self.imagePickController.allowsEditing = YES;
         self.imagePickController.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
         
         if (buttonIndex == ButtonTakePhoto) {
+            self.imagePickController.videoQuality = UIImagePickerControllerQualityType640x480;
             self.imagePickController.sourceType = UIImagePickerControllerSourceTypeCamera;
             self.imagePickController.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
             self.imagePickController.showsCameraControls = YES;
