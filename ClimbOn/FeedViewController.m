@@ -86,6 +86,20 @@ NSString *const LikesCellIdentifier = @"likesCell";
     // Dispose of any resources that can be recreated.
 }
 
+-(void)dealloc {
+    self.postsList = nil;
+    self.commentsLookup = nil;
+    self.userHasLikedLookup = nil;
+    self.numberOfLikesLookup = nil;
+    self.postsList = nil;
+}
+
+- (BOOL)shouldAutorotate {
+    return self.isPlayingMovie;
+}
+
+#pragma mark - Button Listeners
+
 - (IBAction)onMoreCommentsButton:(UIButton *)sender {
     NSInteger section = sender.tag;
     
@@ -114,30 +128,36 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 - (IBAction)onLikeButton:(UIButton *)sender {
-    PFObject *post = [self.postsList objectAtIndex:sender.tag];
+    int section = sender.tag;
+    PFObject *post = [self.postsList objectAtIndex:section];
     PFRelation *likes = [post objectForKey:@"likes"];
     NSInteger numLikes = [[self.numberOfLikesLookup objectForKey:post.objectId] intValue];
     BOOL hasLiked = [[self.userHasLikedLookup objectForKey:post.objectId] boolValue];
     
     if (hasLiked) {
+        [post incrementKey:@"numLikes" byAmount:[NSNumber numberWithInt:-1]];
         [likes removeObject:[PFUser currentUser]];
         [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
                 [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes - 1] forKey:post.objectId];
                 [sender setImage:[UIImage imageNamed:@"likebutton.png"] forState:UIControlStateNormal];
+                [self refreshTableViewAtIndexPath:[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]];
                 NSLog(@"Unliked!");
             }
         }];
     }
     else {
+        [post incrementKey:@"numLikes"];
         [likes addObject:[PFUser currentUser]];
         [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [self.userHasLikedLookup setObject:[NSNumber numberWithBool:YES] forKey:post.objectId];
                 [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes + 1] forKey:post.objectId];
                 [sender setImage:[UIImage imageNamed:@"likebuttonliked.png"] forState:UIControlStateNormal];
+                [self refreshTableViewAtIndexPath:[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]];
                 NSLog(@"Liked!");
+                
             }
         }];
     }
@@ -158,18 +178,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (void)moviePlayerDidDismiss:(NSNotification *)note {
     self.isPlayingMovie = NO;
-}
-
--(void)dealloc {
-    self.postsList = nil;
-    self.commentsLookup = nil;
-    self.userHasLikedLookup = nil;
-    self.numberOfLikesLookup = nil;
-    self.postsList = nil;
-}
-
-- (BOOL)shouldAutorotate {
-    return self.isPlayingMovie;
 }
 
 #pragma mark - Table view data source
@@ -263,7 +271,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     return cell;
 }
 
-#pragma Mark Cell finding helper methods
+#pragma mark - Cell finding helper methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGSize constraint;
@@ -375,7 +383,14 @@ NSString *const LikesCellIdentifier = @"likesCell";
     [super prepareForSegue:segue sender:sender];
 }
 
-#pragma Mark some methods I guess.
+- (void)refreshTableViewAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
+
+#pragma mark - Handling loading the data.
 
 - (void)refresh {
     self.commentsLookup = [[NSMutableDictionary alloc] init];
@@ -420,25 +435,28 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 
                 PFRelation *likes = [post objectForKey:@"likes"];
                 PFQuery *likesQuery = likes.query;
+                NSInteger numLikes = [[post objectForKey:@"numLikes"] integerValue];
                 
-                [likesQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-                    [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:number] forKey:post.objectId];
-                    
-                    if (number > 0) {
-                        [likesQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *object, NSError *error) {
-                            if (!error) {
+                [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes] forKey:post.objectId];
+                if (numLikes > 0) {
+                    [likesQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *object, NSError *error) {
+                        if (!error) {
+                            if (object) {
                                 [self.userHasLikedLookup setObject:[NSNumber numberWithBool:YES] forKey:post.objectId];
                                 [self.tableView reloadData];
                             }
                             else {
                                 [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
                             }
-                        }];
-                    }
-                    else {
-                        [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
-                    }
-                }];
+                        }
+                        else {
+                            [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
+                        }
+                    }];
+                }
+                else {
+                    [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
+                }
             }
         }
         else {
@@ -449,7 +467,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     }];
 }
 
-#pragma Mark Text Field Delegate Methods
+#pragma mark - Text Field Delegate Methods
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -464,6 +482,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 PFRelation *relation = [postData objectForKey:@"comments"];
+                [postData incrementKey:@"numComments"];
                 [relation addObject:comment];
                 [postData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (!error) {
