@@ -11,6 +11,6 @@
 
 @interface PostImageCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIImageView *postImageView;
+@property (strong, nonatomic) IBOutlet PFImageView *postImageView;
 
 @end

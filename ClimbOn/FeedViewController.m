@@ -44,7 +44,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
 @property (nonatomic, strong) NSMutableDictionary *numberOfLikesLookup;
 
 @property (nonatomic, strong) NSMutableDictionary *pfImageFileLookup;
-@property (nonatomic, strong) NSMutableDictionary *imageLookup;
 
 @property (nonatomic) NSInteger *postType;
 
@@ -73,7 +72,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
-    self.imageLookup = [[NSMutableDictionary alloc] init];
     //self.isPlayingMovie = NO;
 }
 
@@ -88,7 +86,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     // Dispose of any resources that can be recreated.
     
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
-    self.imageLookup = [[NSMutableDictionary alloc] init];
 }
 
 -(void)dealloc {
@@ -229,24 +226,21 @@ NSString *const LikesCellIdentifier = @"likesCell";
     }
     else if ([cell isKindOfClass:[PostImageCell class]]) {
         PostImageCell *postImageCell = (PostImageCell *)cell;
-        //postImageCell.postImageView.file = nil;
-        UIImage *image = [self.imageLookup objectForKey:postData.objectId];
+        postImageCell.postImageView.file = nil;
+        PFFile *image = [self.pfImageFileLookup objectForKey:postData.objectId];
         if (!image) {
             PFObject *media = [postData objectForKey:@"photo"];
             PFFile *imageFile = [media objectForKey:@"file"];
+            postImageCell.postImageView.file = imageFile;
             [self.pfImageFileLookup setObject:imageFile forKey:postData.objectId];
-            
-            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            [postImageCell.postImageView loadInBackground:^(UIImage *image, NSError *error) {
                 if (!error) {
-                    UIImage *loadedImage = [[UIImage alloc] initWithData:data];
-                    [self.imageLookup setObject:loadedImage forKey:postData.objectId];
-                    postImageCell.postImageView.image = loadedImage;
                     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
             }];
         }
         else {
-            postImageCell.postImageView.image = image;
+            postImageCell.postImageView.file = image;
         }
     }
     else if ([cell isKindOfClass:[CheckInCommentCell class]]) {

@@ -964,7 +964,7 @@
                                     <rect key="frame" x="10" y="0.0" width="300" height="180"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcc-ku-8sa">
+                                        <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcc-ku-8sa" customClass="PFImageView">
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="300" id="uap-Ab-lKt"/>
                                             </constraints>
@@ -1456,7 +1456,7 @@
         <class className="PostImageCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostImageCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="postImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="postImageView" candidateClass="PFImageView"/>
             </relationships>
         </class>
         <class className="ProfileViewController" superclassName="UIViewController">
