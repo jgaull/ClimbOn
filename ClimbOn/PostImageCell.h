@@ -11,7 +11,6 @@
 
 @interface PostImageCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet PFImageView *imageView;
-@property (strong, nonatomic) IBOutlet UIButton *playButton;
+@property (strong, nonatomic) IBOutlet UIImageView *postImageView;
 
 @end

@@ -14,6 +14,6 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
-- (BOOL)shouldAutorotate;
+//- (BOOL)shouldAutorotate;
 
 @end

@@ -27,7 +27,7 @@
 }
 
 -(void)dealloc {
-    self.imageView = nil;
+    self.postImageView = nil;
 }
 
 @end

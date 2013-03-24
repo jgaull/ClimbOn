@@ -13,6 +13,4 @@
 
 @property (nonatomic, strong) PFObject *routeData;
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-
 @end
