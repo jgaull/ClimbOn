@@ -128,6 +128,8 @@
     self.progressBar = nil;
     self.addImageButton = nil;
     self.selectedUrl = nil;
+    self.route = nil;
+    self.post = nil;
 }
 
 #pragma Mark Actionsheet Methods

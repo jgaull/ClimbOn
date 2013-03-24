@@ -1169,7 +1169,7 @@
             <objects>
                 <tableViewController id="2Z6-AQ-m6e" customClass="RouteViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="EJI-af-xoN">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <mapView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="LjZ-8m-qqf">
@@ -1486,16 +1486,152 @@
         <image name="second" width="16" height="16"/>
         <image name="trophy.png" width="163" height="170"/>
     </resources>
+    <classes>
+        <class className="AddImageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="progressBar" candidateClass="UIProgressView"/>
+            </relationships>
+        </class>
+        <class className="AddRouteViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onSaveButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="AutoRotationNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationNavigationController.h"/>
+        </class>
+        <class className="AutoRotationViewController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationViewController.h"/>
+        </class>
+        <class className="CheckInCommentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCommentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="CheckInHeadingCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInHeadingCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userProfilePic" candidateClass="PFImageView"/>
+            </relationships>
+        </class>
+        <class className="CheckInViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="CheckinHashtagCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinHashtagCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="hashtagTextView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="CreateCommentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateCommentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="createCommentField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="FeedViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+        </class>
+        <class className="FindFriendsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
+        </class>
+        <class className="FirstAscentViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
+        <class className="FirstLoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="FollowUserCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LikeCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LikeCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="likesLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MoreCommentsCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MoreCommentsCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="moreButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NearbyRoutesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
+        </class>
+        <class className="PFImageView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
+        </class>
+        <class className="PostDetailsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
+                <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="userProfileImage" candidateClass="PFImageView"/>
+            </relationships>
+        </class>
+        <class className="PostImageCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostImageCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="postImageView" candidateClass="PFImageView"/>
+            </relationships>
+        </class>
+        <class className="ProfileViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
+                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="RouteViewController" superclassName="FeedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gV9-rA-0Q7"/>
-        <segue reference="Rpc-TY-YgI"/>
         <segue reference="imj-M8-5cC"/>
         <segue reference="odi-dc-99M"/>
-        <segue reference="TRT-AO-oWF"/>
+        <segue reference="Rpc-TY-YgI"/>
+        <segue reference="lZi-Cf-19l"/>
+        <segue reference="gV9-rA-0Q7"/>
     </inferredMetricsTieBreakers>
 </document>

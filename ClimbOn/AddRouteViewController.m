@@ -58,6 +58,7 @@
     self.markerShadow = nil;
     self.locationManager = nil;
     self.currentLocation = nil;
+    self.route = nil;
 }
 
 #pragma Mark Touch event listeners
