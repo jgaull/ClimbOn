@@ -13,8 +13,8 @@
 
 @interface AddImageViewController : UIViewController <UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, strong) PFObject *route;
-@property (nonatomic, strong) PFObject *post;
+@property (nonatomic, weak) PFObject *route;
+@property (nonatomic, weak) PFObject *post;
 @property (nonatomic) BOOL didSendRoute;
 
 enum ImageActionButtons:NSInteger{

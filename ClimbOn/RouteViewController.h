@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface RouteViewController : UITableViewController
+#import "FeedViewController.h"
+
+@interface RouteViewController : FeedViewController
 
 @property (nonatomic, strong) PFObject *routeData;
 

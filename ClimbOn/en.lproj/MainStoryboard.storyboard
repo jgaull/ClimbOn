@@ -982,7 +982,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="postImageView" destination="fcc-ku-8sa" id="i6G-O1-5f3"/>
-                                    <segue destination="vmJ-g7-QoB" kind="push" identifier="showPostDetails" id="odi-dc-99M"/>
+                                    <segue destination="vmJ-g7-QoB" kind="push" identifier="alsoShowPostDetails" id="odi-dc-99M"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="111" id="aXa-ml-1zf" customClass="CheckInCommentCell">
@@ -1168,98 +1168,289 @@
         <scene sceneID="EbJ-Os-vP2">
             <objects>
                 <tableViewController id="2Z6-AQ-m6e" customClass="RouteViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="dd1-WY-2gd">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="EJI-af-xoN">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <mapView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="B0M-sJ-SYZ">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <mapView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="LjZ-8m-qqf">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         </mapView>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckIn" rowHeight="131" id="qkx-Sb-9Ah" customClass="CheckInCell">
-                                <rect key="frame" x="0.0" y="122" width="320" height="131"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="headingCell" rowHeight="61" id="XPg-Lz-ulD" customClass="CheckInHeadingCell">
+                                <rect key="frame" x="0.0" y="111" width="320" height="62"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                    <rect key="frame" x="10" y="1" width="280" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jal-Qr-QkF" customClass="PFImageView">
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NZX-37-A1T" customClass="PFImageView">
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="mDf-R1-6Q9"/>
-                                                <constraint firstAttribute="width" constant="40" id="pER-Gl-hvT"/>
+                                                <constraint firstAttribute="height" constant="40" id="t4G-17-esN"/>
+                                                <constraint firstAttribute="width" constant="40" id="vfu-2s-UrZ"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="3QV-WW-0vq">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="a73-ZA-cdc">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="199" id="9Zi-cY-Xif"/>
-                                                <constraint firstAttribute="height" constant="21" id="mEt-Uz-hkg"/>
+                                                <constraint firstAttribute="height" constant="21" id="DaS-AD-wRp"/>
+                                                <constraint firstAttribute="width" constant="158" id="oaZ-a0-ZM2"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="At Route Name, Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hav-gi-7MT">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="A Route Name, Rating" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="fNn-Ga-I6H">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="232" id="2YG-u1-pCA"/>
-                                                <constraint firstAttribute="height" constant="21" id="nTX-h7-pWm"/>
+                                                <constraint firstAttribute="height" constant="21" id="RXg-1o-mcP"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShU-cq-3qG">
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="80" id="3U2-hU-Swg"/>
-                                            </constraints>
-                                            <string key="text">This is exactly 140 characters of text for a sample post to show what the maximum length for a single post would be. This text is padding...</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oc0-8y-Vxh">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="57" id="k9x-Zp-pQU"/>
-                                                <constraint firstAttribute="height" constant="21" id="kmg-qN-6vM"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="oc0-8y-Vxh" secondAttribute="trailing" constant="20" type="default" id="0MO-G1-PZg"/>
-                                    <constraint firstItem="Jal-Qr-QkF" firstAttribute="top" secondItem="3QV-WW-0vq" secondAttribute="top" type="default" id="4sA-6N-xP1"/>
-                                    <constraint firstItem="oc0-8y-Vxh" firstAttribute="top" secondItem="qkx-Sb-9Ah" secondAttribute="top" constant="9" id="BQQ-gC-0Fd"/>
-                                    <constraint firstItem="ShU-cq-3qG" firstAttribute="top" secondItem="qkx-Sb-9Ah" secondAttribute="top" constant="50" id="ShI-TX-qpE"/>
-                                    <constraint firstItem="Hav-gi-7MT" firstAttribute="leading" secondItem="Jal-Qr-QkF" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Yj8-rT-7UK"/>
-                                    <constraint firstItem="ShU-cq-3qG" firstAttribute="trailing" secondItem="qkx-Sb-9Ah" secondAttribute="trailing" type="default" id="dXy-qr-igD"/>
-                                    <constraint firstItem="Jal-Qr-QkF" firstAttribute="leading" secondItem="qkx-Sb-9Ah" secondAttribute="leading" constant="10" id="jmK-en-WhK"/>
-                                    <constraint firstItem="3QV-WW-0vq" firstAttribute="leading" secondItem="Jal-Qr-QkF" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="jzV-xT-R7M"/>
-                                    <constraint firstItem="oc0-8y-Vxh" firstAttribute="baseline" secondItem="3QV-WW-0vq" secondAttribute="baseline" type="default" id="kqq-D5-19p"/>
-                                    <constraint firstItem="ShU-cq-3qG" firstAttribute="leading" secondItem="qkx-Sb-9Ah" secondAttribute="leading" type="default" id="mwb-f4-ASg"/>
-                                    <constraint firstItem="Hav-gi-7MT" firstAttribute="bottom" secondItem="Jal-Qr-QkF" secondAttribute="bottom" type="default" id="qHA-LJ-zrP"/>
+                                    <constraint firstItem="NZX-37-A1T" firstAttribute="top" secondItem="XPg-Lz-ulD" secondAttribute="top" constant="12" id="A7w-Zy-Uuu"/>
+                                    <constraint firstItem="a73-ZA-cdc" firstAttribute="leading" secondItem="NZX-37-A1T" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="JuP-Dz-Zqa"/>
+                                    <constraint firstItem="a73-ZA-cdc" firstAttribute="top" secondItem="NZX-37-A1T" secondAttribute="top" type="default" id="K2D-mk-syf"/>
+                                    <constraint firstItem="fNn-Ga-I6H" firstAttribute="top" secondItem="a73-ZA-cdc" secondAttribute="bottom" type="user" id="KHn-eB-WSM"/>
+                                    <constraint firstItem="NZX-37-A1T" firstAttribute="leading" secondItem="XPg-Lz-ulD" secondAttribute="leading" constant="20" type="default" id="WFF-hf-qBr"/>
+                                    <constraint firstItem="fNn-Ga-I6H" firstAttribute="trailing" secondItem="a73-ZA-cdc" secondAttribute="trailing" type="default" id="lnt-g6-wl3"/>
+                                    <constraint firstItem="fNn-Ga-I6H" firstAttribute="leading" secondItem="NZX-37-A1T" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="s1H-Bo-9Ph"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="dateLabel" destination="oc0-8y-Vxh" id="qhR-cM-Jlh"/>
-                                    <outlet property="postTextLabel" destination="ShU-cq-3qG" id="O2t-gR-nqp"/>
-                                    <outlet property="routeNameLabel" destination="Hav-gi-7MT" id="eRM-Vn-6YL"/>
-                                    <outlet property="userNameLabel" destination="3QV-WW-0vq" id="tZB-Uj-mCl"/>
-                                    <outlet property="userProfilePic" destination="Jal-Qr-QkF" id="CFm-VQ-PpS"/>
+                                    <outlet property="routeNameLabel" destination="fNn-Ga-I6H" id="uJj-wY-w3K"/>
+                                    <outlet property="userNameLabel" destination="a73-ZA-cdc" id="FQj-4b-0wB"/>
+                                    <outlet property="userProfilePic" destination="NZX-37-A1T" id="CmR-ej-rzF"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="hashTagCell" rowHeight="60" id="uRK-Hv-1Io" customClass="CheckinHashtagCell">
+                                <rect key="frame" x="0.0" y="173" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="#hashtag, #hashtag, #hashtag, #hashtag, #hashtag, #hashtag, #hashtag" translatesAutoresizingMaskIntoConstraints="NO" id="HPP-el-Js6">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="300" id="6GL-bR-avB"/>
+                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="59" type="user" id="6VQ-M6-zVi"/>
+                                                <constraint firstAttribute="height" constant="59" id="ogO-Q6-148"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="HPP-el-Js6" firstAttribute="centerX" secondItem="uRK-Hv-1Io" secondAttribute="centerX" type="default" id="YRk-t0-Dd2"/>
+                                    <constraint firstItem="HPP-el-Js6" firstAttribute="top" secondItem="uRK-Hv-1Io" secondAttribute="top" type="default" id="g5l-MZ-hva"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="hashtagTextView" destination="HPP-el-Js6" id="tZ4-TQ-ltt"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likesCell" rowHeight="50" id="ywX-Iu-Ng4" customClass="LikeCell">
+                                <rect key="frame" x="0.0" y="233" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="49"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="34 Likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xji-Ia-pco">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="IUF-rj-Yj5"/>
+                                                <constraint firstAttribute="width" constant="215" id="uOQ-nu-ElP"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gR-ot-0M6">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="31" id="HlT-AJ-9qF"/>
+                                                <constraint firstAttribute="width" constant="47" id="Tzb-ge-nir"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                            <state key="normal" image="likebutton.png">
+                                                <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onLikeButton:" destination="vmJ-g7-QoB" eventType="touchUpInside" id="Aee-RH-wPq"/>
+                                                <action selector="onLikeButton:" destination="M2E-wj-5JQ" eventType="touchUpInside" id="Z45-V5-2KS"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="0gR-ot-0M6" firstAttribute="leading" secondItem="ywX-Iu-Ng4" secondAttribute="leading" constant="20" type="user" id="CV4-o4-ZYf"/>
+                                    <constraint firstAttribute="bottom" secondItem="0gR-ot-0M6" secondAttribute="bottom" constant="20" type="default" id="PVW-cR-VAg"/>
+                                    <constraint firstItem="Xji-Ia-pco" firstAttribute="top" secondItem="ywX-Iu-Ng4" secondAttribute="top" constant="4" id="TXh-qd-cSS"/>
+                                    <constraint firstItem="Xji-Ia-pco" firstAttribute="leading" secondItem="0gR-ot-0M6" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="noZ-lB-0TQ"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="likeButton" destination="0gR-ot-0M6" id="hDh-IL-GbA"/>
+                                    <outlet property="likesLabel" destination="Xji-Ia-pco" id="76W-vf-LPE"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="181" id="pE9-w9-uLR" customClass="PostImageCell">
+                                <rect key="frame" x="0.0" y="283" width="320" height="181"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="280" height="180"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="efZ-dp-3Xq" customClass="PFImageView">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="300" id="EW7-jf-i0W"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="efZ-dp-3Xq" firstAttribute="centerX" secondItem="pE9-w9-uLR" secondAttribute="centerX" type="default" id="cri-57-MMY"/>
+                                    <constraint firstItem="efZ-dp-3Xq" firstAttribute="top" secondItem="pE9-w9-uLR" secondAttribute="top" type="default" id="dDc-4r-f2B"/>
+                                    <constraint firstItem="efZ-dp-3Xq" firstAttribute="bottom" secondItem="pE9-w9-uLR" secondAttribute="bottom" type="default" id="gmR-Pf-XjV"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="postImageView" destination="efZ-dp-3Xq" id="Z4S-MV-wDr"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="111" id="ViG-fP-Fhy" customClass="CheckInCommentCell">
+                                <rect key="frame" x="0.0" y="464" width="320" height="111"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="110"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJd-be-5bf">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="290" id="3i4-8U-5XJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jR0-XM-mRF">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="90" id="n9H-r2-qmY"/>
+                                            </constraints>
+                                            <string key="text">This is a whole bunch of text that a user could write as a comment on a post. They are limited to 140 characters. This last part is filler b</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="TJd-be-5bf" firstAttribute="leading" secondItem="ViG-fP-Fhy" secondAttribute="leading" constant="20" type="default" id="BXz-u9-y9K"/>
+                                    <constraint firstItem="TJd-be-5bf" firstAttribute="trailing" secondItem="jR0-XM-mRF" secondAttribute="trailing" type="default" id="DUJ-5w-bg1"/>
+                                    <constraint firstItem="jR0-XM-mRF" firstAttribute="top" secondItem="TJd-be-5bf" secondAttribute="bottom" type="user" id="iov-Z9-9LH"/>
+                                    <constraint firstItem="jR0-XM-mRF" firstAttribute="top" secondItem="ViG-fP-Fhy" secondAttribute="top" constant="20" type="default" id="x5W-IM-bH7"/>
+                                    <constraint firstItem="jR0-XM-mRF" firstAttribute="centerX" secondItem="ViG-fP-Fhy" secondAttribute="centerX" type="default" id="yC6-0T-lre"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="commentTextView" destination="jR0-XM-mRF" id="Heb-jd-dR6"/>
+                                    <outlet property="userNameLabel" destination="TJd-be-5bf" id="YgQ-nY-wrH"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="2kw-eu-cfm" customClass="MoreCommentsCell">
+                                <rect key="frame" x="0.0" y="575" width="320" height="24"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="23"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4On-y6-hpt">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="23" id="Dhn-Jt-jb4"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="More...">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onMoreCommentsButton:" destination="M2E-wj-5JQ" eventType="touchUpInside" id="5w5-fl-Vwp"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="4On-y6-hpt" firstAttribute="centerX" secondItem="2kw-eu-cfm" secondAttribute="centerX" type="default" id="GD3-oL-Qrd"/>
+                                    <constraint firstItem="4On-y6-hpt" firstAttribute="top" secondItem="2kw-eu-cfm" secondAttribute="top" constant="-1" id="bj4-dd-kap"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="moreButton" destination="4On-y6-hpt" id="iqX-Ri-Kdm"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="YgY-xy-5MR" customClass="CreateCommentCell">
+                                <rect key="frame" x="0.0" y="599" width="320" height="48"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="47"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GZp-2w-eHV">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="260" id="YdP-73-LLC"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="GZp-2w-eHV" firstAttribute="top" secondItem="YgY-xy-5MR" secondAttribute="top" constant="10" id="KZf-we-PmS"/>
+                                    <constraint firstItem="GZp-2w-eHV" firstAttribute="centerX" secondItem="YgY-xy-5MR" secondAttribute="centerX" type="default" id="h2N-NX-dw9"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="createCommentField" destination="GZp-2w-eHV" id="0dD-Kg-60k"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="2Z6-AQ-m6e" id="4Xc-aC-OMl"/>
-                            <outlet property="delegate" destination="2Z6-AQ-m6e" id="ldx-OK-aMd"/>
+                            <outlet property="dataSource" destination="2Z6-AQ-m6e" id="UkO-Rg-ZKQ"/>
+                            <outlet property="delegate" destination="2Z6-AQ-m6e" id="apI-IB-li4"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="eYI-2g-WoX"/>
                     <connections>
-                        <outlet property="mapView" destination="B0M-sJ-SYZ" id="jhx-9w-iim"/>
+                        <outlet property="mapView" destination="LjZ-8m-qqf" id="sw8-L6-PWX"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tWk-zJ-P6u" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1295,140 +1486,6 @@
         <image name="second" width="16" height="16"/>
         <image name="trophy.png" width="163" height="170"/>
     </resources>
-    <classes>
-        <class className="AddImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="progressBar" candidateClass="UIProgressView"/>
-            </relationships>
-        </class>
-        <class className="AddRouteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="AutoRotationNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationNavigationController.h"/>
-        </class>
-        <class className="AutoRotationViewController" superclassName="UITabBarController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationViewController.h"/>
-        </class>
-        <class className="CheckInCommentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCommentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CheckInHeadingCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInHeadingCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userProfilePic" candidateClass="PFImageView"/>
-            </relationships>
-        </class>
-        <class className="CheckInViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="CheckinHashtagCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinHashtagCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="hashtagTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="CreateCommentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateCommentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="createCommentField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="FeedViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-        </class>
-        <class className="FindFriendsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
-        </class>
-        <class className="FirstAscentViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-        <class className="FirstLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="FollowUserCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="LikeCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LikeCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="likesLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MoreCommentsCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MoreCommentsCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="moreButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="NearbyRoutesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
-        </class>
-        <class className="PFImageView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
-        </class>
-        <class className="PostDetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
-                <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userProfileImage" candidateClass="PFImageView"/>
-            </relationships>
-        </class>
-        <class className="PostImageCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostImageCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="postImageView" candidateClass="PFImageView"/>
-            </relationships>
-        </class>
-        <class className="ProfileViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="RouteViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

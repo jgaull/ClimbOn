@@ -18,7 +18,6 @@
 #import "LikeCell.h"
 #import "PostImageCell.h"
 
-#import <Parse/Parse.h>
 #import <MediaPlayer/MediaPlayer.h>
 
 static const int kStaticHeadersCount = 3;
@@ -94,6 +93,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
     self.userHasLikedLookup = nil;
     self.numberOfLikesLookup = nil;
     self.postsList = nil;
+    self.pfImageFileLookup = nil;
+    self.query = nil;
 }
 
 /*- (BOOL)shouldAutorotate {
@@ -379,7 +380,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showPostDetails"]) {
+    if ([segue.identifier isEqualToString:@"showPostDetails"] || [segue.identifier isEqualToString:@"alsoShowPostDetails"]) {
         PostDetailsViewController *postDetails = (PostDetailsViewController *)segue.destinationViewController;
         postDetails.postData = [self.postsList objectAtIndex:self.tableView.indexPathForSelectedRow.section];
     }
@@ -394,18 +395,21 @@ NSString *const LikesCellIdentifier = @"likesCell";
     self.userHasLikedLookup = [[NSMutableDictionary alloc] init];
     self.numberOfLikesLookup = [[NSMutableDictionary alloc] init];
     
-    PFQuery *feedQuery = [PFQuery queryWithClassName:@"Post"];
-    [feedQuery whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
-    [feedQuery includeKey:@"creator"];
-    [feedQuery includeKey:@"route"];
-    [feedQuery includeKey:@"route.rating"];
-    [feedQuery includeKey:@"route.media"];
-    [feedQuery includeKey:@"tags"];
-    [feedQuery includeKey:@"video"];
-    [feedQuery includeKey:@"photo"];
-    [feedQuery orderByDescending:@"createdAt"];
-    feedQuery.limit = 15;
-    [feedQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    if (self.query == nil) {
+        self.query = [PFQuery queryWithClassName:@"Post"];
+        [self.query whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
+    }
+    
+    [self.query includeKey:@"creator"];
+    [self.query includeKey:@"route"];
+    [self.query includeKey:@"route.rating"];
+    [self.query includeKey:@"route.media"];
+    [self.query includeKey:@"tags"];
+    [self.query includeKey:@"video"];
+    [self.query includeKey:@"photo"];
+    [self.query orderByDescending:@"createdAt"];
+    self.query.limit = 15;
+    [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.postsList = [[NSMutableArray alloc] initWithArray:objects];
             self.remainingQueries = objects.count;
@@ -415,7 +419,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 PFQuery *commentsQuery = comments.query;
                 
                 [commentsQuery includeKey:@"creator"];
-                [commentsQuery orderByAscending:@"createdAt"];
+                [commentsQuery orderByDescending:@"createdAt"];
                 commentsQuery.limit = 3;
                 
                 [commentsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -488,8 +492,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
                         NSMutableArray *comments = [self getCommentsForPost:postData];
                         
                         [self.tableView beginUpdates];
-                        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:comments.count + kStaticHeadersCount inSection:section]] withRowAnimation:UITableViewRowAnimationTop];
                         [comments addObject:comment];
+                        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:comments.count + kStaticHeadersCount inSection:section]] withRowAnimation:UITableViewRowAnimationTop];
                         [self.tableView endUpdates];
                     }
                 }];

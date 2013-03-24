@@ -15,7 +15,6 @@
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
 
-@property (strong, nonatomic) UIImagePickerController *imagePickController;
 @property (strong, nonatomic) PFFile *selectedPhoto;
 @property (strong, nonatomic) NSURL *selectedUrl;
 
@@ -47,8 +46,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
-    self.imagePickController = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -95,7 +92,6 @@
     } progressBlock:^(int percentDone) {
         float percentage = percentDone;
         self.progressBar.progress = percentage / 100;
-        NSLog(@"%d", (percentDone));
     }];
 }
 
@@ -104,7 +100,6 @@
     [media setObject:self.selectedPhoto forKey:@"file"];
     [media saveEventually:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            NSLog(@"image saved successfully!");
             //do something
             [self updatePostAndRouteWithMedia:media];
         } else {
@@ -130,7 +125,9 @@
 -(void)dealloc {
     self.addImageButton = nil;
     self.selectedPhoto = nil;
-    self.imagePickController = nil;
+    self.progressBar = nil;
+    self.addImageButton = nil;
+    self.selectedUrl = nil;
 }
 
 #pragma Mark Actionsheet Methods
@@ -146,19 +143,18 @@
         NSLog(@"Cancel");
     }
     else {
-        if(self.imagePickController == nil)
-            self.imagePickController = [[UIImagePickerController alloc] init];
-        self.imagePickController.delegate = self;
-        self.imagePickController.allowsEditing = YES;
+        UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
+        imagePickController.delegate = self;
+        imagePickController.allowsEditing = YES;
         
         if (buttonIndex == ButtonTakePhoto) {
-            self.imagePickController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePickController.sourceType = UIImagePickerControllerSourceTypeCamera;
         }
         else if (buttonIndex == ButtonPickPhoto) {
-            self.imagePickController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            imagePickController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         }
         
-        [self presentViewController:self.imagePickController animated:YES completion:nil];
+        [self presentViewController:imagePickController animated:YES completion:nil];
     }
     
 }
@@ -190,9 +186,9 @@
     UIGraphicsEndImageContext();
     
     // Upload image
-    NSData *imageData = UIImageJPEGRepresentation(smallImage, 1.0f);
+    NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5f);
     
-    self.selectedPhoto = [PFFile fileWithName:@"photo.jpeg0" data:imageData];
+    self.selectedPhoto = [PFFile fileWithName:@"photo.jpeg" data:imageData];
     
     if(self.selectedPhoto != nil)
         [self uploadFile:self.selectedPhoto];
