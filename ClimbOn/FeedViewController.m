@@ -111,7 +111,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     PFRelation *relation = [post objectForKey:@"comments"];
     PFQuery *query = relation.query;
     [query orderByAscending:@"createdAt"];
-    query.limit = 5;
+    query.limit = 50;
     query.skip = comments.count;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -144,7 +144,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
                 [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes - 1] forKey:post.objectId];
                 [sender setImage:[UIImage imageNamed:@"likebutton.png"] forState:UIControlStateNormal];
-                [self refreshTableViewAtIndexPath:[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
                 NSLog(@"Unliked!");
             }
         }];
@@ -157,7 +157,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 [self.userHasLikedLookup setObject:[NSNumber numberWithBool:YES] forKey:post.objectId];
                 [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes + 1] forKey:post.objectId];
                 [sender setImage:[UIImage imageNamed:@"likebuttonliked.png"] forState:UIControlStateNormal];
-                [self refreshTableViewAtIndexPath:[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
                 NSLog(@"Liked!");
             }
         }];
@@ -196,7 +196,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
     NSInteger cellsForImages = [self cellsForImagesInSection:section];
     NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:section]];
     NSInteger cellsForComments = comments.count;
-    NSInteger cellsForMore = comments.count > 0 ? 1 : 0;
+    //NSInteger cellsForMore = comments.count > 0;
+    NSInteger cellsForMore = 1;
     
     return kStaticHeadersCount + cellsForImages + cellsForComments + cellsForMore + kStaticFootersCount;
 }
@@ -233,11 +234,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
             PFFile *imageFile = [media objectForKey:@"file"];
             postImageCell.postImageView.file = imageFile;
             [self.pfImageFileLookup setObject:imageFile forKey:postData.objectId];
-            [postImageCell.postImageView loadInBackground:^(UIImage *image, NSError *error) {
-                if (!error) {
-                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                }
-            }];
+            [postImageCell.postImageView loadInBackground];
         }
         else {
             postImageCell.postImageView.file = image;
@@ -325,7 +322,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
     NSInteger cellsForImages = [self cellsForImagesInSection:indexPath.section];
     NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:indexPath.section]];
     NSInteger cellsForComments = comments.count;
-    NSInteger cellsForMore = comments.count > 0 ? 1 : 0;
+    //NSInteger cellsForMore = comments.count > 0;
+    NSInteger cellsForMore = 1;
     
     if (indexPath.row == kHeaderCellIndex) {
         return HeadingCellIdentifier;
@@ -339,7 +337,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     else if (indexPath.row == kStaticHeadersCount && cellsForImages >= 1) {
         return ImageCellIdentifier;
     }
-    else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForComments && cellsForComments > 0) {
+    else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForComments && cellsForMore > 0) {
         return MoreCommentsCellIdentifier;
     }
     else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForComments + cellsForMore) {
@@ -383,17 +381,10 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPostDetails"]) {
         PostDetailsViewController *postDetails = (PostDetailsViewController *)segue.destinationViewController;
-        postDetails.postData = [self.postsList objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        postDetails.postData = [self.postsList objectAtIndex:self.tableView.indexPathForSelectedRow.section];
     }
     
     [super prepareForSegue:segue sender:sender];
-}
-
-- (void)refreshTableViewAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView beginUpdates];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView endUpdates];
 }
 
 #pragma mark - Handling loading the data.

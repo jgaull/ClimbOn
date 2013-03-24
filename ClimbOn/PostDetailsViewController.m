@@ -12,12 +12,9 @@
 
 @interface PostDetailsViewController ()
 
-@property (strong, nonatomic) IBOutlet UIImageView *userProfileImage;
-@property (strong, nonatomic) IBOutlet UITextView *postTextField;
-@property (strong, nonatomic) IBOutlet UIButton *likeButton;
-@property (strong, nonatomic) IBOutlet UITextField *commentField;
-@property (strong, nonatomic) IBOutlet UIButton *routeNameButton;
+@property (strong, nonatomic) IBOutlet PFImageView *userProfileImage;
 @property (weak, nonatomic) IBOutlet PFImageView *postImage;
+@property (strong, nonatomic) IBOutlet UIButton *routeNameButton;
 
 @property (strong, nonatomic) PFObject *likeData;
 
@@ -42,44 +39,23 @@
     PFUser *creator = [self.postData objectForKey:@"creator"];
     PFObject *route = [self.postData objectForKey:@"route"];
     PFObject *rating = [route objectForKey:@"rating"];
-    PFObject *postMedia = [self.postData objectForKey:@"media"];
-    PFObject *routeMedia = [route objectForKey:@"media"];
+    PFObject *postPhoto = [self.postData objectForKey:@"photo"];
+    //PFObject *routePhoto = [route objectForKey:@"photo"];
     
     // Configure the cell...
+    self.postImage.file = nil;
     self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
     [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:@"name"]] forState:UIControlStateNormal];
-    //cell.dateLabel.text = [self.postData objectForKey:@"createdAt"];
     
-    //set image
-    if(postMedia != nil)
-    {
-//        [self.postImage setFrame:CGRectMake(self.postImage.frame.origin.x, +self.postImage.frame.origin.y, self.postImage.frame.size.width, self.postImage.frame.size.height)];
-        self.postImage.file = [postMedia objectForKey:@"file"];
-        [self.postImage loadInBackground];
-    } else if(routeMedia != nil) {
-        self.postImage.file = [routeMedia objectForKey:@"file"];
-        [self.postImage loadInBackground];
-    } else {
-        NSLog(@"nophoto");
-        self.postImage.file = nil;
-//        [self.postImage setFrame:CGRectMake(self.postImage.frame.origin.x, -self.postImage.frame.size.height, self.postImage.frame.size.width, self.postImage.frame.size.height)];
-    }
+    self.userProfileImage.file = [creator objectForKey:@"profilePicture"];
+    [self.userProfileImage loadInBackground:^(UIImage *image, NSError *error) {
+        [self.view setNeedsDisplay];
+    }];
     
-    /*PFQuery *query = [[PFQuery alloc] initWithClassName:@"Like"];
-    [query whereKey:@"post" equalTo:self.postData];
-    [query whereKey:@"originator" equalTo:[PFUser currentUser]];
-    self.likeButton.enabled = NO;
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (!error) {
-            [self.likeButton setImage:[UIImage imageNamed:@"likebuttonliked.png"] forState:UIControlStateNormal];
-            self.likeData = object;
-        }
-        else {
-            [self.likeButton setImage:[UIImage imageNamed:@"likebutton.png"] forState:UIControlStateNormal];
-        }
-        
-        self.likeButton.enabled = YES;
-    }];*/
+    [postPhoto fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        self.postImage.file = [object objectForKey:@"file"];
+        [self.view setNeedsDisplay];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,30 +65,7 @@
 }
 
 - (IBAction)onLikeButton:(id)sender {
-    /*self.likeButton.enabled = NO;
-    if (self.likeData) {
-        [self.likeData deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [self.likeButton setImage:[UIImage imageNamed:@"likebutton.png"] forState:UIControlStateNormal];
-                self.likeData = nil;
-            }
-            
-            self.likeButton.enabled = YES;
-        }];
-    }
-    else {
-        PFObject *likeData = [[PFObject alloc] initWithClassName:@"Like"];
-        [likeData setObject:[PFUser currentUser] forKey:@"originator"];
-        [likeData setObject:self.postData forKey:@"post"];
-        self.likeData = likeData;
-        [likeData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [self.likeButton setImage:[UIImage imageNamed:@"likebuttonliked.png"] forState:UIControlStateNormal];
-            }
-            
-            self.likeButton.enabled = YES;
-        }];
-    }*/
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -124,9 +77,6 @@
 
 -(void)dealloc {
     self.userProfileImage = nil;
-    self.postTextField = nil;
-    self.likeButton = nil;
-    self.commentField = nil;
     self.routeNameButton = nil;
     self.postImage = nil;
     self.likeData = nil;
