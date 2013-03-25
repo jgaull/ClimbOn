@@ -15,9 +15,6 @@
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
 
-@property (strong, nonatomic) PFFile *selectedPhoto;
-@property (strong, nonatomic) NSURL *selectedUrl;
-
 @end
 
 @implementation AddImageViewController
@@ -48,6 +45,32 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)dealloc {
+    self.addImageButton = nil;
+    self.progressBar = nil;
+    self.addImageButton = nil;
+    self.route = nil;
+    self.post = nil;
+}
+
+#pragma mark - button listeners
+
+- (IBAction)onAddImageButton:(id)sender {
+    [self displayPhotoSourcePicker];
+}
+
+- (IBAction)onDoneButton:(id)sender {
+    [self exitView];
+}
+
+#pragma mark - advancing the user flow
+-(void)exitView {
+    if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute])
+        [self performSegueWithIdentifier:@"rateRoute" sender:self];
+    else
+        [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
     
@@ -56,31 +79,7 @@
     nextViewController.post = self.post;
 }
 
-- (IBAction)onAddImageButton:(id)sender {
-    [self displayPhotoSourcePicker];
-}
-
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == ButtonSkip) {
-        [self exitView];
-    }
-}
-
--(void)exitView {
-    if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute])
-        [self performSegueWithIdentifier:@"rateRoute" sender:self];
-    else
-        [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)cameraIsReady:(NSNotification *)notification
-{
-    NSLog(@"Camera is ready...");
-    // Whatever
-    //    [self.imagePickController startVideoCapture];
-}
-
+#pragma Mark - saving the post
 - (void) uploadFile:(PFFile *)file {
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
@@ -97,7 +96,6 @@
 
 - (void) createMediaObjectWithFile:(PFFile *)file {
     PFObject *media = [[PFObject alloc] initWithClassName:@"Media"];
-    [media setObject:self.selectedPhoto forKey:@"file"];
     [media saveEventually:^(BOOL succeeded, NSError *error) {
         if (!error) {
             //do something
@@ -119,20 +117,9 @@
         [self.route setObject:media forKey:@"photo"];
         [self.route saveInBackground];
     }
-    [self exitView];
 }
 
--(void)dealloc {
-    self.addImageButton = nil;
-    self.selectedPhoto = nil;
-    self.progressBar = nil;
-    self.addImageButton = nil;
-    self.selectedUrl = nil;
-    self.route = nil;
-    self.post = nil;
-}
-
-#pragma Mark Actionsheet Methods
+#pragma mark - Actionsheet Methods
 
 - (void)displayPhotoSourcePicker {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Photo", nil];
@@ -161,7 +148,7 @@
     
 }
 
-#pragma Mark Imagepicker Controller
+#pragma mark - Imagepicker Controller
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -173,12 +160,12 @@
     self.progressBar.progress = 0.0f;
     self.progressBar.hidden = NO;
     
-    self.selectedUrl = [info objectForKey:UIImagePickerControllerMediaURL];
+    NSURL *selectedUrl = [info objectForKey:UIImagePickerControllerMediaURL];
 //    [self.selectedImageView setImage:selectedVideo];
     
     // newly created photo
     if(picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-        UISaveVideoAtPathToSavedPhotosAlbum(self.selectedUrl.path, nil, nil, nil);
+        UISaveVideoAtPathToSavedPhotosAlbum(selectedUrl.path, nil, nil, nil);
     }
     
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
@@ -189,20 +176,7 @@
     
     // Upload image
     NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5f);
-    
-    self.selectedPhoto = [PFFile fileWithName:@"photo.jpeg" data:imageData];
-    
-    if(self.selectedPhoto != nil)
-        [self uploadFile:self.selectedPhoto];
-    else if(self.selectedPhoto == nil) {
-        if([self.route objectForKey:@"photo"] == nil)
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"This route needs its first photo!" delegate:self cancelButtonTitle:@"I'll add one!" otherButtonTitles:@"Post Anyway...", nil];
-            [alert show];
-        } else {
-            [self exitView];
-        }
-    }
+    [self uploadFile:[PFFile fileWithName:@"photo.jpeg" data:imageData]];
 }
 
 @end

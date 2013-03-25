@@ -516,7 +516,13 @@
                             <constraint firstItem="1FS-sD-0Pj" firstAttribute="top" secondItem="dxr-k4-TIF" secondAttribute="top" constant="10" type="user" id="ygQ-Jg-Gop"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="jWc-lT-3P9"/>
+                    <navigationItem key="navigationItem" id="jWc-lT-3P9">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="fjc-8p-7kP">
+                            <connections>
+                                <action selector="onDoneButton:" destination="Qzx-i9-BZe" id="OGW-Pc-d3R"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addImageButton" destination="1FS-sD-0Pj" id="5mQ-c4-9cV"/>
                         <outlet property="progressBar" destination="t4N-Xm-PIm" id="vZv-ZY-UWy"/>
@@ -1064,7 +1070,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="534" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="534" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1415,7 +1421,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="YgY-xy-5MR" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="599" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="599" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1491,6 +1497,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
             <relationships>
                 <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="progressBar" candidateClass="UIProgressView"/>
             </relationships>
