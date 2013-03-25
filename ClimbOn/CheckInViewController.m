@@ -118,29 +118,22 @@
             [self.post setObject:self.route forKey:@"route"];
             [self.post setObject:self.selectedTags forKey:@"tags"];
             
-//            [self.route saveEventually];
-            
             if (![self.postTextView.text isEqualToString:@""]) {
                 PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
                 [comment setObject:[PFUser currentUser] forKey:@"creator"];
                 [comment setObject:self.postTextView.text forKey:@"commentText"];
-                
                 [comment saveEventually:^(BOOL succeeded, NSError *error) {
                     if (!error) {
                         PFRelation *commentsRelation = [self.post relationforKey:@"comments"];
                         [commentsRelation addObject:comment];
-                        [self.post saveEventually];
-                        [self performSegueWithIdentifier:@"addImage" sender:sender];
                     } else {
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went terribly wrong." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Bummer", nil];
                         [alert show];
                     }
                 }];
             }
-            else {
-                [self.post saveEventually];
-                [self performSegueWithIdentifier:@"addImage" sender:sender];
-            }
+            
+            [self performSegueWithIdentifier:@"addImage" sender:sender];
             
         }
     }

@@ -525,6 +525,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addImageButton" destination="1FS-sD-0Pj" id="5mQ-c4-9cV"/>
+                        <outlet property="doneButton" destination="fjc-8p-7kP" id="00e-3J-NYT"/>
                         <outlet property="progressBar" destination="t4N-Xm-PIm" id="vZv-ZY-UWy"/>
                         <segue destination="ddG-a2-VJA" kind="push" identifier="rateRoute" id="r0X-XL-Kei"/>
                     </connections>

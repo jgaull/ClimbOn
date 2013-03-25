@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 
 @end
 
@@ -31,12 +32,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(cameraIsReady:)
-                                                 name:AVCaptureSessionDidStartRunningNotification object:nil];
+    
+    //any additional setup
     self.progressBar.hidden = YES;
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,6 +49,7 @@
     self.addImageButton = nil;
     self.route = nil;
     self.post = nil;
+    self.doneButton = nil;
 }
 
 #pragma mark - button listeners
@@ -65,6 +64,15 @@
 
 #pragma mark - advancing the user flow
 -(void)exitView {
+    
+    [self.post saveInBackground];
+    
+    // set route image
+    if([self.route objectForKey:@"photo"] == nil)
+    {
+        [self.route saveInBackground];
+    }
+    
     if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute])
         [self performSegueWithIdentifier:@"rateRoute" sender:self];
     else
@@ -83,8 +91,9 @@
 - (void) uploadFile:(PFFile *)file {
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving route" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error saving photo" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
             [alert show];
+            self.doneButton.enabled = YES;
         } else {
             [self createMediaObjectWithFile:file];
         }
@@ -96,6 +105,7 @@
 
 - (void) createMediaObjectWithFile:(PFFile *)file {
     PFObject *media = [[PFObject alloc] initWithClassName:@"Media"];
+    [media setObject:file forKey:@"file"];
     [media saveEventually:^(BOOL succeeded, NSError *error) {
         if (!error) {
             //do something
@@ -103,20 +113,21 @@
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went terribly wrong adding your image." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Bummer", nil];
             [alert show];
+            self.doneButton.enabled = YES;
         }
     }];
 }
 
 - (void) updatePostAndRouteWithMedia:(PFObject *)media {
     [self.post setObject:media forKey:@"photo"];
-    [self.post saveInBackground];
     
     // set route image
     if([self.route objectForKey:@"photo"] == nil)
     {
         [self.route setObject:media forKey:@"photo"];
-        [self.route saveInBackground];
     }
+    
+    self.doneButton.enabled = YES;
 }
 
 #pragma mark - Actionsheet Methods
@@ -132,6 +143,7 @@
         NSLog(@"Cancel");
     }
     else {
+        self.doneButton.enabled = NO;
         UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
         imagePickController.delegate = self;
         imagePickController.allowsEditing = YES;
