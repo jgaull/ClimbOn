@@ -180,9 +180,9 @@
         UISaveVideoAtPathToSavedPhotosAlbum(selectedUrl.path, nil, nil, nil);
     }
     
-    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
-    [image drawInRect: CGRectMake(0, 0, 640, 960)];
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIGraphicsBeginImageContext(CGSizeMake(640, 640));
+    [image drawInRect: CGRectMake(0, 0, 640, 640)];
     UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
