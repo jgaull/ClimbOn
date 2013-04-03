@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (strong, nonatomic) IBOutlet UIButton *addImageButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (strong, nonatomic) IBOutlet UIImageView *userImageView;
 
 @end
 
@@ -50,6 +51,7 @@
     self.route = nil;
     self.post = nil;
     self.doneButton = nil;
+    self.userImageView = nil;
 }
 
 #pragma mark - button listeners
@@ -127,7 +129,7 @@
         [self.route setObject:media forKey:@"photo"];
     }
     
-    self.doneButton.enabled = YES;
+    [self exitView];
 }
 
 #pragma mark - Actionsheet Methods
@@ -186,8 +188,10 @@
     UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    self.userImageView.image = image;
+    
     // Upload image
-    NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5f);
+    NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.50f);
     [self uploadFile:[PFFile fileWithName:@"photo.jpeg" data:imageData]];
 }
 

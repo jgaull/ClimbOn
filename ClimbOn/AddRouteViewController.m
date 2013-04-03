@@ -63,37 +63,38 @@
 
 #pragma Mark Touch event listeners
 
-- (IBAction)onSaveButton:(UIButton *)sender {
-    
-    UIAlertView *alert;
-    if ([self.routeNameField.text isEqualToString:@""]) {
-        alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Please give the route a name." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
+- (IBAction)onDoneButton:(UIBarButtonItem *)sender {
+    if (self.routeNameField.isFirstResponder) {
+        [self.routeNameField resignFirstResponder];
     }
-    else
-    {
-        PFObject *route = self.route;
-        
-        if (!route) {
-            route = [PFObject objectWithClassName:@"Route"];
+    else {
+        UIAlertView *alert;
+        if ([self.routeNameField.text isEqualToString:@""]) {
+            alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Please give the route a name." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
         }
-        
-        [route setObject:self.routeNameField.text forKey:@"name"];
-        [route setObject:[PFUser currentUser] forKey:@"creator"];
-//        self.mapView
-        
-//        NSLog(@"user at lat:%f", self.currentLocation.coordinate.latitude);
-//        NSLog(@"saving with lat:%f", self.mapView.region.center.latitude);
-        PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.mapView.region.center.latitude longitude:self.mapView.region.center.longitude];
-        [route setObject:point forKey:@"location"];
-        
-        PFObject *rating = [[PFObject alloc] initWithClassName:@"Rating"];
-        rating.objectId = @"OJewnFZKQ4";
-        [route setObject:rating forKey:@"rating"];
-        
-        self.route = route;
-        
-        [self performSegueWithIdentifier:@"showCheckInView" sender:self];
+        else
+        {
+            PFObject *route = self.route;
+            
+            if (!route) {
+                route = [PFObject objectWithClassName:@"Route"];
+            }
+            
+            [route setObject:self.routeNameField.text forKey:@"name"];
+            [route setObject:[PFUser currentUser] forKey:@"creator"];
+            
+            PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.mapView.region.center.latitude longitude:self.mapView.region.center.longitude];
+            [route setObject:point forKey:@"location"];
+            
+            PFObject *rating = [[PFObject alloc] initWithClassName:@"Rating"];
+            rating.objectId = @"OJewnFZKQ4";
+            [route setObject:rating forKey:@"rating"];
+            
+            self.route = route;
+            
+            [self performSegueWithIdentifier:@"checkInAtRoute" sender:self];
+        }
     }
 }
 

@@ -56,6 +56,8 @@
             NSLog(@"Error fetching tags: %@", error.localizedDescription);
         }
     }];
+    
+    [self.postTextView becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -104,40 +106,10 @@
 }
 
 - (IBAction)onDoneButton:(id)sender {
-    if (self.postTextView.isFirstResponder) {
-        [self.postTextView resignFirstResponder];
-    }
-    else {
-        if (self.selectedTags.count == 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Tags" message:@"Please select at least one tag." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
-            [alert show];
-        }
-        else {
-            self.post = [[PFObject alloc] initWithClassName:@"Post"];
-            [self.post setObject:[PFUser currentUser] forKey:@"creator"];
-            [self.post setObject:self.route forKey:@"route"];
-            [self.post setObject:self.selectedTags forKey:@"tags"];
-            
-            if (![self.postTextView.text isEqualToString:@""]) {
-                PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
-                [comment setObject:[PFUser currentUser] forKey:@"creator"];
-                [comment setObject:self.postTextView.text forKey:@"commentText"];
-                [comment saveEventually:^(BOOL succeeded, NSError *error) {
-                    if (!error) {
-                        PFRelation *commentsRelation = [self.post relationforKey:@"comments"];
-                        [commentsRelation addObject:comment];
-                    } else {
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went terribly wrong." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Bummer", nil];
-                        [alert show];
-                    }
-                }];
-            }
-            
-            [self performSegueWithIdentifier:@"addImage" sender:sender];
-            
-        }
-    }
+    [self onDone];
 }
+
+#pragma Mark Some Helper methods
 
 - (BOOL)didSendRoute {
     for (PFObject *tag in self.selectedTags) {
@@ -157,6 +129,36 @@
         return YES;
 }
 
+- (void)onDone {
+    if (self.selectedTags.count == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Tags" message:@"Please select at least one tag." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
+        [alert show];
+    }
+    else {
+        self.post = [[PFObject alloc] initWithClassName:@"Post"];
+        [self.post setObject:[PFUser currentUser] forKey:@"creator"];
+        [self.post setObject:self.route forKey:@"route"];
+        [self.post setObject:self.selectedTags forKey:@"tags"];
+        
+        if (![self.postTextView.text isEqualToString:@""]) {
+            PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
+            [comment setObject:[PFUser currentUser] forKey:@"creator"];
+            [comment setObject:self.postTextView.text forKey:@"commentText"];
+            [comment saveEventually:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    PFRelation *commentsRelation = [self.post relationforKey:@"comments"];
+                    [commentsRelation addObject:comment];
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went terribly wrong." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Bummer", nil];
+                    [alert show];
+                }
+            }];
+        }
+        
+        [self performSegueWithIdentifier:@"addImage" sender:self];
+    }
+}
+
 #pragma Mark Text View Delegate methods.
 
 -(void)textViewDidBeginEditing:(UITextView *)textView
@@ -173,7 +175,7 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
-        [self.postTextView resignFirstResponder];
+        [self onDone];
         return NO;
     }
     
