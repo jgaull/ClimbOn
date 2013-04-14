@@ -14,5 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *routeNameLabel;
 @property (strong, nonatomic) IBOutlet PFImageView *userProfilePic;
+@property (strong, nonatomic) IBOutlet UILabel *accomplishmentLabel;
 
 @end

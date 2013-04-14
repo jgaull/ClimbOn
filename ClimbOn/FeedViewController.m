@@ -20,19 +20,15 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 
-static const int kStaticHeadersCount = 3;
-static const int kStaticFootersCount = 1;
+static const int kStaticHeadersCount = 2;
+static const int kStaticFootersCount = 0;
 
 static const int kHeaderCellIndex = 0;
-static const int kHashtagCellIndex = 1;
-static const int kLikesCellIndex = 2;
+static const int kLikesCellIndex = 1;
 
 NSString *const HeadingCellIdentifier = @"headingCell";
-NSString *const HashTagCellIdentifier = @"hashTagCell";
 NSString *const ImageCellIdentifier = @"imageCell";
 NSString *const CommentCellIdentifier = @"commentCell";
-NSString *const WriteCommentCellIdentifier = @"writeCommentCell";
-NSString *const MoreCommentsCellIdentifier = @"moreCommentsCell";
 NSString *const LikesCellIdentifier = @"likesCell";
 
 @interface FeedViewController ()
@@ -197,10 +193,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
     NSInteger cellsForImages = [self cellsForImagesInSection:section];
     NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:section]];
     NSInteger cellsForComments = comments.count;
-    //NSInteger cellsForMore = comments.count > 0;
-    NSInteger cellsForMore = 1;
     
-    return kStaticHeadersCount + cellsForImages + cellsForComments + cellsForMore + kStaticFootersCount;
+    return kStaticHeadersCount + cellsForImages + cellsForComments + kStaticFootersCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -282,25 +276,13 @@ NSString *const LikesCellIdentifier = @"likesCell";
     CGSize size;
     PFObject *comment;
     
-    PFObject *postData = [self.postsList objectAtIndex:indexPath.section];
     NSString *cellIdentifier = [self getCellIdentifierForIndexPath:indexPath];
     
     if ([HeadingCellIdentifier isEqualToString:cellIdentifier]) {
-        return 60;
-    }
-    else if ([HashTagCellIdentifier isEqualToString:cellIdentifier]) {
-        constraint = CGSizeMake(280, 50);
-        size = [[self getTagListStringFromPost:postData] sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-        return size.height + 16;
+        return 90;
     }
     else if ([LikesCellIdentifier isEqualToString:cellIdentifier]) {
         return 50;
-    }
-    else if ([WriteCommentCellIdentifier isEqualToString:cellIdentifier]) {
-        return 48;
-    }
-    else if ([MoreCommentsCellIdentifier isEqualToString:cellIdentifier]) {
-        return 24;
     }
     else if ([ImageCellIdentifier isEqualToString:cellIdentifier]) {
         return 181;
@@ -321,28 +303,15 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (NSString *)getCellIdentifierForIndexPath:(NSIndexPath *)indexPath {
     
     NSInteger cellsForImages = [self cellsForImagesInSection:indexPath.section];
-    NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:indexPath.section]];
-    NSInteger cellsForComments = comments.count;
-    //NSInteger cellsForMore = comments.count > 0;
-    NSInteger cellsForMore = 1;
     
     if (indexPath.row == kHeaderCellIndex) {
         return HeadingCellIdentifier;
-    }
-    else if (indexPath.row == kHashtagCellIndex) {
-        return HashTagCellIdentifier;
     }
     else if (indexPath.row == kLikesCellIndex) {
         return LikesCellIdentifier;
     }
     else if (indexPath.row == kStaticHeadersCount && cellsForImages >= 1) {
         return ImageCellIdentifier;
-    }
-    else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForComments && cellsForMore > 0) {
-        return MoreCommentsCellIdentifier;
-    }
-    else if (indexPath.row == kStaticHeadersCount + cellsForImages + cellsForComments + cellsForMore) {
-            return WriteCommentCellIdentifier;
     }
     else {
         return CommentCellIdentifier;
@@ -376,7 +345,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (PFObject *)getCommentForIndexPath:(NSIndexPath *)indexPath {
     PFObject *post = [self.postsList objectAtIndex:indexPath.section];
     NSArray *comments = [self getCommentsForPost:post];
-    return [comments objectAtIndex:(indexPath.row - kStaticHeadersCount - [self cellsForImagesInSection:indexPath.section])];
+    NSInteger imageCells = [self cellsForImagesInSection:indexPath.section];
+    NSInteger commentIndex = indexPath.row - kStaticHeadersCount - imageCells;
+    return [comments objectAtIndex:commentIndex];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

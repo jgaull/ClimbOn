@@ -12,6 +12,13 @@
 const int kPostTypeCheckIn = 0;
 const int kPostTypeTopOut = 1;
 
+enum accomplishments:NSInteger{
+    Send,
+    Flash,
+    Project,
+    Laps
+};
+
 @interface CheckInViewController : UIViewController <UITextViewDelegate, UIActionSheetDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) PFObject *route;
