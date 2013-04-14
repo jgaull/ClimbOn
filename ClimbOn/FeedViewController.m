@@ -40,6 +40,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 @property (nonatomic, strong) NSMutableDictionary *pfImageFileLookup;
 
+@property (nonatomic, strong) NSArray *accomplishmentTypes;
+
 @property (nonatomic) NSInteger *postType;
 
 @property (nonatomic) int remainingQueries;
@@ -67,6 +69,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
+    
+    self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended", @"Flashed", @"Worked", @"Lapped", nil];
     //self.isPlayingMovie = NO;
 }
 
@@ -210,11 +214,13 @@ NSString *const LikesCellIdentifier = @"likesCell";
         CheckInHeadingCell *checkinHeadingCell = (CheckInHeadingCell *)cell;
         
         PFObject *rating = [routeData objectForKey:@"rating"];
+        NSInteger *accomplishmentType = [[postData objectForKey:@"type"] integerValue];
         
         checkinHeadingCell.userProfilePic.file = [creator objectForKey:@"profilePicture"];
         [checkinHeadingCell.userProfilePic loadInBackground];
         checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
         checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
+        checkinHeadingCell.accomplishmentLabel.text = [self.accomplishmentTypes objectAtIndex:accomplishmentType];
     }
     else if ([cell isKindOfClass:[CheckinHashtagCell class]]) {
         CheckinHashtagCell *checkinHashtagCell = (CheckinHashtagCell *)cell;
