@@ -52,6 +52,12 @@
                 NSLog(@"Uh oh. An error occurred: %@", error);
             }
         } else {
+			// Associating user with their installation
+			PFInstallation *installation = [PFInstallation currentInstallation];
+			[installation setObject:user forKey:@"owner"];
+			[installation saveInBackground];
+
+			//fetch fb info
             [self fetchUserInfo];
         }
     }];
