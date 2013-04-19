@@ -19,11 +19,15 @@
     
     //DEV DATABASE
     [Parse setApplicationId:@"5fIMJLoPq55Wc902Z1etXgb0Ic9Za53yY4cfolad" clientKey:@"mBY4WJ5LVCPNjrE4rNZUWyDlSc54SYs7HfwGgpfj"];
-    
-    
+
+    // Setup send parse fb app id
     [PFFacebookUtils initializeWithApplicationId:@"400656610003830"];
-    
-    [self performSelector:@selector(displayLogin) withObject:nil afterDelay:0.01];
+
+	// Register for push notifications
+    [application registerForRemoteNotificationTypes:
+					 UIRemoteNotificationTypeBadge |
+					 UIRemoteNotificationTypeAlert |
+					 UIRemoteNotificationTypeSound];
     
     [PFImageView class];
     
@@ -34,6 +38,26 @@
     if (![PFUser currentUser]) {
         [self.window.rootViewController performSegueWithIdentifier:@"firstLoginFlow" sender:self];
     }
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+{
+	NSLog(@"registered for push");
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:newDeviceToken];
+    [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+	NSLog(@"did not register for push:%@", error);
+	// display login view
+    [self performSelector:@selector(displayLogin) withObject:nil afterDelay:0.01];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
