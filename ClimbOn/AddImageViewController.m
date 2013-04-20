@@ -67,7 +67,21 @@
 #pragma mark - advancing the user flow
 -(void)exitView {
     
-    [self.post saveInBackground];
+    [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		PFPush *push = [[PFPush alloc] init];
+		PFUser *currentUser = [PFUser currentUser];
+		NSString *channel = [NSString stringWithFormat:@"user_%@", currentUser.objectId];
+		NSString *firstName = [currentUser objectForKey:@"firstName"];
+		NSString *lastName = [currentUser objectForKey:@"lastName"];
+		NSString *lastInitial = @"";
+		if(lastName.length > 0)
+			lastInitial = [NSString stringWithFormat:@"%@. ", [lastName substringToIndex:1]];
+		NSString *routeName = [self.route objectForKey:@"name"];
+		NSString *message = [NSString stringWithFormat:@"%@ %@just checked in to %@!", firstName, lastInitial, routeName];
+		[push setChannel:channel];
+		[push setMessage:message];
+		[push sendPushInBackground];
+	}];
     
     // set route image
     if([self.route objectForKey:@"photo"] == nil)

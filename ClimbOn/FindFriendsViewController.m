@@ -136,21 +136,40 @@
 - (IBAction)onFollowButton:(UIButton *)sender {
     PFUser *userDataForRow = [self.data objectAtIndex:sender.tag];
     NSMutableArray *currentlyFollowing = [[NSMutableArray alloc] initWithArray:[[PFUser currentUser] objectForKey:@"following"]];
-    NSString *newButtonTitle;
-    
-    if ([self isFollowingUser:userDataForRow]) {
-        [currentlyFollowing removeObject:userDataForRow];
-        newButtonTitle = @"Follow";
-    }
-    else {
-        [currentlyFollowing addObject:userDataForRow];
-        newButtonTitle = @"Unfollow";
-    }
-    
-    
+
+	//set loading state
+	[sender setTitle:@"..." forState:UIControlStateNormal];
+
+	if ([self isFollowingUser:userDataForRow]) {
+		[currentlyFollowing removeObject:userDataForRow];
+	}
+	else {
+		[currentlyFollowing addObject:userDataForRow];
+	}
+
     [[PFUser currentUser] setObject:currentlyFollowing forKey:@"following"];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
+			NSString *newButtonTitle;
+			NSString *channelName = [NSString stringWithFormat:@"user_%@", [userDataForRow objectId]];
+			PFInstallation *installation = [PFInstallation currentInstallation];
+			if ([self isFollowingUser:userDataForRow]) {
+				// followed user
+				// add to channel
+				[installation addUniqueObject:channelName forKey:@"channels"];
+				[installation saveEventually];
+
+				newButtonTitle = @"Unfollow";
+			}
+			else {
+				// unfollowed user
+				// remove from channel
+				[installation removeObject:channelName forKey:@"channels"];
+				[installation saveEventually];
+
+				newButtonTitle = @"Follow";
+			}
+			//update button title
             [sender setTitle:newButtonTitle forState:UIControlStateNormal];
         }
         else {
