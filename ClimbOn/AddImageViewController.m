@@ -88,8 +88,9 @@
     {
         [self.route saveInBackground];
     }
-    
-    if (![self.route objectForKey:@"firstAscent"] && [self didSendRoute])
+
+	unsigned int climbingType = [[[self.route objectForKey:@"rating"] objectForKey:@"climbingType"] intValue];
+    if (climbingType == 0 && [self didSendRoute])
         [self performSegueWithIdentifier:@"rateRoute" sender:self];
     else
         [self dismissViewControllerAnimated:YES completion:nil];
