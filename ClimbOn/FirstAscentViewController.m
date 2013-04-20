@@ -36,19 +36,25 @@
 	// Do any additional setup after loading the view.
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"Rating"];
     [query orderByAscending:@"difficulty"];
-    [query whereKey:@"ratingSystem" notEqualTo:@"unrated"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         NSMutableArray *ratingNames = [[NSMutableArray alloc] init];
         
         for (PFObject *rating in objects) {
             NSString *ratingSystem = [rating objectForKey:@"ratingSystem"];
+            unsigned int ratingPriority = [[rating objectForKey:@"ratingPriority"] intValue];
             NSMutableArray *ratingsArray = [dict objectForKey:ratingSystem];
             if ([dict objectForKey:ratingSystem] == nil) {
-                [dict setObject:[[NSMutableArray alloc] init] forKey:ratingSystem];
-                [ratingNames addObject:ratingSystem];
+				ratingsArray = [[NSMutableArray alloc] init];
+                [dict setObject:ratingsArray forKey:ratingSystem];
             }
-            
+			
+			unsigned int count = ratingNames.count;
+			if(ratingPriority >= count)
+				[ratingNames addObject:ratingSystem];
+			else if(ratingPriority < count)
+				[ratingNames replaceObjectAtIndex:ratingPriority withObject:ratingSystem];
+
             [ratingsArray addObject:rating];
         }
         
@@ -79,13 +85,14 @@
 #pragma Mark Picker View Delegate methods
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
     if (component == 0) {
+		// rating type component
         return [self.ratings objectAtIndex:row];
-    }
-    
-    PFObject *ratingData = [[self getRatingNamesForSelectedRatingSystem] objectAtIndex:row];
-    return [ratingData objectForKey:@"name"];
+    } else {
+		// rating component
+		PFObject *ratingData = [[self getRatingNamesForSelectedRatingSystem] objectAtIndex:row];
+		return [ratingData objectForKey:@"name"];
+	}
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
