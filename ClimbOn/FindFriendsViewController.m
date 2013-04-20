@@ -141,12 +141,18 @@
 	[sender setTitle:@"..." forState:UIControlStateNormal];
 
 	if ([self isFollowingUser:userDataForRow]) {
-		[currentlyFollowing removeObject:userDataForRow];
+		for(PFUser *user in currentlyFollowing){
+			if([user.objectId isEqualToString:userDataForRow.objectId])
+			{
+				[currentlyFollowing removeObject:user];
+				continue;
+			}
+		}
 	}
 	else {
 		[currentlyFollowing addObject:userDataForRow];
 	}
-
+//[{"__type":"Pointer","className":"_User","objectId":"aYNUfEsASm"},{"__type":"Pointer","className":"_User","objectId":"lo4x6cHeHy"}]
     [[PFUser currentUser] setObject:currentlyFollowing forKey:@"following"];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
