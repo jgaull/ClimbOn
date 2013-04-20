@@ -79,15 +79,7 @@
         PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
         [comment setObject:[PFUser currentUser] forKey:@"creator"];
         [comment setObject:self.postTextView.text forKey:@"commentText"];
-        [comment saveEventually:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                PFRelation *commentsRelation = [self.post relationforKey:@"comments"];
-                [commentsRelation addObject:comment];
-            } else {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went terribly wrong." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Bummer", nil];
-                [alert show];
-            }
-        }];
+        [self.post setObject:comment forKey:@"userText"];
     }
     
     [self performSegueWithIdentifier:@"addImage" sender:self];
