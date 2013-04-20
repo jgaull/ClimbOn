@@ -34,9 +34,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
 @interface FeedViewController ()
 
 @property (nonatomic, strong) NSMutableArray *postsList;
-@property (nonatomic, strong) NSMutableDictionary *commentsLookup;
-@property (nonatomic, strong) NSMutableDictionary *userHasLikedLookup;
-@property (nonatomic, strong) NSMutableDictionary *numberOfLikesLookup;
+@property (nonatomic, strong) NSMutableDictionary *outstandingPostInfoQueries;
+@property (nonatomic, strong) NSMutableDictionary *additionalPostInfoLookup;
 
 @property (nonatomic, strong) NSMutableDictionary *pfImageFileLookup;
 
@@ -71,7 +70,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
     
     self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended", @"Flashed", @"Worked", @"Lapped", nil];
-    //self.isPlayingMovie = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,9 +87,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 -(void)dealloc {
     self.postsList = nil;
-    self.commentsLookup = nil;
-    self.userHasLikedLookup = nil;
-    self.numberOfLikesLookup = nil;
     self.postsList = nil;
     self.pfImageFileLookup = nil;
     self.query = nil;
@@ -103,11 +98,11 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 #pragma mark - Button Listeners
 
-- (IBAction)onMoreCommentsButton:(UIButton *)sender {
+/*- (IBAction)onMoreCommentsButton:(UIButton *)sender {
     NSInteger section = sender.tag;
     
     PFObject *post = [self.postsList objectAtIndex:section];
-    NSMutableArray *comments = [self getCommentsForPost:post];
+    PFObject *userText = [post objectForKey:@"userText"];
     
     PFRelation *relation = [post objectForKey:@"comments"];
     PFQuery *query = relation.query;
@@ -128,38 +123,53 @@ NSString *const LikesCellIdentifier = @"likesCell";
             [self.tableView endUpdates];
         }
     }];
-}
+}*/
 
 - (IBAction)onLikeButton:(UIButton *)sender {
+    
     int section = sender.tag;
     PFObject *post = [self.postsList objectAtIndex:section];
-    PFRelation *likes = [post objectForKey:@"likes"];
-    NSInteger numLikes = [[self.numberOfLikesLookup objectForKey:post.objectId] intValue];
-    BOOL hasLiked = [[self.userHasLikedLookup objectForKey:post.objectId] boolValue];
+    PFUser *postCreator = [post objectForKey:@"creator"];
+    NSMutableArray *likers = [self getLikersForPost:post];
+    BOOL hasLiked = [self getHasUserLikedPost:post];
+    BOOL isLiking = !hasLiked;
+
+    //Create a query for any existing likes.
+    PFQuery *previousLikesQuery = [[PFQuery alloc] initWithClassName:@"Event"];
+    [previousLikesQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
+    [previousLikesQuery whereKey:@"type" equalTo:@"like"];
+    [previousLikesQuery whereKey:@"post" equalTo:post];
     
-    if (hasLiked) {
-        [post incrementKey:@"numLikes" byAmount:[NSNumber numberWithInt:-1]];
-        [likes removeObject:[PFUser currentUser]];
-        [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    @synchronized(self) {
+        [previousLikesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
-                [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
-                [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes - 1] forKey:post.objectId];
-                [sender setImage:[UIImage imageNamed:@"likebutton.png"] forState:UIControlStateNormal];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
-                NSLog(@"Unliked!");
-            }
-        }];
-    }
-    else {
-        [post incrementKey:@"numLikes"];
-        [likes addObject:[PFUser currentUser]];
-        [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [self.userHasLikedLookup setObject:[NSNumber numberWithBool:YES] forKey:post.objectId];
-                [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes + 1] forKey:post.objectId];
-                [sender setImage:[UIImage imageNamed:@"likebuttonliked.png"] forState:UIControlStateNormal];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
-                NSLog(@"Liked!");
+                
+                //delete any existing likes from the database.
+                @synchronized(self) {
+                    for (PFObject *previousLike in objects) {
+                        [previousLike deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            [likers removeObject:[PFUser currentUser]];
+                            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
+                        }];
+                    }
+                }
+                
+                //Create the like event
+                if (isLiking) {
+                    PFObject *likeEvent = [[PFObject alloc] initWithClassName:@"Event"];
+                    [likeEvent setObject:@"like" forKey:@"type"];
+                    [likeEvent setObject:[PFUser currentUser] forKey:@"fromUser"];
+                    [likeEvent setObject:postCreator forKey:@"creator"];
+                    [likeEvent setObject:post forKey:@"post"];
+                    [likeEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (!error) {
+                            
+                            //update the likers lookup
+                            [likers addObject:[PFUser currentUser]];
+                            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
+                        }
+                    }];
+                }
             }
         }];
     }
@@ -195,8 +205,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger cellsForImages = [self cellsForImagesInSection:section];
-    NSArray *comments = [self getCommentsForPost:[self.postsList objectAtIndex:section]];
-    NSInteger cellsForComments = comments.count;
+    PFObject *userText = [self getCommentsForPost:[self.postsList objectAtIndex:section]];
+    NSInteger cellsForComments = userText != nil; //if this is not nil then there is 1 comment.
     
     return kStaticHeadersCount + cellsForImages + cellsForComments + kStaticFootersCount;
 }
@@ -206,6 +216,37 @@ NSString *const LikesCellIdentifier = @"likesCell";
     PFObject *postData = [self.postsList objectAtIndex:indexPath.section];
     PFObject *routeData = [postData objectForKey:@"route"];
     PFUser *creator = [postData objectForKey:@"creator"];
+    
+    NSDictionary *additionalPostInfo = [self.additionalPostInfoLookup objectForKey:postData.objectId];
+    if (!additionalPostInfo) {
+        if (![self.outstandingPostInfoQueries objectForKey:[NSNumber numberWithInt:indexPath.section]]) {
+            PFQuery *eventsForPostQuery = [[PFQuery alloc] initWithClassName:@"Event"];
+            [eventsForPostQuery whereKey:@"post" equalTo:postData];
+            [self.outstandingPostInfoQueries setObject:eventsForPostQuery forKey:[NSNumber numberWithInt:indexPath.section]];
+            [eventsForPostQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                @synchronized(self) {
+                    if (!error) {
+                        [self.outstandingPostInfoQueries removeObjectForKey:[NSNumber numberWithInt:indexPath.section]];
+                        NSMutableDictionary *additionalPostInfo = [[NSMutableDictionary alloc] init];
+                        NSMutableArray *likers = [[NSMutableArray alloc] init];
+                        
+                        for (PFObject *event in objects) {
+                            NSString *eventType = [event objectForKey:@"type"];
+                            
+                            if ([eventType isEqualToString:@"like"]) {
+                                PFUser *fromUser = [event objectForKey:@"fromUser"];
+                                [likers addObject:fromUser];
+                            }
+                        }
+                        
+                        [additionalPostInfo setObject:likers forKey:@"likers"];
+                        [self.additionalPostInfoLookup setObject:additionalPostInfo forKey:postData.objectId];
+                        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+                    }
+                }
+            }];
+        }
+    }
     
     NSString *cellIdentifier = [self getCellIdentifierForIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -265,9 +306,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
     else if ([cell isKindOfClass:[LikeCell class]]) {
         LikeCell *likeCell = (LikeCell *)cell;
         likeCell.likeButton.tag = indexPath.section;
-        likeCell.likesLabel.text = [[self.numberOfLikesLookup objectForKey:postData.objectId] stringValue];
+        likeCell.likesLabel.text = [NSString stringWithFormat:@"%d", [self getLikersForPost:postData].count];
         
-        BOOL hasLiked = [[self.userHasLikedLookup objectForKey:postData.objectId] boolValue];
+        BOOL hasLiked = [self getHasUserLikedPost:postData];
         NSString *buttonImage = hasLiked ? @"likebuttonliked.png" : @"likebutton.png";
         [likeCell.likeButton setImage:[UIImage imageNamed:buttonImage] forState:UIControlStateNormal];
     }
@@ -344,16 +385,13 @@ NSString *const LikesCellIdentifier = @"likesCell";
     return tagList;
 }
 
-- (NSMutableArray *)getCommentsForPost:(PFObject *)post {
-    return [self.commentsLookup objectForKey:post.objectId];
+- (PFObject *)getCommentsForPost:(PFObject *)post {
+    return [post objectForKey:@"userText"];
 }
 
 - (PFObject *)getCommentForIndexPath:(NSIndexPath *)indexPath {
     PFObject *post = [self.postsList objectAtIndex:indexPath.section];
-    NSArray *comments = [self getCommentsForPost:post];
-    NSInteger imageCells = [self cellsForImagesInSection:indexPath.section];
-    NSInteger commentIndex = indexPath.row - kStaticHeadersCount - imageCells;
-    return [comments objectAtIndex:commentIndex];
+    return [post objectForKey:@"userText"];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -368,86 +406,42 @@ NSString *const LikesCellIdentifier = @"likesCell";
 #pragma mark - Handling loading the data.
 
 - (void)refresh {
-    self.commentsLookup = [[NSMutableDictionary alloc] init];
-    self.userHasLikedLookup = [[NSMutableDictionary alloc] init];
-    self.numberOfLikesLookup = [[NSMutableDictionary alloc] init];
-    
-    if (self.query == nil) {
-        self.query = [PFQuery queryWithClassName:@"Post"];
-        [self.query whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
-    }
-    
-    [self.query includeKey:@"creator"];
-    [self.query includeKey:@"route"];
-    [self.query includeKey:@"route.rating"];
-    [self.query includeKey:@"route.media"];
-    [self.query includeKey:@"tags"];
-    [self.query includeKey:@"video"];
-    [self.query includeKey:@"photo"];
-    [self.query orderByDescending:@"createdAt"];
-    self.query.limit = 15;
-    [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            self.postsList = [[NSMutableArray alloc] initWithArray:objects];
-            self.remainingQueries = objects.count;
-            
-            for (PFObject *post in objects) {
-                PFRelation *comments = [post objectForKey:@"comments"];
-                PFQuery *commentsQuery = comments.query;
-                
-                [commentsQuery includeKey:@"creator"];
-                [commentsQuery orderByDescending:@"createdAt"];
-                commentsQuery.limit = 3;
-                
-                [commentsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        
-                        [self.commentsLookup setObject:[[NSMutableArray alloc] initWithArray:objects] forKey:post.objectId];
-                    }
-                    
-                    self.remainingQueries--;
-                    if (self.remainingQueries == 0) {
-                        [self.tableView reloadData];
-                    }
-                }];
-                
-                PFRelation *likes = [post objectForKey:@"likes"];
-                PFQuery *likesQuery = likes.query;
-                NSInteger numLikes = [[post objectForKey:@"numLikes"] integerValue];
-                
-                [self.numberOfLikesLookup setObject:[NSNumber numberWithInt:numLikes] forKey:post.objectId];
-                if (numLikes > 0) {
-                    [likesQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *object, NSError *error) {
-                        if (!error) {
-                            if (object) {
-                                [self.userHasLikedLookup setObject:[NSNumber numberWithBool:YES] forKey:post.objectId];
-                                [self.tableView reloadData];
-                            }
-                            else {
-                                [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
-                            }
-                        }
-                        else {
-                            [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
-                        }
-                    }];
-                }
-                else {
-                    [self.userHasLikedLookup setObject:[NSNumber numberWithBool:NO] forKey:post.objectId];
-                }
-            }
-        }
-        else {
-            NSLog(@"Dag, an error");
+    @synchronized(self) {
+        self.additionalPostInfoLookup = [[NSMutableDictionary alloc] init];
+        self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
+        
+        if (self.query == nil) {
+            self.query = [PFQuery queryWithClassName:@"Post"];
+            [self.query whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
         }
         
-        [self.refreshControl endRefreshing];
-    }];
+        [self.query includeKey:@"creator"];
+        [self.query includeKey:@"route"];
+        [self.query includeKey:@"route.rating"];
+        [self.query includeKey:@"route.media"];
+        [self.query includeKey:@"tags"];
+        [self.query includeKey:@"video"];
+        [self.query includeKey:@"photo"];
+        [self.query includeKey:@"userText"];
+        [self.query orderByDescending:@"createdAt"];
+        self.query.limit = 15;
+        [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                self.postsList = [[NSMutableArray alloc] initWithArray:objects];
+                [self.tableView reloadData];
+            }
+            else {
+                NSLog(@"Dag, an error");
+            }
+            
+            [self.refreshControl endRefreshing];
+        }];
+    }
 }
 
 #pragma mark - Text Field Delegate Methods
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+/*- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     
     if (![textField.text isEqualToString:@""]) {
@@ -466,7 +460,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                     if (!error) {
                         textField.text = nil;
                         
-                        NSMutableArray *comments = [self getCommentsForPost:postData];
+                        PFObject *userText = [self getCommentsForPost:postData];
                         
                         [self.tableView beginUpdates];
                         [comments addObject:comment];
@@ -476,6 +470,28 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 }];
             }
         }];
+    }
+    
+    return NO;
+}*/
+
+#pragma mark - Cache helper methods
+
+- (NSMutableArray *)getLikersForPost:(PFObject *)post {
+    NSMutableDictionary *additionalData = [self getAdditionalInfoForPost:post];
+    return [additionalData objectForKey:@"likers"];
+}
+
+- (NSMutableDictionary *)getAdditionalInfoForPost:(PFObject *)post {
+    return [self.additionalPostInfoLookup objectForKey:post.objectId];
+}
+
+- (BOOL)getHasUserLikedPost:(PFObject *)post {
+    NSMutableArray *likers = [self getLikersForPost:post];
+    for (PFUser *liker in likers) {
+        if ([[PFUser currentUser].objectId isEqualToString:liker.objectId]) {
+            return YES;
+        }
     }
     
     return NO;
