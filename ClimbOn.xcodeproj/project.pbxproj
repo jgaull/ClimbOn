@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932C7EF716EBEF20001F6F7A /* AddImageViewController.m */; };
 		932C940416EC8CB4001F6F7A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932C940316EC8CB4001F6F7A /* AVFoundation.framework */; };
+		93958B2917229DEF00778D1E /* FolloweeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C9A6C6172299CA0039B28A /* FolloweeCell.m */; };
+		93C9A6C7172299CA0039B28A /* FolloweeCell.m in Resources */ = {isa = PBXBuildFile; fileRef = 93C9A6C6172299CA0039B28A /* FolloweeCell.m */; };
 		93F5A7CB16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
 		93F5A7CC16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
 		93F5A7CD16D9DF9300B2476F /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */; };
@@ -99,6 +101,8 @@
 		932C7EF616EBEF20001F6F7A /* AddImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageViewController.h; sourceTree = "<group>"; };
 		932C7EF716EBEF20001F6F7A /* AddImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageViewController.m; sourceTree = "<group>"; };
 		932C940316EC8CB4001F6F7A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		93C9A6C6172299CA0039B28A /* FolloweeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolloweeCell.m; sourceTree = "<group>"; };
+		93C9A6C8172299FA0039B28A /* FolloweeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolloweeCell.h; sourceTree = "<group>"; };
 		93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotationView.m; sourceTree = "<group>"; };
 		93F5A7C816D9DF9300B2476F /* RouteAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteAnnotationView.h; sourceTree = "<group>"; };
 		93F5A7C916D9DF9300B2476F /* RouteAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotation.m; sourceTree = "<group>"; };
@@ -145,7 +149,7 @@
 		FC26337A16D2B5880001A63A /* FindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFriendsViewController.m; sourceTree = "<group>"; };
 		FC26337C16D2B60D0001A63A /* FollowUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowUserCell.h; sourceTree = "<group>"; };
 		FC26337D16D2B60D0001A63A /* FollowUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowUserCell.m; sourceTree = "<group>"; };
-		FC2A83E616A3723B00637D74 /* ClimbOn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClimbOn.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC2A83E616A3723B00637D74 /* Climb On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Climb On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2A83EA16A3723B00637D74 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FC2A83EC16A3723B00637D74 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FC2A83EE16A3723B00637D74 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -276,7 +280,7 @@
 		FC2A83E716A3723B00637D74 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC2A83E616A3723B00637D74 /* ClimbOn.app */,
+				FC2A83E616A3723B00637D74 /* Climb On.app */,
 				FC2A841816A3723C00637D74 /* ClimbOnTests.octest */,
 			);
 			name = Products;
@@ -316,7 +320,9 @@
 				FCC1DDD816D35FFC009288FF /* FirstLoginViewController.h */,
 				FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */,
 				FC26337C16D2B60D0001A63A /* FollowUserCell.h */,
+				93C9A6C8172299FA0039B28A /* FolloweeCell.h */,
 				FC26337D16D2B60D0001A63A /* FollowUserCell.m */,
+				93C9A6C6172299CA0039B28A /* FolloweeCell.m */,
 				FC2A840C16A3723B00637D74 /* ProfileViewController.h */,
 				FC2A840D16A3723B00637D74 /* ProfileViewController.m */,
 				93F5A7CF16DA12EB00B2476F /* marker.png */,
@@ -424,7 +430,7 @@
 			);
 			name = "Climb On";
 			productName = ClimbOn;
-			productReference = FC2A83E616A3723B00637D74 /* ClimbOn.app */;
+			productReference = FC2A83E616A3723B00637D74 /* Climb On.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FC2A841716A3723C00637D74 /* ClimbOnTests */ = {
@@ -501,6 +507,7 @@
 				FC7FB50D16D9DA5F0037614E /* trophy@2x.png in Resources */,
 				93F5A7D516DA314F00B2476F /* markerShadow.png in Resources */,
 				93F5A7D616DA314F00B2476F /* markerShadow@2x.png in Resources */,
+				93C9A6C7172299CA0039B28A /* FolloweeCell.m in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +567,7 @@
 				932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */,
 				FC1A56F416EBEF4300AEEC94 /* LikeCell.m in Sources */,
 				FCDB284616ECA1D600DAEE0A /* AutoRotationViewController.m in Sources */,
+				93958B2917229DEF00778D1E /* FolloweeCell.m in Sources */,
 				FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
