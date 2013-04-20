@@ -410,9 +410,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FC2A83E516A3723B00637D74 /* ClimbOn */ = {
+		FC2A83E516A3723B00637D74 /* Climb On */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC2A842A16A3723C00637D74 /* Build configuration list for PBXNativeTarget "ClimbOn" */;
+			buildConfigurationList = FC2A842A16A3723C00637D74 /* Build configuration list for PBXNativeTarget "Climb On" */;
 			buildPhases = (
 				FC2A83E216A3723B00637D74 /* Sources */,
 				FC2A83E316A3723B00637D74 /* Frameworks */,
@@ -422,7 +422,7 @@
 			);
 			dependencies = (
 			);
-			name = ClimbOn;
+			name = "Climb On";
 			productName = ClimbOn;
 			productReference = FC2A83E616A3723B00637D74 /* ClimbOn.app */;
 			productType = "com.apple.product-type.application";
@@ -467,7 +467,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FC2A83E516A3723B00637D74 /* ClimbOn */,
+				FC2A83E516A3723B00637D74 /* Climb On */,
 				FC2A841716A3723C00637D74 /* ClimbOnTests */,
 			);
 		};
@@ -579,7 +579,7 @@
 /* Begin PBXTargetDependency section */
 		FC2A841E16A3723C00637D74 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FC2A83E516A3723B00637D74 /* ClimbOn */;
+			target = FC2A83E516A3723B00637D74 /* Climb On */;
 			targetProxy = FC2A841D16A3723C00637D74 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -745,7 +745,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC2A842A16A3723C00637D74 /* Build configuration list for PBXNativeTarget "ClimbOn" */ = {
+		FC2A842A16A3723C00637D74 /* Build configuration list for PBXNativeTarget "Climb On" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC2A842B16A3723C00637D74 /* Debug */,
