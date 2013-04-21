@@ -8,6 +8,7 @@
 
 #import "PrivateProfileViewController.h"
 #import "FolloweeCell.h"
+#import "ClimbOnUtils.h"
 #import <Parse/Parse.h>
 
 @interface PrivateProfileViewController ()
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet PFImageView *profilePhoto;
 @property (strong, nonatomic) NSArray *followees;
 @property (strong, nonatomic) NSMutableDictionary *followeesById;
+@property (strong, nonatomic) IBOutlet UIButton *topOutsButton;
 
 
 @end
@@ -54,6 +56,28 @@
 				NSLog(@"error getting friends %@", error);
 			}
 		}];
+        
+        PFQuery *topOutsQuery = [ClimbOnUtils getTopoutsQueryForUser:[PFUser currentUser]];
+        NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30*24*60*60];
+        [topOutsQuery whereKey:@"createdAt" greaterThan:thirtyDaysAgo];
+        [topOutsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            NSMutableArray *sends = [[NSMutableArray alloc] init];
+            NSMutableArray *flashes = [[NSMutableArray alloc] init];
+            
+            for (PFObject *topOutPost in objects) {
+                NSInteger type = [[topOutPost objectForKey:@"type"] integerValue];
+                if (type == 0) {
+                    [sends addObject:topOutPost];
+                }
+                else {
+                    [flashes addObject:topOutPost];
+                }
+            }
+            
+            [self.topOutsButton setTitle:[NSString stringWithFormat:@"Score: %d", sends.count + flashes.count * 10] forState:UIControlStateNormal];
+            
+            NSLog(@"Flashes: %d, Sends: %d", flashes.count, sends.count);
+        }];
     }
     
     self.title = @"Profile";
@@ -80,6 +104,7 @@
     self.logInButton = nil;
     self.userNameLabel = nil;
     self.profilePhoto = nil;
+    self.topOutsButton = nil;
 }
 
 #pragma mark UITableViewDataSource
