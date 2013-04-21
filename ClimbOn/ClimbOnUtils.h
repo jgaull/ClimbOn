@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface ClimbOnUtils : NSObject
+
++ (PFQuery *)getTopoutsQueryForUser:(PFUser *)user;
 
 @end

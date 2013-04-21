@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "FolloweeCell.h"
+#import "ClimbOnUtils.h"
 #import <Parse/Parse.h>
 
 @interface ProfileViewController ()
@@ -56,19 +57,9 @@
 			}
 		}];
         
+        PFQuery *topOutsQuery = [ClimbOnUtils getTopoutsQueryForUser:[PFUser currentUser]];
         NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30*24*60*60];
-        PFQuery *sendsQuery = [[PFQuery alloc] initWithClassName:@"Post"];
-        [sendsQuery whereKey:@"creator" equalTo:[PFUser currentUser]];
-        [sendsQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:0]];
-        [sendsQuery whereKey:@"createdAt" greaterThan:thirtyDaysAgo];
-        
-        PFQuery *flashesQuery = [[PFQuery alloc] initWithClassName:@"Post"];
-        [flashesQuery whereKey:@"creator" equalTo:[PFUser currentUser]];
-        [flashesQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:1]];
-        [flashesQuery whereKey:@"createdAt" greaterThan:thirtyDaysAgo];
-        
-        
-        PFQuery *topOutsQuery = [PFQuery orQueryWithSubqueries:@[sendsQuery, flashesQuery]];
+        [topOutsQuery whereKey:@"createdAt" greaterThan:thirtyDaysAgo];
         [topOutsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             NSMutableArray *sends = [[NSMutableArray alloc] init];
             NSMutableArray *flashes = [[NSMutableArray alloc] init];

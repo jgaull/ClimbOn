@@ -35,8 +35,6 @@
 		FC0DDD5F16C2507C0004C11D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD5E16C2507C0004C11D /* Social.framework */; };
 		FC0DDD6116C250850004C11D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD6016C250850004C11D /* StoreKit.framework */; };
 		FC0DDD6316C2508D0004C11D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD6216C2508D0004C11D /* SystemConfiguration.framework */; };
-		FC0F323816D4DD13009F4835 /* icon_57.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0F323716D4DD13009F4835 /* icon_57.png */; };
-		FC0F323A16D4DD16009F4835 /* icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = FC0F323916D4DD16009F4835 /* icon_114.png */; };
 		FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC131EA716E5DB9300C20A28 /* PostImageCell.m */; };
 		FC13855016D18BFE00FEFBDA /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC13854F16D18BFE00FEFBDA /* FeedViewController.m */; };
 		FC1A56F116EBE31D00AEEC94 /* MoreCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */; };
@@ -73,6 +71,7 @@
 		FC7FB50916D9D13C0037614E /* FirstAscentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7FB50816D9D13C0037614E /* FirstAscentViewController.m */; };
 		FC7FB50C16D9DA5F0037614E /* trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7FB50A16D9DA5F0037614E /* trophy.png */; };
 		FC7FB50D16D9DA5F0037614E /* trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC7FB50B16D9DA5F0037614E /* trophy@2x.png */; };
+		FCBD43621724625400A5CFA8 /* ToppedOutRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBD43611724625400A5CFA8 /* ToppedOutRoutesViewController.m */; };
 		FCC1DDDA16D35FFC009288FF /* FirstLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */; };
 		FCD3154D16D20330004CCC59 /* NearbyRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */; };
 		FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610816E429D900705281 /* CheckInHeadingCell.m */; };
@@ -130,8 +129,6 @@
 		FC0DDD5E16C2507C0004C11D /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		FC0DDD6016C250850004C11D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FC0DDD6216C2508D0004C11D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		FC0F323716D4DD13009F4835 /* icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_57.png; sourceTree = "<group>"; };
-		FC0F323916D4DD16009F4835 /* icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_114.png; sourceTree = "<group>"; };
 		FC131EA616E5DB9300C20A28 /* PostImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostImageCell.h; sourceTree = "<group>"; };
 		FC131EA716E5DB9300C20A28 /* PostImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostImageCell.m; sourceTree = "<group>"; };
 		FC13854E16D18BFE00FEFBDA /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
@@ -184,6 +181,8 @@
 		FC7FB50816D9D13C0037614E /* FirstAscentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstAscentViewController.m; sourceTree = "<group>"; };
 		FC7FB50A16D9DA5F0037614E /* trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trophy.png; sourceTree = "<group>"; };
 		FC7FB50B16D9DA5F0037614E /* trophy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trophy@2x.png"; sourceTree = "<group>"; };
+		FCBD43601724625400A5CFA8 /* ToppedOutRoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToppedOutRoutesViewController.h; sourceTree = "<group>"; };
+		FCBD43611724625400A5CFA8 /* ToppedOutRoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToppedOutRoutesViewController.m; sourceTree = "<group>"; };
 		FCC1DDD816D35FFC009288FF /* FirstLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstLoginViewController.h; sourceTree = "<group>"; };
 		FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstLoginViewController.m; sourceTree = "<group>"; };
 		FCD3154B16D20330004CCC59 /* NearbyRoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyRoutesViewController.h; sourceTree = "<group>"; };
@@ -256,8 +255,6 @@
 				FC1A56F816EC8CAD00AEEC94 /* MediaPlayer.framework */,
 				FC226F0216D61B9C00BDA65A /* icon57.png */,
 				FC226F0016D61B9900BDA65A /* icon114.png */,
-				FC0F323916D4DD16009F4835 /* icon_114.png */,
-				FC0F323716D4DD13009F4835 /* icon_57.png */,
 				FC0DDD6216C2508D0004C11D /* SystemConfiguration.framework */,
 				FC0DDD6016C250850004C11D /* StoreKit.framework */,
 				FC0DDD5E16C2507C0004C11D /* Social.framework */,
@@ -368,6 +365,8 @@
 				FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */,
 				C8E35042172322AE0011E6F6 /* ClimbOnUtils.h */,
 				C8E35043172322AE0011E6F6 /* ClimbOnUtils.m */,
+				FCBD43601724625400A5CFA8 /* ToppedOutRoutesViewController.h */,
+				FCBD43611724625400A5CFA8 /* ToppedOutRoutesViewController.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -498,8 +497,6 @@
 				FC2A840B16A3723B00637D74 /* first@2x.png in Resources */,
 				FC2A841016A3723B00637D74 /* second.png in Resources */,
 				FC2A841216A3723B00637D74 /* second@2x.png in Resources */,
-				FC0F323816D4DD13009F4835 /* icon_57.png in Resources */,
-				FC0F323A16D4DD16009F4835 /* icon_114.png in Resources */,
 				FC226F0116D61B9900BDA65A /* icon114.png in Resources */,
 				FC226F0316D61B9C00BDA65A /* icon57.png in Resources */,
 				FCF0BA2716D755A100A508F2 /* likebutton.png in Resources */,
@@ -575,6 +572,7 @@
 				93958B2917229DEF00778D1E /* FolloweeCell.m in Sources */,
 				FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */,
 				C8E35044172322AE0011E6F6 /* ClimbOnUtils.m in Sources */,
+				FCBD43621724625400A5CFA8 /* ToppedOutRoutesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
