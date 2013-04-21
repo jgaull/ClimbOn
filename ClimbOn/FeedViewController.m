@@ -33,7 +33,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 @interface FeedViewController ()
 
-@property (nonatomic, strong) NSMutableArray *postsList;
 @property (nonatomic, strong) NSMutableDictionary *outstandingPostInfoQueries;
 @property (nonatomic, strong) NSMutableDictionary *additionalPostInfoLookup;
 
@@ -62,6 +61,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (void)viewDidLoad
 {
+    self.paginationEnabled = YES;
+    self.objectsPerPage = 25;
+    
     [super viewDidLoad];
     
     self.title = @"Feed";
@@ -72,11 +74,13 @@ NSString *const LikesCellIdentifier = @"likesCell";
     
     self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended", @"Flashed", @"Worked", @"Lapped", nil];
     self.pointValues = [[NSArray alloc] initWithObjects:@"1 point", @"10 points", @"", @"", nil];
+    
+    self.additionalPostInfoLookup = [[NSMutableDictionary alloc] init];
+    self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self refresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,8 +92,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 -(void)dealloc {
-    self.postsList = nil;
-    self.postsList = nil;
     self.pfImageFileLookup = nil;
     self.query = nil;
 }
@@ -130,7 +132,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (IBAction)onLikeButton:(UIButton *)sender {
     
     int section = sender.tag;
-    PFObject *post = [self.postsList objectAtIndex:section];
+    PFObject *post = [self.objects objectAtIndex:section];
     PFUser *postCreator = [post objectForKey:@"creator"];
     NSMutableArray *likers = [self getLikersForPost:post];
     BOOL hasLiked = [self getHasUserLikedPost:post];
@@ -198,7 +200,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.postsList.count;
+    return self.objects.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -207,15 +209,13 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger cellsForImages = [self cellsForImagesInSection:section];
-    PFObject *userText = [self getCommentsForPost:[self.postsList objectAtIndex:section]];
+    PFObject *userText = [self getCommentsForPost:[self.objects objectAtIndex:section]];
     NSInteger cellsForComments = userText != nil; //if this is not nil then there is 1 comment.
     
     return kStaticHeadersCount + cellsForImages + cellsForComments + kStaticFootersCount;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    PFObject *postData = [self.postsList objectAtIndex:indexPath.section];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)postData {
     PFObject *routeData = [postData objectForKey:@"route"];
     PFUser *creator = [postData objectForKey:@"creator"];
     
@@ -368,7 +368,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 - (NSInteger)cellsForImagesInSection:(NSInteger)section {
-    PFObject *post = [self.postsList objectAtIndex:section];
+    PFObject *post = [self.objects objectAtIndex:section];
     PFObject *photo = [post objectForKey:@"photo"];
     return photo != nil;
 }
@@ -392,14 +392,14 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 - (PFObject *)getCommentForIndexPath:(NSIndexPath *)indexPath {
-    PFObject *post = [self.postsList objectAtIndex:indexPath.section];
+    PFObject *post = [self.objects objectAtIndex:indexPath.section];
     return [post objectForKey:@"userText"];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showPostDetails"] || [segue.identifier isEqualToString:@"alsoShowPostDetails"]) {
         PostDetailsViewController *postDetails = (PostDetailsViewController *)segue.destinationViewController;
-        postDetails.postData = [self.postsList objectAtIndex:self.tableView.indexPathForSelectedRow.section];
+        postDetails.postData = [self.objects objectAtIndex:self.tableView.indexPathForSelectedRow.section];
     }
     
     [super prepareForSegue:segue sender:sender];
@@ -407,7 +407,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 #pragma mark - Handling loading the data.
 
-- (void)refresh {
+/*- (void)refresh {
     @synchronized(self) {
         self.additionalPostInfoLookup = [[NSMutableDictionary alloc] init];
         self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
@@ -439,6 +439,24 @@ NSString *const LikesCellIdentifier = @"likesCell";
             [self.refreshControl endRefreshing];
         }];
     }
+}*/
+
+- (PFQuery *)queryForTable {
+    self.query = [PFQuery queryWithClassName:@"Post"];
+    //[self.query whereKey:@"creator" containedIn:[[PFUser currentUser];
+    
+    [self.query includeKey:@"creator"];
+    [self.query includeKey:@"route"];
+    [self.query includeKey:@"route.rating"];
+    [self.query includeKey:@"route.media"];
+    [self.query includeKey:@"tags"];
+    [self.query includeKey:@"video"];
+    [self.query includeKey:@"photo"];
+    [self.query includeKey:@"userText"];
+    [self.query orderByDescending:@"createdAt"];
+    self.query.limit = 15;
+    
+    return self.query;
 }
 
 #pragma mark - Text Field Delegate Methods
