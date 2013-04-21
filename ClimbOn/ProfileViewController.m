@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet PFImageView *profilePhoto;
 @property (strong, nonatomic) NSArray *followees;
 @property (strong, nonatomic) NSMutableDictionary *followeesById;
+@property (strong, nonatomic) IBOutlet UIButton *topOutsButton;
 
 
 @end
@@ -54,6 +55,10 @@
 				NSLog(@"error getting friends %@", error);
 			}
 		}];
+        
+        PFQuery *topOutsQuery = [[PFQuery alloc] initWithClassName:@"Post"];
+        [topOutsQuery whereKey:@"creator" equalTo:[PFUser currentUser]];
+        [topOutsQuery whereKey:@"type" equalTo:@"send"];
     }
     
     self.title = @"Profile";
@@ -80,6 +85,7 @@
     self.logInButton = nil;
     self.userNameLabel = nil;
     self.profilePhoto = nil;
+    self.topOutsButton = nil;
 }
 
 #pragma mark UITableViewDataSource

@@ -19,6 +19,7 @@
 		93F5A7D216DA12EB00B2476F /* marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F5A7D016DA12EB00B2476F /* marker@2x.png */; };
 		93F5A7D516DA314F00B2476F /* markerShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F5A7D316DA314F00B2476F /* markerShadow.png */; };
 		93F5A7D616DA314F00B2476F /* markerShadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F5A7D416DA314F00B2476F /* markerShadow@2x.png */; };
+		C8E35044172322AE0011E6F6 /* ClimbOnUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E35043172322AE0011E6F6 /* ClimbOnUtils.m */; };
 		FC0507DE16DC9C8600CFBC0F /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0507DD16DC9C8600CFBC0F /* RouteViewController.m */; };
 		FC0507E116DCA72100CFBC0F /* RouteDataAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0507E016DCA72100CFBC0F /* RouteDataAnnotation.m */; };
 		FC0DDD4C16C24FE70004C11D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD4B16C24FE70004C11D /* Parse.framework */; };
@@ -111,6 +112,8 @@
 		93F5A7D016DA12EB00B2476F /* marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker@2x.png"; sourceTree = "<group>"; };
 		93F5A7D316DA314F00B2476F /* markerShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = markerShadow.png; sourceTree = "<group>"; };
 		93F5A7D416DA314F00B2476F /* markerShadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "markerShadow@2x.png"; sourceTree = "<group>"; };
+		C8E35042172322AE0011E6F6 /* ClimbOnUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClimbOnUtils.h; sourceTree = "<group>"; };
+		C8E35043172322AE0011E6F6 /* ClimbOnUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClimbOnUtils.m; sourceTree = "<group>"; };
 		FC0507DC16DC9C8600CFBC0F /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
 		FC0507DD16DC9C8600CFBC0F /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
 		FC0507DF16DCA72100CFBC0F /* RouteDataAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteDataAnnotation.h; sourceTree = "<group>"; };
@@ -363,6 +366,8 @@
 				FCDB284516ECA1D600DAEE0A /* AutoRotationViewController.m */,
 				FCDB284716ECA31B00DAEE0A /* AutoRotationNavigationController.h */,
 				FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */,
+				C8E35042172322AE0011E6F6 /* ClimbOnUtils.h */,
+				C8E35043172322AE0011E6F6 /* ClimbOnUtils.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -569,6 +574,7 @@
 				FCDB284616ECA1D600DAEE0A /* AutoRotationViewController.m in Sources */,
 				93958B2917229DEF00778D1E /* FolloweeCell.m in Sources */,
 				FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */,
+				C8E35044172322AE0011E6F6 /* ClimbOnUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
