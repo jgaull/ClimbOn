@@ -40,6 +40,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 @property (nonatomic, strong) NSMutableDictionary *pfImageFileLookup;
 
 @property (nonatomic, strong) NSArray *accomplishmentTypes;
+@property (nonatomic, strong) NSArray *pointValues;
 
 @property (nonatomic) NSInteger *postType;
 
@@ -70,6 +71,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
     
     self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended", @"Flashed", @"Worked", @"Lapped", nil];
+    self.pointValues = [[NSArray alloc] initWithObjects:@"1 point", @"10 points", @"", @"", nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -261,7 +263,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         [checkinHeadingCell.userProfilePic loadInBackground];
         checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
         checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
-        checkinHeadingCell.accomplishmentLabel.text = [self.accomplishmentTypes objectAtIndex:accomplishmentType];
+        checkinHeadingCell.accomplishmentLabel.text = [NSString stringWithFormat:@"%@, %@", [self.accomplishmentTypes objectAtIndex:accomplishmentType], [self.pointValues objectAtIndex:accomplishmentType]];
     }
     else if ([cell isKindOfClass:[CheckinHashtagCell class]]) {
         CheckinHashtagCell *checkinHashtagCell = (CheckinHashtagCell *)cell;
