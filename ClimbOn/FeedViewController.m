@@ -414,7 +414,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         
         if (self.query == nil) {
             self.query = [PFQuery queryWithClassName:@"Post"];
-            [self.query whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
+            //[self.query whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
         }
         
         [self.query includeKey:@"creator"];
