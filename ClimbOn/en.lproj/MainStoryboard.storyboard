@@ -473,7 +473,7 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Et2-ax-aGN">
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Top Outs">
+                                            <state key="normal" title="Score:">
                                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -481,7 +481,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="dFZ-I2-YXN" kind="push" id="v8D-bs-FXN"/>
+                                                <segue destination="mrS-PV-qmI" kind="push" id="1nB-h4-tI7"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -555,42 +555,57 @@
             </objects>
             <point key="canvasLocation" x="1166" y="180"/>
         </scene>
-        <!--Topped Out Routes View Controller-->
-        <scene sceneID="L4K-HC-K3q">
+        <!--View Controller - Scoring-->
+        <scene sceneID="SPY-q0-h96">
             <objects>
-                <tableViewController id="dFZ-I2-YXN" customClass="ToppedOutRoutesViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9Md-O8-mWi">
+                <viewController id="mrS-PV-qmI" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MuJ-kt-DmG">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="QWH-iy-Czq" style="IBUITableViewCellStyleDefault" id="DfP-Uw-KDX">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWH-iy-Czq">
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="dFZ-I2-YXN" id="lit-jd-o4A"/>
-                            <outlet property="delegate" destination="dFZ-I2-YXN" id="oPk-5r-ijq"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="oQ1-kx-bMY"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NQc-0F-MnA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sended: 1 point" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ekb-kM-E1K">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="7C9-Il-g4c"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Flashed: 10 point" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCg-3F-w9G">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="9q8-C7-g2a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="All checkins made during the last 30 days count towards your score." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Eo1-uV-Joq">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="zwd-GB-i30"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Eo1-uV-Joq" firstAttribute="leading" secondItem="MuJ-kt-DmG" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="23m-VK-Pwe"/>
+                            <constraint firstItem="Ekb-kM-E1K" firstAttribute="leading" secondItem="MuJ-kt-DmG" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="4xP-Be-Cof"/>
+                            <constraint firstItem="Eo1-uV-Joq" firstAttribute="top" secondItem="MuJ-kt-DmG" secondAttribute="top" constant="20" symbolic="YES" type="default" id="B5r-fw-eGA"/>
+                            <constraint firstAttribute="trailing" secondItem="dCg-3F-w9G" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Yly-43-eTx"/>
+                            <constraint firstItem="Ekb-kM-E1K" firstAttribute="top" secondItem="MuJ-kt-DmG" secondAttribute="top" constant="119" id="eUv-fG-sst"/>
+                            <constraint firstItem="dCg-3F-w9G" firstAttribute="top" secondItem="Ekb-kM-E1K" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="g74-Ky-W4R"/>
+                            <constraint firstAttribute="trailing" secondItem="Ekb-kM-E1K" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="uNz-ZR-IVO"/>
+                            <constraint firstAttribute="trailing" secondItem="Eo1-uV-Joq" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="urU-xm-fa4"/>
+                            <constraint firstItem="dCg-3F-w9G" firstAttribute="leading" secondItem="MuJ-kt-DmG" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="wrk-8g-kkl"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scoring" id="dsa-rK-vxJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gZG-cw-ofz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1618" y="-479"/>
+            <point key="canvasLocation" x="1618" y="-450"/>
         </scene>
         <!--Find Friends View Controller - Find Friends-->
         <scene sceneID="OOp-tz-p0A">
@@ -900,7 +915,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="503" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="503" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1233,7 +1248,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="Ziy-wV-pDj" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="568" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="568" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1308,8 +1323,6 @@
         <class className="AddImageViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onAddImageButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="progressBar" candidateClass="UIProgressView"/>
@@ -1319,7 +1332,6 @@
         <class className="AddRouteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onDoneButton:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
@@ -1415,9 +1427,6 @@
         <class className="PFImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
         </class>
-        <class className="PFQueryTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
-        </class>
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
@@ -1448,9 +1457,6 @@
             <relationships>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
-        </class>
-        <class className="ToppedOutRoutesViewController" superclassName="PFQueryTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ToppedOutRoutesViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
