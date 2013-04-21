@@ -56,9 +56,37 @@
 			}
 		}];
         
-        PFQuery *topOutsQuery = [[PFQuery alloc] initWithClassName:@"Post"];
-        [topOutsQuery whereKey:@"creator" equalTo:[PFUser currentUser]];
-        [topOutsQuery whereKey:@"type" equalTo:@"send"];
+        NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30*24*60*60];
+        PFQuery *sendsQuery = [[PFQuery alloc] initWithClassName:@"Post"];
+        [sendsQuery whereKey:@"creator" equalTo:[PFUser currentUser]];
+        [sendsQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:0]];
+        [sendsQuery whereKey:@"createdAt" greaterThan:thirtyDaysAgo];
+        
+        PFQuery *flashesQuery = [[PFQuery alloc] initWithClassName:@"Post"];
+        [flashesQuery whereKey:@"creator" equalTo:[PFUser currentUser]];
+        [flashesQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:1]];
+        [flashesQuery whereKey:@"createdAt" greaterThan:thirtyDaysAgo];
+        
+        
+        PFQuery *topOutsQuery = [PFQuery orQueryWithSubqueries:@[sendsQuery, flashesQuery]];
+        [topOutsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            NSMutableArray *sends = [[NSMutableArray alloc] init];
+            NSMutableArray *flashes = [[NSMutableArray alloc] init];
+            
+            for (PFObject *topOutPost in objects) {
+                NSInteger type = [[topOutPost objectForKey:@"type"] integerValue];
+                if (type == 0) {
+                    [sends addObject:topOutPost];
+                }
+                else {
+                    [flashes addObject:topOutPost];
+                }
+            }
+            
+            [self.topOutsButton setTitle:[NSString stringWithFormat:@"Score: %d", sends.count + flashes.count * 10] forState:UIControlStateNormal];
+            
+            NSLog(@"Flashes: %d, Sends: %d", flashes.count, sends.count);
+        }];
     }
     
     self.title = @"Profile";
