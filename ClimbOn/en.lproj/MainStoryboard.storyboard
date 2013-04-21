@@ -423,16 +423,21 @@
             </objects>
             <point key="canvasLocation" x="672" y="180"/>
         </scene>
-        <!--Profile View Controller - Second-->
+        <!--Private Profile View Controller - Second-->
         <scene sceneID="13">
             <objects>
-                <viewController title="Second" id="3" customClass="ProfileViewController" sceneMemberID="viewController">
+                <viewController title="Second" id="3" customClass="PrivateProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="17">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="acd-Mk-FGX" userLabel="Profile Image" customClass="PFImageView">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="230" id="HKz-IP-yhK"/>
+                                </constraints>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HZa-nZ-EeR">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="460" id="56F-kj-Xcv"/>
                                 </constraints>
@@ -440,11 +445,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="298"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="acd-Mk-FGX" userLabel="Profile Image" customClass="PFImageView">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="230" id="HKz-IP-yhK"/>
-                                            </constraints>
-                                        </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyd-eJ-4Gb">
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHL-Uy-bP5">
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="EK1-MH-YWf"/>
@@ -472,29 +475,33 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="xLM-WE-INx" firstAttribute="top" secondItem="acd-Mk-FGX" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="0KU-sw-l7s"/>
+                                        <constraint firstAttribute="bottom" secondItem="xLM-WE-INx" secondAttribute="bottom" constant="17" id="13W-ad-zaO"/>
                                         <constraint firstAttribute="bottom" secondItem="Q15-8g-KZN" secondAttribute="bottom" constant="88" id="34b-qW-NhJ"/>
                                         <constraint firstItem="OHL-Uy-bP5" firstAttribute="trailing" secondItem="Uup-Mg-Zc2" secondAttribute="trailing" type="default" id="5zF-O0-PY5"/>
                                         <constraint firstItem="OHL-Uy-bP5" firstAttribute="centerX" secondItem="xLM-WE-INx" secondAttribute="centerX" type="default" id="6Uj-Ar-hh0"/>
+                                        <constraint firstItem="zyd-eJ-4Gb" firstAttribute="bottom" secondItem="Uup-Mg-Zc2" secondAttribute="bottom" type="default" id="7jU-6G-uhd"/>
+                                        <constraint firstItem="zyd-eJ-4Gb" firstAttribute="top" secondItem="Uup-Mg-Zc2" secondAttribute="top" constant="181" id="APo-KF-7fO"/>
                                         <constraint firstItem="Q15-8g-KZN" firstAttribute="trailing" secondItem="Uup-Mg-Zc2" secondAttribute="trailing" type="default" id="C8z-fK-PQ3"/>
-                                        <constraint firstItem="acd-Mk-FGX" firstAttribute="top" secondItem="Uup-Mg-Zc2" secondAttribute="top" constant="5" id="Dnk-Bn-SrY"/>
+                                        <constraint firstItem="zyd-eJ-4Gb" firstAttribute="leading" secondItem="Uup-Mg-Zc2" secondAttribute="leading" type="default" id="L1A-HJ-vs9"/>
+                                        <constraint firstItem="zyd-eJ-4Gb" firstAttribute="trailing" secondItem="Uup-Mg-Zc2" secondAttribute="trailing" type="default" id="YW9-dd-bOY"/>
                                         <constraint firstItem="Q15-8g-KZN" firstAttribute="leading" secondItem="Uup-Mg-Zc2" secondAttribute="leading" type="default" id="gHC-j4-wYj"/>
-                                        <constraint firstItem="acd-Mk-FGX" firstAttribute="leading" secondItem="Uup-Mg-Zc2" secondAttribute="leading" type="default" id="kYO-qe-vKR"/>
                                         <constraint firstItem="xLM-WE-INx" firstAttribute="top" secondItem="OHL-Uy-bP5" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="neZ-jJ-kWj"/>
                                         <constraint firstItem="OHL-Uy-bP5" firstAttribute="leading" secondItem="Uup-Mg-Zc2" secondAttribute="leading" type="default" id="o8a-qv-hys"/>
-                                        <constraint firstItem="acd-Mk-FGX" firstAttribute="trailing" secondItem="Uup-Mg-Zc2" secondAttribute="trailing" type="default" id="pfF-TO-zMA"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="FolloweeCell" id="2Wp-yw-4NF" customClass="FolloweeCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FolloweeCell" id="2Wp-yw-4NF" customClass="FolloweeCell">
                                         <rect key="frame" x="0.0" y="320" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z9X-eR-cAg">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User's name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Gjv-uc-oDm">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="178" id="x3a-iV-SZs"/>
@@ -506,9 +513,14 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="z9X-eR-cAg" firstAttribute="centerX" secondItem="2Wp-yw-4NF" secondAttribute="centerX" type="default" id="1FI-Ez-fX0"/>
+                                            <constraint firstItem="z9X-eR-cAg" firstAttribute="centerY" secondItem="2Wp-yw-4NF" secondAttribute="centerY" type="default" id="ShR-ZT-sG3"/>
                                             <constraint firstItem="Gjv-uc-oDm" firstAttribute="leading" secondItem="2Wp-yw-4NF" secondAttribute="leading" constant="20" type="default" id="aQb-Xi-STy"/>
-                                            <constraint firstItem="Gjv-uc-oDm" firstAttribute="top" secondItem="2Wp-yw-4NF" secondAttribute="top" constant="11" id="yN9-nD-UCN"/>
+                                            <constraint firstItem="z9X-eR-cAg" firstAttribute="top" secondItem="2Wp-yw-4NF" secondAttribute="top" type="default" id="n01-p8-IRt"/>
+                                            <constraint firstItem="Gjv-uc-oDm" firstAttribute="centerY" secondItem="z9X-eR-cAg" secondAttribute="centerY" type="default" id="s4d-Ve-v19"/>
+                                            <constraint firstItem="z9X-eR-cAg" firstAttribute="leading" secondItem="2Wp-yw-4NF" secondAttribute="leading" type="default" id="z2r-cd-shV"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="userNameLabel" destination="Gjv-uc-oDm" id="HIm-w5-Fwp"/>
@@ -519,8 +531,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="acd-Mk-FGX" firstAttribute="leading" secondItem="17" secondAttribute="leading" type="default" id="28T-sZ-P94"/>
                             <constraint firstItem="HZa-nZ-EeR" firstAttribute="leading" secondItem="17" secondAttribute="leading" type="default" id="3i3-xX-J2g"/>
-                            <constraint firstItem="HZa-nZ-EeR" firstAttribute="bottom" secondItem="17" secondAttribute="bottom" type="default" id="KZk-0t-wmT"/>
+                            <constraint firstItem="acd-Mk-FGX" firstAttribute="top" secondItem="17" secondAttribute="top" type="default" id="4mb-uB-4Sl"/>
+                            <constraint firstItem="HZa-nZ-EeR" firstAttribute="top" secondItem="17" secondAttribute="top" type="default" id="CQ9-i1-Gwq"/>
+                            <constraint firstItem="acd-Mk-FGX" firstAttribute="trailing" secondItem="17" secondAttribute="trailing" type="default" id="ZtU-Zq-d2P"/>
                             <constraint firstItem="HZa-nZ-EeR" firstAttribute="trailing" secondItem="17" secondAttribute="trailing" type="default" id="xwb-MI-IOx"/>
                         </constraints>
                     </view>
@@ -847,7 +862,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="503" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="503" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1180,7 +1195,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="Ziy-wV-pDj" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="568" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="568" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1251,147 +1266,6 @@
         <image name="second" width="16" height="16"/>
         <image name="trophy.png" width="163" height="170"/>
     </resources>
-    <classes>
-        <class className="AddImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="progressBar" candidateClass="UIProgressView"/>
-                <relationship kind="outlet" name="userImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="AddRouteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddRouteViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onDoneButton:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="marker" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="markerShadow" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="AutoRotationNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationNavigationController.h"/>
-        </class>
-        <class className="AutoRotationViewController" superclassName="UITabBarController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationViewController.h"/>
-        </class>
-        <class className="CheckInCommentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCommentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CheckInHeadingCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInHeadingCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="accomplishmentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userProfilePic" candidateClass="PFImageView"/>
-            </relationships>
-        </class>
-        <class className="CheckInViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="accomplishmentSelectorSegmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="CreateCommentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateCommentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="createCommentField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="FeedViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-        </class>
-        <class className="FindFriendsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
-        </class>
-        <class className="FirstAscentViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
-            </relationships>
-        </class>
-        <class className="FirstLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="FollowUserCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowUserCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FolloweeCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FolloweeCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="LikeCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LikeCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="likesLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MoreCommentsCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MoreCommentsCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="moreButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="NearbyRoutesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
-        </class>
-        <class className="PFImageView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
-        </class>
-        <class className="PostDetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
-                <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userProfileImage" candidateClass="PFImageView"/>
-            </relationships>
-        </class>
-        <class className="PostImageCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostImageCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="postImageView" candidateClass="PFImageView"/>
-            </relationships>
-        </class>
-        <class className="ProfileViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfileViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
-                <relationship kind="outlet" name="profileTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="RouteViewController" superclassName="FeedViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RouteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

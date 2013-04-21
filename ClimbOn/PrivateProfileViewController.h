@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  ProfileViewController.h
 //  ClimbOn
 //
 //  Created by Jonathan Gaull on 1/13/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PrivateProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

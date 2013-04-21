@@ -1,16 +1,16 @@
 //
-//  SecondViewController.m
+//  ProfileViewController.m
 //  ClimbOn
 //
 //  Created by Jonathan Gaull on 1/13/13.
 //  Copyright (c) 2013 OneHeadedLlama. All rights reserved.
 //
 
-#import "ProfileViewController.h"
+#import "PrivateProfileViewController.h"
 #import "FolloweeCell.h"
 #import <Parse/Parse.h>
 
-@interface ProfileViewController ()
+@interface PrivateProfileViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;
 @property (strong, nonatomic) IBOutlet UIButton *logInButton;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation ProfileViewController
+@implementation PrivateProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
