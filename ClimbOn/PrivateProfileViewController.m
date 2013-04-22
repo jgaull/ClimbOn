@@ -21,8 +21,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (strong, nonatomic) IBOutlet UITableView *profileTable;
 @property (weak, nonatomic) IBOutlet PFImageView *profilePhoto;
-@property (strong, nonatomic) NSArray *followees;
-@property (strong, nonatomic) NSMutableDictionary *followeesById;
 @property (strong, nonatomic) IBOutlet UIButton *topOutsButton;
 
 
@@ -33,12 +31,11 @@
 - (void)viewDidLoad {
 
 	PFUser *user = [PFUser currentUser];
-    if (user && [PFFacebookUtils isLinkedWithUser:user]) {
+    if (user) {
 		
 		PFQuery *query = [[PFQuery alloc] initWithClassName:@"Post"];
 		[query whereKey:@"creator" equalTo:user];
 		self.query = query;
-		[super viewDidLoad];
 
         self.profilePhoto.file = [user objectForKey:@"profilePicture"];
         [self.profilePhoto loadInBackground];
@@ -47,21 +44,6 @@
         self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [user objectForKey:@"firstName"], [user objectForKey:@"lastName"]];
         
         [self.logInButton setTitle:@"Log Out" forState:UIControlStateNormal];
-
-		NSMutableArray *followeeIds = [[NSMutableArray alloc] init];
-		for (PFUser *followee in [user objectForKey:@"following"]) {
-			[followeeIds addObject:followee.objectId];
-		}
-		PFQuery *followeeQuery = [PFQuery queryWithClassName:@"_User"];
-		[followeeQuery whereKey:@"objectId" containedIn:followeeIds];
-		[followeeQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-			if(!error) {
-				self.followees = objects;
-				[self.profileTable reloadData];
-			} else {
-				NSLog(@"error getting friends %@", error);
-			}
-		}];
         
         PFQuery *topOutsQuery = [ClimbOnUtils getTopoutsQueryForUser:[PFUser currentUser]];
         NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30*24*60*60];
@@ -85,7 +67,9 @@
             NSLog(@"Flashes: %d, Sends: %d", flashes.count, sends.count);
         }];
     }
-    
+
+	[super viewDidLoad];
+	
     self.title = @"Profile";
 }
 

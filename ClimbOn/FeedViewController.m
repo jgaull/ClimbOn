@@ -418,8 +418,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
 #pragma mark - Handling loading the data.
 
 - (PFQuery *)queryForTable {
-    self.query = [PFQuery queryWithClassName:@"Post"];
-    //[self.query whereKey:@"creator" containedIn:[[PFUser currentUser];
+	if(!self.query)
+		self.query = [PFQuery queryWithClassName:@"Post"];
     
     [self.query includeKey:@"creator"];
     [self.query includeKey:@"route"];
