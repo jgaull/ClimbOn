@@ -15,6 +15,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 
 //- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 //- (BOOL)shouldAutorotate;
