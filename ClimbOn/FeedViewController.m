@@ -62,11 +62,13 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (void)viewDidLoad
 {
     self.paginationEnabled = YES;
-    self.objectsPerPage = 10;
+    self.objectsPerPage = 25;
     
     [super viewDidLoad];
     
     self.title = @"Feed";
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
     
@@ -316,13 +318,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     return cell;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.bounds.size.height && !self.isLoading) {
-        NSLog(@"bottom!");
-        [self loadNextPage];
-    }
-}
-
 #pragma mark - Cell finding helper methods
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -411,6 +406,40 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 #pragma mark - Handling loading the data.
+
+/*- (void)refresh {
+    @synchronized(self) {
+        self.additionalPostInfoLookup = [[NSMutableDictionary alloc] init];
+        self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
+        
+        if (self.query == nil) {
+            self.query = [PFQuery queryWithClassName:@"Post"];
+            //[self.query whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
+        }
+        
+        [self.query includeKey:@"creator"];
+        [self.query includeKey:@"route"];
+        [self.query includeKey:@"route.rating"];
+        [self.query includeKey:@"route.media"];
+        [self.query includeKey:@"tags"];
+        [self.query includeKey:@"video"];
+        [self.query includeKey:@"photo"];
+        [self.query includeKey:@"userText"];
+        [self.query orderByDescending:@"createdAt"];
+        self.query.limit = 15;
+        [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                self.postsList = [[NSMutableArray alloc] initWithArray:objects];
+                [self.tableView reloadData];
+            }
+            else {
+                NSLog(@"Dag, an error");
+            }
+            
+            [self.refreshControl endRefreshing];
+        }];
+    }
+}*/
 
 - (PFQuery *)queryForTable {
     self.query = [PFQuery queryWithClassName:@"Post"];
