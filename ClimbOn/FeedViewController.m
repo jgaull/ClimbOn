@@ -62,18 +62,16 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (void)viewDidLoad
 {
     self.paginationEnabled = YES;
-    self.objectsPerPage = 25;
+    self.objectsPerPage = 10;
     
     [super viewDidLoad];
     
     self.title = @"Feed";
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
     
     self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended", @"Flashed", @"Worked", @"Lapped", nil];
-    self.pointValues = [[NSArray alloc] initWithObjects:@"1 point", @"10 points", @"", @"", nil];
+    self.pointValues = [[NSArray alloc] initWithObjects:@"+1 point", @"+10 points", @"", @"", nil];
     
     self.additionalPostInfoLookup = [[NSMutableDictionary alloc] init];
     self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
@@ -203,16 +201,16 @@ NSString *const LikesCellIdentifier = @"likesCell";
     return self.objects.count;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return nil;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger cellsForImages = [self cellsForImagesInSection:section];
     PFObject *userText = [self getCommentsForPost:[self.objects objectAtIndex:section]];
     NSInteger cellsForComments = userText != nil; //if this is not nil then there is 1 comment.
     
     return kStaticHeadersCount + cellsForImages + cellsForComments + kStaticFootersCount;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)postData {
@@ -243,7 +241,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                         
                         [additionalPostInfo setObject:likers forKey:@"likers"];
                         [self.additionalPostInfoLookup setObject:additionalPostInfo forKey:postData.objectId];
-                        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+                        //[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
                     }
                 }
             }];
@@ -316,6 +314,18 @@ NSString *const LikesCellIdentifier = @"likesCell";
     }
     
     return cell;
+}
+
+// Override if you need to change the ordering of objects in the table.
+- (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.objects objectAtIndex:indexPath.section];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.bounds.size.height && !self.isLoading) {
+        NSLog(@"bottom!");
+        [self loadNextPage];
+    }
 }
 
 #pragma mark - Cell finding helper methods
@@ -407,40 +417,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 #pragma mark - Handling loading the data.
 
-/*- (void)refresh {
-    @synchronized(self) {
-        self.additionalPostInfoLookup = [[NSMutableDictionary alloc] init];
-        self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
-        
-        if (self.query == nil) {
-            self.query = [PFQuery queryWithClassName:@"Post"];
-            //[self.query whereKey:@"creator" containedIn:[[PFUser currentUser] objectForKey:@"following"]];
-        }
-        
-        [self.query includeKey:@"creator"];
-        [self.query includeKey:@"route"];
-        [self.query includeKey:@"route.rating"];
-        [self.query includeKey:@"route.media"];
-        [self.query includeKey:@"tags"];
-        [self.query includeKey:@"video"];
-        [self.query includeKey:@"photo"];
-        [self.query includeKey:@"userText"];
-        [self.query orderByDescending:@"createdAt"];
-        self.query.limit = 15;
-        [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if (!error) {
-                self.postsList = [[NSMutableArray alloc] initWithArray:objects];
-                [self.tableView reloadData];
-            }
-            else {
-                NSLog(@"Dag, an error");
-            }
-            
-            [self.refreshControl endRefreshing];
-        }];
-    }
-}*/
-
 - (PFQuery *)queryForTable {
     self.query = [PFQuery queryWithClassName:@"Post"];
     //[self.query whereKey:@"creator" containedIn:[[PFUser currentUser];
@@ -454,7 +430,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     [self.query includeKey:@"photo"];
     [self.query includeKey:@"userText"];
     [self.query orderByDescending:@"createdAt"];
-    self.query.limit = 15;
     
     return self.query;
 }
