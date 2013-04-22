@@ -9,6 +9,9 @@
 #import "PrivateProfileViewController.h"
 #import "FolloweeCell.h"
 #import "ClimbOnUtils.h"
+#import "LikeCell.h"
+#import "PostImageCell.h"
+#import "CheckInHeadingCell.h"
 #import <Parse/Parse.h>
 
 @interface PrivateProfileViewController ()
@@ -28,15 +31,18 @@
 @implementation PrivateProfileViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	self.profileTable.dataSource = self;
-	self.profileTable.delegate = self;
-	// Do any additional setup after loading the view, typically from a nib.
-    if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        self.profilePhoto.file = [[PFUser currentUser] objectForKey:@"profilePicture"];
+
+	PFUser *user = [PFUser currentUser];
+    if (user && [PFFacebookUtils isLinkedWithUser:user]) {
+		
+		PFQuery *query = [[PFQuery alloc] initWithClassName:@"Post"];
+		[query whereKey:@"creator" equalTo:user];
+		self.query = query;
+		[super viewDidLoad];
+
+        self.profilePhoto.file = [user objectForKey:@"profilePicture"];
         [self.profilePhoto loadInBackground];
         
-        PFUser *user = [PFUser currentUser];
         self.locationLabel.text = [user objectForKey:@"location"];
         self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [user objectForKey:@"firstName"], [user objectForKey:@"lastName"]];
         
@@ -105,26 +111,6 @@
     self.userNameLabel = nil;
     self.profilePhoto = nil;
     self.topOutsButton = nil;
-}
-
-#pragma mark UITableViewDataSource
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"FolloweeCell";
-    FolloweeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    // Configure the cell...
-
-    PFUser *userDataForRow = [self.followees objectAtIndex:indexPath.row];
-
-    cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [userDataForRow objectForKey:@"firstName"], [userDataForRow objectForKey:@"lastName"]];
-
-    return cell;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-	return self.followees.count;
 }
 
 @end

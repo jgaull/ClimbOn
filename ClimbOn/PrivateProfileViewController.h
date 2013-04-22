@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FeedViewController.h"
 
-@interface PrivateProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PrivateProfileViewController : FeedViewController
 
 @end
