@@ -33,7 +33,7 @@ extern NSString *const kKeyPostRoute;
 extern NSString *const kKeyPostType;
 extern NSString *const kKeyPostUserText;
 
-#pragma mark - Parse Object Post Key Names
+#pragma mark - Parse Object User Key Names
 extern NSString *const kKeyUserUsername;
 extern NSString *const kKeyUserPassword;
 extern NSString *const kKeyUserauthData;
@@ -43,5 +43,25 @@ extern NSString *const kKeyUserFirstName;
 extern NSString *const kKeyUserLastName;
 extern NSString *const kKeyUserLocation;
 extern NSString *const kKeyUserProfilePicture;
+
+#pragma mark - Parse Object Comment Key Names
+extern NSString *const kKeyCommentCommentText;
+extern NSString *const kKeyCommentCreator;
+
+#pragma mark - Parse Object Event Key Names
+extern NSString *const kKeyEventToUser;
+extern NSString *const kKeyEventFromUser;
+extern NSString *const kKeyEventPost;
+extern NSString *const kKeyEventType;
+
+#pragma mark - Parse Object File Key Names
+extern NSString *const kKeyMediaFile;
+
+#pragma mark - Parse Object Rating Key Names
+extern NSString *const kKeyRatingClimbingType;
+extern NSString *const kKeyRatingDifficulty;
+extern NSString *const kKeyRatingName;
+extern NSString *const kKeyRatingRatingPriority;
+extern NSString *const kKeyRatingRatingSystem;
 
 @end

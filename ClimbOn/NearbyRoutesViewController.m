@@ -106,7 +106,7 @@
     }
     
     PFObject *ratingData = [self.ratingTypesList objectAtIndex:section - 1];
-    return [ratingData objectForKey:@"name"];
+    return [ratingData objectForKey:kKeyRatingName];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -125,7 +125,7 @@
     if (indexPath.section > 0) {
         PFObject *routeData = [self getRouteDataForIndexPath:indexPath];
         PFObject *rating = [routeData objectForKey:@"rating"];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:kKeyRatingName]];
     }
     
     // Configure the cell...

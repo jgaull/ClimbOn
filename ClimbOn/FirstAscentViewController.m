@@ -36,14 +36,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     PFQuery *query = [[PFQuery alloc] initWithClassName:kClassRating];
-    [query orderByAscending:@"difficulty"];
+    [query orderByAscending:kKeyRatingDifficulty];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         NSMutableArray *ratingNames = [[NSMutableArray alloc] init];
         
         for (PFObject *rating in objects) {
-            NSString *ratingSystem = [rating objectForKey:@"ratingSystem"];
-            unsigned int ratingPriority = [[rating objectForKey:@"ratingPriority"] intValue];
+            NSString *ratingSystem = [rating objectForKey:kKeyRatingRatingSystem];
+            unsigned int ratingPriority = [[rating objectForKey:kKeyRatingRatingPriority] intValue];
             NSMutableArray *ratingsArray = [dict objectForKey:ratingSystem];
             if ([dict objectForKey:ratingSystem] == nil) {
 				ratingsArray = [[NSMutableArray alloc] init];
@@ -92,7 +92,7 @@
     } else {
 		// rating component
 		PFObject *ratingData = [[self getRatingNamesForSelectedRatingSystem] objectAtIndex:row];
-		return [ratingData objectForKey:@"name"];
+		return [ratingData objectForKey:kKeyRatingName];
 	}
 }
 

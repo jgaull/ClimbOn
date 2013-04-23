@@ -90,7 +90,7 @@
         [self.route saveInBackground];
     }
 
-	unsigned int climbingType = [[[self.route objectForKey:@"rating"] objectForKey:@"climbingType"] intValue];
+	unsigned int climbingType = [[[self.route objectForKey:@"rating"] objectForKey:kKeyRatingClimbingType] intValue];
     if (climbingType == 0 && [self didSendRoute])
         [self performSegueWithIdentifier:@"rateRoute" sender:self];
     else
@@ -123,7 +123,7 @@
 
 - (void) createMediaObjectWithFile:(PFFile *)file {
     PFObject *media = [[PFObject alloc] initWithClassName:kClassMedia];
-    [media setObject:file forKey:@"file"];
+    [media setObject:file forKey:kKeyMediaFile];
     [media saveEventually:^(BOOL succeeded, NSError *error) {
         if (!error) {
             //do something

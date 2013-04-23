@@ -46,7 +46,7 @@
     // Configure the cell...
     self.postImage.file = nil;
     self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
-    [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:@"name"]] forState:UIControlStateNormal];
+    [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:kKeyRatingName]] forState:UIControlStateNormal];
     
     self.userProfileImage.file = [creator objectForKey:kKeyUserProfilePicture];
     [self.userProfileImage loadInBackground:^(UIImage *image, NSError *error) {
@@ -54,7 +54,7 @@
     }];
     
     [postPhoto fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        self.postImage.file = [object objectForKey:@"file"];
+        self.postImage.file = [object objectForKey:kKeyMediaFile];
         [self.view setNeedsDisplay];
     }];
 }

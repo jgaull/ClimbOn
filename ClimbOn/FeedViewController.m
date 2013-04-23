@@ -181,7 +181,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 /*- (IBAction)onPlayButton:(UIButton *)sender {
     PFObject *post = [self.postsList objectAtIndex:sender.tag];
     PFObject *videoMedia = [post objectForKey:@"video"];
-    PFFile *video = [videoMedia objectForKey:@"file"];
+    PFFile *video = [videoMedia objectForKey:kKeyMediaFile];
     
     NSURL *movieURL = [NSURL URLWithString:video.url];
     MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
@@ -274,7 +274,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         PFFile *image = [self.pfImageFileLookup objectForKey:postData.objectId];
         if (!image) {
             PFObject *media = [postData objectForKey:kKeyPostPhoto];
-            PFFile *imageFile = [media objectForKey:@"file"];
+            PFFile *imageFile = [media objectForKey:kKeyMediaFile];
             postImageCell.postImageView.file = imageFile;
             [self.pfImageFileLookup setObject:imageFile forKey:postData.objectId];
             [postImageCell.postImageView loadInBackground];
@@ -293,7 +293,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
             checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
         }];
         
-        checkinCommentCell.commentTextView.text = [comment objectForKey:@"commentText"];
+        checkinCommentCell.commentTextView.text = [comment objectForKey:kKeyCommentCommentText];
     }
     else if ([cell isKindOfClass:[CreateCommentCell class]]) {
         CreateCommentCell *createCommentCell = (CreateCommentCell *)cell;
@@ -350,7 +350,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     else if ([CommentCellIdentifier isEqualToString:cellIdentifier]) {
         comment = [self getCommentForIndexPath:indexPath];
         constraint = CGSizeMake(280, 100);
-        size = [[comment objectForKey:@"commentText"] sizeWithFont:[UIFont systemFontOfSize:13.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        size = [[comment objectForKey:kKeyCommentCommentText] sizeWithFont:[UIFont systemFontOfSize:13.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         return size.height + 21 + 16;
     }
     else {
@@ -446,7 +446,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         
         PFObject *comment = [[PFObject alloc] initWithClassName:kClassComment];
         [comment setObject:[PFUser currentUser] forKey:kKeyPostCreator];
-        [comment setObject:textField.text forKey:@"commentText"];
+        [comment setObject:textField.text forKey:kKeyCommentCommentText];
         [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 PFRelation *relation = [postData objectForKey:@"comments"];
