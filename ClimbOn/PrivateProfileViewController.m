@@ -12,6 +12,7 @@
 #import "LikeCell.h"
 #import "PostImageCell.h"
 #import "CheckInHeadingCell.h"
+#import "Constants.h"
 #import <Parse/Parse.h>
 
 @interface PrivateProfileViewController ()
@@ -33,7 +34,7 @@
 	PFUser *user = [PFUser currentUser];
     if (user) {
 		
-		PFQuery *query = [[PFQuery alloc] initWithClassName:@"Post"];
+		PFQuery *query = [[PFQuery alloc] initWithClassName:kClassPost];
 		[query whereKey:@"creator" equalTo:user];
 		self.query = query;
 

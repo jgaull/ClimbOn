@@ -35,6 +35,8 @@
 		FC0DDD5F16C2507C0004C11D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD5E16C2507C0004C11D /* Social.framework */; };
 		FC0DDD6116C250850004C11D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD6016C250850004C11D /* StoreKit.framework */; };
 		FC0DDD6316C2508D0004C11D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC0DDD6216C2508D0004C11D /* SystemConfiguration.framework */; };
+		FC10EDF51726553D004D30B3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = FC10EDF41726553D004D30B3 /* Constants.m */; };
+		FC10EDF717265722004D30B3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = FC10EDF41726553D004D30B3 /* Constants.m */; };
 		FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC131EA716E5DB9300C20A28 /* PostImageCell.m */; };
 		FC13855016D18BFE00FEFBDA /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC13854F16D18BFE00FEFBDA /* FeedViewController.m */; };
 		FC1A56F116EBE31D00AEEC94 /* MoreCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */; };
@@ -128,6 +130,8 @@
 		FC0DDD5E16C2507C0004C11D /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		FC0DDD6016C250850004C11D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FC0DDD6216C2508D0004C11D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FC10EDF31726553D004D30B3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		FC10EDF41726553D004D30B3 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		FC131EA616E5DB9300C20A28 /* PostImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostImageCell.h; sourceTree = "<group>"; };
 		FC131EA716E5DB9300C20A28 /* PostImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostImageCell.m; sourceTree = "<group>"; };
 		FC13854E16D18BFE00FEFBDA /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
@@ -345,6 +349,8 @@
 				FC0507DF16DCA72100CFBC0F /* RouteDataAnnotation.h */,
 				FC0507E016DCA72100CFBC0F /* RouteDataAnnotation.m */,
 				FCD9610716E429D900705281 /* CheckInHeadingCell.h */,
+				FC10EDF31726553D004D30B3 /* Constants.h */,
+				FC10EDF41726553D004D30B3 /* Constants.m */,
 				FCD9610816E429D900705281 /* CheckInHeadingCell.m */,
 				FCD9610A16E42E3B00705281 /* CheckinHashtagCell.h */,
 				FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */,
@@ -539,6 +545,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC10EDF717265722004D30B3 /* Constants.m in Sources */,
 				FC2A83F716A3723B00637D74 /* main.m in Sources */,
 				FC2A83FB16A3723B00637D74 /* AppDelegate.m in Sources */,
 				FC2A840716A3723B00637D74 /* AddRouteViewController.m in Sources */,
@@ -577,6 +584,7 @@
 				FC2A842716A3723C00637D74 /* ClimbOnTests.m in Sources */,
 				93F5A7CC16D9DF9300B2476F /* RouteAnnotationView.m in Sources */,
 				93F5A7CE16D9DF9300B2476F /* RouteAnnotation.m in Sources */,
+				FC10EDF51726553D004D30B3 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

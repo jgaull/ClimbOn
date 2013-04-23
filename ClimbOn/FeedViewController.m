@@ -17,6 +17,7 @@
 #import "MoreCommentsCell.h"
 #import "LikeCell.h"
 #import "PostImageCell.h"
+#import "Constants.h"
 
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -137,7 +138,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     BOOL isLiking = !hasLiked;
 
     //Create a query for any existing likes.
-    PFQuery *previousLikesQuery = [[PFQuery alloc] initWithClassName:@"Event"];
+    PFQuery *previousLikesQuery = [[PFQuery alloc] initWithClassName:kClassEvent];
     [previousLikesQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
     [previousLikesQuery whereKey:@"type" equalTo:@"like"];
     [previousLikesQuery whereKey:@"post" equalTo:post];
@@ -158,7 +159,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 
                 //Create the like event
                 if (isLiking) {
-                    PFObject *likeEvent = [[PFObject alloc] initWithClassName:@"Event"];
+                    PFObject *likeEvent = [[PFObject alloc] initWithClassName:kClassEvent];
                     [likeEvent setObject:@"like" forKey:@"type"];
                     [likeEvent setObject:[PFUser currentUser] forKey:@"fromUser"];
                     [likeEvent setObject:postCreator forKey:@"creator"];
@@ -220,7 +221,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     NSDictionary *additionalPostInfo = [self.additionalPostInfoLookup objectForKey:postData.objectId];
     if (!additionalPostInfo) {
         if (![self.outstandingPostInfoQueries objectForKey:[NSNumber numberWithInt:indexPath.section]]) {
-            PFQuery *eventsForPostQuery = [[PFQuery alloc] initWithClassName:@"Event"];
+            PFQuery *eventsForPostQuery = [[PFQuery alloc] initWithClassName:kClassEvent];
             [eventsForPostQuery whereKey:@"post" equalTo:postData];
             [self.outstandingPostInfoQueries setObject:eventsForPostQuery forKey:[NSNumber numberWithInt:indexPath.section]];
             [eventsForPostQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -419,7 +420,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (PFQuery *)queryForTable {
 	if(!self.query)
-		self.query = [PFQuery queryWithClassName:@"Post"];
+		self.query = [PFQuery queryWithClassName:kClassPost];
     
     [self.query includeKey:@"creator"];
     [self.query includeKey:@"route"];
@@ -443,7 +444,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         NSInteger section = textField.tag;
         PFObject *postData = [self.postsList objectAtIndex:section];
         
-        PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
+        PFObject *comment = [[PFObject alloc] initWithClassName:kClassComment];
         [comment setObject:[PFUser currentUser] forKey:@"creator"];
         [comment setObject:textField.text forKey:@"commentText"];
         [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

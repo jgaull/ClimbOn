@@ -7,6 +7,7 @@
 //
 
 #import "FirstLoginViewController.h"
+#import "Constants.h"
 #import <Parse/Parse.h>
 
 @interface FirstLoginViewController ()
@@ -75,7 +76,7 @@
             NSDictionary *userData = (NSDictionary *)result; // The result is a dictionary
             
             if ([PFUser currentUser].isNew) {
-                PFObject *socialNetworkId = [[PFObject alloc] initWithClassName:@"SocialNetworkId"];
+                PFObject *socialNetworkId = [[PFObject alloc] initWithClassName:kClassSocialNetworkId];
                 [socialNetworkId setObject:userData[@"id"] forKey:@"networkId"];
                 [socialNetworkId setObject:[PFUser currentUser] forKey:@"climbOnId"];
                 [socialNetworkId setObject:@"facebook" forKey:@"networkType"];

@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import "RouteAnnotationView.h"
 #import "RouteAnnotation.h"
+#import "Constants.h"
 
 @interface AddRouteViewController ()
 
@@ -87,7 +88,7 @@
             PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.mapView.region.center.latitude longitude:self.mapView.region.center.longitude];
             [route setObject:point forKey:@"location"];
             
-            PFObject *rating = [[PFObject alloc] initWithClassName:@"Rating"];
+            PFObject *rating = [[PFObject alloc] initWithClassName:kClassRating];
             rating.objectId = @"OJewnFZKQ4";
             [route setObject:rating forKey:@"rating"];
             

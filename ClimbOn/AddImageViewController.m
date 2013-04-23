@@ -8,6 +8,7 @@
 
 #import "AddImageViewController.h"
 #import "FirstAscentViewController.h"
+#import "Constants.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface AddImageViewController ()
@@ -121,7 +122,7 @@
 }
 
 - (void) createMediaObjectWithFile:(PFFile *)file {
-    PFObject *media = [[PFObject alloc] initWithClassName:@"Media"];
+    PFObject *media = [[PFObject alloc] initWithClassName:kClassMedia];
     [media setObject:file forKey:@"file"];
     [media saveEventually:^(BOOL succeeded, NSError *error) {
         if (!error) {

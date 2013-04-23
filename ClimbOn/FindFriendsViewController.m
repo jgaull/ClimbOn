@@ -8,7 +8,7 @@
 
 #import "FindFriendsViewController.h"
 #import "FollowUserCell.h"
-
+#import "Constants.h"
 #import <Parse/Parse.h>
 
 @interface FindFriendsViewController ()
@@ -60,7 +60,7 @@
                 }
             }
             
-            PFQuery *query = [PFQuery queryWithClassName:@"SocialNetworkId"];
+            PFQuery *query = [PFQuery queryWithClassName:kClassSocialNetworkId];
             [query whereKey:@"networkType" equalTo:@"facebook"];
             [query whereKey:@"networkId" containedIn:friendIds];
             [query includeKey:@"climbOnId"];

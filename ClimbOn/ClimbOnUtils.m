@@ -7,14 +7,15 @@
 //
 
 #import "ClimbOnUtils.h"
+#import "Constants.h"
 
 @implementation ClimbOnUtils
 
 + (PFQuery *)getTopoutsQueryForUser:(PFUser *)user {
-    PFQuery *sendsQuery = [[PFQuery alloc] initWithClassName:@"Post"];
+    PFQuery *sendsQuery = [[PFQuery alloc] initWithClassName:kClassPost];
     [sendsQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:0]];
     
-    PFQuery *flashesQuery = [[PFQuery alloc] initWithClassName:@"Post"];
+    PFQuery *flashesQuery = [[PFQuery alloc] initWithClassName:kClassPost];
     [flashesQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:1]];
     
     

@@ -8,6 +8,7 @@
 
 #import "CheckInViewController.h"
 #import "AddImageViewController.h"
+#import "Constants.h"
 
 @interface CheckInViewController ()
 
@@ -70,13 +71,13 @@
 #pragma Mark Some Helper methods
 
 - (void)onDone {
-    self.post = [[PFObject alloc] initWithClassName:@"Post"];
+    self.post = [[PFObject alloc] initWithClassName:kClassPost];
     [self.post setObject:[PFUser currentUser] forKey:@"creator"];
     [self.post setObject:self.route forKey:@"route"];
     [self.post setObject:[NSNumber numberWithInt:[self.accomplishmentSelectorSegmentedControl selectedSegmentIndex]] forKey:@"type"];
     
     if (![self.postTextView.text isEqualToString:@""]) {
-        PFObject *comment = [[PFObject alloc] initWithClassName:@"Comment"];
+        PFObject *comment = [[PFObject alloc] initWithClassName:kClassComment];
         [comment setObject:[PFUser currentUser] forKey:@"creator"];
         [comment setObject:self.postTextView.text forKey:@"commentText"];
         [self.post setObject:comment forKey:@"userText"];

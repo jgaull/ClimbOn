@@ -7,6 +7,7 @@
 //
 
 #import "FirstAscentViewController.h"
+#import "Constants.h"
 
 @interface FirstAscentViewController ()
 
@@ -34,7 +35,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Rating"];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:kClassRating];
     [query orderByAscending:@"difficulty"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];

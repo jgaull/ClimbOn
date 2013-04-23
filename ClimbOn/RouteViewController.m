@@ -8,6 +8,7 @@
 
 #import "RouteViewController.h"
 #import "RouteDataAnnotation.h"
+#import "Constants.h"
 
 #import <MapKit/MapKit.h>
 
@@ -34,7 +35,7 @@
 
 - (void)viewDidLoad
 {
-    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Post"];
+    PFQuery *query = [[PFQuery alloc] initWithClassName:kClassPost];
     [query whereKey:@"route" equalTo:self.routeData];
     self.query = query;
     [super viewDidLoad];
