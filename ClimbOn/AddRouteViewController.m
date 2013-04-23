@@ -83,10 +83,10 @@
             }
             
             [route setObject:self.routeNameField.text forKey:@"name"];
-            [route setObject:[PFUser currentUser] forKey:@"creator"];
+            [route setObject:[PFUser currentUser] forKey:kKeyPostCreator];
             
             PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:self.mapView.region.center.latitude longitude:self.mapView.region.center.longitude];
-            [route setObject:point forKey:@"location"];
+            [route setObject:point forKey:kKeyUserLocation];
             
             PFObject *rating = [[PFObject alloc] initWithClassName:kClassRating];
             rating.objectId = @"OJewnFZKQ4";

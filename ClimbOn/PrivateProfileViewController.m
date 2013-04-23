@@ -35,26 +35,26 @@
     if (user) {
 		
 		PFQuery *query = [[PFQuery alloc] initWithClassName:kClassPost];
-		[query whereKey:@"creator" equalTo:user];
+		[query whereKey:kKeyPostCreator equalTo:user];
 		self.query = query;
 
-        self.profilePhoto.file = [user objectForKey:@"profilePicture"];
+        self.profilePhoto.file = [user objectForKey:kKeyUserProfilePicture];
         [self.profilePhoto loadInBackground];
         
-        self.locationLabel.text = [user objectForKey:@"location"];
-        self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [user objectForKey:@"firstName"], [user objectForKey:@"lastName"]];
+        self.locationLabel.text = [user objectForKey:kKeyUserLocation];
+        self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [user objectForKey:kKeyUserFirstName], [user objectForKey:kKeyUserLastName]];
         
         [self.logInButton setTitle:@"Log Out" forState:UIControlStateNormal];
         
         PFQuery *topOutsQuery = [ClimbOnUtils getTopoutsQueryForUser:[PFUser currentUser]];
         NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30*24*60*60];
-        [topOutsQuery whereKey:@"createdAt" greaterThan:thirtyDaysAgo];
+        [topOutsQuery whereKey:kKeyCreatedAt greaterThan:thirtyDaysAgo];
         [topOutsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             NSMutableArray *sends = [[NSMutableArray alloc] init];
             NSMutableArray *flashes = [[NSMutableArray alloc] init];
             
             for (PFObject *topOutPost in objects) {
-                NSInteger type = [[topOutPost objectForKey:@"type"] integerValue];
+                NSInteger type = [[topOutPost objectForKey:kKeyPostType] integerValue];
                 if (type == 0) {
                     [sends addObject:topOutPost];
                 }

@@ -85,9 +85,9 @@
                 
                 NSArray *following = [[NSArray alloc] initWithObjects:[PFUser currentUser], nil];
                 [[PFUser currentUser] setObject:following forKey:@"following"];
-                [[PFUser currentUser] setObject:userData[@"first_name"] forKey:@"firstName"];
-                [[PFUser currentUser] setObject:userData[@"last_name"] forKey:@"lastName"];
-                [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:@"location"];
+                [[PFUser currentUser] setObject:userData[@"first_name"] forKey:kKeyUserFirstName];
+                [[PFUser currentUser] setObject:userData[@"last_name"] forKey:kKeyUserLastName];
+                [[PFUser currentUser] setObject:userData[kKeyUserLocation][@"name"] forKey:kKeyUserLocation];
                 [[PFUser currentUser] saveInBackground];
                 
                 [self loadProfilePic:userData[@"id"]];
@@ -128,7 +128,7 @@
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             // Create a PFObject around a PFFile and associate it with the current user
-            [[PFUser currentUser] setObject:imageFile forKey:@"profilePicture"];
+            [[PFUser currentUser] setObject:imageFile forKey:kKeyUserProfilePicture];
             
             [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {

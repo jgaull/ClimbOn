@@ -9,6 +9,7 @@
 #import "PostDetailsViewController.h"
 #import "CheckInViewController.h"
 #import "RouteViewController.h"
+#import "Constants.h"
 
 @interface PostDetailsViewController ()
 
@@ -36,18 +37,18 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    PFUser *creator = [self.postData objectForKey:@"creator"];
-    PFObject *route = [self.postData objectForKey:@"route"];
+    PFUser *creator = [self.postData objectForKey:kKeyPostCreator];
+    PFObject *route = [self.postData objectForKey:kKeyPostRoute];
     PFObject *rating = [route objectForKey:@"rating"];
-    PFObject *postPhoto = [self.postData objectForKey:@"photo"];
-    //PFObject *routePhoto = [route objectForKey:@"photo"];
+    PFObject *postPhoto = [self.postData objectForKey:kKeyPostPhoto];
+    //PFObject *routePhoto = [route objectForKey:kKeyPostPhoto];
     
     // Configure the cell...
     self.postImage.file = nil;
-    self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
+    self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
     [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:@"name"]] forState:UIControlStateNormal];
     
-    self.userProfileImage.file = [creator objectForKey:@"profilePicture"];
+    self.userProfileImage.file = [creator objectForKey:kKeyUserProfilePicture];
     [self.userProfileImage loadInBackground:^(UIImage *image, NSError *error) {
         [self.view setNeedsDisplay];
     }];
@@ -71,7 +72,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"viewRoute"]) {
         RouteViewController *viewController = (RouteViewController *)segue.destinationViewController;
-        viewController.routeData = [self.postData objectForKey:@"route"];
+        viewController.routeData = [self.postData objectForKey:kKeyPostRoute];
     }
 }
 

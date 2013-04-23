@@ -128,7 +128,7 @@
     }
     
     cell.followButton.tag = indexPath.row;
-    cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [userDataForRow objectForKey:@"firstName"], [userDataForRow objectForKey:@"lastName"]];
+    cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [userDataForRow objectForKey:kKeyUserFirstName], [userDataForRow objectForKey:kKeyUserLastName]];
     
     return cell;
 }

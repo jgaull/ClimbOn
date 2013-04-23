@@ -10,6 +10,7 @@
 #import "CheckInViewController.h"
 #import "AddRouteViewController.h"
 #import "RouteViewController.h"
+#import "Constants.h"
 #import <Parse/Parse.h>
 
 @interface NearbyRoutesViewController ()
@@ -41,7 +42,7 @@
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
         if (!error) {
             PFQuery *query = [[PFQuery alloc] initWithClassName:@"Route"];
-            [query whereKey:@"location" nearGeoPoint:geoPoint withinMiles:1];
+            [query whereKey:kKeyUserLocation nearGeoPoint:geoPoint withinMiles:1];
             [query includeKey:@"rating"];
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 NSMutableDictionary *tempRatingsLookup = [[NSMutableDictionary alloc] init];

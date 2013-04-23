@@ -105,11 +105,11 @@ NSString *const LikesCellIdentifier = @"likesCell";
     NSInteger section = sender.tag;
     
     PFObject *post = [self.postsList objectAtIndex:section];
-    PFObject *userText = [post objectForKey:@"userText"];
+    PFObject *userText = [post objectForKey:kKeyPostUserText];
     
     PFRelation *relation = [post objectForKey:@"comments"];
     PFQuery *query = relation.query;
-    [query orderByAscending:@"createdAt"];
+    [query orderByAscending:kKeyCreatedAt];
     query.limit = 50;
     query.skip = comments.count;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -132,7 +132,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     
     int section = sender.tag;
     PFObject *post = [self.objects objectAtIndex:section];
-    PFUser *postCreator = [post objectForKey:@"creator"];
+    PFUser *postCreator = [post objectForKey:kKeyPostCreator];
     NSMutableArray *likers = [self getLikersForPost:post];
     BOOL hasLiked = [self getHasUserLikedPost:post];
     BOOL isLiking = !hasLiked;
@@ -140,7 +140,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     //Create a query for any existing likes.
     PFQuery *previousLikesQuery = [[PFQuery alloc] initWithClassName:kClassEvent];
     [previousLikesQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
-    [previousLikesQuery whereKey:@"type" equalTo:@"like"];
+    [previousLikesQuery whereKey:kKeyPostType equalTo:@"like"];
     [previousLikesQuery whereKey:@"post" equalTo:post];
     
     @synchronized(self) {
@@ -160,9 +160,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 //Create the like event
                 if (isLiking) {
                     PFObject *likeEvent = [[PFObject alloc] initWithClassName:kClassEvent];
-                    [likeEvent setObject:@"like" forKey:@"type"];
+                    [likeEvent setObject:@"like" forKey:kKeyPostType];
                     [likeEvent setObject:[PFUser currentUser] forKey:@"fromUser"];
-                    [likeEvent setObject:postCreator forKey:@"creator"];
+                    [likeEvent setObject:postCreator forKey:kKeyPostCreator];
                     [likeEvent setObject:post forKey:@"post"];
                     [likeEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (!error) {
@@ -215,8 +215,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)postData {
-    PFObject *routeData = [postData objectForKey:@"route"];
-    PFUser *creator = [postData objectForKey:@"creator"];
+    PFObject *routeData = [postData objectForKey:kKeyPostRoute];
+    PFUser *creator = [postData objectForKey:kKeyPostCreator];
     
     NSDictionary *additionalPostInfo = [self.additionalPostInfoLookup objectForKey:postData.objectId];
     if (!additionalPostInfo) {
@@ -232,7 +232,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                         NSMutableArray *likers = [[NSMutableArray alloc] init];
                         
                         for (PFObject *event in objects) {
-                            NSString *eventType = [event objectForKey:@"type"];
+                            NSString *eventType = [event objectForKey:kKeyPostType];
                             
                             if ([eventType isEqualToString:@"like"]) {
                                 PFUser *fromUser = [event objectForKey:@"fromUser"];
@@ -256,11 +256,11 @@ NSString *const LikesCellIdentifier = @"likesCell";
         CheckInHeadingCell *checkinHeadingCell = (CheckInHeadingCell *)cell;
         
         PFObject *rating = [routeData objectForKey:@"rating"];
-        NSInteger *accomplishmentType = [[postData objectForKey:@"type"] integerValue];
+        NSInteger *accomplishmentType = [[postData objectForKey:kKeyPostType] integerValue];
         
-        checkinHeadingCell.userProfilePic.file = [creator objectForKey:@"profilePicture"];
+        checkinHeadingCell.userProfilePic.file = [creator objectForKey:kKeyUserProfilePicture];
         [checkinHeadingCell.userProfilePic loadInBackground];
-        checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
+        checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
         checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
         checkinHeadingCell.accomplishmentLabel.text = [NSString stringWithFormat:@"%@, %@", [self.accomplishmentTypes objectAtIndex:accomplishmentType], [self.pointValues objectAtIndex:accomplishmentType]];
     }
@@ -273,7 +273,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         postImageCell.postImageView.file = nil;
         PFFile *image = [self.pfImageFileLookup objectForKey:postData.objectId];
         if (!image) {
-            PFObject *media = [postData objectForKey:@"photo"];
+            PFObject *media = [postData objectForKey:kKeyPostPhoto];
             PFFile *imageFile = [media objectForKey:@"file"];
             postImageCell.postImageView.file = imageFile;
             [self.pfImageFileLookup setObject:imageFile forKey:postData.objectId];
@@ -288,9 +288,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
         cell = checkinCommentCell;
         
         PFObject *comment = [self getCommentForIndexPath:indexPath];
-        PFUser *creator = [comment objectForKey:@"creator"];
+        PFUser *creator = [comment objectForKey:kKeyPostCreator];
         [creator fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:@"firstName"], [creator objectForKey:@"lastName"]];
+            checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
         }];
         
         checkinCommentCell.commentTextView.text = [comment objectForKey:@"commentText"];
@@ -380,7 +380,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (NSInteger)cellsForImagesInSection:(NSInteger)section {
     PFObject *post = [self.objects objectAtIndex:section];
-    PFObject *photo = [post objectForKey:@"photo"];
+    PFObject *photo = [post objectForKey:kKeyPostPhoto];
     return photo != nil;
 }
 
@@ -399,12 +399,12 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 - (PFObject *)getCommentsForPost:(PFObject *)post {
-    return [post objectForKey:@"userText"];
+    return [post objectForKey:kKeyPostUserText];
 }
 
 - (PFObject *)getCommentForIndexPath:(NSIndexPath *)indexPath {
     PFObject *post = [self.objects objectAtIndex:indexPath.section];
-    return [post objectForKey:@"userText"];
+    return [post objectForKey:kKeyPostUserText];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -422,15 +422,15 @@ NSString *const LikesCellIdentifier = @"likesCell";
 	if(!self.query)
 		self.query = [PFQuery queryWithClassName:kClassPost];
     
-    [self.query includeKey:@"creator"];
-    [self.query includeKey:@"route"];
+    [self.query includeKey:kKeyPostCreator];
+    [self.query includeKey:kKeyPostRoute];
     [self.query includeKey:@"route.rating"];
     [self.query includeKey:@"route.media"];
     [self.query includeKey:@"tags"];
     [self.query includeKey:@"video"];
-    [self.query includeKey:@"photo"];
-    [self.query includeKey:@"userText"];
-    [self.query orderByDescending:@"createdAt"];
+    [self.query includeKey:kKeyPostPhoto];
+    [self.query includeKey:kKeyPostUserText];
+    [self.query orderByDescending:kKeyCreatedAt];
     
     return self.query;
 }
@@ -445,7 +445,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         PFObject *postData = [self.postsList objectAtIndex:section];
         
         PFObject *comment = [[PFObject alloc] initWithClassName:kClassComment];
-        [comment setObject:[PFUser currentUser] forKey:@"creator"];
+        [comment setObject:[PFUser currentUser] forKey:kKeyPostCreator];
         [comment setObject:textField.text forKey:@"commentText"];
         [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {

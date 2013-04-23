@@ -13,14 +13,14 @@
 
 + (PFQuery *)getTopoutsQueryForUser:(PFUser *)user {
     PFQuery *sendsQuery = [[PFQuery alloc] initWithClassName:kClassPost];
-    [sendsQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:0]];
+    [sendsQuery whereKey:kKeyPostType equalTo:[NSNumber numberWithInt:0]];
     
     PFQuery *flashesQuery = [[PFQuery alloc] initWithClassName:kClassPost];
-    [flashesQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:1]];
+    [flashesQuery whereKey:kKeyPostType equalTo:[NSNumber numberWithInt:1]];
     
     
     PFQuery *topOutsQuery = [PFQuery orQueryWithSubqueries:@[sendsQuery, flashesQuery]];
-    [topOutsQuery whereKey:@"creator" equalTo:user];
+    [topOutsQuery whereKey:kKeyPostCreator equalTo:user];
     
     return topOutsQuery;
 }

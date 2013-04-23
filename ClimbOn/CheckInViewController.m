@@ -72,15 +72,15 @@
 
 - (void)onDone {
     self.post = [[PFObject alloc] initWithClassName:kClassPost];
-    [self.post setObject:[PFUser currentUser] forKey:@"creator"];
-    [self.post setObject:self.route forKey:@"route"];
-    [self.post setObject:[NSNumber numberWithInt:[self.accomplishmentSelectorSegmentedControl selectedSegmentIndex]] forKey:@"type"];
+    [self.post setObject:[PFUser currentUser] forKey:kKeyPostCreator];
+    [self.post setObject:self.route forKey:kKeyPostRoute];
+    [self.post setObject:[NSNumber numberWithInt:[self.accomplishmentSelectorSegmentedControl selectedSegmentIndex]] forKey:kKeyPostType];
     
     if (![self.postTextView.text isEqualToString:@""]) {
         PFObject *comment = [[PFObject alloc] initWithClassName:kClassComment];
-        [comment setObject:[PFUser currentUser] forKey:@"creator"];
+        [comment setObject:[PFUser currentUser] forKey:kKeyPostCreator];
         [comment setObject:self.postTextView.text forKey:@"commentText"];
-        [self.post setObject:comment forKey:@"userText"];
+        [self.post setObject:comment forKey:kKeyPostUserText];
     }
     
     [self performSegueWithIdentifier:@"addImage" sender:self];

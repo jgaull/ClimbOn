@@ -72,8 +72,8 @@
 		PFPush *push = [[PFPush alloc] init];
 		PFUser *currentUser = [PFUser currentUser];
 		NSString *channel = [NSString stringWithFormat:@"user_%@", currentUser.objectId];
-		NSString *firstName = [currentUser objectForKey:@"firstName"];
-		NSString *lastName = [currentUser objectForKey:@"lastName"];
+		NSString *firstName = [currentUser objectForKey:kKeyUserFirstName];
+		NSString *lastName = [currentUser objectForKey:kKeyUserLastName];
 		NSString *lastInitial = @"";
 		if(lastName.length > 0)
 			lastInitial = [NSString stringWithFormat:@"%@. ", [lastName substringToIndex:1]];
@@ -85,7 +85,7 @@
 	}];
     
     // set route image
-    if([self.route objectForKey:@"photo"] == nil)
+    if([self.route objectForKey:kKeyPostPhoto] == nil)
     {
         [self.route saveInBackground];
     }
@@ -137,12 +137,12 @@
 }
 
 - (void) updatePostAndRouteWithMedia:(PFObject *)media {
-    [self.post setObject:media forKey:@"photo"];
+    [self.post setObject:media forKey:kKeyPostPhoto];
     
     // set route image
-    if([self.route objectForKey:@"photo"] == nil)
+    if([self.route objectForKey:kKeyPostPhoto] == nil)
     {
-        [self.route setObject:media forKey:@"photo"];
+        [self.route setObject:media forKey:kKeyPostPhoto];
     }
     
     [self exitView];

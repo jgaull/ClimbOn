@@ -7,6 +7,7 @@
 //
 
 #import "RouteDataAnnotation.h"
+#import "Constants.h"
 
 @implementation RouteDataAnnotation
 
@@ -20,7 +21,7 @@
 }
 
 - (CLLocationCoordinate2D)coordinate {
-    PFGeoPoint *routeLocation = [self.routeData objectForKey:@"location"];
+    PFGeoPoint *routeLocation = [self.routeData objectForKey:kKeyUserLocation];
     return CLLocationCoordinate2DMake(routeLocation.latitude, routeLocation.longitude);
 }
 

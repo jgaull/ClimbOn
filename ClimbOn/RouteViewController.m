@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     PFQuery *query = [[PFQuery alloc] initWithClassName:kClassPost];
-    [query whereKey:@"route" equalTo:self.routeData];
+    [query whereKey:kKeyPostRoute equalTo:self.routeData];
     self.query = query;
     [super viewDidLoad];
 
