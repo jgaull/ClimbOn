@@ -87,7 +87,7 @@
                 [[PFUser currentUser] setObject:following forKey:kKeyUserFollowing];
                 [[PFUser currentUser] setObject:userData[@"first_name"] forKey:kKeyUserFirstName];
                 [[PFUser currentUser] setObject:userData[@"last_name"] forKey:kKeyUserLastName];
-                [[PFUser currentUser] setObject:userData[kKeyUserLocation][@"name"] forKey:kKeyUserLocation];
+                [[PFUser currentUser] setObject:userData[@"location"][@"name"] forKey:kKeyUserLocation];
                 [[PFUser currentUser] saveInBackground];
                 
                 [self loadProfilePic:userData[@"id"]];

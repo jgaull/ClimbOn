@@ -11,7 +11,6 @@
 #import "CheckInViewController.h"
 #import "PostDetailsViewController.h"
 #import "CheckInHeadingCell.h"
-#import "CheckinHashtagCell.h"
 #import "CheckInCommentCell.h"
 #import "CreateCommentCell.h"
 #import "MoreCommentsCell.h"
@@ -135,9 +134,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
     //Create a query for any existing likes.
     PFQuery *previousLikesQuery = [[PFQuery alloc] initWithClassName:kClassEvent];
-    [previousLikesQuery whereKey:@"fromUser" equalTo:[PFUser currentUser]];
+    [previousLikesQuery whereKey:kKeyEventFromUser equalTo:[PFUser currentUser]];
     [previousLikesQuery whereKey:kKeyPostType equalTo:@"like"];
-    [previousLikesQuery whereKey:@"post" equalTo:post];
+    [previousLikesQuery whereKey:kKeyEventPost equalTo:post];
     
     @synchronized(self) {
         [previousLikesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -157,9 +156,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 if (isLiking) {
                     PFObject *likeEvent = [[PFObject alloc] initWithClassName:kClassEvent];
                     [likeEvent setObject:@"like" forKey:kKeyPostType];
-                    [likeEvent setObject:[PFUser currentUser] forKey:@"fromUser"];
-                    [likeEvent setObject:postCreator forKey:kKeyPostCreator];
-                    [likeEvent setObject:post forKey:@"post"];
+                    [likeEvent setObject:[PFUser currentUser] forKey:kKeyEventFromUser];
+                    [likeEvent setObject:postCreator forKey:kKeyEventToUser];
+                    [likeEvent setObject:post forKey:kKeyEventPost];
                     [likeEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (!error) {
                             
@@ -218,7 +217,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     if (!additionalPostInfo) {
         if (![self.outstandingPostInfoQueries objectForKey:[NSNumber numberWithInt:indexPath.section]]) {
             PFQuery *eventsForPostQuery = [[PFQuery alloc] initWithClassName:kClassEvent];
-            [eventsForPostQuery whereKey:@"post" equalTo:postData];
+            [eventsForPostQuery whereKey:kKeyEventPost equalTo:postData];
             [self.outstandingPostInfoQueries setObject:eventsForPostQuery forKey:[NSNumber numberWithInt:indexPath.section]];
             [eventsForPostQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 @synchronized(self) {
@@ -231,7 +230,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                             NSString *eventType = [event objectForKey:kKeyPostType];
                             
                             if ([eventType isEqualToString:@"like"]) {
-                                PFUser *fromUser = [event objectForKey:@"fromUser"];
+                                PFUser *fromUser = [event objectForKey:kKeyEventFromUser];
                                 [likers addObject:fromUser];
                             }
                         }
@@ -251,18 +250,14 @@ NSString *const LikesCellIdentifier = @"likesCell";
     if ([cell isKindOfClass:[CheckInHeadingCell class]]) {
         CheckInHeadingCell *checkinHeadingCell = (CheckInHeadingCell *)cell;
         
-        PFObject *rating = [routeData objectForKey:@"rating"];
+        PFObject *rating = [routeData objectForKey:kKeyRouteRating];
         NSInteger *accomplishmentType = [[postData objectForKey:kKeyPostType] integerValue];
         
         checkinHeadingCell.userProfilePic.file = [creator objectForKey:kKeyUserProfilePicture];
         [checkinHeadingCell.userProfilePic loadInBackground];
         checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
-        checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:@"name"]];
+        checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:kKeyRouteName], [rating objectForKey:kKeyRatingName]];
         checkinHeadingCell.accomplishmentLabel.text = [NSString stringWithFormat:@"%@", [self.accomplishmentTypes objectAtIndex:accomplishmentType]];
-    }
-    else if ([cell isKindOfClass:[CheckinHashtagCell class]]) {
-        CheckinHashtagCell *checkinHashtagCell = (CheckinHashtagCell *)cell;
-        checkinHashtagCell.hashtagTextView.text = [self getTagListStringFromPost:postData];
     }
     else if ([cell isKindOfClass:[PostImageCell class]]) {
         PostImageCell *postImageCell = (PostImageCell *)cell;
@@ -284,7 +279,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         cell = checkinCommentCell;
         
         PFObject *comment = [self getCommentForIndexPath:indexPath];
-        PFUser *creator = [comment objectForKey:kKeyPostCreator];
+        PFUser *creator = [comment objectForKey:kKeyCommentCreator];
         [creator fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
             checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
         }];
@@ -380,20 +375,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     return photo != nil;
 }
 
-- (NSString *)getTagListStringFromPost:(PFObject *)postData {
-    NSString *tagList = @"";
-    for (PFObject *tag in [postData objectForKey:@"tags"]) {
-        if ([tagList isEqualToString:@""]) {
-            tagList = [tag objectForKey:@"name"];
-        }
-        else {
-            tagList = [NSString stringWithFormat:@"%@, %@", tagList, [tag objectForKey:@"name"]];
-        }
-    }
-    
-    return tagList;
-}
-
 - (PFObject *)getCommentsForPost:(PFObject *)post {
     return [post objectForKey:kKeyPostUserText];
 }
@@ -420,10 +401,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     
     [self.query includeKey:kKeyPostCreator];
     [self.query includeKey:kKeyPostRoute];
-    [self.query includeKey:@"route.rating"];
-    [self.query includeKey:@"route.media"];
-    [self.query includeKey:@"tags"];
-    [self.query includeKey:@"video"];
+    [self.query includeKey:[NSString stringWithFormat:@"%@.%@", kKeyPostRoute, kKeyRouteRating]];
     [self.query includeKey:kKeyPostPhoto];
     [self.query includeKey:kKeyPostUserText];
     [self.query orderByDescending:kKeyCreatedAt];

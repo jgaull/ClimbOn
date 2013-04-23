@@ -20,6 +20,7 @@ NSString *const kClassMedia              = @"Media";
 NSString *const kClassRating             = @"Rating";
 NSString *const kClassSocialNetworkId    = @"SocialNetworkId";
 NSString *const kClassInstallation       = @"Installation";
+NSString *const kClassRoute              = @"Route";
 
 #pragma mark - Parse Object Generic Keys
 NSString *const kKeyCreatedAt    = @"createdAt";
@@ -75,5 +76,13 @@ NSString *const kKeyInstallationAppName         = @"appName";
 NSString *const kKeyInstallationAppVersion      = @"appVersion";
 NSString *const kKeyInstallationParseVersion    = @"parseVersion";
 NSString *const kKeyInstallationChannels        = @"channels";
+
+#pragma mark - Parse Object Route Key Names
+NSString *const kKeyRouteCreator        = @"creator";
+NSString *const kKeyRouteFirstAscent    = @"firstAscent";
+NSString *const kKeyRouteLocation       = @"location";
+NSString *const kKeyRouteName           = @"name";
+NSString *const kKeyRoutePhoto          = @"photo";
+NSString *const kKeyRouteRating         = @"rating";
 
 @end

@@ -20,6 +20,7 @@ extern NSString *const kClassRole;
 extern NSString *const kClassMedia;
 extern NSString *const kClassRating;
 extern NSString *const kClassSocialNetworkId;
+extern NSString *const kClassRoute;
 
 #pragma mark - Parse Object Generic Keys
 extern NSString *const kKeyCreatedAt;
@@ -75,5 +76,13 @@ extern NSString *const kKeyInstallationAppName;
 extern NSString *const kKeyInstallationAppVersion;
 extern NSString *const kKeyInstallationParseVersion;
 extern NSString *const kKeyInstallationChannels;
+
+#pragma mark - Parse Object Route Key Names
+extern NSString *const kKeyRouteCreator;
+extern NSString *const kKeyRouteFirstAscent;
+extern NSString *const kKeyRouteLocation;
+extern NSString *const kKeyRouteName;
+extern NSString *const kKeyRoutePhoto;
+extern NSString *const kKeyRouteRating;
 
 @end

@@ -39,14 +39,14 @@
     
     PFUser *creator = [self.postData objectForKey:kKeyPostCreator];
     PFObject *route = [self.postData objectForKey:kKeyPostRoute];
-    PFObject *rating = [route objectForKey:@"rating"];
+    PFObject *rating = [route objectForKey:kKeyRouteRating];
     PFObject *postPhoto = [self.postData objectForKey:kKeyPostPhoto];
     //PFObject *routePhoto = [route objectForKey:kKeyPostPhoto];
     
     // Configure the cell...
     self.postImage.file = nil;
     self.title = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
-    [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:@"name"], [rating objectForKey:kKeyRatingName]] forState:UIControlStateNormal];
+    [self.routeNameButton setTitle:[NSString stringWithFormat:@"%@, %@", [route objectForKey:kKeyRouteName], [rating objectForKey:kKeyRatingName]] forState:UIControlStateNormal];
     
     self.userProfileImage.file = [creator objectForKey:kKeyUserProfilePicture];
     [self.userProfileImage loadInBackground:^(UIImage *image, NSError *error) {

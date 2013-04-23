@@ -77,7 +77,7 @@
 		NSString *lastInitial = @"";
 		if(lastName.length > 0)
 			lastInitial = [NSString stringWithFormat:@"%@. ", [lastName substringToIndex:1]];
-		NSString *routeName = [self.route objectForKey:@"name"];
+		NSString *routeName = [self.route objectForKey:kKeyRouteName];
 		NSString *message = [NSString stringWithFormat:@"%@ %@just checked in to %@!", firstName, lastInitial, routeName];
 		[push setChannel:channel];
 		[push setMessage:message];
@@ -85,12 +85,12 @@
 	}];
     
     // set route image
-    if([self.route objectForKey:kKeyPostPhoto] == nil)
+    if([self.route objectForKey:kKeyRoutePhoto] == nil)
     {
         [self.route saveInBackground];
     }
 
-	unsigned int climbingType = [[[self.route objectForKey:@"rating"] objectForKey:kKeyRatingClimbingType] intValue];
+	unsigned int climbingType = [[[self.route objectForKey:kKeyRouteRating] objectForKey:kKeyRatingClimbingType] intValue];
     if (climbingType == 0 && [self didSendRoute])
         [self performSegueWithIdentifier:@"rateRoute" sender:self];
     else
@@ -140,9 +140,9 @@
     [self.post setObject:media forKey:kKeyPostPhoto];
     
     // set route image
-    if([self.route objectForKey:kKeyPostPhoto] == nil)
+    if([self.route objectForKey:kKeyRoutePhoto] == nil)
     {
-        [self.route setObject:media forKey:kKeyPostPhoto];
+        [self.route setObject:media forKey:kKeyRoutePhoto];
     }
     
     [self exitView];

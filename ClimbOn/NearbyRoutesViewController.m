@@ -42,14 +42,14 @@
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
         if (!error) {
             PFQuery *query = [[PFQuery alloc] initWithClassName:@"Route"];
-            [query whereKey:kKeyUserLocation nearGeoPoint:geoPoint withinMiles:1];
-            [query includeKey:@"rating"];
+            [query whereKey:kKeyRouteLocation nearGeoPoint:geoPoint withinMiles:1];
+            [query includeKey:kKeyRouteRating];
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 NSMutableDictionary *tempRatingsLookup = [[NSMutableDictionary alloc] init];
                 NSMutableArray *tempRatingTypeList = [[NSMutableArray alloc] init];
                 
                 for (PFObject *routeData in objects) {
-                    PFObject *ratingData = [routeData objectForKey:@"rating"];
+                    PFObject *ratingData = [routeData objectForKey:kKeyRouteRating];
                     NSMutableArray *routesOfRating = [tempRatingsLookup objectForKey:ratingData.objectId];
                     if (routesOfRating == nil) {
                         routesOfRating = [[NSMutableArray alloc] init];
@@ -124,8 +124,8 @@
     
     if (indexPath.section > 0) {
         PFObject *routeData = [self getRouteDataForIndexPath:indexPath];
-        PFObject *rating = [routeData objectForKey:@"rating"];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:@"name"], [rating objectForKey:kKeyRatingName]];
+        PFObject *rating = [routeData objectForKey:kKeyRouteRating];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:kKeyRouteName], [rating objectForKey:kKeyRatingName]];
     }
     
     // Configure the cell...

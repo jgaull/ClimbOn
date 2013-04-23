@@ -21,7 +21,7 @@
 }
 
 - (CLLocationCoordinate2D)coordinate {
-    PFGeoPoint *routeLocation = [self.routeData objectForKey:kKeyUserLocation];
+    PFGeoPoint *routeLocation = [self.routeData objectForKey:kKeyRouteLocation];
     return CLLocationCoordinate2DMake(routeLocation.latitude, routeLocation.longitude);
 }
 
@@ -30,7 +30,7 @@
 }
 
 - (NSString *)title {
-    return [NSString stringWithString:[self.routeData objectForKey:@"name"]];
+    return [NSString stringWithString:[self.routeData objectForKey:kKeyRouteName]];
 }
 
 -(void)dealloc {

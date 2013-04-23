@@ -78,7 +78,7 @@
     
     if (![self.postTextView.text isEqualToString:@""]) {
         PFObject *comment = [[PFObject alloc] initWithClassName:kClassComment];
-        [comment setObject:[PFUser currentUser] forKey:kKeyPostCreator];
+        [comment setObject:[PFUser currentUser] forKey:kKeyCommentCreator];
         [comment setObject:self.postTextView.text forKey:kKeyCommentCommentText];
         [self.post setObject:comment forKey:kKeyPostUserText];
     }
@@ -110,7 +110,7 @@
 - (void)setRoute:(PFObject *)route {
     if (route != _route) {
         _route = route;
-        self.title = [_route objectForKey:@"name"];
+        self.title = [_route objectForKey:kKeyRouteName];
     }
 }
 

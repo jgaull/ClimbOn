@@ -75,8 +75,8 @@
 - (IBAction)onDoneButton:(id)sender {
     PFObject *rating = [[self getRatingNamesForSelectedRatingSystem] objectAtIndex:[self.pickerView selectedRowInComponent:1]];
     
-    [self.route setObject:[PFUser currentUser] forKey:@"firstAscent"];
-    [self.route setObject:rating forKey:@"rating"];
+    [self.route setObject:[PFUser currentUser] forKey:kKeyRouteFirstAscent];
+    [self.route setObject:rating forKey:kKeyRouteRating];
     
     [self.route saveEventually];
     [self.post saveEventually];

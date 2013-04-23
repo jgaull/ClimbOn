@@ -76,7 +76,6 @@
 		FCC1DDDA16D35FFC009288FF /* FirstLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC1DDD916D35FFC009288FF /* FirstLoginViewController.m */; };
 		FCD3154D16D20330004CCC59 /* NearbyRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */; };
 		FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610816E429D900705281 /* CheckInHeadingCell.m */; };
-		FCD9610C16E42E3B00705281 /* CheckinHashtagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */; };
 		FCD9610F16E43E2D00705281 /* CheckInCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */; };
 		FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9611116E47D1400705281 /* CreateCommentCell.m */; };
 		FCDB284616ECA1D600DAEE0A /* AutoRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDB284516ECA1D600DAEE0A /* AutoRotationViewController.m */; };
@@ -190,8 +189,6 @@
 		FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyRoutesViewController.m; sourceTree = "<group>"; };
 		FCD9610716E429D900705281 /* CheckInHeadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInHeadingCell.h; sourceTree = "<group>"; };
 		FCD9610816E429D900705281 /* CheckInHeadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInHeadingCell.m; sourceTree = "<group>"; };
-		FCD9610A16E42E3B00705281 /* CheckinHashtagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinHashtagCell.h; sourceTree = "<group>"; };
-		FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinHashtagCell.m; sourceTree = "<group>"; };
 		FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInCommentCell.h; sourceTree = "<group>"; };
 		FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInCommentCell.m; sourceTree = "<group>"; };
 		FCD9611016E47D1400705281 /* CreateCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateCommentCell.h; path = ../CreateCommentCell.h; sourceTree = "<group>"; };
@@ -352,8 +349,6 @@
 				FC10EDF31726553D004D30B3 /* Constants.h */,
 				FC10EDF41726553D004D30B3 /* Constants.m */,
 				FCD9610816E429D900705281 /* CheckInHeadingCell.m */,
-				FCD9610A16E42E3B00705281 /* CheckinHashtagCell.h */,
-				FCD9610B16E42E3B00705281 /* CheckinHashtagCell.m */,
 				FC131EA616E5DB9300C20A28 /* PostImageCell.h */,
 				FC131EA716E5DB9300C20A28 /* PostImageCell.m */,
 				FC1A56EF16EBE31D00AEEC94 /* MoreCommentsCell.h */,
@@ -563,7 +558,6 @@
 				FC0507DE16DC9C8600CFBC0F /* RouteViewController.m in Sources */,
 				FC0507E116DCA72100CFBC0F /* RouteDataAnnotation.m in Sources */,
 				FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */,
-				FCD9610C16E42E3B00705281 /* CheckinHashtagCell.m in Sources */,
 				FCD9610F16E43E2D00705281 /* CheckInCommentCell.m in Sources */,
 				FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */,
 				FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */,
