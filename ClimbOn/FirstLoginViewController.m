@@ -84,7 +84,7 @@
                 [socialNetworkId saveEventually];
                 
                 NSArray *following = [[NSArray alloc] initWithObjects:[PFUser currentUser], nil];
-                [[PFUser currentUser] setObject:following forKey:@"following"];
+                [[PFUser currentUser] setObject:following forKey:kKeyUserFollowing];
                 [[PFUser currentUser] setObject:userData[@"first_name"] forKey:kKeyUserFirstName];
                 [[PFUser currentUser] setObject:userData[@"last_name"] forKey:kKeyUserLastName];
                 [[PFUser currentUser] setObject:userData[kKeyUserLocation][@"name"] forKey:kKeyUserLocation];

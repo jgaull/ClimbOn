@@ -43,6 +43,7 @@ extern NSString *const kKeyUserFirstName;
 extern NSString *const kKeyUserLastName;
 extern NSString *const kKeyUserLocation;
 extern NSString *const kKeyUserProfilePicture;
+extern NSString *const kKeyUserFollowing;
 
 #pragma mark - Parse Object Comment Key Names
 extern NSString *const kKeyCommentCommentText;
@@ -63,5 +64,16 @@ extern NSString *const kKeyRatingDifficulty;
 extern NSString *const kKeyRatingName;
 extern NSString *const kKeyRatingRatingPriority;
 extern NSString *const kKeyRatingRatingSystem;
+
+#pragma mark - Parse Object Social Network Id Key Names
+extern NSString *const kKeySocialNetworkIdClimbOnId;
+extern NSString *const kKeySocialNetworkIdNetworkId;
+extern NSString *const kKeySocialNetworkIdNetworkType;
+
+#pragma mark - Parse Object Installation Key Names
+extern NSString *const kKeyInstallationAppName;
+extern NSString *const kKeyInstallationAppVersion;
+extern NSString *const kKeyInstallationParseVersion;
+extern NSString *const kKeyInstallationChannels;
 
 @end

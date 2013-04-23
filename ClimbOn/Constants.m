@@ -19,6 +19,7 @@ NSString *const kClassRole               = @"Role";
 NSString *const kClassMedia              = @"Media";
 NSString *const kClassRating             = @"Rating";
 NSString *const kClassSocialNetworkId    = @"SocialNetworkId";
+NSString *const kClassInstallation       = @"Installation";
 
 #pragma mark - Parse Object Generic Keys
 NSString *const kKeyCreatedAt    = @"createdAt";
@@ -42,25 +43,37 @@ NSString *const kKeyUserFirstName          = @"firstName";
 NSString *const kKeyUserLastName           = @"lastName";
 NSString *const kKeyUserLocation           = @"location";
 NSString *const kKeyUserProfilePicture     = @"profilePicture";
+NSString *const kKeyUserFollowing          = @"following";
 
 #pragma mark - Parse Object Comment Key Names
-NSString *const kKeyCommentCommentText = @"commentText";
-NSString *const kKeyCommentCreator = @"creator";
+NSString *const kKeyCommentCommentText  = @"commentText";
+NSString *const kKeyCommentCreator      = @"creator";
 
 #pragma mark - Parse Object Event Key Names
-NSString *const kKeyEventToUser = @"creator";
-NSString *const kKeyEventFromUser = @"fromUser";
-NSString *const kKeyEventPost = @"post";
-NSString *const kKeyEventType = @"type";
+NSString *const kKeyEventToUser     = @"creator";
+NSString *const kKeyEventFromUser   = @"fromUser";
+NSString *const kKeyEventPost       = @"post";
+NSString *const kKeyEventType       = @"type";
 
 #pragma mark - Parse Object Media Key Names
-NSString *const kKeyMediaFile = @"file";
+NSString *const kKeyMediaFile       = @"file";
 
 #pragma mark - Parse Object Rating Key Names
-NSString *const kKeyRatingClimbingType = @"climbingType";
-NSString *const kKeyRatingDifficulty = @"difficulty";
-NSString *const kKeyRatingName = @"name";
-NSString *const kKeyRatingRatingPriority = @"ratingPriority";
-NSString *const kKeyRatingRatingSystem = @"ratingSystem";
+NSString *const kKeyRatingClimbingType      = @"climbingType";
+NSString *const kKeyRatingDifficulty        = @"difficulty";
+NSString *const kKeyRatingName              = @"name";
+NSString *const kKeyRatingRatingPriority    = @"ratingPriority";
+NSString *const kKeyRatingRatingSystem      = @"ratingSystem";
+
+#pragma mark - Parse Object Social Network Id Key Names
+NSString *const kKeySocialNetworkIdClimbOnId    = @"climbOnId";
+NSString *const kKeySocialNetworkIdNetworkId    = @"networkId";
+NSString *const kKeySocialNetworkIdNetworkType  = @"networkType";
+
+#pragma mark - Parse Object Installation Key Names
+NSString *const kKeyInstallationAppName         = @"appName";
+NSString *const kKeyInstallationAppVersion      = @"appVersion";
+NSString *const kKeyInstallationParseVersion    = @"parseVersion";
+NSString *const kKeyInstallationChannels        = @"channels";
 
 @end
