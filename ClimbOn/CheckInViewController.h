@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-const int kPostTypeCheckIn = 0;
-const int kPostTypeTopOut = 1;
-
 enum accomplishments:NSInteger{
     Send,
     Flash,
