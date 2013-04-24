@@ -35,7 +35,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 @property (nonatomic, strong) NSMutableDictionary *outstandingPostInfoQueries;
 @property (nonatomic, strong) NSMutableDictionary *additionalPostInfoLookup;
-
 @property (nonatomic, strong) NSMutableDictionary *pfImageFileLookup;
 
 @property (nonatomic, strong) NSArray *accomplishmentTypes;
@@ -49,21 +48,23 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 @implementation FeedViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        // Custom initialization
+        self.paginationEnabled = YES;
+        self.objectsPerPage = 10;
+        self.pullToRefreshEnabled = NO;
     }
+    
     return self;
 }
 
 - (void)viewDidLoad
 {
-    self.paginationEnabled = YES;
-    self.objectsPerPage = 10;
-    
     [super viewDidLoad];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(onRefresh:) forControlEvents:UIControlEventValueChanged];
     
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
     
@@ -71,10 +72,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     
     self.additionalPostInfoLookup = [[NSMutableDictionary alloc] init];
     self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -481,6 +478,17 @@ NSString *const LikesCellIdentifier = @"likesCell";
     }
     
     return NO;
+}
+
+#pragma mark - Refresh control functions
+
+- (void)onRefresh:(UIRefreshControl *)sender {
+    [self loadObjects:0 clear:NO];
+}
+
+- (void)objectsDidLoad:(NSError *)error {
+    [super objectsDidLoad:error];
+    [self.refreshControl endRefreshing];
 }
 
 @end

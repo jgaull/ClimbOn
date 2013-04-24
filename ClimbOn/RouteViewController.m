@@ -56,6 +56,8 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapMap:)];
     [self.mapView addGestureRecognizer:tapGesture];
     self.expandedMap = false;
+    
+    self.title = [self.routeData objectForKey:kKeyRouteName];
 }
      
 - (void)onTapMap:(id)sender {

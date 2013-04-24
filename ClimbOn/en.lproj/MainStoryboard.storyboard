@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3103" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -1167,7 +1167,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="kpW-CY-FIa"/>
-                    <navigationItem key="navigationItem" id="bH9-xe-NOR">
+                    <navigationItem key="navigationItem" title="Feed" id="bH9-xe-NOR">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="UhK-B7-Qpe">
                             <connections>
                                 <segue destination="DZa-ml-FMP" kind="modal" identifier="createPost" id="Rpc-TY-YgI"/>
@@ -1466,7 +1466,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="Ziy-wV-pDj" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="568" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="568" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1663,7 +1663,6 @@
         <class className="PrivateProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivateProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
@@ -1686,9 +1685,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="E3i-If-5Er"/>
-        <segue reference="8Dy-gH-ttF"/>
+        <segue reference="Rpc-TY-YgI"/>
+        <segue reference="eB8-Wc-82I"/>
         <segue reference="odi-dc-99M"/>
         <segue reference="TRT-AO-oWF"/>
-        <segue reference="eB8-Wc-82I"/>
     </inferredMetricsTieBreakers>
 </document>
