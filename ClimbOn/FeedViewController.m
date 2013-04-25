@@ -1,4 +1,4 @@
- //
+//
 //  FeedViewController.m
 //  ClimbOn
 //
@@ -17,6 +17,7 @@
 #import "LikeCell.h"
 #import "PostImageCell.h"
 #import "Constants.h"
+#import "Cache.h"
 
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -34,7 +35,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
 @interface FeedViewController ()
 
 @property (nonatomic, strong) NSMutableDictionary *outstandingPostInfoQueries;
-@property (nonatomic, strong) NSMutableDictionary *additionalPostInfoLookup;
 @property (nonatomic, strong) NSMutableDictionary *pfImageFileLookup;
 
 @property (nonatomic, strong) NSArray *accomplishmentTypes;
@@ -70,7 +70,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     
     self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended, +1 point", @"Flashed, +10 points", @"Worked", @"Lapped", nil];
     
-    self.additionalPostInfoLookup = [[NSMutableDictionary alloc] init];
     self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
 }
 
@@ -125,7 +124,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     int section = sender.tag;
     PFObject *post = [self.objects objectAtIndex:section];
     PFUser *postCreator = [post objectForKey:kKeyPostCreator];
-    BOOL hasLiked = [self getHasUserLikedPost:post];
+    BOOL hasLiked = [[Cache sharedCache] getHasUserLikedPost:post];
     BOOL isLiking = !hasLiked;
 
     //Create a query for any existing likes.
@@ -143,7 +142,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                     
                     for (PFObject *previousLike in objects) {
                         [previousLike deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            [self unlikePost:post];
+                            [[Cache sharedCache] unlikePost:post];
                             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
                         }];
                     }
@@ -160,7 +159,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                         if (!error) {
                             
                             //update the likers lookup
-                            [self likePost:post];
+                            [[Cache sharedCache] likePost:post];
                             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
                         }
                     }];
@@ -210,7 +209,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     PFObject *routeData = [postData objectForKey:kKeyPostRoute];
     PFUser *creator = [postData objectForKey:kKeyPostCreator];
     
-    NSDictionary *additionalPostInfo = [self.additionalPostInfoLookup objectForKey:postData.objectId];
+    NSDictionary *additionalPostInfo = [[Cache sharedCache] infoForPost:postData];
     if (!additionalPostInfo) {
         if (![self.outstandingPostInfoQueries objectForKey:[NSNumber numberWithInt:indexPath.section]]) {
             PFQuery *eventsForPostQuery = [[PFQuery alloc] initWithClassName:kClassEvent];
@@ -220,7 +219,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
                 @synchronized(self) {
                     if (!error) {
                         [self.outstandingPostInfoQueries removeObjectForKey:[NSNumber numberWithInt:indexPath.section]];
-                        NSMutableDictionary *additionalPostInfo = [[NSMutableDictionary alloc] init];
                         NSMutableArray *likers = [[NSMutableArray alloc] init];
                         
                         for (PFObject *event in objects) {
@@ -232,8 +230,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
                             }
                         }
                         
-                        [additionalPostInfo setObject:likers forKey:@"likers"];
-                        [self.additionalPostInfoLookup setObject:additionalPostInfo forKey:postData.objectId];
+                        [[Cache sharedCache] setInfoForPost:postData likers:likers];
                         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
                     }
                 }
@@ -295,9 +292,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
     else if ([cell isKindOfClass:[LikeCell class]]) {
         LikeCell *likeCell = (LikeCell *)cell;
         likeCell.likeButton.tag = indexPath.section;
-        likeCell.likesLabel.text = [NSString stringWithFormat:@"%d", [self getLikersForPost:postData].count];
+        likeCell.likesLabel.text = [NSString stringWithFormat:@"%d", [[Cache sharedCache] getLikersForPost:postData].count];
         
-        BOOL hasLiked = [self getHasUserLikedPost:postData];
+        BOOL hasLiked = [[Cache sharedCache] getHasUserLikedPost:postData];
         NSString *buttonImage = hasLiked ? @"likebuttonliked.png" : @"likebutton.png";
         [likeCell.likeButton setImage:[UIImage imageNamed:buttonImage] forState:UIControlStateNormal];
     }
@@ -441,44 +438,6 @@ NSString *const LikesCellIdentifier = @"likesCell";
     
     return NO;
 }*/
-
-#pragma mark - Cache helper methods
-
-- (void)unlikePost:(PFObject *)post {
-    NSMutableArray *likers = [self getLikersForPost:post];
-    
-    for (PFUser *user in likers) {
-        if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
-            [likers removeObject:user];
-            break;
-        }
-    }
-}
-
-- (void)likePost:(PFObject *)post {
-    NSMutableArray *likers = [self getLikersForPost:post];
-    [likers addObject:[PFUser currentUser]];
-}
-
-- (NSMutableArray *)getLikersForPost:(PFObject *)post {
-    NSMutableDictionary *additionalData = [self getAdditionalInfoForPost:post];
-    return [additionalData objectForKey:@"likers"];
-}
-
-- (NSMutableDictionary *)getAdditionalInfoForPost:(PFObject *)post {
-    return [self.additionalPostInfoLookup objectForKey:post.objectId];
-}
-
-- (BOOL)getHasUserLikedPost:(PFObject *)post {
-    NSMutableArray *likers = [self getLikersForPost:post];
-    for (PFUser *liker in likers) {
-        if ([[PFUser currentUser].objectId isEqualToString:liker.objectId]) {
-            return YES;
-        }
-    }
-    
-    return NO;
-}
 
 #pragma mark - Refresh control functions
 

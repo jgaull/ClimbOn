@@ -49,6 +49,7 @@
 		FC226F0316D61B9C00BDA65A /* icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = FC226F0216D61B9C00BDA65A /* icon57.png */; };
 		FC26337B16D2B5880001A63A /* FindFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC26337A16D2B5880001A63A /* FindFriendsViewController.m */; };
 		FC26337E16D2B60D0001A63A /* FollowUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC26337D16D2B60D0001A63A /* FollowUserCell.m */; };
+		FC26B4161729090B002FF306 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = FC26B4151729090B002FF306 /* Cache.m */; };
 		FC2A83EB16A3723B00637D74 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2A83EA16A3723B00637D74 /* UIKit.framework */; };
 		FC2A83ED16A3723B00637D74 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2A83EC16A3723B00637D74 /* Foundation.framework */; };
 		FC2A83EF16A3723B00637D74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2A83EE16A3723B00637D74 /* CoreGraphics.framework */; };
@@ -151,6 +152,8 @@
 		FC26337A16D2B5880001A63A /* FindFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFriendsViewController.m; sourceTree = "<group>"; };
 		FC26337C16D2B60D0001A63A /* FollowUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowUserCell.h; sourceTree = "<group>"; };
 		FC26337D16D2B60D0001A63A /* FollowUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowUserCell.m; sourceTree = "<group>"; };
+		FC26B4141729090B002FF306 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
+		FC26B4151729090B002FF306 /* Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cache.m; sourceTree = "<group>"; };
 		FC2A83E616A3723B00637D74 /* Climb On.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Climb On.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2A83EA16A3723B00637D74 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FC2A83EC16A3723B00637D74 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -363,6 +366,8 @@
 				FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */,
 				C8E35042172322AE0011E6F6 /* ClimbOnUtils.h */,
 				C8E35043172322AE0011E6F6 /* ClimbOnUtils.m */,
+				FC26B4141729090B002FF306 /* Cache.h */,
+				FC26B4151729090B002FF306 /* Cache.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -568,6 +573,7 @@
 				93958B2917229DEF00778D1E /* FolloweeCell.m in Sources */,
 				FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */,
 				C8E35044172322AE0011E6F6 /* ClimbOnUtils.m in Sources */,
+				FC26B4161729090B002FF306 /* Cache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
