@@ -18,7 +18,7 @@
 @interface PrivateProfileViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;
-@property (strong, nonatomic) IBOutlet UIButton *logInButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *logInButton;
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (strong, nonatomic) IBOutlet UITableView *profileTable;
 @property (weak, nonatomic) IBOutlet PFImageView *profilePhoto;
@@ -43,8 +43,6 @@
         
         self.locationLabel.text = [user objectForKey:kKeyUserLocation];
         self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [user objectForKey:kKeyUserFirstName], [user objectForKey:kKeyUserLastName]];
-        
-        [self.logInButton setTitle:@"Log Out" forState:UIControlStateNormal];
         
         PFQuery *topOutsQuery = [ClimbOnUtils getTopoutsQueryForUser:[PFUser currentUser]];
         NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30*24*60*60];
@@ -72,6 +70,7 @@
 	[super viewDidLoad];
 	
     self.title = @"Profile";
+	[self.logInButton setTitle:@"Log Out"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,10 +81,10 @@
 - (IBAction)onLogInButton:(id)sender {
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         [PFUser logOut];
-        [self.logInButton setTitle:@"Log in to Facebook" forState:UIControlStateNormal];
         self.locationLabel.text = @"";
         self.userNameLabel.text = @"";
-        
+
+        [self performSegueWithIdentifier:@"firstLogin" sender:self];
         [self performSegueWithIdentifier:@"firstLogin" sender:self];
     }
 }
