@@ -10,6 +10,9 @@
 
 @implementation Constants
 
+#pragma mark - Notifications
+NSString *const kNotificationPostDidSave = @"kNotificationPostDidSave";
+
 #pragma mark - Parse Object Class Names
 NSString *const kClassPost               = @"Post";
 NSString *const kClassUser               = @"User";

@@ -10,6 +10,8 @@
 
 @interface Constants : NSObject
 
+#pragma mark - Notifications
+extern NSString *const kNotificationPostDidSave;
 
 #pragma mark - NSUserDefaults
 extern NSString *const kClassPost;

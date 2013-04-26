@@ -71,6 +71,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
     self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended, +1 point", @"Flashed, +10 points", @"Worked", @"Lapped", nil];
     
     self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPostDidSave:) name:kNotificationPostDidSave object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,6 +86,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
 -(void)dealloc {
     self.pfImageFileLookup = nil;
     self.query = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationPostDidSave object:nil];
 }
 
 /*- (BOOL)shouldAutorotate {
@@ -448,6 +452,10 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
     [self.refreshControl endRefreshing];
+}
+
+- (void)onPostDidSave:(NSNotification *)note {
+    [self loadObjects];
 }
 
 @end

@@ -82,6 +82,8 @@
 		[push setChannel:channel];
 		[push setMessage:message];
 		[push sendPushInBackground];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPostDidSave object:nil];
 	}];
     
     // set route image
