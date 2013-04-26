@@ -52,7 +52,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.paginationEnabled = YES;
-        self.objectsPerPage = 10;
+        self.objectsPerPage = 15;
         self.pullToRefreshEnabled = NO;
     }
     
@@ -442,7 +442,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
 #pragma mark - Refresh control functions
 
 - (void)onRefresh:(UIRefreshControl *)sender {
-    [self loadObjects:0 clear:NO];
+    [self loadObjects];
 }
 
 - (void)objectsDidLoad:(NSError *)error {
