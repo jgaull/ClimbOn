@@ -18,6 +18,7 @@
 #import "PostImageCell.h"
 #import "Constants.h"
 #import "Cache.h"
+#import "ClimbOnUtils.h"
 
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -176,10 +177,8 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
 								[pushQuery whereKey:@"owner" matchesQuery:userQuery];
 
 								PFPush *push = [[PFPush alloc] init];
-								NSString *firstName = [[PFUser currentUser] objectForKey:@"firstName"];
-								NSString *lastInitial = [[[PFUser currentUser] objectForKey:@"lastName"] substringToIndex:1];
 								PFObject *route = [post objectForKey:@"route"];
-								NSString *message = [NSString stringWithFormat:@"%@ %@. just hearted your checkin at %@.", firstName,lastInitial, [route objectForKey:@"name"]];
+								NSString *message = [NSString stringWithFormat:@"%@ just hearted your checkin at %@.", [ClimbOnUtils firstNameLastInitialWithUser:[PFUser currentUser]], [route objectForKey:@"name"]];
 
 								[push setQuery:pushQuery]; // Set our Installation query
 								[push setMessage:message];

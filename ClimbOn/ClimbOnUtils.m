@@ -80,25 +80,40 @@
 
 + (void)savePostInBackground:(PFObject *)post {
     [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-		PFPush *push = [[PFPush alloc] init];
-		PFUser *currentUser = [PFUser currentUser];
-        PFObject *route = [post objectForKey:kKeyPostRoute];
-		NSString *channel = [NSString stringWithFormat:@"user_%@", currentUser.objectId];
-		NSString *firstName = [currentUser objectForKey:kKeyUserFirstName];
-		NSString *lastName = [currentUser objectForKey:kKeyUserLastName];
-		NSString *lastInitial = @"";
-        NSString *routeName = [route objectForKey:kKeyRouteName];
-		if(lastName.length > 0)
-			lastInitial = [NSString stringWithFormat:@"%@. ", [lastName substringToIndex:1]];
-		NSString *message = [NSString stringWithFormat:@"%@ %@just checked in to %@!", firstName, lastInitial, routeName];
-		[push setChannel:channel];
-		[push setMessage:message];
-		[push sendPushInBackground];
+		int type = [[(PFObject *)post objectForKey:@"type"] integerValue];
+		if(type == kPostTypeSended || type == kPostTypeFlashed)
+		{
+			PFPush *push = [[PFPush alloc] init];
+			PFUser *currentUser = [PFUser currentUser];
+			PFObject *route = [post objectForKey:kKeyPostRoute];
+			NSString *channel = [NSString stringWithFormat:@"user_%@", currentUser.objectId];
+			NSString *routeName = [route objectForKey:kKeyRouteName];
+
+			NSString *verb;
+			if(type == kPostTypeFlashed)
+				verb = @"flashed";
+			else if(type == kPostTypeSended)
+				verb = @"sended";
+			NSString *message = [NSString stringWithFormat:@"%@ %@ %@!", [ClimbOnUtils firstNameLastInitialWithUser:currentUser], verb, routeName];
+			[push setChannel:channel];
+			[push setMessage:message];
+			[push sendPushInBackground];
+		}
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPostDidSave object:nil];
         
         [[Cache sharedCache] setInfoForPost:post likers:[[NSMutableArray alloc] init]];
 	}];
+}
+
++ (NSString *)firstNameLastInitialWithUser:(PFUser *)user
+{
+	NSString *firstName = [user objectForKey:kKeyUserFirstName];
+	NSString *lastName = [user objectForKey:kKeyUserLastName];
+	NSString *lastInitial = @"";
+	if(lastName.length > 0)
+		lastInitial = [NSString stringWithFormat:@" %@.", [lastName substringToIndex:1]];
+	return [NSString stringWithFormat:@"%@%@", firstName, lastInitial];
 }
 
 + (BOOL)isFollowingUser:(PFUser *)user {
