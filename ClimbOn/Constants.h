@@ -10,6 +10,18 @@
 
 @interface Constants : NSObject
 
+#pragma mark - Post Types
+extern NSInteger const kPostTypeSended;
+extern NSInteger const kPostTypeFlashed;
+extern NSInteger const kPostTypeWorked;
+extern NSInteger const kPostTypeLapped;
+
+#pragma mark - Scoring
+extern NSInteger const kPointsLapped;
+extern NSInteger const kPointsWorked;
+extern NSInteger const kPointsFlashed;
+extern NSInteger const kPointsSended;
+
 #pragma mark - Segue Names: Post Details
 extern NSString *const kSegueRoute;
 extern NSString *const kSeguePrivateProfile;

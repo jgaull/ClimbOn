@@ -10,6 +10,18 @@
 
 @implementation Constants
 
+#pragma mark - Post Types
+NSInteger const kPostTypeSended = 0;
+NSInteger const kPostTypeFlashed = 1;
+NSInteger const kPostTypeWorked = 2;
+NSInteger const kPostTypeLapped = 3;
+
+#pragma mark - Scoring
+NSInteger const kPointsLapped = 1;
+NSInteger const kPointsWorked = 1;
+NSInteger const kPointsFlashed = 10;
+NSInteger const kPointsSended = 5;
+
 #pragma mark - Segue Names
 NSString *const kSegueRoute				 = @"viewRoute";
 NSString *const kSeguePrivateProfile     = @"viewPrivateProfile";

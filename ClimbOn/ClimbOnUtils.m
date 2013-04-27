@@ -26,6 +26,13 @@
     return topOutsQuery;
 }
 
++ (PFQuery *)getScoringEventsForUser:(PFUser *)user {
+    PFQuery *scoringPosts = [[PFQuery alloc] initWithClassName:kClassPost];
+    [scoringPosts whereKey:kKeyPostType lessThan:[NSNumber numberWithInt:3]];
+    
+    return scoringPosts;
+}
+
 +(void)toggleFollowRelationship:(PFUser *)targetUser withBlock:(void (^)(BOOL following))completion
 {
     NSMutableArray *currentlyFollowing = [[NSMutableArray alloc] initWithArray:[[PFUser currentUser] objectForKey:kKeyUserFollowing]];

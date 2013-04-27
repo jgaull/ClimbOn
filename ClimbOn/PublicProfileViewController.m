@@ -36,28 +36,34 @@
 		self.locationLabel.text = [self.user objectForKey:kKeyUserLocation];
 		self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [self.user objectForKey:kKeyUserFirstName], [self.user objectForKey:kKeyUserLastName]];
 
-		PFQuery *topOutsQuery = [ClimbOnUtils getTopoutsQueryForUser:[PFUser currentUser]];
+		PFQuery *topOutsQuery = [ClimbOnUtils getScoringEventsForUser:[PFUser currentUser]];
 		NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30*24*60*60];
 		[topOutsQuery whereKey:kKeyCreatedAt greaterThan:thirtyDaysAgo];
 		[topOutsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 			NSMutableArray *sends = [[NSMutableArray alloc] init];
 			NSMutableArray *flashes = [[NSMutableArray alloc] init];
+            NSMutableArray *worked = [[NSMutableArray alloc] init];
 
 			for (PFObject *topOutPost in objects) {
 				NSInteger type = [[topOutPost objectForKey:kKeyPostType] integerValue];
-				if (type == 0) {
+				if (type == kPointsSended) {
 					[sends addObject:topOutPost];
 				}
-				else {
+				else if (type == kPointsFlashed) {
 					[flashes addObject:topOutPost];
 				}
+                else if (type == kPointsWorked) {
+                    [worked addObject:topOutPost];
+                }
 			}
-
-			[self.topOutsButton setTitle:[NSString stringWithFormat:@"Score: %d", sends.count + flashes.count * 10] forState:UIControlStateNormal];
+            
+            NSString *buttonTitle = [NSString stringWithFormat:@"Score: %d", sends.count * kPointsSended + flashes.count * kPointsFlashed + worked.count * kPointsWorked];
+			[self.topOutsButton setTitle:buttonTitle forState:UIControlStateNormal];
 
 			NSLog(@"Flashes: %d, Sends: %d", flashes.count, sends.count);
 		}];
 	}
+    
 	[super viewDidLoad];
 }
 - (IBAction)onTapFollow:(id)sender {
