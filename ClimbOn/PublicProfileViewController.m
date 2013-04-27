@@ -61,7 +61,16 @@
 	[super viewDidLoad];
 }
 - (IBAction)onTapFollow:(id)sender {
-	
+	[ClimbOnUtils toggleFollowRelationship:self.user withBlock:^(BOOL following) {
+		UIButton *followButton = (UIButton *)sender;
+		NSString *newTitle;
+		if (following) {
+			newTitle = @"Unfollow";
+		} else {
+			newTitle = @"Follow";
+		}
+		[followButton setTitle:newTitle forState:UIControlStateNormal];
+	}];
 }
 
 -(void)dealloc {

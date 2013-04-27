@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3103" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -25,7 +25,7 @@
             <objects>
                 <viewController title="Create Route" id="2" customClass="AddRouteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="16">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Route Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dk9-Ye-XfM">
@@ -162,7 +162,7 @@
             <objects>
                 <viewController title="Check In" id="73R-b0-ZZ1" customClass="CheckInViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h1S-N0-Nye">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNN-KI-Baj">
@@ -239,7 +239,7 @@
             <objects>
                 <viewController id="Qzx-i9-BZe" customClass="AddImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dxr-k4-TIF">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FS-sD-0Pj">
@@ -301,7 +301,7 @@
             <objects>
                 <viewController id="ddG-a2-VJA" customClass="FirstAscentViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i5a-Uf-pv0">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUd-cY-XMN">
@@ -833,11 +833,29 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6D-X1-Z2H">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="79" id="k5A-yt-Tyd"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Follow">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onTapFollow:" destination="18L-O9-oxt" eventType="touchUpInside" id="oXs-Ri-bmi"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="VSx-OE-tU9" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="7WQ-ZC-x97"/>
-                                        <constraint firstAttribute="bottom" secondItem="VSx-OE-tU9" secondAttribute="bottom" constant="15" id="QeE-h4-taP"/>
+                                        <constraint firstAttribute="bottom" secondItem="y6D-X1-Z2H" secondAttribute="bottom" constant="15" id="ARe-n0-jiz"/>
+                                        <constraint firstItem="y6D-X1-Z2H" firstAttribute="leading" secondItem="GjB-eb-CcM" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Crz-Is-Rg7"/>
+                                        <constraint firstItem="y6D-X1-Z2H" firstAttribute="baseline" secondItem="VSx-OE-tU9" secondAttribute="baseline" type="default" id="c6Y-Cx-X2N"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wCw-Hg-mpB">
@@ -1090,7 +1108,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="EY7-NB-Bfz" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="791" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="791" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1117,19 +1135,32 @@
                                     <outlet property="createCommentField" destination="7ZK-rK-UWd" id="mKB-Bl-xOT"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loadingCell" rowHeight="48" id="ZxZ-zX-0Zb" customClass="CreateCommentCell">
+                                <rect key="frame" x="0.0" y="839" width="320" height="49"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="0.0" width="300" height="47"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7Kr-yg-7F2"/>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstItem="7Kr-yg-7F2" firstAttribute="centerX" secondItem="ZxZ-zX-0Zb" secondAttribute="centerX" type="default" id="ayr-Mp-VtZ"/>
+                                    <constraint firstItem="7Kr-yg-7F2" firstAttribute="top" secondItem="ZxZ-zX-0Zb" secondAttribute="top" constant="15" id="hF6-pR-hJV"/>
+                                </constraints>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="18L-O9-oxt" id="tKd-HU-dsV"/>
                             <outlet property="delegate" destination="18L-O9-oxt" id="X3F-HI-sAI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="7Dt-ny-ANY">
-                        <barButtonItem key="rightBarButtonItem" title="Follow" style="done" id="dKR-II-ce7">
-                            <connections>
-                                <action selector="onTapFollow:" destination="18L-O9-oxt" id="3P3-CT-yZ7"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="7Dt-ny-ANY"/>
                     <connections>
                         <outlet property="locationLabel" destination="wCw-Hg-mpB" id="lBZ-Vv-Vb9"/>
                         <outlet property="profilePhoto" destination="H3i-Sn-58E" id="h4q-BN-NDs"/>
@@ -1530,7 +1561,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loadingCell" rowHeight="48" id="jNQ-ff-RLY" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="551" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="551" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -2016,16 +2047,17 @@
         </class>
         <class className="FeedViewController" superclassName="PFQueryTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onLikeButton:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onFollowButton:" candidateClass="UIButton"/>
-            </relationships>
         </class>
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
@@ -2060,9 +2092,6 @@
         </class>
         <class className="NearbyRoutesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onCancelButton:"/>
-            </relationships>
         </class>
         <class className="PFImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
@@ -2073,7 +2102,6 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLikeButton:"/>
                 <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
                 <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userProfileImage" candidateClass="PFImageView"/>
@@ -2088,6 +2116,7 @@
         <class className="PrivateProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivateProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
@@ -2099,6 +2128,7 @@
         <class className="PublicProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onTapFollow:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
                 <relationship kind="outlet" name="profileTable" candidateClass="UITableView"/>
@@ -2119,13 +2149,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="E3i-If-5Er"/>
         <segue reference="8Dy-gH-ttF"/>
         <segue reference="4SN-ec-XU3"/>
-        <segue reference="odi-dc-99M"/>
-        <segue reference="TRT-AO-oWF"/>
         <segue reference="y4a-rw-gRh"/>
-        <segue reference="eB8-Wc-82I"/>
         <segue reference="TRT-AO-oWF"/>
+        <segue reference="eB8-Wc-82I"/>
+        <segue reference="E3i-If-5Er"/>
     </inferredMetricsTieBreakers>
 </document>
