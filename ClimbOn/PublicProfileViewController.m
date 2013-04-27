@@ -46,13 +46,13 @@
 
 			for (PFObject *topOutPost in objects) {
 				NSInteger type = [[topOutPost objectForKey:kKeyPostType] integerValue];
-				if (type == kPointsSended) {
+				if (type == kPostTypeSended) {
 					[sends addObject:topOutPost];
 				}
-				else if (type == kPointsFlashed) {
+				else if (type == kPostTypeFlashed) {
 					[flashes addObject:topOutPost];
 				}
-                else if (type == kPointsWorked) {
+                else if (type == kPostTypeWorked) {
                     [worked addObject:topOutPost];
                 }
 			}

@@ -71,7 +71,7 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
     
     self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
     
-    self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended      +5 points", @"Flashed      +10 points", @"Worked      +1 point", @"Lapped", nil];
+    self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended, +5 points", @"Flashed, +10 points", @"Worked, +1 point", @"Lapped", nil];
     
     self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
     
