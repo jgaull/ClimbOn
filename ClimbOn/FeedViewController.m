@@ -163,10 +163,28 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
                     [likeEvent setObject:post forKey:kKeyEventPost];
                     [likeEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (!error) {
-                            
                             //update the likers lookup
                             [[Cache sharedCache] likePost:post];
                             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
+
+							PFQuery *userQuery = [PFUser query];
+							[userQuery whereKey:@"objectId" equalTo:postCreator.objectId];
+
+							PFQuery *pushQuery = [PFInstallation query];
+							[pushQuery whereKey:@"owner" matchesQuery:userQuery];
+
+							PFPush *push = [[PFPush alloc] init];
+							NSString *firstName = [[PFUser currentUser] objectForKey:@"firstName"];
+							NSString *lastInitial = [[[PFUser currentUser] objectForKey:@"lastName"] substringToIndex:1];
+							PFObject *route = [post objectForKey:@"route"];
+							NSString *message = [NSString stringWithFormat:@"%@ %@. just hearted your checkin at %@.", firstName,lastInitial, [route objectForKey:@"name"]];
+
+							[push setQuery:pushQuery]; // Set our Installation query
+							[push setMessage:message];
+							[push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+								if(error)
+									NSLog(@"error:%@",error);
+							}];
                         }
                     }];
                 }
