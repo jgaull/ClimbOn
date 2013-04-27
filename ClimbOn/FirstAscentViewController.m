@@ -7,6 +7,7 @@
 //
 
 #import "FirstAscentViewController.h"
+#import "ClimbOnUtils.h"
 #import "Constants.h"
 
 @interface FirstAscentViewController ()
@@ -77,13 +78,9 @@
     
     [self.route setObject:[PFUser currentUser] forKey:kKeyRouteFirstAscent];
     [self.route setObject:rating forKey:kKeyRouteRating];
+    [self.post setObject:self.route forKey:kKeyPostRoute];
+    [ClimbOnUtils savePostInBackground:self.post];
     
-    [self.route saveEventually];
-    [self.post saveEventually:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPostDidSave object:nil];
-        }
-    }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

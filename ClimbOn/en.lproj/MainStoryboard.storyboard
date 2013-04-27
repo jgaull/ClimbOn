@@ -2127,7 +2127,6 @@
         </class>
         <class className="PublicProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicProfileViewController.h"/>
-<<<<<<< HEAD
             <relationships>
                 <relationship kind="action" name="onTapFollow:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
