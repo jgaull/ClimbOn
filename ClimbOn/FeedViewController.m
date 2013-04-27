@@ -31,6 +31,7 @@ NSString *const HeadingCellIdentifier = @"headingCell";
 NSString *const ImageCellIdentifier = @"imageCell";
 NSString *const CommentCellIdentifier = @"commentCell";
 NSString *const LikesCellIdentifier = @"likesCell";
+NSString *const LoadingCellIdentifier = @"loadingCell";
 
 @interface FeedViewController ()
 
@@ -54,6 +55,7 @@ NSString *const LikesCellIdentifier = @"likesCell";
         self.paginationEnabled = YES;
         self.objectsPerPage = 15;
         self.pullToRefreshEnabled = NO;
+        self.loadingViewEnabled = NO;
     }
     
     return self;
@@ -71,6 +73,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
     self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended, +1 point", @"Flashed, +10 points", @"Worked", @"Lapped", nil];
     
     self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPostDidSave:) name:kNotificationPostDidSave object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,6 +88,8 @@ NSString *const LikesCellIdentifier = @"likesCell";
 -(void)dealloc {
     self.pfImageFileLookup = nil;
     self.query = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationPostDidSave object:nil];
 }
 
 /*- (BOOL)shouldAutorotate {
@@ -190,15 +196,19 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.objects.count;
+    return self.objects.count + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger cellsForImages = [self cellsForImagesInSection:section];
-    PFObject *userText = [self getCommentsForPost:[self.objects objectAtIndex:section]];
-    NSInteger cellsForComments = userText != nil; //if this is not nil then there is 1 comment.
+    if (section < self.objects.count) {
+        NSInteger cellsForImages = [self cellsForImagesInSection:section];
+        PFObject *userText = [self getCommentsForPost:[self.objects objectAtIndex:section]];
+        NSInteger cellsForComments = userText != nil; //if this is not nil then there is 1 comment.
+        
+        return kStaticHeadersCount + cellsForImages + cellsForComments + kStaticFootersCount;
+    }
     
-    return kStaticHeadersCount + cellsForImages + cellsForComments + kStaticFootersCount;
+    return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -206,112 +216,116 @@ NSString *const LikesCellIdentifier = @"likesCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)postData {
-    PFObject *routeData = [postData objectForKey:kKeyPostRoute];
-    PFUser *creator = [postData objectForKey:kKeyPostCreator];
-    
-    NSDictionary *additionalPostInfo = [[Cache sharedCache] infoForPost:postData];
-    if (!additionalPostInfo) {
-        if (![self.outstandingPostInfoQueries objectForKey:[NSNumber numberWithInt:indexPath.section]]) {
-            PFQuery *eventsForPostQuery = [[PFQuery alloc] initWithClassName:kClassEvent];
-            [eventsForPostQuery whereKey:kKeyEventPost equalTo:postData];
-            [self.outstandingPostInfoQueries setObject:eventsForPostQuery forKey:[NSNumber numberWithInt:indexPath.section]];
-            [eventsForPostQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                @synchronized(self) {
-                    if (!error) {
-                        [self.outstandingPostInfoQueries removeObjectForKey:[NSNumber numberWithInt:indexPath.section]];
-                        NSMutableArray *likers = [[NSMutableArray alloc] init];
-                        
-                        for (PFObject *event in objects) {
-                            NSString *eventType = [event objectForKey:kKeyPostType];
-                            
-                            if ([eventType isEqualToString:@"like"]) {
-                                PFUser *fromUser = [event objectForKey:kKeyEventFromUser];
-                                [likers addObject:fromUser];
-                            }
-                        }
-                        
-                        [[Cache sharedCache] setInfoForPost:postData likers:likers];
-                        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
-                    }
-                }
-            }];
-        }
-    }
     
     NSString *cellIdentifier = [self getCellIdentifierForIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if ([cell isKindOfClass:[CheckInHeadingCell class]]) {
-        CheckInHeadingCell *checkinHeadingCell = (CheckInHeadingCell *)cell;
+    if (indexPath.section < self.objects.count) {
+        PFObject *routeData = [postData objectForKey:kKeyPostRoute];
+        PFUser *creator = [postData objectForKey:kKeyPostCreator];
         
-        PFObject *rating = [routeData objectForKey:kKeyRouteRating];
-        NSInteger *accomplishmentType = [[postData objectForKey:kKeyPostType] integerValue];
-        
-        checkinHeadingCell.userProfilePic.file = [creator objectForKey:kKeyUserProfilePicture];
-        [checkinHeadingCell.userProfilePic loadInBackground];
-        checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
-        checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:kKeyRouteName], [rating objectForKey:kKeyRatingName]];
-        checkinHeadingCell.accomplishmentLabel.text = [NSString stringWithFormat:@"%@", [self.accomplishmentTypes objectAtIndex:accomplishmentType]];
-    }
-    else if ([cell isKindOfClass:[PostImageCell class]]) {
-        PostImageCell *postImageCell = (PostImageCell *)cell;
-        postImageCell.postImageView.file = nil;
-        PFFile *image = [self.pfImageFileLookup objectForKey:postData.objectId];
-        if (!image) {
-            PFObject *media = [postData objectForKey:kKeyPostPhoto];
-            PFFile *imageFile = [media objectForKey:kKeyMediaFile];
-            postImageCell.postImageView.file = imageFile;
-            [self.pfImageFileLookup setObject:imageFile forKey:postData.objectId];
-            [postImageCell.postImageView loadInBackground];
+        NSDictionary *additionalPostInfo = [[Cache sharedCache] infoForPost:postData];
+        if (!additionalPostInfo) {
+            if (![self.outstandingPostInfoQueries objectForKey:[NSNumber numberWithInt:indexPath.section]]) {
+                PFQuery *eventsForPostQuery = [[PFQuery alloc] initWithClassName:kClassEvent];
+                [eventsForPostQuery whereKey:kKeyEventPost equalTo:postData];
+                [self.outstandingPostInfoQueries setObject:eventsForPostQuery forKey:[NSNumber numberWithInt:indexPath.section]];
+                [eventsForPostQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    @synchronized(self) {
+                        if (!error) {
+                            [self.outstandingPostInfoQueries removeObjectForKey:[NSNumber numberWithInt:indexPath.section]];
+                            NSMutableArray *likers = [[NSMutableArray alloc] init];
+                            
+                            for (PFObject *event in objects) {
+                                NSString *eventType = [event objectForKey:kKeyPostType];
+                                
+                                if ([eventType isEqualToString:@"like"]) {
+                                    PFUser *fromUser = [event objectForKey:kKeyEventFromUser];
+                                    [likers addObject:fromUser];
+                                }
+                            }
+                            
+                            [[Cache sharedCache] setInfoForPost:postData likers:likers];
+                            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:kLikesCellIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+                        }
+                    }
+                }];
+            }
         }
-        else {
-            postImageCell.postImageView.file = image;
+        
+        if ([cell isKindOfClass:[CheckInHeadingCell class]]) {
+            CheckInHeadingCell *checkinHeadingCell = (CheckInHeadingCell *)cell;
+            
+            PFObject *rating = [routeData objectForKey:kKeyRouteRating];
+            NSInteger *accomplishmentType = [[postData objectForKey:kKeyPostType] integerValue];
+            
+            checkinHeadingCell.userProfilePic.file = [creator objectForKey:kKeyUserProfilePicture];
+            [checkinHeadingCell.userProfilePic loadInBackground];
+            checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
+            checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:kKeyRouteName], [rating objectForKey:kKeyRatingName]];
+            checkinHeadingCell.accomplishmentLabel.text = [NSString stringWithFormat:@"%@", [self.accomplishmentTypes objectAtIndex:accomplishmentType]];
         }
-    }
-    else if ([cell isKindOfClass:[CheckInCommentCell class]]) {
-        CheckInCommentCell *checkinCommentCell = (CheckInCommentCell *)cell;
-        cell = checkinCommentCell;
-        
-        PFObject *comment = [self getCommentForIndexPath:indexPath];
-        PFUser *creator = [comment objectForKey:kKeyCommentCreator];
-        [creator fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
-        }];
-        
-        checkinCommentCell.commentTextView.text = [comment objectForKey:kKeyCommentCommentText];
-    }
-    else if ([cell isKindOfClass:[CreateCommentCell class]]) {
-        CreateCommentCell *createCommentCell = (CreateCommentCell *)cell;
-        createCommentCell.createCommentField.delegate = self;
-        createCommentCell.createCommentField.tag = indexPath.section;
-    }
-    else if ([cell isKindOfClass:[MoreCommentsCell class]]) {
-        MoreCommentsCell *moreCommentsCell = (MoreCommentsCell *)cell;
-        moreCommentsCell.moreButton.tag = indexPath.section;
-    }
-    else if ([cell isKindOfClass:[LikeCell class]]) {
-        LikeCell *likeCell = (LikeCell *)cell;
-        likeCell.likeButton.tag = indexPath.section;
-        likeCell.likesLabel.text = [NSString stringWithFormat:@"%d", [[Cache sharedCache] getLikersForPost:postData].count];
-        
-        BOOL hasLiked = [[Cache sharedCache] getHasUserLikedPost:postData];
-        NSString *buttonImage = hasLiked ? @"likebuttonliked.png" : @"likebutton.png";
-        [likeCell.likeButton setImage:[UIImage imageNamed:buttonImage] forState:UIControlStateNormal];
+        else if ([cell isKindOfClass:[PostImageCell class]]) {
+            PostImageCell *postImageCell = (PostImageCell *)cell;
+            postImageCell.postImageView.file = nil;
+            PFFile *image = [self.pfImageFileLookup objectForKey:postData.objectId];
+            if (!image) {
+                PFObject *media = [postData objectForKey:kKeyPostPhoto];
+                PFFile *imageFile = [media objectForKey:kKeyMediaFile];
+                postImageCell.postImageView.file = imageFile;
+                [self.pfImageFileLookup setObject:imageFile forKey:postData.objectId];
+                [postImageCell.postImageView loadInBackground];
+            }
+            else {
+                postImageCell.postImageView.file = image;
+            }
+        }
+        else if ([cell isKindOfClass:[CheckInCommentCell class]]) {
+            CheckInCommentCell *checkinCommentCell = (CheckInCommentCell *)cell;
+            cell = checkinCommentCell;
+            
+            PFObject *comment = [self getCommentForIndexPath:indexPath];
+            PFUser *creator = [comment objectForKey:kKeyCommentCreator];
+            [creator fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                checkinCommentCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
+            }];
+            
+            checkinCommentCell.commentTextView.text = [comment objectForKey:kKeyCommentCommentText];
+        }
+        else if ([cell isKindOfClass:[CreateCommentCell class]]) {
+            CreateCommentCell *createCommentCell = (CreateCommentCell *)cell;
+            createCommentCell.createCommentField.delegate = self;
+            createCommentCell.createCommentField.tag = indexPath.section;
+        }
+        else if ([cell isKindOfClass:[MoreCommentsCell class]]) {
+            MoreCommentsCell *moreCommentsCell = (MoreCommentsCell *)cell;
+            moreCommentsCell.moreButton.tag = indexPath.section;
+        }
+        else if ([cell isKindOfClass:[LikeCell class]]) {
+            LikeCell *likeCell = (LikeCell *)cell;
+            likeCell.likeButton.tag = indexPath.section;
+            likeCell.likesLabel.text = [NSString stringWithFormat:@"%d", [[Cache sharedCache] getLikersForPost:postData].count];
+            
+            BOOL hasLiked = [[Cache sharedCache] getHasUserLikedPost:postData];
+            NSString *buttonImage = hasLiked ? @"likebuttonliked.png" : @"likebutton.png";
+            [likeCell.likeButton setImage:[UIImage imageNamed:buttonImage] forState:UIControlStateNormal];
+        }
     }
     
     return cell;
 }
 
-// Override if you need to change the ordering of objects in the table.
-- (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.objects objectAtIndex:indexPath.section];
+- (PFTableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.tableView dequeueReusableCellWithIdentifier:LoadingCellIdentifier];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.bounds.size.height && !self.isLoading) {
-        NSLog(@"bottom!");
-        [self loadNextPage];
+// Override if you need to change the ordering of objects in the table.
+- (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section < self.objects.count) {
+        return [self.objects objectAtIndex:indexPath.section];
     }
+    
+    return nil;
 }
 
 #pragma mark - Cell finding helper methods
@@ -338,6 +352,9 @@ NSString *const LikesCellIdentifier = @"likesCell";
         size = [[comment objectForKey:kKeyCommentCommentText] sizeWithFont:[UIFont systemFontOfSize:13.0f] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         return size.height + 21 + 16;
     }
+    else if ([LoadingCellIdentifier isEqualToString:cellIdentifier]) {
+        return 48;
+    }
     else {
         NSLog(@"%@ does not have code to calculate its height.", cellIdentifier);
     }
@@ -347,20 +364,24 @@ NSString *const LikesCellIdentifier = @"likesCell";
 
 - (NSString *)getCellIdentifierForIndexPath:(NSIndexPath *)indexPath {
     
-    NSInteger cellsForImages = [self cellsForImagesInSection:indexPath.section];
+    if (indexPath.section < self.objects.count) {
+        NSInteger cellsForImages = [self cellsForImagesInSection:indexPath.section];
+        
+        if (indexPath.row == kHeaderCellIndex) {
+            return HeadingCellIdentifier;
+        }
+        else if (indexPath.row == kLikesCellIndex) {
+            return LikesCellIdentifier;
+        }
+        else if (indexPath.row == kStaticHeadersCount && cellsForImages >= 1) {
+            return ImageCellIdentifier;
+        }
+        else {
+            return CommentCellIdentifier;
+        }
+    }
     
-    if (indexPath.row == kHeaderCellIndex) {
-        return HeadingCellIdentifier;
-    }
-    else if (indexPath.row == kLikesCellIndex) {
-        return LikesCellIdentifier;
-    }
-    else if (indexPath.row == kStaticHeadersCount && cellsForImages >= 1) {
-        return ImageCellIdentifier;
-    }
-    else {
-        return CommentCellIdentifier;
-    }
+    return LoadingCellIdentifier;
 }
 
 - (NSInteger)cellsForImagesInSection:(NSInteger)section {
@@ -448,6 +469,16 @@ NSString *const LikesCellIdentifier = @"likesCell";
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
     [self.refreshControl endRefreshing];
+}
+
+- (void)onPostDidSave:(NSNotification *)note {
+    [self loadObjects];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.bounds.size.height && !self.isLoading) {
+        [self loadNextPage];
+    }
 }
 
 @end

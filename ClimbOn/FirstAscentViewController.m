@@ -79,7 +79,11 @@
     [self.route setObject:rating forKey:kKeyRouteRating];
     
     [self.route saveEventually];
-    [self.post saveEventually];
+    [self.post saveEventually:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPostDidSave object:nil];
+        }
+    }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

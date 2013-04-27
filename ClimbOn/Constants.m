@@ -15,6 +15,9 @@ NSString *const kSegueRoute				 = @"viewRoute";
 NSString *const kSeguePrivateProfile     = @"viewPrivateProfile";
 NSString *const kSeguePublicProfile      = @"viewPublicProfile";
 
+#pragma mark - Notifications
+NSString *const kNotificationPostDidSave = @"kNotificationPostDidSave";
+
 #pragma mark - Parse Object Class Names
 NSString *const kClassPost               = @"Post";
 NSString *const kClassUser               = @"User";

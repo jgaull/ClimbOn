@@ -15,6 +15,9 @@ extern NSString *const kSegueRoute;
 extern NSString *const kSeguePrivateProfile;
 extern NSString *const kSeguePublicProfile;
 
+#pragma mark - Notifications
+extern NSString *const kNotificationPostDidSave;
+
 #pragma mark - NSUserDefaults
 extern NSString *const kClassPost;
 extern NSString *const kClassUser;
