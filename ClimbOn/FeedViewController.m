@@ -41,9 +41,10 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
 
 @property (nonatomic, strong) NSArray *accomplishmentTypes;
 
-@property (nonatomic) NSInteger *postType;
+@property (nonatomic) NSInteger postType;
 
 @property (nonatomic) int remainingQueries;
+@property (nonatomic) NSInteger numObjectsBeforeLoad;
 //@property (nonatomic) BOOL isPlayingMovie;
 
 @end
@@ -93,38 +94,7 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationPostDidSave object:nil];
 }
 
-/*- (BOOL)shouldAutorotate {
-    return self.isPlayingMovie;
-}*/
-
 #pragma mark - Button Listeners
-
-/*- (IBAction)onMoreCommentsButton:(UIButton *)sender {
-    NSInteger section = sender.tag;
-    
-    PFObject *post = [self.postsList objectAtIndex:section];
-    PFObject *userText = [post objectForKey:kKeyPostUserText];
-    
-    PFRelation *relation = [post objectForKey:@"comments"];
-    PFQuery *query = relation.query;
-    [query orderByAscending:kKeyCreatedAt];
-    query.limit = 50;
-    query.skip = comments.count;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            
-            NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-            for (NSInteger i = comments.count; i < objects.count + comments.count; i++) {
-                [indexPaths addObject:[NSIndexPath indexPathForRow:i + kStaticHeadersCount inSection:section]];
-            }
-            
-            [self.tableView beginUpdates];
-            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
-            [comments addObjectsFromArray:objects];
-            [self.tableView endUpdates];
-        }
-    }];
-}*/
 
 - (IBAction)onLikeButton:(UIButton *)sender {
     
@@ -194,23 +164,6 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
         }];
     }
 }
-
-/*- (IBAction)onPlayButton:(UIButton *)sender {
-    PFObject *post = [self.postsList objectAtIndex:sender.tag];
-    PFObject *videoMedia = [post objectForKey:@"video"];
-    PFFile *video = [videoMedia objectForKey:kKeyMediaFile];
-    
-    NSURL *movieURL = [NSURL URLWithString:video.url];
-    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:movieURL];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerDidDismiss:) name:MPMoviePlayerPlaybackDidFinishNotification object:movieController.moviePlayer];
-    [self presentMoviePlayerViewControllerAnimated:movieController];
-    
-    self.isPlayingMovie = YES;
-}*/
-
-/*- (void)moviePlayerDidDismiss:(NSNotification *)note {
-    self.isPlayingMovie = NO;
-}*/
 
 #pragma mark - Table view data source
 
@@ -442,46 +395,15 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
     return self.query;
 }
 
-#pragma mark - Text Field Delegate Methods
-
-/*- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    
-    if (![textField.text isEqualToString:@""]) {
-        NSInteger section = textField.tag;
-        PFObject *postData = [self.postsList objectAtIndex:section];
-        
-        PFObject *comment = [[PFObject alloc] initWithClassName:kClassComment];
-        [comment setObject:[PFUser currentUser] forKey:kKeyPostCreator];
-        [comment setObject:textField.text forKey:kKeyCommentCommentText];
-        [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                PFRelation *relation = [postData objectForKey:@"comments"];
-                [postData incrementKey:@"numComments"];
-                [relation addObject:comment];
-                [postData saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (!error) {
-                        textField.text = nil;
-                        
-                        PFObject *userText = [self getCommentsForPost:postData];
-                        
-                        [self.tableView beginUpdates];
-                        [comments addObject:comment];
-                        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:comments.count + kStaticHeadersCount inSection:section]] withRowAnimation:UITableViewRowAnimationTop];
-                        [self.tableView endUpdates];
-                    }
-                }];
-            }
-        }];
-    }
-    
-    return NO;
-}*/
-
 #pragma mark - Refresh control functions
 
 - (void)onRefresh:(UIRefreshControl *)sender {
     [self loadObjects];
+}
+
+- (void)objectsWillLoad {
+    self.numObjectsBeforeLoad = self.objects.count;
+    [super objectsWillLoad];
 }
 
 - (void)objectsDidLoad:(NSError *)error {
@@ -494,9 +416,14 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if(self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.bounds.size.height && !self.isLoading) {
+    if(self.tableView.contentOffset.y >= self.tableView.contentSize.height - self.tableView.bounds.size.height && !self.isLoading && self.numObjectsBeforeLoad != self.objects.count) {
         [self loadNextPage];
+        NSLog(@"Loading");
     }
+}
+
+- (BOOL)hasLoadedNewData {
+    return self.objects.count != self.numObjectsBeforeLoad;
 }
 
 @end

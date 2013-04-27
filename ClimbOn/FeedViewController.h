@@ -9,14 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface FeedViewController : PFQueryTableViewController <UITextFieldDelegate>
+@interface FeedViewController : PFQueryTableViewController
 
 @property (strong, nonatomic) PFQuery* query;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
-
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 //- (BOOL)shouldAutorotate;
 
 @end
