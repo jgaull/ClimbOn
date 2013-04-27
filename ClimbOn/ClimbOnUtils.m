@@ -30,8 +30,8 @@
     NSMutableArray *currentlyFollowing = [[NSMutableArray alloc] initWithArray:[[PFUser currentUser] objectForKey:kKeyUserFollowing]];
 
 	if ([self isFollowingUser:targetUser]) {
-		for(PFUser *user in currentlyFollowing){
-			if([targetUser.objectId isEqualToString:targetUser.objectId])
+		for(PFUser *user in [[PFUser currentUser] objectForKey:kKeyUserFollowing]){
+			if([user.objectId isEqualToString:targetUser.objectId])
 			{
 				[currentlyFollowing removeObject:user];
 				continue;
