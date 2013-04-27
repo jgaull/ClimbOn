@@ -61,6 +61,23 @@
 				// add to channel
 				[installation addUniqueObject:channelName forKey:kKeyInstallationChannels];
 				[installation saveEventually];
+
+				//send push to followed
+				PFQuery *userQuery = [PFUser query];
+				[userQuery whereKey:@"objectId" equalTo:targetUser.objectId];
+
+				PFQuery *pushQuery = [PFInstallation query];
+				[pushQuery whereKey:@"owner" matchesQuery:userQuery];
+
+				PFPush *push = [[PFPush alloc] init];
+				NSString *message = [NSString stringWithFormat:@"%@ is now following you.", [ClimbOnUtils firstNameLastInitialWithUser:[PFUser currentUser]]];
+
+				[push setQuery:pushQuery]; // Set our Installation query
+				[push setMessage:message];
+				[push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+					if(error)
+						NSLog(@"error:%@",error);
+				}];
 			}
 			else {
 				// unfollowed user
