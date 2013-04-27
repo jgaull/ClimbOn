@@ -10,6 +10,7 @@
 #import "CheckInViewController.h"
 #import "RouteViewController.h"
 #import "Constants.h"
+#import "PublicProfileViewController.h"
 
 @interface PostDetailsViewController ()
 
@@ -68,12 +69,24 @@
 - (IBAction)onLikeButton:(id)sender {
     
 }
+- (IBAction)onProfileTap:(id)sender {
+	PFUser *currentUser = [PFUser currentUser];
+    PFUser *creator = [self.postData objectForKey:kKeyPostCreator];
+	if (creator == currentUser) {
+		[self performSegueWithIdentifier:kSeguePrivateProfile sender:sender];
+	} else {
+		[self performSegueWithIdentifier:kSeguePublicProfile sender:sender];
+	}
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"viewRoute"]) {
+    if ([segue.identifier isEqualToString:kSegueRoute]) {
         RouteViewController *viewController = (RouteViewController *)segue.destinationViewController;
         viewController.routeData = [self.postData objectForKey:kKeyPostRoute];
-    }
+    } else if ([segue.identifier isEqualToString:kSeguePublicProfile]) {
+		PublicProfileViewController *viewController = (PublicProfileViewController *)segue.destinationViewController;
+		viewController.user = [self.postData objectForKey:kKeyPostCreator];
+	}
 }
 
 -(void)dealloc {

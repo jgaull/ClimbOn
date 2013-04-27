@@ -10,6 +10,10 @@
 
 @interface Constants : NSObject
 
+#pragma mark - Segue Names: Post Details
+extern NSString *const kSegueRoute;
+extern NSString *const kSeguePrivateProfile;
+extern NSString *const kSeguePublicProfile;
 
 #pragma mark - NSUserDefaults
 extern NSString *const kClassPost;

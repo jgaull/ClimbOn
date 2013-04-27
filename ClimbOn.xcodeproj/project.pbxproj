@@ -10,6 +10,7 @@
 		932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 932C7EF716EBEF20001F6F7A /* AddImageViewController.m */; };
 		932C940416EC8CB4001F6F7A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932C940316EC8CB4001F6F7A /* AVFoundation.framework */; };
 		93958B2917229DEF00778D1E /* FolloweeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C9A6C6172299CA0039B28A /* FolloweeCell.m */; };
+		93BE1242172B5C2C005909CA /* PublicProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BE1241172B5C2C005909CA /* PublicProfileViewController.m */; };
 		93C9A6C7172299CA0039B28A /* FolloweeCell.m in Resources */ = {isa = PBXBuildFile; fileRef = 93C9A6C6172299CA0039B28A /* FolloweeCell.m */; };
 		93F5A7CB16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
 		93F5A7CC16D9DF9300B2476F /* RouteAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */; };
@@ -102,6 +103,8 @@
 		932C7EF616EBEF20001F6F7A /* AddImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageViewController.h; sourceTree = "<group>"; };
 		932C7EF716EBEF20001F6F7A /* AddImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AddImageViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		932C940316EC8CB4001F6F7A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		93BE1240172B5C2C005909CA /* PublicProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicProfileViewController.h; sourceTree = "<group>"; };
+		93BE1241172B5C2C005909CA /* PublicProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicProfileViewController.m; sourceTree = "<group>"; };
 		93C9A6C6172299CA0039B28A /* FolloweeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolloweeCell.m; sourceTree = "<group>"; };
 		93C9A6C8172299FA0039B28A /* FolloweeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolloweeCell.h; sourceTree = "<group>"; };
 		93F5A7C716D9DF9300B2476F /* RouteAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotationView.m; sourceTree = "<group>"; };
@@ -368,6 +371,8 @@
 				C8E35043172322AE0011E6F6 /* ClimbOnUtils.m */,
 				FC26B4141729090B002FF306 /* Cache.h */,
 				FC26B4151729090B002FF306 /* Cache.m */,
+				93BE1240172B5C2C005909CA /* PublicProfileViewController.h */,
+				93BE1241172B5C2C005909CA /* PublicProfileViewController.m */,
 			);
 			path = ClimbOn;
 			sourceTree = "<group>";
@@ -574,6 +579,7 @@
 				FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */,
 				C8E35044172322AE0011E6F6 /* ClimbOnUtils.m in Sources */,
 				FC26B4161729090B002FF306 /* Cache.m in Sources */,
+				93BE1242172B5C2C005909CA /* PublicProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #import "FindFriendsViewController.h"
 #import "FollowUserCell.h"
 #import "Constants.h"
+#import "ClimbOnUtils.h"
 #import <Parse/Parse.h>
 
 @interface FindFriendsViewController ()
@@ -120,7 +121,7 @@
     
     PFUser *userDataForRow = [self.data objectAtIndex:indexPath.row];
     
-    if ([self isFollowingUser:userDataForRow]) {
+    if ([ClimbOnUtils isFollowingUser:userDataForRow]) {
         [cell.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
     }
     else {
@@ -134,65 +135,22 @@
 }
 
 - (IBAction)onFollowButton:(UIButton *)sender {
-    PFUser *userDataForRow = [self.data objectAtIndex:sender.tag];
-    NSMutableArray *currentlyFollowing = [[NSMutableArray alloc] initWithArray:[[PFUser currentUser] objectForKey:kKeyUserFollowing]];
 
+    PFUser *userDataForRow = [self.data objectAtIndex:sender.tag];
+	
 	//set loading state
 	[sender setTitle:@"..." forState:UIControlStateNormal];
-
-	if ([self isFollowingUser:userDataForRow]) {
-		for(PFUser *user in currentlyFollowing){
-			if([user.objectId isEqualToString:userDataForRow.objectId])
-			{
-				[currentlyFollowing removeObject:user];
-				continue;
-			}
+	
+	[ClimbOnUtils toggleFollowRelationship:userDataForRow withBlock:^(BOOL following) {
+		NSString *newButtonTitle;
+		if(following) {
+			newButtonTitle = @"Unfollow";
+		} else {
+			newButtonTitle = @"Follow";
 		}
-	}
-	else {
-		[currentlyFollowing addObject:userDataForRow];
-	}
-//[{"__type":"Pointer","className":"_User","objectId":"aYNUfEsASm"},{"__type":"Pointer","className":"_User","objectId":"lo4x6cHeHy"}]
-    [[PFUser currentUser] setObject:currentlyFollowing forKey:kKeyUserFollowing];
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-			NSString *newButtonTitle;
-			NSString *channelName = [NSString stringWithFormat:@"user_%@", [userDataForRow objectId]];
-			PFInstallation *installation = [PFInstallation currentInstallation];
-			if ([self isFollowingUser:userDataForRow]) {
-				// followed user
-				// add to channel
-				[installation addUniqueObject:channelName forKey:kKeyInstallationChannels];
-				[installation saveEventually];
-
-				newButtonTitle = @"Unfollow";
-			}
-			else {
-				// unfollowed user
-				// remove from channel
-				[installation removeObject:channelName forKey:kKeyInstallationChannels];
-				[installation saveEventually];
-
-				newButtonTitle = @"Follow";
-			}
-			//update button title
-            [sender setTitle:newButtonTitle forState:UIControlStateNormal];
-        }
-        else {
-            NSLog(@"Error following or unfollowing user: %@", error.localizedDescription);
-        }
-    }];
-}
-
-- (BOOL)isFollowingUser:(PFUser *)user {
-    NSArray *following = [[NSArray alloc] initWithArray:[[PFUser currentUser] objectForKey:kKeyUserFollowing]];
-    for (PFUser *followingUser in following) {
-        if ([followingUser.objectId isEqualToString:user.objectId]) {
-            return YES;
-        }
-    }
-    
-    return NO;
+		//update button title
+		[sender setTitle:newButtonTitle forState:UIControlStateNormal];
+	}];
 }
 
 /*

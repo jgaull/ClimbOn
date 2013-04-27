@@ -12,5 +12,7 @@
 @interface ClimbOnUtils : NSObject
 
 + (PFQuery *)getTopoutsQueryForUser:(PFUser *)user;
++ (void)toggleFollowRelationship:(PFUser *)targetUser withBlock:(void (^)(BOOL following))completion;
++ (BOOL)isFollowingUser:(PFUser *)user;
 
 @end

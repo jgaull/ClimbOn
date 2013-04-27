@@ -10,6 +10,11 @@
 
 @implementation Constants
 
+#pragma mark - Segue Names
+NSString *const kSegueRoute				 = @"viewRoute";
+NSString *const kSeguePrivateProfile     = @"viewPrivateProfile";
+NSString *const kSeguePublicProfile      = @"viewPublicProfile";
+
 #pragma mark - Parse Object Class Names
 NSString *const kClassPost               = @"Post";
 NSString *const kClassUser               = @"User";
