@@ -41,7 +41,7 @@
     PFUser *creator = [self.postData objectForKey:kKeyPostCreator];
     PFObject *route = [self.postData objectForKey:kKeyPostRoute];
     PFObject *rating = [route objectForKey:kKeyRouteRating];
-    PFObject *postPhoto = [self.postData objectForKey:kKeyPostPhoto];
+    PFFile *postPhoto = [self.postData objectForKey:kKeyPostPhotoFile];
     //PFObject *routePhoto = [route objectForKey:kKeyPostPhoto];
     
     // Configure the cell...
@@ -54,10 +54,8 @@
         [self.view setNeedsDisplay];
     }];
     
-    [postPhoto fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        self.postImage.file = [object objectForKey:kKeyMediaFile];
-        [self.view setNeedsDisplay];
-    }];
+    self.postImage.file = postPhoto;
+    [self.view setNeedsDisplay];
 }
 
 - (void)didReceiveMemoryWarning

@@ -8,6 +8,7 @@
 
 #import "ClimbOnUtils.h"
 #import "Constants.h"
+#import "Cache.h"
 
 @implementation ClimbOnUtils
 
@@ -68,6 +69,29 @@
 			completion(following);
 		}
     }];
+}
+
++ (void)savePostInBackground:(PFObject *)post {
+    [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		PFPush *push = [[PFPush alloc] init];
+		PFUser *currentUser = [PFUser currentUser];
+        PFObject *route = [post objectForKey:kKeyPostRoute];
+		NSString *channel = [NSString stringWithFormat:@"user_%@", currentUser.objectId];
+		NSString *firstName = [currentUser objectForKey:kKeyUserFirstName];
+		NSString *lastName = [currentUser objectForKey:kKeyUserLastName];
+		NSString *lastInitial = @"";
+        NSString *routeName = [route objectForKey:kKeyRouteName];
+		if(lastName.length > 0)
+			lastInitial = [NSString stringWithFormat:@"%@. ", [lastName substringToIndex:1]];
+		NSString *message = [NSString stringWithFormat:@"%@ %@just checked in to %@!", firstName, lastInitial, routeName];
+		[push setChannel:channel];
+		[push setMessage:message];
+		[push sendPushInBackground];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPostDidSave object:nil];
+        
+        [[Cache sharedCache] setInfoForPost:post likers:[[NSMutableArray alloc] init]];
+	}];
 }
 
 + (BOOL)isFollowingUser:(PFUser *)user {

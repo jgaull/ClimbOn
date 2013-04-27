@@ -24,7 +24,6 @@ extern NSString *const kClassUser;
 extern NSString *const kClassComment;
 extern NSString *const kClassEvent;
 extern NSString *const kClassRole;
-extern NSString *const kClassMedia;
 extern NSString *const kClassRating;
 extern NSString *const kClassSocialNetworkId;
 extern NSString *const kClassRoute;
@@ -36,7 +35,7 @@ extern NSString *const kKeyACL;
 
 #pragma mark - Parse Object Post Key Names
 extern NSString *const kKeyPostCreator;
-extern NSString *const kKeyPostPhoto;
+extern NSString *const kKeyPostPhotoFile;
 extern NSString *const kKeyPostRoute;
 extern NSString *const kKeyPostType;
 extern NSString *const kKeyPostUserText;
@@ -63,9 +62,6 @@ extern NSString *const kKeyEventFromUser;
 extern NSString *const kKeyEventPost;
 extern NSString *const kKeyEventType;
 
-#pragma mark - Parse Object File Key Names
-extern NSString *const kKeyMediaFile;
-
 #pragma mark - Parse Object Rating Key Names
 extern NSString *const kKeyRatingClimbingType;
 extern NSString *const kKeyRatingDifficulty;
@@ -89,7 +85,6 @@ extern NSString *const kKeyRouteCreator;
 extern NSString *const kKeyRouteFirstAscent;
 extern NSString *const kKeyRouteLocation;
 extern NSString *const kKeyRouteName;
-extern NSString *const kKeyRoutePhoto;
 extern NSString *const kKeyRouteRating;
 
 @end

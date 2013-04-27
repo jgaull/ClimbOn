@@ -9,7 +9,7 @@
 #import "AddImageViewController.h"
 #import "FirstAscentViewController.h"
 #import "Constants.h"
-#import <MediaPlayer/MediaPlayer.h>
+#import "ClimbOnUtils.h"
 
 @interface AddImageViewController ()
 
@@ -67,36 +67,14 @@
 
 #pragma mark - advancing the user flow
 -(void)exitView {
-    
-    [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-		PFPush *push = [[PFPush alloc] init];
-		PFUser *currentUser = [PFUser currentUser];
-		NSString *channel = [NSString stringWithFormat:@"user_%@", currentUser.objectId];
-		NSString *firstName = [currentUser objectForKey:kKeyUserFirstName];
-		NSString *lastName = [currentUser objectForKey:kKeyUserLastName];
-		NSString *lastInitial = @"";
-		if(lastName.length > 0)
-			lastInitial = [NSString stringWithFormat:@"%@. ", [lastName substringToIndex:1]];
-		NSString *routeName = [self.route objectForKey:kKeyRouteName];
-		NSString *message = [NSString stringWithFormat:@"%@ %@just checked in to %@!", firstName, lastInitial, routeName];
-		[push setChannel:channel];
-		[push setMessage:message];
-		[push sendPushInBackground];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPostDidSave object:nil];
-	}];
-    
-    // set route image
-    if([self.route objectForKey:kKeyRoutePhoto] == nil)
-    {
-        [self.route saveInBackground];
-    }
-
 	unsigned int climbingType = [[[self.route objectForKey:kKeyRouteRating] objectForKey:kKeyRatingClimbingType] intValue];
-    if (climbingType == 0 && [self didSendRoute])
+    if (climbingType == 0 && [self didSendRoute]) {
         [self performSegueWithIdentifier:@"rateRoute" sender:self];
-    else
+    }
+    else {
         [self dismissViewControllerAnimated:YES completion:nil];
+        [ClimbOnUtils savePostInBackground:self.post];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -115,7 +93,7 @@
             [alert show];
             self.doneButton.enabled = YES;
         } else {
-            [self createMediaObjectWithFile:file];
+            [self updatePostAndRouteWithMedia:file];
         }
     } progressBlock:^(int percentDone) {
         float percentage = percentDone;
@@ -123,30 +101,8 @@
     }];
 }
 
-- (void) createMediaObjectWithFile:(PFFile *)file {
-    PFObject *media = [[PFObject alloc] initWithClassName:kClassMedia];
-    [media setObject:file forKey:kKeyMediaFile];
-    [media saveEventually:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            //do something
-            [self updatePostAndRouteWithMedia:media];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went terribly wrong adding your image." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Bummer", nil];
-            [alert show];
-            self.doneButton.enabled = YES;
-        }
-    }];
-}
-
-- (void) updatePostAndRouteWithMedia:(PFObject *)media {
-    [self.post setObject:media forKey:kKeyPostPhoto];
-    
-    // set route image
-    if([self.route objectForKey:kKeyRoutePhoto] == nil)
-    {
-        [self.route setObject:media forKey:kKeyRoutePhoto];
-    }
-    
+- (void) updatePostAndRouteWithMedia:(PFFile *)file {
+    [self.post setObject:file forKey:kKeyPostPhotoFile];
     [self exitView];
 }
 

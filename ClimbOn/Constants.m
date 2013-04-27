@@ -24,7 +24,6 @@ NSString *const kClassUser               = @"User";
 NSString *const kClassComment            = @"Comment";
 NSString *const kClassEvent              = @"Event";
 NSString *const kClassRole               = @"Role";
-NSString *const kClassMedia              = @"Media";
 NSString *const kClassRating             = @"Rating";
 NSString *const kClassSocialNetworkId    = @"SocialNetworkId";
 NSString *const kClassInstallation       = @"Installation";
@@ -37,7 +36,7 @@ NSString *const kKeyACL          = @"ACL";
 
 #pragma mark - Parse Object Post Key Names
 NSString *const kKeyPostCreator     = @"creator";
-NSString *const kKeyPostPhoto       = @"photo";
+NSString *const kKeyPostPhotoFile   = @"photo";
 NSString *const kKeyPostRoute       = @"route";
 NSString *const kKeyPostType        = @"type";
 NSString *const kKeyPostUserText    = @"userText";
@@ -64,9 +63,6 @@ NSString *const kKeyEventFromUser   = @"fromUser";
 NSString *const kKeyEventPost       = @"post";
 NSString *const kKeyEventType       = @"type";
 
-#pragma mark - Parse Object Media Key Names
-NSString *const kKeyMediaFile       = @"file";
-
 #pragma mark - Parse Object Rating Key Names
 NSString *const kKeyRatingClimbingType      = @"climbingType";
 NSString *const kKeyRatingDifficulty        = @"difficulty";
@@ -90,7 +86,6 @@ NSString *const kKeyRouteCreator        = @"creator";
 NSString *const kKeyRouteFirstAscent    = @"firstAscent";
 NSString *const kKeyRouteLocation       = @"location";
 NSString *const kKeyRouteName           = @"name";
-NSString *const kKeyRoutePhoto          = @"photo";
 NSString *const kKeyRouteRating         = @"rating";
 
 @end

@@ -270,8 +270,7 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
             postImageCell.postImageView.file = nil;
             PFFile *image = [self.pfImageFileLookup objectForKey:postData.objectId];
             if (!image) {
-                PFObject *media = [postData objectForKey:kKeyPostPhoto];
-                PFFile *imageFile = [media objectForKey:kKeyMediaFile];
+                PFFile *imageFile = [postData objectForKey:kKeyPostPhotoFile];
                 postImageCell.postImageView.file = imageFile;
                 [self.pfImageFileLookup setObject:imageFile forKey:postData.objectId];
                 [postImageCell.postImageView loadInBackground];
@@ -386,7 +385,7 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
 
 - (NSInteger)cellsForImagesInSection:(NSInteger)section {
     PFObject *post = [self.objects objectAtIndex:section];
-    PFObject *photo = [post objectForKey:kKeyPostPhoto];
+    PFFile *photo = [post objectForKey:kKeyPostPhotoFile];
     return photo != nil;
 }
 
@@ -417,7 +416,6 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
     [self.query includeKey:kKeyPostCreator];
     [self.query includeKey:kKeyPostRoute];
     [self.query includeKey:[NSString stringWithFormat:@"%@.%@", kKeyPostRoute, kKeyRouteRating]];
-    [self.query includeKey:kKeyPostPhoto];
     [self.query includeKey:kKeyPostUserText];
     [self.query orderByDescending:kKeyCreatedAt];
     
