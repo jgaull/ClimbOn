@@ -833,6 +833,9 @@
                                             <state key="highlighted">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <segue destination="mrS-PV-qmI" kind="push" id="uJQ-ar-6EE"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6D-X1-Z2H">
                                             <constraints>
@@ -2006,6 +2009,8 @@
         <class className="AddImageViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onAddImageButton:"/>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="progressBar" candidateClass="UIProgressView"/>
@@ -2047,6 +2052,7 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="accomplishmentSelectorSegmentedControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
@@ -2066,16 +2072,21 @@
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onFollowButton:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
             </relationships>
         </class>
@@ -2104,6 +2115,9 @@
         </class>
         <class className="NearbyRoutesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onCancelButton:"/>
+            </relationships>
         </class>
         <class className="PFImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
@@ -2114,6 +2128,8 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLikeButton:"/>
+                <relationship kind="action" name="onProfileTap:"/>
                 <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
                 <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userProfileImage" candidateClass="PFImageView"/>
@@ -2128,6 +2144,7 @@
         <class className="PrivateProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivateProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
@@ -2139,6 +2156,7 @@
         <class className="PublicProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onTapFollow:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
                 <relationship kind="outlet" name="profileTable" candidateClass="UITableView"/>
@@ -2159,11 +2177,12 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="odi-dc-99M"/>
         <segue reference="Rpc-TY-YgI"/>
-        <segue reference="E3i-If-5Er"/>
-        <segue reference="TRT-AO-oWF"/>
+        <segue reference="odi-dc-99M"/>
         <segue reference="4SN-ec-XU3"/>
+        <segue reference="TRT-AO-oWF"/>
+        <segue reference="uJQ-ar-6EE"/>
         <segue reference="eB8-Wc-82I"/>
+        <segue reference="E3i-If-5Er"/>
     </inferredMetricsTieBreakers>
 </document>

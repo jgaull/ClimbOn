@@ -26,7 +26,6 @@
 	// Register for push notifications
     [application registerForRemoteNotificationTypes:
 					 UIRemoteNotificationTypeBadge |
-					 UIRemoteNotificationTypeAlert |
 					 UIRemoteNotificationTypeSound];
     
     [PFImageView class];
