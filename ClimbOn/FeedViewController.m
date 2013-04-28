@@ -264,11 +264,6 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
             
             checkinCommentCell.commentTextView.text = [comment objectForKey:kKeyCommentCommentText];
         }
-        else if ([cell isKindOfClass:[CreateCommentCell class]]) {
-            CreateCommentCell *createCommentCell = (CreateCommentCell *)cell;
-            createCommentCell.createCommentField.delegate = self;
-            createCommentCell.createCommentField.tag = indexPath.section;
-        }
         else if ([cell isKindOfClass:[MoreCommentsCell class]]) {
             MoreCommentsCell *moreCommentsCell = (MoreCommentsCell *)cell;
             moreCommentsCell.moreButton.tag = indexPath.section;
