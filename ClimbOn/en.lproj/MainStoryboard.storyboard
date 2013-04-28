@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3103" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -1167,6 +1167,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="7Dt-ny-ANY"/>
                     <connections>
+                        <outlet property="followButton" destination="y6D-X1-Z2H" id="FxS-TD-zqO"/>
                         <outlet property="locationLabel" destination="wCw-Hg-mpB" id="lBZ-Vv-Vb9"/>
                         <outlet property="profilePhoto" destination="H3i-Sn-58E" id="h4q-BN-NDs"/>
                         <outlet property="profileTable" destination="yeu-YE-hTY" id="dmd-LO-zKl"/>
@@ -2009,8 +2010,6 @@
         <class className="AddImageViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddImageViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onAddImageButton:"/>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="addImageButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="progressBar" candidateClass="UIProgressView"/>
@@ -2052,7 +2051,6 @@
         <class className="CheckInViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="accomplishmentSelectorSegmentedControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="checkInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
@@ -2072,21 +2070,16 @@
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onFollowButton:" candidateClass="UIButton"/>
-            </relationships>
         </class>
         <class className="FirstAscentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstAscentViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onDoneButton:"/>
                 <relationship kind="outlet" name="pickerView" candidateClass="UIPickerView"/>
             </relationships>
         </class>
         <class className="FirstLoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FirstLoginViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="profilePic" candidateClass="UIImageView"/>
             </relationships>
         </class>
@@ -2115,9 +2108,6 @@
         </class>
         <class className="NearbyRoutesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NearbyRoutesViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onCancelButton:"/>
-            </relationships>
         </class>
         <class className="PFImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFImageView.h"/>
@@ -2128,8 +2118,6 @@
         <class className="PostDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostDetailsViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLikeButton:"/>
-                <relationship kind="action" name="onProfileTap:"/>
                 <relationship kind="outlet" name="postImage" candidateClass="PFImageView"/>
                 <relationship kind="outlet" name="routeNameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userProfileImage" candidateClass="PFImageView"/>
@@ -2144,7 +2132,6 @@
         <class className="PrivateProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivateProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
@@ -2157,6 +2144,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicProfileViewController.h"/>
             <relationships>
                 <relationship kind="action" name="onTapFollow:"/>
+                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
                 <relationship kind="outlet" name="profileTable" candidateClass="UITableView"/>

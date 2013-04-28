@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *profileTable;
 @property (strong, nonatomic) IBOutlet PFImageView *profilePhoto;
 @property (strong, nonatomic) IBOutlet UIButton *topOutsButton;
+@property (strong, nonatomic) IBOutlet UIButton *followButton;
 
 @end
 
@@ -36,6 +37,11 @@
 		self.locationLabel.text = [self.user objectForKey:kKeyUserLocation];
 		self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [self.user objectForKey:kKeyUserFirstName], [self.user objectForKey:kKeyUserLastName]];
 
+		if([ClimbOnUtils isFollowingUser:self.user])
+			[self.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+		else
+			[self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
+		
 		PFQuery *topOutsQuery = [ClimbOnUtils getScoringEventsForUser:[PFUser currentUser]];
 		NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30*24*60*60];
 		[topOutsQuery whereKey:kKeyCreatedAt greaterThan:thirtyDaysAgo];

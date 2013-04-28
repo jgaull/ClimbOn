@@ -52,13 +52,14 @@
 	//[{"__type":"Pointer","className":"_User","objectId":"aYNUfEsASm"},{"__type":"Pointer","className":"_User","objectId":"lo4x6cHeHy"}]
     [[PFUser currentUser] setObject:currentlyFollowing forKey:kKeyUserFollowing];
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-		BOOL *following = [ClimbOnUtils isFollowingUser:targetUser];
+		BOOL following = [ClimbOnUtils isFollowingUser:targetUser];
         if (!error) {
 			NSString *channelName = [NSString stringWithFormat:@"user_%@", [targetUser objectId]];
 			PFInstallation *installation = [PFInstallation currentInstallation];
 			if (following) {
 				// followed user
 				// add to channel
+				
 				[installation addUniqueObject:channelName forKey:kKeyInstallationChannels];
 				[installation saveEventually];
 
@@ -83,7 +84,10 @@
 				// unfollowed user
 				// remove from channel
 				[installation removeObject:channelName forKey:kKeyInstallationChannels];
-				[installation saveEventually];
+				[installation saveEventually:^(BOOL succeeded, NSError *error) {
+					if(error)
+						NSLog(@"error:%@",error);
+				}];
 			}
         }
         else {
