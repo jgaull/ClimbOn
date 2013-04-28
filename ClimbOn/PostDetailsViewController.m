@@ -70,7 +70,7 @@
 - (IBAction)onProfileTap:(id)sender {
 	PFUser *currentUser = [PFUser currentUser];
     PFUser *creator = [self.postData objectForKey:kKeyPostCreator];
-	if (creator == currentUser) {
+	if ([creator.objectId isEqualToString:currentUser.objectId]) {
 		[self performSegueWithIdentifier:kSeguePrivateProfile sender:sender];
 	} else {
 		[self performSegueWithIdentifier:kSeguePublicProfile sender:sender];
