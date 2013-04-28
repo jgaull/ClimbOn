@@ -50,25 +50,26 @@
 		[currentlyFollowing addObject:targetUser];
 	}
 	//[{"__type":"Pointer","className":"_User","objectId":"aYNUfEsASm"},{"__type":"Pointer","className":"_User","objectId":"lo4x6cHeHy"}]
+    
     [[PFUser currentUser] setObject:currentlyFollowing forKey:kKeyUserFollowing];
+    PFInstallation *installation = [PFInstallation currentInstallation];
+    NSString *channelName = [NSString stringWithFormat:@"user_%@", targetUser.objectId];
+    
+    if (![ClimbOnUtils isFollowingUser:targetUser]) {
+        // followed user
+        // add to channel
+        [installation addUniqueObject:channelName forKey:kKeyInstallationChannels];
+        [installation saveEventually];
+    }
+    
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		BOOL following = [ClimbOnUtils isFollowingUser:targetUser];
         if (!error) {
-			NSString *channelName = [NSString stringWithFormat:@"user_%@", [targetUser objectId]];
-			PFInstallation *installation = [PFInstallation currentInstallation];
 			if (following) {
-				// followed user
-				// add to channel
-				
-				[installation addUniqueObject:channelName forKey:kKeyInstallationChannels];
-				[installation saveEventually];
 
 				//send push to followed
-				PFQuery *userQuery = [PFUser query];
-				[userQuery whereKey:@"objectId" equalTo:targetUser.objectId];
-
-				PFQuery *pushQuery = [PFInstallation query];
-				[pushQuery whereKey:@"owner" matchesQuery:userQuery];
+                PFQuery *pushQuery = [PFInstallation query];
+				[pushQuery whereKey:@"owner" equalTo:targetUser];
 
 				PFPush *push = [[PFPush alloc] init];
 				NSString *message = [NSString stringWithFormat:@"%@ is now following you.", [ClimbOnUtils firstNameLastInitialWithUser:[PFUser currentUser]]];
