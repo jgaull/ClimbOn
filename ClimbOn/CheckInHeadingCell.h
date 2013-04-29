@@ -15,5 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *routeNameLabel;
 @property (strong, nonatomic) IBOutlet PFImageView *userProfilePic;
 @property (strong, nonatomic) IBOutlet UILabel *accomplishmentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end

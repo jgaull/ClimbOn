@@ -19,6 +19,7 @@
 #import "Constants.h"
 #import "Cache.h"
 #import "ClimbOnUtils.h"
+#import "TTTTimeIntervalFormatter.h"
 
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -231,12 +232,14 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
             
             PFObject *rating = [routeData objectForKey:kKeyRouteRating];
             NSInteger *accomplishmentType = [[postData objectForKey:kKeyPostType] integerValue];
+            TTTTimeIntervalFormatter *timeFormatter = [[TTTTimeIntervalFormatter alloc] init];
             
             checkinHeadingCell.userProfilePic.file = [creator objectForKey:kKeyUserProfilePicture];
             [checkinHeadingCell.userProfilePic loadInBackground];
             checkinHeadingCell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", [creator objectForKey:kKeyUserFirstName], [creator objectForKey:kKeyUserLastName]];
             checkinHeadingCell.routeNameLabel.text = [NSString stringWithFormat:@"%@, %@", [routeData objectForKey:kKeyRouteName], [rating objectForKey:kKeyRatingName]];
             checkinHeadingCell.accomplishmentLabel.text = [NSString stringWithFormat:@"%@", [self.accomplishmentTypes objectAtIndex:accomplishmentType]];
+            checkinHeadingCell.dateLabel.text = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:postData.createdAt];
         }
         else if ([cell isKindOfClass:[PostImageCell class]]) {
             PostImageCell *postImageCell = (PostImageCell *)cell;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3103" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -1346,8 +1346,8 @@
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ega-i0-yRx">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="202" id="fPF-N5-Y8a"/>
-                                                <constraint firstAttribute="height" constant="21" id="mfH-zd-ILs"/>
+                                                <constraint firstAttribute="width" constant="160" id="CLu-RF-rvB"/>
+                                                <constraint firstAttribute="height" constant="21" id="FBy-jc-BJk"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1356,6 +1356,7 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="A Route Name, Rating" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Yal-7I-68D">
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="BxS-cd-OHp"/>
+                                                <constraint firstAttribute="width" constant="202" id="aIs-Up-0SL"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1364,6 +1365,15 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Accomplishment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jKq-1f-FrT">
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1 day ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tj4-Mx-od5">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="Ono-Vf-4an"/>
+                                                <constraint firstAttribute="width" constant="84" id="rsi-LV-Ou7"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
@@ -1376,16 +1386,18 @@
                                     <constraint firstItem="jKq-1f-FrT" firstAttribute="top" secondItem="Yal-7I-68D" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="0cq-QD-o9U"/>
                                     <constraint firstItem="mCv-Jq-D7B" firstAttribute="leading" secondItem="JrL-zD-yaU" secondAttribute="leading" constant="20" type="default" id="77R-Jt-PV8"/>
                                     <constraint firstItem="jKq-1f-FrT" firstAttribute="trailing" secondItem="Yal-7I-68D" secondAttribute="trailing" type="default" id="GDy-sS-rST"/>
-                                    <constraint firstItem="mCv-Jq-D7B" firstAttribute="top" secondItem="JrL-zD-yaU" secondAttribute="top" constant="12" id="HGc-Dv-E9A"/>
                                     <constraint firstItem="mCv-Jq-D7B" firstAttribute="top" secondItem="ega-i0-yRx" secondAttribute="top" type="default" id="Ihi-it-R3f"/>
                                     <constraint firstItem="ega-i0-yRx" firstAttribute="leading" secondItem="mCv-Jq-D7B" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Jpn-C6-oK1"/>
                                     <constraint firstItem="Yal-7I-68D" firstAttribute="leading" secondItem="jKq-1f-FrT" secondAttribute="leading" type="default" id="Vbz-J0-ZaB"/>
-                                    <constraint firstItem="Yal-7I-68D" firstAttribute="trailing" secondItem="ega-i0-yRx" secondAttribute="trailing" type="default" id="f4D-an-ygF"/>
+                                    <constraint firstAttribute="trailing" secondItem="tj4-Mx-od5" secondAttribute="trailing" constant="17" id="lwl-Ut-tgT"/>
+                                    <constraint firstItem="ega-i0-yRx" firstAttribute="baseline" secondItem="tj4-Mx-od5" secondAttribute="baseline" type="default" id="oTM-2s-aBu"/>
                                     <constraint firstItem="mCv-Jq-D7B" firstAttribute="bottom" secondItem="Yal-7I-68D" secondAttribute="bottom" type="default" id="qYE-qI-QJr"/>
+                                    <constraint firstItem="tj4-Mx-od5" firstAttribute="top" secondItem="JrL-zD-yaU" secondAttribute="top" constant="11" id="qcq-rb-Swk"/>
                                     <constraint firstItem="Yal-7I-68D" firstAttribute="leading" secondItem="mCv-Jq-D7B" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="tIf-7T-9jt"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="accomplishmentLabel" destination="jKq-1f-FrT" id="7jU-nz-4TW"/>
+                                    <outlet property="dateLabel" destination="tj4-Mx-od5" id="2AB-oa-mfh"/>
                                     <outlet property="routeNameLabel" destination="Yal-7I-68D" id="rlW-Wq-l6i"/>
                                     <outlet property="userNameLabel" destination="ega-i0-yRx" id="bNk-DY-dvL"/>
                                     <outlet property="userProfilePic" destination="mCv-Jq-D7B" id="PnH-6A-qZZ"/>
@@ -2043,6 +2055,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInHeadingCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="accomplishmentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="routeNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userProfilePic" candidateClass="PFImageView"/>
@@ -2064,9 +2077,6 @@
         </class>
         <class className="FeedViewController" superclassName="PFQueryTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onLikeButton:" candidateClass="UIButton"/>
-            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
@@ -2143,7 +2153,6 @@
         <class className="PublicProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onTapFollow:"/>
                 <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
