@@ -40,7 +40,6 @@
 		FC10EDF717265722004D30B3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = FC10EDF41726553D004D30B3 /* Constants.m */; };
 		FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC131EA716E5DB9300C20A28 /* PostImageCell.m */; };
 		FC13855016D18BFE00FEFBDA /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC13854F16D18BFE00FEFBDA /* FeedViewController.m */; };
-		FC1A56F116EBE31D00AEEC94 /* MoreCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */; };
 		FC1A56F416EBEF4300AEEC94 /* LikeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1A56F316EBEF4300AEEC94 /* LikeCell.m */; };
 		FC1A56F916EC8CAD00AEEC94 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1A56F816EC8CAD00AEEC94 /* MediaPlayer.framework */; };
 		FC1DC78716C0EEB100550319 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1DC78616C0EEB100550319 /* CoreLocation.framework */; };
@@ -86,9 +85,6 @@
 		FCD3154D16D20330004CCC59 /* NearbyRoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD3154C16D20330004CCC59 /* NearbyRoutesViewController.m */; };
 		FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610816E429D900705281 /* CheckInHeadingCell.m */; };
 		FCD9610F16E43E2D00705281 /* CheckInCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */; };
-		FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD9611116E47D1400705281 /* CreateCommentCell.m */; };
-		FCDB284616ECA1D600DAEE0A /* AutoRotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDB284516ECA1D600DAEE0A /* AutoRotationViewController.m */; };
-		FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */; };
 		FCE6778B16C8EB6B00CD4924 /* CheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */; };
 		FCF0BA2716D755A100A508F2 /* likebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = FCF0BA2616D755A100A508F2 /* likebutton.png */; };
 		FCF0BA2916D756F900A508F2 /* likebuttonliked.png in Resources */ = {isa = PBXBuildFile; fileRef = FCF0BA2816D756F900A508F2 /* likebuttonliked.png */; };
@@ -146,8 +142,6 @@
 		FC131EA716E5DB9300C20A28 /* PostImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostImageCell.m; sourceTree = "<group>"; };
 		FC13854E16D18BFE00FEFBDA /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		FC13854F16D18BFE00FEFBDA /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FeedViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		FC1A56EF16EBE31D00AEEC94 /* MoreCommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreCommentsCell.h; sourceTree = "<group>"; };
-		FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreCommentsCell.m; sourceTree = "<group>"; };
 		FC1A56F216EBEF4300AEEC94 /* LikeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeCell.h; sourceTree = "<group>"; };
 		FC1A56F316EBEF4300AEEC94 /* LikeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeCell.m; sourceTree = "<group>"; };
 		FC1A56F816EC8CAD00AEEC94 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -218,12 +212,6 @@
 		FCD9610816E429D900705281 /* CheckInHeadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInHeadingCell.m; sourceTree = "<group>"; };
 		FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInCommentCell.h; sourceTree = "<group>"; };
 		FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInCommentCell.m; sourceTree = "<group>"; };
-		FCD9611016E47D1400705281 /* CreateCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateCommentCell.h; path = ../CreateCommentCell.h; sourceTree = "<group>"; };
-		FCD9611116E47D1400705281 /* CreateCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateCommentCell.m; path = ../CreateCommentCell.m; sourceTree = "<group>"; };
-		FCDB284416ECA1D600DAEE0A /* AutoRotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoRotationViewController.h; sourceTree = "<group>"; };
-		FCDB284516ECA1D600DAEE0A /* AutoRotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoRotationViewController.m; sourceTree = "<group>"; };
-		FCDB284716ECA31B00DAEE0A /* AutoRotationNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoRotationNavigationController.h; sourceTree = "<group>"; };
-		FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoRotationNavigationController.m; sourceTree = "<group>"; };
 		FCE6778916C8EB6B00CD4924 /* CheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckInViewController.h; sourceTree = "<group>"; };
 		FCE6778A16C8EB6B00CD4924 /* CheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckInViewController.m; sourceTree = "<group>"; };
 		FCF0BA2616D755A100A508F2 /* likebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = likebutton.png; sourceTree = "<group>"; };
@@ -326,8 +314,6 @@
 		FC2A83F016A3723B00637D74 /* ClimbOn */ = {
 			isa = PBXGroup;
 			children = (
-				FCD9611016E47D1400705281 /* CreateCommentCell.h */,
-				FCD9611116E47D1400705281 /* CreateCommentCell.m */,
 				FCD9610D16E43E2D00705281 /* CheckInCommentCell.h */,
 				FCD9610E16E43E2D00705281 /* CheckInCommentCell.m */,
 				FC2A840516A3723B00637D74 /* AddRouteViewController.h */,
@@ -374,21 +360,15 @@
 				FC0507DF16DCA72100CFBC0F /* RouteDataAnnotation.h */,
 				FC0507E016DCA72100CFBC0F /* RouteDataAnnotation.m */,
 				FCD9610716E429D900705281 /* CheckInHeadingCell.h */,
+				FCD9610816E429D900705281 /* CheckInHeadingCell.m */,
 				FC10EDF31726553D004D30B3 /* Constants.h */,
 				FC10EDF41726553D004D30B3 /* Constants.m */,
-				FCD9610816E429D900705281 /* CheckInHeadingCell.m */,
 				FC131EA616E5DB9300C20A28 /* PostImageCell.h */,
 				FC131EA716E5DB9300C20A28 /* PostImageCell.m */,
-				FC1A56EF16EBE31D00AEEC94 /* MoreCommentsCell.h */,
-				FC1A56F016EBE31D00AEEC94 /* MoreCommentsCell.m */,
 				932C7EF616EBEF20001F6F7A /* AddImageViewController.h */,
 				932C7EF716EBEF20001F6F7A /* AddImageViewController.m */,
 				FC1A56F216EBEF4300AEEC94 /* LikeCell.h */,
 				FC1A56F316EBEF4300AEEC94 /* LikeCell.m */,
-				FCDB284416ECA1D600DAEE0A /* AutoRotationViewController.h */,
-				FCDB284516ECA1D600DAEE0A /* AutoRotationViewController.m */,
-				FCDB284716ECA31B00DAEE0A /* AutoRotationNavigationController.h */,
-				FCDB284816ECA31B00DAEE0A /* AutoRotationNavigationController.m */,
 				C8E35042172322AE0011E6F6 /* ClimbOnUtils.h */,
 				C8E35043172322AE0011E6F6 /* ClimbOnUtils.m */,
 				FC26B4141729090B002FF306 /* Cache.h */,
@@ -612,14 +592,10 @@
 				FC0507E116DCA72100CFBC0F /* RouteDataAnnotation.m in Sources */,
 				FCD9610916E429D900705281 /* CheckInHeadingCell.m in Sources */,
 				FCD9610F16E43E2D00705281 /* CheckInCommentCell.m in Sources */,
-				FCD9611216E47D1400705281 /* CreateCommentCell.m in Sources */,
 				FC131EA816E5DB9300C20A28 /* PostImageCell.m in Sources */,
-				FC1A56F116EBE31D00AEEC94 /* MoreCommentsCell.m in Sources */,
 				932C7EF816EBEF20001F6F7A /* AddImageViewController.m in Sources */,
 				FC1A56F416EBEF4300AEEC94 /* LikeCell.m in Sources */,
-				FCDB284616ECA1D600DAEE0A /* AutoRotationViewController.m in Sources */,
 				93958B2917229DEF00778D1E /* FolloweeCell.m in Sources */,
-				FCDB284916ECA31B00DAEE0A /* AutoRotationNavigationController.m in Sources */,
 				C8E35044172322AE0011E6F6 /* ClimbOnUtils.m in Sources */,
 				FC26B4161729090B002FF306 /* Cache.m in Sources */,
 				93BE1242172B5C2C005909CA /* PublicProfileViewController.m in Sources */,

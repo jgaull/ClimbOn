@@ -514,48 +514,11 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="blL-wH-0wA" customClass="MoreCommentsCell">
-                                <rect key="frame" x="0.0" y="334" width="320" height="25"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="300" height="23"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsF-VU-7P0">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="23" id="Xh6-b4-wMN"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="More...">
-                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onMoreCommentsButton:" destination="M2E-wj-5JQ" eventType="touchUpInside" id="n1n-yv-GSN"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="nsF-VU-7P0" firstAttribute="top" secondItem="blL-wH-0wA" secondAttribute="top" type="default" id="LVm-gG-EvU"/>
-                                    <constraint firstItem="nsF-VU-7P0" firstAttribute="centerX" secondItem="blL-wH-0wA" secondAttribute="centerX" type="default" id="X83-wg-g6Z"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="moreButton" destination="nsF-VU-7P0" id="bbE-JZ-CY9"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="headingCell" rowHeight="90" id="da3-JL-s4U" customClass="CheckInHeadingCell">
-                                <rect key="frame" x="0.0" y="359" width="320" height="90"/>
+                                <rect key="frame" x="0.0" y="334" width="320" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="280" height="89"/>
+                                    <rect key="frame" x="10" y="1" width="280" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QML-Ab-Opu" customClass="PFImageView">
@@ -604,11 +567,11 @@
                                 </accessibility>
                                 <constraints>
                                     <constraint firstItem="QML-Ab-Opu" firstAttribute="leading" secondItem="da3-JL-s4U" secondAttribute="leading" constant="20" type="default" id="0sc-zK-nW8"/>
+                                    <constraint firstItem="Pmt-z1-3ub" firstAttribute="top" secondItem="da3-JL-s4U" secondAttribute="top" constant="11" id="6KN-Ve-ePa"/>
                                     <constraint firstItem="QML-Ab-Opu" firstAttribute="bottom" secondItem="s8Y-49-htH" secondAttribute="bottom" type="default" id="9SR-dX-efx"/>
                                     <constraint firstItem="a8Z-cz-VYk" firstAttribute="baseline" secondItem="Pmt-z1-3ub" secondAttribute="baseline" type="default" id="B6U-r7-nnA"/>
                                     <constraint firstItem="s8Y-49-htH" firstAttribute="leading" secondItem="QML-Ab-Opu" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="DcQ-MT-lIC"/>
                                     <constraint firstAttribute="trailing" secondItem="Pmt-z1-3ub" secondAttribute="trailing" constant="17" id="Ea1-I6-08A"/>
-                                    <constraint firstItem="Pmt-z1-3ub" firstAttribute="top" secondItem="da3-JL-s4U" secondAttribute="top" constant="10" id="JzR-S0-BaV"/>
                                     <constraint firstItem="QML-Ab-Opu" firstAttribute="top" secondItem="a8Z-cz-VYk" secondAttribute="top" type="default" id="P7L-7k-MXx"/>
                                     <constraint firstItem="9X0-xM-f91" firstAttribute="trailing" secondItem="s8Y-49-htH" secondAttribute="trailing" type="default" id="SsA-Qd-O9k"/>
                                     <constraint firstItem="s8Y-49-htH" firstAttribute="leading" secondItem="9X0-xM-f91" secondAttribute="leading" type="default" id="b9V-73-A1h"/>
@@ -625,7 +588,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likesCell" rowHeight="50" id="Owa-C0-dtg" customClass="LikeCell">
-                                <rect key="frame" x="0.0" y="449" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="425" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="49"/>
@@ -677,7 +640,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="181" id="Gxg-42-0yG" customClass="PostImageCell">
-                                <rect key="frame" x="0.0" y="499" width="320" height="181"/>
+                                <rect key="frame" x="0.0" y="475" width="320" height="181"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="280" height="180"/>
@@ -705,7 +668,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="111" id="DPi-H4-9Ol" customClass="CheckInCommentCell">
-                                <rect key="frame" x="0.0" y="680" width="320" height="111"/>
+                                <rect key="frame" x="0.0" y="656" width="320" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="110"/>
@@ -745,36 +708,8 @@
                                     <outlet property="userNameLabel" destination="Gpa-UL-VWh" id="bfS-aB-hbg"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="GN9-Ch-mp1" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="791" width="320" height="48"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="47"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Po5-S2-6OK">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="260" id="ULq-7u-EHL"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="Po5-S2-6OK" firstAttribute="centerX" secondItem="GN9-Ch-mp1" secondAttribute="centerX" type="default" id="LUz-V7-J7F"/>
-                                    <constraint firstItem="Po5-S2-6OK" firstAttribute="top" secondItem="GN9-Ch-mp1" secondAttribute="top" constant="10" id="Pvb-gt-b5I"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="createCommentField" destination="Po5-S2-6OK" id="8LY-nN-sDh"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loadingCell" rowHeight="48" id="0OZ-Uf-fP4" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="839" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="767" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -980,45 +915,8 @@
                                     <segue destination="vmJ-g7-QoB" kind="push" identifier="showPostDetails" id="bZt-Bb-FSo"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="a9n-v3-9wY" customClass="MoreCommentsCell">
-                                <rect key="frame" x="0.0" y="425" width="320" height="24"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="23"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fq-Eh-Wk0">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="23" id="7jx-gB-LRN"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="More...">
-                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onMoreCommentsButton:" destination="M2E-wj-5JQ" eventType="touchUpInside" id="7sX-EM-gD5"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="0Fq-Eh-Wk0" firstAttribute="centerY" secondItem="a9n-v3-9wY" secondAttribute="centerY" type="default" id="gQw-P4-6xA"/>
-                                    <constraint firstItem="0Fq-Eh-Wk0" firstAttribute="centerX" secondItem="a9n-v3-9wY" secondAttribute="centerX" type="default" id="yZo-J4-cPD"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="moreButton" destination="0Fq-Eh-Wk0" id="pjs-J7-oBG"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="111" id="pIC-Ph-fkO" customClass="CheckInCommentCell">
-                                <rect key="frame" x="0.0" y="449" width="320" height="111"/>
+                                <rect key="frame" x="0.0" y="425" width="320" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="110"/>
@@ -1059,7 +957,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" rowHeight="181" id="WaJ-cq-WfH" customClass="PostImageCell">
-                                <rect key="frame" x="0.0" y="560" width="320" height="181"/>
+                                <rect key="frame" x="0.0" y="536" width="320" height="181"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="280" height="180"/>
@@ -1086,7 +984,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="likesCell" rowHeight="50" id="6yd-IU-8fJ" customClass="LikeCell">
-                                <rect key="frame" x="0.0" y="741" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="717" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="49"/>
@@ -1137,36 +1035,8 @@
                                     <outlet property="likesLabel" destination="TLd-hA-Rdf" id="77k-UX-1ll"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="EY7-NB-Bfz" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="791" width="320" height="48"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="47"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7ZK-rK-UWd">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="260" id="mQj-xL-fOZ"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="7ZK-rK-UWd" firstAttribute="centerX" secondItem="EY7-NB-Bfz" secondAttribute="centerX" type="default" id="AZO-Bw-LAL"/>
-                                    <constraint firstItem="7ZK-rK-UWd" firstAttribute="top" secondItem="EY7-NB-Bfz" secondAttribute="top" constant="10" id="K0K-1b-eRr"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="createCommentField" destination="7ZK-rK-UWd" id="mKB-Bl-xOT"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loadingCell" rowHeight="48" id="ZxZ-zX-0Zb" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="839" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="767" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1209,7 +1079,7 @@
             <objects>
                 <viewController id="mrS-PV-qmI" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MuJ-kt-DmG">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sended: 5 points" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ekb-kM-E1K">
@@ -1331,10 +1201,10 @@
             </objects>
             <point key="canvasLocation" x="1618" y="180"/>
         </scene>
-        <!--Auto Rotation Navigation Controller - Feed-->
+        <!--Navigation Controller - Feed-->
         <scene sceneID="6Qu-vD-IXp">
             <objects>
-                <navigationController definesPresentationContext="YES" id="yrX-21-JxV" customClass="AutoRotationNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="yrX-21-JxV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Feed" id="514-Gr-9uk"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ys1-wP-J2S">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1549,73 +1419,8 @@
                                     <outlet property="userNameLabel" destination="yqQ-Ay-5ge" id="7ng-jo-I5k"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="o48-Ft-HUU" customClass="MoreCommentsCell">
-                                <rect key="frame" x="0.0" y="479" width="320" height="24"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="23"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILd-xa-wyH">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="23" id="X9a-XG-XYq"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="More...">
-                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onMoreCommentsButton:" destination="M2E-wj-5JQ" eventType="touchUpInside" id="GrV-Uf-4ve"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="ILd-xa-wyH" firstAttribute="top" secondItem="o48-Ft-HUU" secondAttribute="top" constant="-1" id="Hey-Nf-Y9B"/>
-                                    <constraint firstItem="ILd-xa-wyH" firstAttribute="centerX" secondItem="o48-Ft-HUU" secondAttribute="centerX" type="default" id="ZK3-ss-HKT"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="moreButton" destination="ILd-xa-wyH" id="WVg-i3-TXR"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="y8T-by-acq" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="503" width="320" height="48"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="47"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ys1-8i-8MV">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="260" id="nlR-1p-mJu"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="ys1-8i-8MV" firstAttribute="top" secondItem="y8T-by-acq" secondAttribute="top" constant="10" id="8M8-66-Sr2"/>
-                                    <constraint firstItem="ys1-8i-8MV" firstAttribute="centerX" secondItem="y8T-by-acq" secondAttribute="centerX" type="default" id="bcn-Di-4l5"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="createCommentField" destination="ys1-8i-8MV" id="uMs-n5-jN7"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loadingCell" rowHeight="48" id="jNQ-ff-RLY" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="551" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="479" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -1927,73 +1732,8 @@
                                     <outlet property="userNameLabel" destination="HUs-8t-015" id="7xY-AM-UC1"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moreCommentsCell" rowHeight="24" id="QDl-bF-rVM" customClass="MoreCommentsCell">
-                                <rect key="frame" x="0.0" y="544" width="320" height="24"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="23"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2uO-CJ-MMT">
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="23" id="fpE-Di-TMv"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="More...">
-                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="onMoreCommentsButton:" destination="M2E-wj-5JQ" eventType="touchUpInside" id="rFZ-hw-YC8"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="2uO-CJ-MMT" firstAttribute="top" secondItem="QDl-bF-rVM" secondAttribute="top" constant="-1" id="C0d-D7-trm"/>
-                                    <constraint firstItem="2uO-CJ-MMT" firstAttribute="centerX" secondItem="QDl-bF-rVM" secondAttribute="centerX" type="default" id="NMc-na-ysa"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="moreButton" destination="2uO-CJ-MMT" id="Ft2-ks-HoS"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="writeCommentCell" rowHeight="48" id="Ziy-wV-pDj" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="568" width="320" height="48"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="47"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B7N-Yo-Wtt">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="260" id="jXL-T3-9ST"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        </textField>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstItem="B7N-Yo-Wtt" firstAttribute="centerX" secondItem="Ziy-wV-pDj" secondAttribute="centerX" type="default" id="Sfr-CU-dik"/>
-                                    <constraint firstItem="B7N-Yo-Wtt" firstAttribute="top" secondItem="Ziy-wV-pDj" secondAttribute="top" constant="10" id="aAc-ka-HeT"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="createCommentField" destination="B7N-Yo-Wtt" id="F4C-a2-KBD"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loadingCell" rowHeight="48" id="8W0-3X-aqs" customClass="CreateCommentCell">
-                                <rect key="frame" x="0.0" y="616" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="544" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="10" y="0.0" width="300" height="47"/>
@@ -2026,10 +1766,10 @@
             </objects>
             <point key="canvasLocation" x="2124" y="1158"/>
         </scene>
-        <!--Auto Rotation View Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="15">
             <objects>
-                <tabBarController id="4" customClass="AutoRotationViewController" sceneMemberID="viewController">
+                <tabBarController id="4" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="5">
                         <rect key="frame" x="0.0" y="431" width="320" height="49"/>
@@ -2075,12 +1815,6 @@
                 <relationship kind="outlet" name="routeNameField" candidateClass="UITextField"/>
             </relationships>
         </class>
-        <class className="AutoRotationNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationNavigationController.h"/>
-        </class>
-        <class className="AutoRotationViewController" superclassName="UITabBarController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AutoRotationViewController.h"/>
-        </class>
         <class className="CheckInCommentCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckInCommentCell.h"/>
             <relationships>
@@ -2106,14 +1840,11 @@
                 <relationship kind="outlet" name="postTextView" candidateClass="UITextView"/>
             </relationships>
         </class>
-        <class className="CreateCommentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateCommentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="createCommentField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
         <class className="FeedViewController" superclassName="PFQueryTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onLikeButton:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FindFriendsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FindFriendsViewController.h"/>
@@ -2142,12 +1873,6 @@
             <relationships>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="likesLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="MoreCommentsCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MoreCommentsCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="moreButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
@@ -2179,6 +1904,7 @@
         <class className="PrivateProfileViewController" superclassName="FeedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivateProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="onLogInButton:"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="logInButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="PFImageView"/>
@@ -2211,12 +1937,12 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="imj-M8-5cC"/>
         <segue reference="E3i-If-5Er"/>
         <segue reference="8Dy-gH-ttF"/>
         <segue reference="4SN-ec-XU3"/>
         <segue reference="rRM-6y-dh9"/>
         <segue reference="TRT-AO-oWF"/>
         <segue reference="1nB-h4-tI7"/>
-        <segue reference="eB8-Wc-82I"/>
     </inferredMetricsTieBreakers>
 </document>

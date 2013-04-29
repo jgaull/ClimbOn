@@ -12,8 +12,6 @@
 #import "PostDetailsViewController.h"
 #import "CheckInHeadingCell.h"
 #import "CheckInCommentCell.h"
-#import "CreateCommentCell.h"
-#import "MoreCommentsCell.h"
 #import "LikeCell.h"
 #import "PostImageCell.h"
 #import "Constants.h"
@@ -253,10 +251,6 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
             }];
             
             checkinCommentCell.commentTextView.text = [comment objectForKey:kKeyCommentCommentText];
-        }
-        else if ([cell isKindOfClass:[MoreCommentsCell class]]) {
-            MoreCommentsCell *moreCommentsCell = (MoreCommentsCell *)cell;
-            moreCommentsCell.moreButton.tag = indexPath.section;
         }
         else if ([cell isKindOfClass:[LikeCell class]]) {
             LikeCell *likeCell = (LikeCell *)cell;
