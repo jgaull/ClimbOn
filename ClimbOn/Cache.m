@@ -7,6 +7,7 @@
 //
 
 #import "Cache.h"
+#import "Constants.h"
 
 @interface Cache ()
 
@@ -54,7 +55,7 @@
 
 - (NSMutableArray *)getLikersForPost:(PFObject *)post {
     NSMutableDictionary *additionalData = [self infoForPost:post];
-    return [additionalData objectForKey:@"likers"];
+    return [additionalData objectForKey:kInfoKeyLikers];
 }
 
 - (NSMutableDictionary *)infoForPost:(PFObject *)post {
@@ -64,7 +65,7 @@
 - (void)setInfoForPost:(PFObject *)post likers:(NSArray *)likers {
     NSString *postId = post.objectId;
     NSMutableArray *likersCopy = [[NSMutableArray alloc] initWithArray:likers];
-    NSMutableDictionary *additionalPostInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:likersCopy, @"likers", nil];
+    NSMutableDictionary *additionalPostInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:likersCopy, kInfoKeyLikers, nil];
     
     [self.cache setObject:additionalPostInfo forKey:postId];
 }

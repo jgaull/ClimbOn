@@ -38,7 +38,6 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
 @interface FeedViewController ()
 
 @property (nonatomic, strong) NSMutableDictionary *outstandingPostInfoQueries;
-@property (nonatomic, strong) NSMutableDictionary *pfImageFileLookup;
 
 @property (nonatomic, strong) NSArray *accomplishmentTypes;
 
@@ -71,8 +70,6 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(onRefresh:) forControlEvents:UIControlEventValueChanged];
     
-    self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
-    
     self.accomplishmentTypes = [[NSArray alloc] initWithObjects:@"Sended, +5 points", @"Flashed, +10 points", @"Worked, +1 point", @"Lapped", nil];
     
     self.outstandingPostInfoQueries = [[NSMutableDictionary alloc] init];
@@ -84,12 +81,9 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
-    self.pfImageFileLookup = [[NSMutableDictionary alloc] init];
 }
 
 -(void)dealloc {
-    self.pfImageFileLookup = nil;
     self.query = nil;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationPostDidSave object:nil];
@@ -244,16 +238,9 @@ NSString *const LoadingCellIdentifier = @"loadingCell";
         else if ([cell isKindOfClass:[PostImageCell class]]) {
             PostImageCell *postImageCell = (PostImageCell *)cell;
             postImageCell.postImageView.file = nil;
-            PFFile *image = [self.pfImageFileLookup objectForKey:postData.objectId];
-            if (!image) {
-                PFFile *imageFile = [postData objectForKey:kKeyPostPhotoFile];
-                postImageCell.postImageView.file = imageFile;
-                [self.pfImageFileLookup setObject:imageFile forKey:postData.objectId];
-                [postImageCell.postImageView loadInBackground];
-            }
-            else {
-                postImageCell.postImageView.file = image;
-            }
+            PFFile *image = [postData objectForKey:kKeyPostPhotoFile];
+            postImageCell.postImageView.file = image;
+            [postImageCell.postImageView loadInBackground];
         }
         else if ([cell isKindOfClass:[CheckInCommentCell class]]) {
             CheckInCommentCell *checkinCommentCell = (CheckInCommentCell *)cell;

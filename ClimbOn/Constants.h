@@ -22,6 +22,9 @@ extern NSInteger const kPointsWorked;
 extern NSInteger const kPointsFlashed;
 extern NSInteger const kPointsSended;
 
+#pragma mark - Post Info Lookup Keys
+extern NSString *const kInfoKeyLikers;
+
 #pragma mark - Segue Names: Post Details
 extern NSString *const kSegueRoute;
 extern NSString *const kSeguePrivateProfile;

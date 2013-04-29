@@ -22,6 +22,9 @@ NSInteger const kPointsWorked = 1;
 NSInteger const kPointsFlashed = 10;
 NSInteger const kPointsSended = 5;
 
+#pragma mark - Post Info Lookup Keys
+NSString *const kInfoKeyLikers = @"likers";
+
 #pragma mark - Segue Names
 NSString *const kSegueRoute				 = @"viewRoute";
 NSString *const kSeguePrivateProfile     = @"viewPrivateProfile";
